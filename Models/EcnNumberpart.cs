@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace ECN.Models
+namespace ProjectManager.Models
 {
     public partial class EcnNumberpart
     {

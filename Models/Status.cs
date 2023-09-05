@@ -4,7 +4,7 @@ using System.Windows.Media;
 
 #nullable disable
 
-namespace ECN.Models
+namespace ProjectManager.Models
 {
     public partial class Status
     {

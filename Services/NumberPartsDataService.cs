@@ -1,11 +1,11 @@
-﻿using ECN.Contracts.Services;
-using ECN.Models;
+﻿using ProjectManager.Contracts.Services;
+using ProjectManager.Models;
 
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ECN.Services
+namespace ProjectManager.Services
 {
     public class NumberPartsDataService : INumberPartsDataService
     {

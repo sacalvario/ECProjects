@@ -10,7 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace ECN.Views
+namespace ProjectManager.Views
 {
     /// <summary>
     /// Lógica de interacción para AddCustomer.xaml

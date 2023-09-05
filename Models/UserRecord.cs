@@ -1,6 +1,6 @@
 ﻿
 
-namespace ECN.Models
+namespace ProjectManager.Models
 {
     public class UserRecord
     {

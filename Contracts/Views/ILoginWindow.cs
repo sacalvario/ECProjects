@@ -1,7 +1,7 @@
 ﻿
 using System.Windows.Controls;
 
-namespace ECN.Contracts.Views
+namespace ProjectManager.Contracts.Views
 {
     public interface ILoginWindow
     {

@@ -3,9 +3,9 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
-using ECN.Contracts.Services;
-using ECN.Contracts.Views;
-using ECN.Models;
+using ProjectManager.Contracts.Services;
+using ProjectManager.Contracts.Views;
+using ProjectManager.Models;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -14,7 +14,7 @@ using GalaSoft.MvvmLight.Messaging;
 
 using ModernWpf.Controls;
 
-namespace ECN.ViewModels
+namespace ProjectManager.ViewModels
 {
     public class ShellViewModel : ViewModelBase
     {

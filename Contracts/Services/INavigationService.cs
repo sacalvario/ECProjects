@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Controls;
 
-namespace ECN.Contracts.Services
+namespace ProjectManager.Contracts.Services
 {
     public interface INavigationService : GalaSoft.MvvmLight.Views.INavigationService
     {

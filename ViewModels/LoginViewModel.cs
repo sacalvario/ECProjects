@@ -1,7 +1,7 @@
-﻿using ECN.Contracts.Services;
-using ECN.Contracts.ViewModels;
-using ECN.Contracts.Views;
-using ECN.Models;
+﻿using ProjectManager.Contracts.Services;
+using ProjectManager.Contracts.ViewModels;
+using ProjectManager.Contracts.Views;
+using ProjectManager.Models;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -14,7 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ECN.ViewModels
+namespace ProjectManager.ViewModels
 {
     public class LoginViewModel : ViewModelBase, INavigationAware
     {
@@ -119,7 +119,7 @@ namespace ECN.ViewModels
                         _navigationService.UnsubscribeNavigation();
                         _navigationService.Initialize(_shellWindow.GetNavigationFrame());
                         _shellWindow.ShowWindow();
-                        _navigationService.NavigateTo(typeof(EcnViewModel).FullName);
+                        _navigationService.NavigateTo(typeof(FrontCaptureViewModel).FullName);
                         await Task.CompletedTask;
                     }
                 }

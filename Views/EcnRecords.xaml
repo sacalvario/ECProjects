@@ -6,7 +6,7 @@
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       xmlns:fdg="http://filterdatagrid.control.com/2021"
       xmlns:ui="http://schemas.modernwpf.com/2019"
-      x:Class="ECN.Views.EcnRecords"
+      x:Class="ProjectManager.Views.EcnRecords"
       mc:Ignorable="d" 
       d:DesignHeight="650" d:DesignWidth="1350"
       Title="EcnRecords">

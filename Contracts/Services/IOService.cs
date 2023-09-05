@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ECN.Contracts.Services
+namespace ProjectManager.Contracts.Services
 {
     public interface IOService
     {

@@ -1,4 +1,4 @@
-﻿using ECN.ViewModels;
+﻿using ProjectManager.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ECN.Views
+namespace ProjectManager.Views
 {
     /// <summary>
     /// Lógica de interacción para SignUp.xaml

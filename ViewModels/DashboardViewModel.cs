@@ -1,6 +1,6 @@
-﻿using ECN.Contracts.Services;
-using ECN.Contracts.ViewModels;
-using ECN.Services;
+﻿using ProjectManager.Contracts.Services;
+using ProjectManager.Contracts.ViewModels;
+using ProjectManager.Services;
 using GalaSoft.MvvmLight;
 
 using LiveCharts;
@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Media;
 
-namespace ECN.ViewModels
+namespace ProjectManager.ViewModels
 {
     public class DashboardViewModel : ViewModelBase, INavigationAware
     {

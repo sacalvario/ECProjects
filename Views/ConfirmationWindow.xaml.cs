@@ -1,8 +1,8 @@
-﻿using ECN.Contracts.Views;
-using ECN.ViewModels;
+﻿using ProjectManager.Contracts.Views;
+using ProjectManager.ViewModels;
 using MahApps.Metro.Controls;
 
-namespace ECN.Views
+namespace ProjectManager.Views
 {
     /// <summary>
     /// Lógica de interacción para ConfirmationWindow.xaml

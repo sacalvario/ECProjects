@@ -1,10 +1,10 @@
-﻿using ECN.ViewModels;
+﻿using ProjectManager.ViewModels;
 
 using GalaSoft.MvvmLight.Messaging;
 
 using System.Windows.Controls;
 
-namespace ECN.Views
+namespace ProjectManager.Views
 {
     /// <summary>
     /// Lógica de interacción para HistoryDetails.xaml

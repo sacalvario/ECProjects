@@ -1,5 +1,5 @@
-﻿using ECN.Contracts.Services;
-using ECN.Models;
+﻿using ProjectManager.Contracts.Services;
+using ProjectManager.Models;
 
 using GalaSoft.MvvmLight;
 
@@ -9,7 +9,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Data;
 
-namespace ECN.ViewModels
+namespace ProjectManager.ViewModels
 {
     public class NumberPartsViewModel : ViewModelBase
     {

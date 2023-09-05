@@ -1,8 +1,8 @@
 ﻿
 
-using ECN.Models;
+using ProjectManager.Models;
 
-namespace ECN.Contracts.Views
+namespace ProjectManager.Contracts.Views
 {
     public interface IAddEmployeeWindow
     {

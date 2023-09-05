@@ -1,6 +1,6 @@
 ﻿
-using ECN.Contracts.Services;
-using ECN.Models;
+using ProjectManager.Contracts.Services;
+using ProjectManager.Models;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -12,7 +12,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 
-namespace ECN.ViewModels
+namespace ProjectManager.ViewModels
 {
     public class NumberPartsPageViewModel : ViewModelBase 
     {

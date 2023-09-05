@@ -3,10 +3,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 
-using ECN.Contracts.Services;
-using ECN.Contracts.ViewModels;
+using ProjectManager.Contracts.Services;
+using ProjectManager.Contracts.ViewModels;
 
-namespace ECN.Services
+namespace ProjectManager.Services
 {
     public class NavigationService : INavigationService
     {

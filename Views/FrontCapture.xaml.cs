@@ -2,14 +2,14 @@
 
 using System.Windows.Controls;
 
-namespace ECN.Views
+namespace ProjectManager.Views
 {
     /// <summary>
     /// Lógica de interacción para Ecn.xaml
     /// </summary>
-    public partial class Ecn : Page
+    public partial class FrontCapture : Page
     {
-        public Ecn()
+        public FrontCapture()
         {
             InitializeComponent();
         }

@@ -1,9 +1,9 @@
 ﻿
-using ECN.Contracts.Views;
+using ProjectManager.Contracts.Views;
 
 using System.Windows.Controls;
 
-namespace ECN.Views
+namespace ProjectManager.Views
 {
     /// <summary>
     /// Lógica de interacción para Login.xaml

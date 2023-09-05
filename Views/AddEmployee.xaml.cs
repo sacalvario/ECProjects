@@ -1,6 +1,6 @@
 ﻿
 
-namespace ECN.Views
+namespace ProjectManager.Views
 {
     /// <summary>
     /// Lógica de interacción para AddEmployee.xaml

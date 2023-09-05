@@ -1,8 +1,8 @@
 ﻿
-using ECN.Contracts.Views;
+using ProjectManager.Contracts.Views;
 
 
-namespace ECN.Views
+namespace ProjectManager.Views
 {
     /// <summary>
     /// Lógica de interacción para NumberParts.xaml

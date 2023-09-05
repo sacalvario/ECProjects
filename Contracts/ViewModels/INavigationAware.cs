@@ -1,4 +1,4 @@
-﻿namespace ECN.Contracts.ViewModels
+﻿namespace ProjectManager.Contracts.ViewModels
 {
     public interface INavigationAware
     {

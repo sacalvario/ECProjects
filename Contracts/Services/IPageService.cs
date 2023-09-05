@@ -3,7 +3,7 @@ using System.Windows.Controls;
 
 using GalaSoft.MvvmLight;
 
-namespace ECN.Contracts.Services
+namespace ProjectManager.Contracts.Services
 {
     public interface IPageService
     {

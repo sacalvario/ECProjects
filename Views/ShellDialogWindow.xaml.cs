@@ -1,11 +1,11 @@
 ﻿using System.Windows.Controls;
 
-using ECN.Contracts.Views;
-using ECN.ViewModels;
+using ProjectManager.Contracts.Views;
+using ProjectManager.ViewModels;
 
 using MahApps.Metro.Controls;
 
-namespace ECN.Views
+namespace ProjectManager.Views
 {
     public partial class ShellDialogWindow : MetroWindow, IShellDialogWindow
     {

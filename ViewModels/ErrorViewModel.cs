@@ -1,7 +1,7 @@
-﻿using ECN.Contracts.ViewModels;
+﻿using ProjectManager.Contracts.ViewModels;
 using GalaSoft.MvvmLight;
 
-namespace ECN.ViewModels
+namespace ProjectManager.ViewModels
 {
     public class ErrorViewModel : ViewModelBase, INavigationAware
     {

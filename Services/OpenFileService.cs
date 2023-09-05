@@ -1,7 +1,7 @@
-﻿using ECN.Contracts.Services;
+﻿using ProjectManager.Contracts.Services;
 using Microsoft.Win32;
 
-namespace ECN.Services
+namespace ProjectManager.Services
 {
     public class OpenFileService : IOpenFileService
     {

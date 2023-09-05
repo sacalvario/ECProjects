@@ -1,6 +1,6 @@
 ﻿
-using ECN.Contracts.Services;
-using ECN.Models;
+using ProjectManager.Contracts.Services;
+using ProjectManager.Models;
 
 using GalaSoft.MvvmLight;
 
@@ -8,7 +8,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Data;
 
-namespace ECN.ViewModels
+namespace ProjectManager.ViewModels
 {
     public class EmployeesViewModel : ViewModelBase
     {

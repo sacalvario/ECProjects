@@ -1,6 +1,6 @@
 ﻿
 
-namespace ECN.Contracts.Views
+namespace ProjectManager.Contracts.Views
 {
     public interface IEmployeesWindow
     {

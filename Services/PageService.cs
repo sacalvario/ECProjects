@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
 
-using ECN.Contracts.Services;
-using ECN.ViewModels;
-using ECN.Views;
+using ProjectManager.Contracts.Services;
+using ProjectManager.ViewModels;
+using ProjectManager.Views;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 
-namespace ECN.Services
+namespace ProjectManager.Services
 {
     public class PageService : IPageService
     {

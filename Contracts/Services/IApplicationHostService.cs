@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace ECN.Contracts.Services
+namespace ProjectManager.Contracts.Services
 {
     public interface IApplicationHostService
     {

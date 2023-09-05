@@ -1,10 +1,10 @@
-﻿<Page x:Class="ECN.Views.EcnRegistration"
+﻿<Page x:Class="ProjectManager.Views.EcnRegistration"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       DataContext="{Binding EcnRegistrationViewModel, Source={StaticResource Locator}}"
-      xmlns:local="clr-namespace:ECN.Views"
+      xmlns:local="clr-namespace:ProjectManager.Views"
       mc:Ignorable="d"
       Title="EcnRegistration" Height="140" Width="350">
     <Grid Background="White">

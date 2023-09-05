@@ -1,6 +1,6 @@
 ﻿
 using System;
-using ECN.ViewModels;
+using ProjectManager.ViewModels;
 
 namespace ModernWpf.Controls
 {
@@ -13,7 +13,7 @@ namespace ModernWpf.Controls
                 ? navigationViewItem.Tag.ToString() switch
                 {
                     "History" => typeof(HistoryViewModel),
-                    "Ecn" => typeof(EcnViewModel),
+                    "FrontCapture" => typeof(FrontCaptureViewModel),
                     "Records" => typeof(EcnRecordsViewModel),
                     "Checklist" => typeof(ChecklistViewModel),
                     "Approved" => typeof(ApprovedViewModel),

@@ -3,14 +3,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-using ECN.Contracts.Activation;
-using ECN.Contracts.Services;
-using ECN.Contracts.Views;
-using ECN.ViewModels;
+using ProjectManager.Contracts.Activation;
+using ProjectManager.Contracts.Services;
+using ProjectManager.Contracts.Views;
+using ProjectManager.ViewModels;
 
 using GalaSoft.MvvmLight.Ioc;
 
-namespace ECN.Services
+namespace ProjectManager.Services
 {
     public class ApplicationHostService : IApplicationHostService
     {

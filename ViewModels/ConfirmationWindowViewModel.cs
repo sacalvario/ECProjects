@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ECN.ViewModels
+namespace ProjectManager.ViewModels
 {
     public class ConfirmationWindowViewModel
     {

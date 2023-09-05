@@ -1,5 +1,5 @@
 ﻿
-namespace ECN.Contracts.Services
+namespace ProjectManager.Contracts.Services
 {
     public interface IOpenFileService
     {

@@ -1,6 +1,6 @@
 ﻿
 
-namespace ECN.ViewModels
+namespace ProjectManager.ViewModels
 {
     public class ShellLoginViewModel
     {

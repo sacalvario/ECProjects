@@ -3,7 +3,7 @@ using System;
 
 #nullable disable
 
-namespace ECN.Models
+namespace ProjectManager.Models
 {
     public partial class EcnRevision : ViewModelBase
     {

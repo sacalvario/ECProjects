@@ -1,9 +1,9 @@
-﻿ 
-using ECN.Models;
+﻿
+using ProjectManager.Models;
 
 using System.Collections.Generic;
 
-namespace ECN.Contracts.Services
+namespace ProjectManager.Contracts.Services
 {
     public interface IMailService
     {

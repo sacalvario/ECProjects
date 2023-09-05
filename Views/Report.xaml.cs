@@ -1,7 +1,7 @@
 ﻿
 using System.Windows;
 
-namespace ECN.Views
+namespace ProjectManager.Views
 {
     /// <summary>
     /// Lógica de interacción para Report.xaml

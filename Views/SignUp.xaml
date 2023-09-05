@@ -1,4 +1,4 @@
-﻿<Page x:Class="ECN.Views.SignUp"
+﻿<Page x:Class="ProjectManager.Views.SignUp"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -9,12 +9,12 @@
       d:DesignHeight="600" d:DesignWidth="430"
       Title="Sign Up">
 
-    <StackPanel Margin="25" Background="White">
+    <StackPanel Margin="25" Background="Black">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0, 5">
-            <Image Source="/Assets/plug48.png" Width="42"/>
+            <Image Source="/Assets/enchufe.png" Width="52" Height="52" />
             <StackPanel Margin="10, 0" VerticalAlignment="Center">
-                <TextBlock Text="ECN System" FontSize="18" FontWeight="Black"/>
-                <TextBlock Text="Electri-Cord" FontSize="18" FontWeight="Normal" />
+                <TextBlock Text="Projects System" FontSize="16" FontWeight="Black"/>
+                <TextBlock Text="Electri-Cord" FontSize="16" FontWeight="Normal" />
             </StackPanel>
         </StackPanel>
         <TextBox Text="{Binding EmployeeID}" Margin="30, 15" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Número de empleado"  md:TextFieldAssist.HasClearButton="True" Cursor="Arrow"/>

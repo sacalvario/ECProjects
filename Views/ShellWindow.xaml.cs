@@ -1,9 +1,9 @@
 ﻿using System.Windows.Controls;
 
-using ECN.Contracts.Views;
+using ProjectManager.Contracts.Views;
 using GalaSoft.MvvmLight.Messaging;
 
-namespace ECN.Views
+namespace ProjectManager.Views
 {
     public partial class ShellWindow : IShellWindow
     {

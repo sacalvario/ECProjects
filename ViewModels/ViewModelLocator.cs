@@ -1,18 +1,15 @@
 ﻿
-using System.Windows.Controls;
-
-using ECN.Contracts.Services;
-using ECN.Contracts.Views;
-using ECN.Models;
-using ECN.Services;
-using ECN.Views;
-
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
-
 using Microsoft.Extensions.Configuration;
+using ProjectManager.Contracts.Services;
+using ProjectManager.Contracts.Views;
+using ProjectManager.Models;
+using ProjectManager.Services;
+using ProjectManager.Views;
+using System.Windows.Controls;
 
-namespace ECN.ViewModels
+namespace ProjectManager.ViewModels
 {
     public class ViewModelLocator
     {
@@ -25,8 +22,8 @@ namespace ECN.ViewModels
         public HistoryViewModel HistoryViewModel
             => SimpleIoc.Default.GetInstance<HistoryViewModel>();
 
-        public EcnViewModel EcnViewModel
-            => SimpleIoc.Default.GetInstance<EcnViewModel>();
+        public FrontCaptureViewModel FrontCaptureViewModel
+            => SimpleIoc.Default.GetInstance<FrontCaptureViewModel>();
 
         public NumberPartsViewModel NumberPartsViewModel
             => SimpleIoc.Default.GetInstance<NumberPartsViewModel>();
@@ -95,7 +92,10 @@ namespace ECN.ViewModels
             => SimpleIoc.Default.GetInstance<AddCustomerViewModel>();
 
         public SearchViewModel SearchViewModel
-            => SimpleIoc.Default.GetInstance<SearchViewModel>(); 
+            => SimpleIoc.Default.GetInstance<SearchViewModel>();
+
+        public BasicFormatViewModel BasicFormatViewModel
+            => SimpleIoc.Default.GetInstance<BasicFormatViewModel>();
 
         public ViewModelLocator()
         {
@@ -138,7 +138,7 @@ namespace ECN.ViewModels
 
             // Pages
             Register<HistoryViewModel, History>();
-            Register<EcnViewModel, Views.Ecn>();
+            Register<FrontCaptureViewModel, FrontCapture>();
             Register<HistoryDetailsViewModel, HistoryDetails>();
             Register<EcnRecordsViewModel, EcnRecords>();
             Register<ChecklistViewModel, Checklist>();
@@ -154,6 +154,7 @@ namespace ECN.ViewModels
             Register<EmployeesPageViewModel, EmployeesPage>();
             Register<NumberPartHistoryChangeViewModel, NumberPartHistoryChange>();
             Register<SearchViewModel, Search>();
+            Register<BasicFormatViewModel, BasicFormat>();
         }
 
         private void Register<VM, V>()

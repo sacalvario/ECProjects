@@ -2,15 +2,15 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>ECN</RootNamespace>
+    <RootNamespace>ProjectManager</RootNamespace>
     <UseWPF>true</UseWPF>
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>serafin.pfx</AssemblyOriginatorKeyFile>
     <Company>Electri-Cord</Company>
-    <Product>ECN System</Product>
+    <Product>Project Manager System</Product>
     <Authors>Calvario Reyes Simón Alejandro</Authors>
     <ApplicationIcon></ApplicationIcon>
-    <AssemblyName>ECN</AssemblyName>
+    <AssemblyName>Project Manager</AssemblyName>
     <Win32Resource />
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
@@ -29,11 +29,13 @@
     <None Remove="Assets\document64.png" />
     <None Remove="Assets\downloadblack.png" />
     <None Remove="Assets\edit.png" />
+    <None Remove="Assets\enchufe.png" />
     <None Remove="Assets\historyred.png" />
     <None Remove="Assets\leftred.png" />
     <None Remove="Assets\logorecortado.png" />
     <None Remove="Assets\logout.png" />
     <None Remove="Assets\newred.png" />
+    <None Remove="Assets\nuevo-proyecto.png" />
     <None Remove="Assets\panerecord.png" />
     <None Remove="Assets\pdf.png" />
     <None Remove="Assets\plug.png" />
@@ -135,6 +137,9 @@
     <Content Include="Assets\edit.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\enchufe.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\historyred.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -146,6 +151,9 @@
     </Content>
     <Content Include="Assets\newred.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\nuevo-proyecto.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\pdf.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

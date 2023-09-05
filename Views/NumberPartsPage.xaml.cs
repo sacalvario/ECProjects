@@ -1,10 +1,10 @@
-﻿using ECN.Models;
-using ECN.ViewModels;
+﻿using ProjectManager.Models;
+using ProjectManager.ViewModels;
 
 using GalaSoft.MvvmLight.Messaging;
 using System.Windows.Controls;
 
-namespace ECN.Views
+namespace ProjectManager.Views
 {
     /// <summary>
     /// Lógica de interacción para NumberPartsPage.xaml

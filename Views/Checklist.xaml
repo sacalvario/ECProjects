@@ -1,4 +1,4 @@
-﻿<Page x:Class="ECN.Views.Checklist"
+﻿<Page x:Class="ProjectManager.Views.Checklist"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +6,7 @@
       xmlns:ui="http://schemas.modernwpf.com/2019"
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       DataContext="{Binding ChecklistViewModel, Source={StaticResource Locator}}"
-      xmlns:local="clr-namespace:ECN.Views"
+      xmlns:local="clr-namespace:ProjectManager.Views"
       mc:Ignorable="d" 
       d:DesignHeight="650" d:DesignWidth="1000"
       Title="Checklist">

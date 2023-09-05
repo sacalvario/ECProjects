@@ -5,7 +5,7 @@ using System.Windows;
 
 #nullable disable
 
-namespace ECN.Models
+namespace ProjectManager.Models
 {
     public partial class Employee : ViewModelBase
     {

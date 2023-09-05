@@ -1,11 +1,12 @@
-﻿using ECN.Models;
-using ECN.ViewModels;
+﻿
+using ProjectManager.ViewModels;
 
 using GalaSoft.MvvmLight.Messaging;
 
 using System.Windows.Controls;
+using ProjectManager.Models;
 
-namespace ECN.Views
+namespace ProjectManager.Views
 {
     /// <summary>
     /// Lógica de interacción para EmployeesPage.xaml

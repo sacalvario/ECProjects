@@ -1,0 +1,192 @@
+﻿<Page x:Class="ProjectManager.Views.FrontCapture"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:ui="http://schemas.modernwpf.com/2019"
+      xmlns:dd="urn:gong-wpf-dragdrop"
+      DataContext="{Binding FrontCaptureViewModel, Source={StaticResource Locator}}"
+      mc:Ignorable="d" 
+      d:DesignHeight="650" d:DesignWidth="1200"
+      Title="Ecn">
+
+    <Page.Resources>
+
+        <DataTemplate x:Key="RequiredHeaderTemplate">
+            <TextBlock Text="{Binding}"
+                       FontSize="17" 
+                       FontFamily="Quicksand"
+                       FontWeight="Medium"/>
+        </DataTemplate>
+        <DataTemplate x:Key="ToggleSwitchHeaderTemplate">
+            <TextBlock Text="{Binding}"
+                       FontSize="17"
+                       FontFamily="Quicksand"
+                       FontWeight="Medium"/>
+        </DataTemplate>
+
+        <DataTemplate x:Key="NumberPartListViewTemplate">
+            <Grid Margin="0, 5, 0, 5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="400" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock Text="Rev."/>
+                    <TextBlock Text="{Binding NumberPartRev}" FontSize="15" HorizontalAlignment="Center" Foreground="#FFE20000" FontWeight="Bold" TextWrapping="Wrap"/>
+                </StackPanel>
+                <Image Source="/Assets/plug48.png" Grid.Column="1" Width="38" Height="38" Grid.RowSpan="3" HorizontalAlignment="Center" Margin="10, 5, 0, 5" />
+                <TextBlock Text="{Binding NumberPartId}" FontSize="16" Grid.Column="2" FontWeight="Bold" Foreground="Black" Margin="10, 0, 0 ,0"/>
+                <TextBlock Text="{Binding Customer.CustomerName}"  Grid.Row="1" Grid.Column="2" FontSize="15" FontWeight="Bold"  Foreground="#FFE20000"  Margin="10, 0, 0 ,0"/>
+                <Button Margin="10, 0, 0, 0" Grid.RowSpan="2" Grid.Column="3" VerticalAlignment="Center" Background="Transparent" Command="{Binding ElementName=lvNumberParts, Path=DataContext.DeleteNumberPartCommand}" CommandParameter="{Binding}" >
+                    <Image Source="/Assets/delete.png" Width="18"/>
+                </Button>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="SignatureFlowListViewTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    Text="{Binding Items.Count, ElementName=lvSignatureFlow}"
+                    Grid.RowSpan="2"
+                    Width="24"
+                    Height="24"
+                    Margin="6"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center" />
+                <!--<TextBlock
+                    Grid.Column="1"
+                    Text="{Binding Name, Mode=OneTime}"
+                    Style="{StaticResource BaseTextBlockStyle}"
+                    Margin="12,6,0,0" />
+                <TextBlock
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Text="{Binding Customer_Name, Mode=OneTime}"
+                    Style="{StaticResource BodyTextBlockStyle}"
+                    Margin="12,0,0,6" />-->
+            </Grid>
+        </DataTemplate>
+
+        <Style x:Key="ListViewItemTemplate" TargetType="{x:Type ListViewItem}">
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsSelected" Value="True" />
+                    </MultiTrigger.Conditions>
+                    <Setter Property="Background" Value="Red" />
+                    <Setter Property="BorderBrush" Value="Transparent" />
+                    <Setter Property="Foreground" Value="White"/>
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <TabControl x:Name="Tab" Style="{StaticResource TabControlPivotStyle}" Background="#FF252121" >
+            <TabItem Height="40" IsHitTestVisible="False" >
+                <TabItem.Header>
+                    <TextBlock Text="1." FontFamily="Quicksand Medium" FontSize="16" Foreground="White"/>
+                </TabItem.Header>
+                <Grid Margin="80, 50, 80, 50">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <ui:ToggleSwitch Header="¿El proyecto cuenta con mas de 10 ensambles?"
+                                         OffContent="No"
+                                         OnContent="Si" 
+                                         Grid.Row="1"
+                                         Grid.ColumnSpan="2"
+                                         FontFamily="Quicksand Medium"
+                                         FontSize="17"
+                                         Foreground="White"
+                                         IsOn="{Binding MoreThanTen}"
+                                         HorizontalAlignment="Left"
+                                         VerticalAlignment="Center"
+                                     Visibility="{Binding MultiEnsambleVisibility}"
+                                         HeaderTemplate="{StaticResource ToggleSwitchHeaderTemplate}"/>
+                    <ui:ToggleSwitch  Header="¿El proyecto cuenta con un cliente nuevo?"
+                                         OffContent="No"
+                                         OnContent="Si" 
+                                         Grid.Row="1"
+                                         Grid.ColumnSpan="2"
+                                        IsOn="{Binding NewCustomer}"
+                                         FontFamily="Quicksand Medium"
+                                         FontSize="17"
+                                         Foreground="White"
+                                         HorizontalAlignment="Left"
+                                         VerticalAlignment="Center"
+                                      Visibility="{Binding SingleEnsambleVisibility}"
+                                         HeaderTemplate="{StaticResource ToggleSwitchHeaderTemplate}"/>
+                    <ui:ToggleSwitch Header="¿El proyecto cuenta con mas de 10 items nuevos?"
+                                         OffContent="No"
+                                         OnContent="Si" 
+                                         Grid.Row="2"
+                                         Grid.ColumnSpan="2"
+                                         FontFamily="Quicksand Medium"
+                                         FontSize="17"
+                                         Foreground="White"
+                                     Visibility="{Binding ItemsVisibility}"
+                                         HorizontalAlignment="Left"
+                                         VerticalAlignment="Top" 
+                                         HeaderTemplate="{StaticResource ToggleSwitchHeaderTemplate}"/>
+                    <ui:ToggleSwitch Header="¿Variación de existente?"
+                                         OffContent="No"
+                                         OnContent="Si"
+                                         Grid.Row="1"
+                                         Grid.ColumnSpan="2"
+                                         FontFamily="Quicksand Medium"
+                                         FontSize="17"
+                                     IsOn="{Binding VariationExisting}"
+                                     Visibility="{Binding VariationExistingVisibility}"
+                                         Foreground="White"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"
+                                         HeaderTemplate="{StaticResource ToggleSwitchHeaderTemplate}"/>
+                    <ComboBox x:Name="cbChangeType"
+                              Grid.Row="0"
+                              Grid.ColumnSpan="2"
+                              Background="#FFFF0033"
+                              BorderBrush="Transparent"
+                              Foreground="White"
+                              Margin="0, 40, 300, 0"
+                              VerticalAlignment="Top"
+                              HorizontalAlignment="Stretch"
+                              FontFamily="Quicksand Medium"
+                              FontSize="15"
+                              DisplayMemberPath="OptionName"
+                              SelectedValuePath="OptionId"
+                              ItemsSource="{Binding Options}"
+                              SelectedItem="{Binding SelectedOption}"
+                              ui:ControlHelper.Header="Multi ensamble or Single ensamble"
+                              ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
+                              ui:ControlHelper.PlaceholderText="Select an option"
+                              ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
+                              ui:ControlHelper.CornerRadius="5" />
+                    <Button Content="Navegar" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="Red" Command="{Binding NavigateToBasicCommand}"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+
+</Page>

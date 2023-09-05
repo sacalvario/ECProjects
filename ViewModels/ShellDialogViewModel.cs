@@ -4,7 +4,7 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
-namespace ECN.ViewModels
+namespace ProjectManager.ViewModels
 {
     public class ShellDialogViewModel : ViewModelBase
     {

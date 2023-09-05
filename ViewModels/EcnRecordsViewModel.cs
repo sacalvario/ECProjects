@@ -1,8 +1,8 @@
 ﻿
 
-using ECN.Contracts.Services;
-using ECN.Contracts.ViewModels;
-using ECN.Models;
+using ProjectManager.Contracts.Services;
+using ProjectManager.Contracts.ViewModels;
+using ProjectManager.Models;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -16,7 +16,7 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using Excel = Microsoft.Office.Interop.Excel;
 
-namespace ECN.ViewModels
+namespace ProjectManager.ViewModels
 {
     public class EcnRecordsViewModel : ViewModelBase, INavigationAware
     {

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace ECN.Contracts.Activation
+namespace ProjectManager.Contracts.Activation
 {
     public interface IActivationHandler
     {

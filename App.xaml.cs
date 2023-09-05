@@ -1,5 +1,5 @@
-﻿using ECN.Contracts.Services;
-using ECN.ViewModels;
+﻿using ProjectManager.Contracts.Services;
+using ProjectManager.ViewModels;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Threading;
 
-namespace ECN
+namespace ProjectManager
 {
     // For more inforation about application lifecyle events see https://docs.microsoft.com/dotnet/framework/wpf/app-development/application-management-overview
 
