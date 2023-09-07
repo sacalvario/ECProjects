@@ -10,18 +10,18 @@
     DataContext="{Binding ShellViewModel, Source={StaticResource Locator}}"
     Title=" Electri-Cord"
     mc:Ignorable="d"
-    Width="1366"
+    Width="1164"
     Height="768"
     Icon="/plug.ico"
     WindowStartupLocation="CenterScreen">
 
     <DockPanel>
-        <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" HorizontalAlignment="Stretch" Background="Black">
+        <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" HorizontalAlignment="Stretch" Background="#FF3AA00A">
             <TextBlock Text="ELECTRI-CORD" FontFamily="Arial" FontWeight="Black" Foreground="White" FontSize="20" FontStyle="Oblique" VerticalAlignment="Center" Margin="10"/>
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
                 <StackPanel Margin="6">
                     <TextBlock Text="{Binding Name}" FontSize="16" Foreground="White" /> 
-                    <TextBlock Text="{Binding Department}" Foreground="Red" FontSize="15" HorizontalAlignment="Right" FontWeight="Bold" />
+                    <TextBlock Text="{Binding Department}" Foreground="Orange" FontSize="15" HorizontalAlignment="Right" FontWeight="Bold" />
                 </StackPanel>
                 <ui:DropDownButton Background="Transparent" Foreground="White" FontWeight="Bold">
                     <Image Source="/Assets/user2white.png" Width="32" Height="32"/>
@@ -43,8 +43,8 @@
         </DockPanel>
 
 
-        <ui:NavigationView Name="nv" IsSettingsVisible="False" PaneDisplayMode="LeftCompact" IsBackButtonVisible="Collapsed" CompactPaneLength="50" SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}">
-            <ui:NavigationView.PaneHeader>
+        <ui:NavigationView Name="nv"  IsSettingsVisible="False" PaneDisplayMode="LeftCompact" IsBackButtonVisible="Collapsed" CompactPaneLength="50"  SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}">
+            <!--<ui:NavigationView.PaneHeader>
                 <StackPanel Orientation="Horizontal" Margin="12, 5">
                     <Image Source="/Assets/enchufe.png" Width="52" Height="52"/>
                     <StackPanel Margin="5, 0, 0, 0">
@@ -52,7 +52,7 @@
                         <TextBlock Text="Electri-Cord" FontSize="16"/>
                     </StackPanel>
                 </StackPanel>
-            </ui:NavigationView.PaneHeader>
+            </ui:NavigationView.PaneHeader>-->
             <ui:NavigationView.MenuItems>
                 <!--<ui:NavigationViewItem x:Name="btnDashBoard" Tag="Dashboard" Margin="0, 2, 0, 0" Visibility="Collapsed">
                     <StackPanel Orientation="Horizontal">
@@ -60,10 +60,10 @@
                         <Label Content="Dashboard" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center"/>
                     </StackPanel>
                 </ui:NavigationViewItem>-->
-                <ui:NavigationViewItem x:Name="btnNewECN" Tag="FrontCapture" Margin="0, 2, 0, 0">
+                <ui:NavigationViewItem x:Name="btnNew" Tag="FrontCapture" Margin="0, 2, 0, 0">
                     <StackPanel Orientation="Horizontal" >
                         <Image Source="/Assets/nuevo-proyecto.png" Width="24" VerticalAlignment="Center"/>
-                        <Label Content="Nuevo proyecto" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center"/>
+                        <Label Content="Nuevo proyecto" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center" Foreground="White"/>
                     </StackPanel>
                 </ui:NavigationViewItem>
                 <!--<ui:NavigationViewItem x:Name="btnPendingECNs" Tag="Checklist" Margin="0, 2, 0, 0">

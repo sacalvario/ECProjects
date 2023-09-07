@@ -11,7 +11,7 @@
         Title="Login" Height="600" Width="430" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 
     <Grid>
-        <Border Background="Black">
+        <Border Background="White">
             <ui:Frame x:Name="loginFrame"/>
         </Border>
     </Grid>

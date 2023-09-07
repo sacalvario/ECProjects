@@ -9,17 +9,17 @@
       d:DesignHeight="600" d:DesignWidth="430"
       Title="Login">
 
-    <StackPanel Margin="25" Background="Black">
+    <StackPanel Margin="25" Background="White">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0, 5">
             <Image Source="/Assets/enchufe.png" Width="52" Height="52"/>
             <StackPanel Margin="10, 0" VerticalAlignment="Center">
-                <TextBlock Text="Projects System" FontSize="16" FontWeight="Black" Foreground="White"/>
-                <TextBlock Text="Electri-Cord" FontSize="16" FontWeight="Normal" Foreground="White" />
+                <TextBlock Text="Projects System" FontSize="16" FontWeight="Black" Foreground="Black"/>
+                <TextBlock Text="Electri-Cord" FontSize="16" FontWeight="Normal" Foreground="Black" />
             </StackPanel>
         </StackPanel>
-        <TextBox Text="{Binding Username}" Margin="30, 30" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="White" md:HintAssist.Hint="Nombre de usuario o número de empleado"  md:TextFieldAssist.HasClearButton="True"/>
-        <PasswordBox Margin="30, 30" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" Foreground="White" md:HintAssist.Hint="Contraseña" PasswordChanged="txtPassword_PasswordChanged" md:TextFieldAssist.HasClearButton="True" Cursor="Arrow"/>
-        <TextBlock HorizontalAlignment="Center" Margin="0, 50, 0, 0" Foreground="White">
+        <TextBox Text="{Binding Username}" Margin="30, 30" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="Black" md:HintAssist.Hint="Nombre de usuario o número de empleado"  md:TextFieldAssist.HasClearButton="True"/>
+        <PasswordBox Margin="30, 30" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" Foreground="Black" md:HintAssist.Hint="Contraseña" PasswordChanged="txtPassword_PasswordChanged" md:TextFieldAssist.HasClearButton="True" Cursor="Arrow"/>
+        <TextBlock HorizontalAlignment="Center" Margin="0, 50, 0, 0" Foreground="Black">
             <Run Text="¿No tienes una cuenta?"/>
             <Run Text="Registrate ahora" Foreground="Red" Cursor="Hand" Focusable="True">
                 <Run.InputBindings>

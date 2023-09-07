@@ -97,10 +97,10 @@
     </Page.Resources>
 
     <Grid>
-        <TabControl x:Name="Tab" Style="{StaticResource TabControlPivotStyle}" Background="#FF252121" >
+        <TabControl x:Name="Tab" Style="{StaticResource TabControlPivotStyle}" Background="#FFE0E0E0" >
             <TabItem Height="40" IsHitTestVisible="False" >
                 <TabItem.Header>
-                    <TextBlock Text="1." FontFamily="Quicksand Medium" FontSize="16" Foreground="White"/>
+                    <TextBlock Text="1." FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
                 </TabItem.Header>
                 <Grid Margin="80, 50, 80, 50">
                     <Grid.ColumnDefinitions>
@@ -183,7 +183,7 @@
                               ui:ControlHelper.PlaceholderText="Select an option"
                               ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
                               ui:ControlHelper.CornerRadius="5" />
-                    <Button Content="Navegar" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="Red" Command="{Binding NavigateToBasicCommand}"/>
+                    <Button Content="Navegar" Grid.Row="2" Grid.ColumnSpan="2" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="Red" Command="{Binding NavigateToBasicCommand}"/>
                 </Grid>
             </TabItem>
         </TabControl>

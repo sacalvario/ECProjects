@@ -19,7 +19,7 @@ namespace ProjectManager.Views
     public partial class BasicFormat : Page
     {
         public BasicFormat()
-        {
+        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
             InitializeComponent();
         }
     }
