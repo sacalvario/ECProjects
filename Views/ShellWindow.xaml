@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:ui="http://schemas.modernwpf.com/2019"
+    xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
     ui:WindowHelper.UseModernWindowStyle="True"
     DataContext="{Binding ShellViewModel, Source={StaticResource Locator}}"
     Title=" Electri-Cord"
@@ -60,10 +61,10 @@
                         <Label Content="Dashboard" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center"/>
                     </StackPanel>
                 </ui:NavigationViewItem>-->
-                <ui:NavigationViewItem x:Name="btnNew" Tag="FrontCapture" Margin="0, 2, 0, 0">
+                <ui:NavigationViewItem x:Name="btnNew" Tag="FrontCapture" Margin="0, 0, 0, 0">
                     <StackPanel Orientation="Horizontal" >
-                        <Image Source="/Assets/nuevo-proyecto.png" Width="24" VerticalAlignment="Center"/>
-                        <Label Content="Nuevo proyecto" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center" Foreground="White"/>
+                        <md:PackIcon Kind="TextBoxPlus" Width="24" Height="24" VerticalAlignment="Center" Foreground="Green"/>
+                        <Label Content="New project" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center" Foreground="Black"/>
                     </StackPanel>
                 </ui:NavigationViewItem>
                 <!--<ui:NavigationViewItem x:Name="btnPendingECNs" Tag="Checklist" Margin="0, 2, 0, 0">

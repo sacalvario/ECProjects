@@ -21,17 +21,6 @@ namespace ProjectManager.ViewModels
     public class FrontCaptureViewModel : ViewModelBase, INavigationAware
     {
 
-        public partial class Option
-        {
-            public int OptionId { get; set; }
-            public string OptionName { get; set; }
-
-            public Option()
-            {
-              
-            }
-        }
-
         private readonly IWindowManagerService _windowManagerService;
         private readonly INavigationService _navigationService;
 
@@ -39,40 +28,25 @@ namespace ProjectManager.ViewModels
         public ICommand NavigateToBasicCommand => _navigateBasicFormatCommand ??= new RelayCommand(NavigateToBasicFormat);
 
 
-        private ObservableCollection<Option> _Options;
-        public ObservableCollection<Option> Options
+        private bool _MultiOn = false;
+        public bool MultiOn
         {
-            get => _Options;
+            get => _MultiOn;
             set
             {
-                if (_Options != value)
+                if (_MultiOn != value)
                 {
-                    _Options = value;
-                    RaisePropertyChanged("Options");
-                }
-            }
-        }
+                    _MultiOn = value;
+                    RaisePropertyChanged("MultiOn");
 
-        private Option _SelectedOption;
-        public Option SelectedOption
-        {
-            get => _SelectedOption;
-            set
-            {
-                if (_SelectedOption != value)
-                {
-                    _SelectedOption = value;
-                    RaisePropertyChanged("SelectedOption");
-
-                    if (_SelectedOption.OptionId == 1)
+                    if (_MultiOn)
                     {
                         MultiEnsambleVisibility = Visibility.Visible;
                         SingleEnsambleVisibility = Visibility.Collapsed;
                     }
-                    else if (_SelectedOption.OptionId == 2)
+                    else
                     {
                         SingleEnsambleVisibility = Visibility.Visible;
-                        ItemsVisibility = Visibility.Visible;
                         MultiEnsambleVisibility = Visibility.Collapsed;
                     }
                 }
@@ -109,7 +83,7 @@ namespace ProjectManager.ViewModels
             }
         }
 
-        private bool _VariationExisting;
+        private bool _VariationExisting = false;
         public bool VariationExisting
         {
             get => _VariationExisting;
@@ -122,13 +96,17 @@ namespace ProjectManager.ViewModels
 
                     if (_VariationExisting)
                     {
+                        ItemsVisibility = Visibility.Visible;
+                    }
+                    else
+                    {
                         ItemsVisibility = Visibility.Collapsed;
                     }
                 }
             }
         }
 
-        private bool _NewCustomer = true;
+        private bool _NewCustomer = false;
         public bool NewCustomer
         {
             get => _NewCustomer;
@@ -142,10 +120,13 @@ namespace ProjectManager.ViewModels
                     if (!_NewCustomer)
                     {
                         VariationExistingVisibility = Visibility.Visible;
+                        ItemsVisibility = Visibility.Collapsed;
+
                     }
                     else
                     {
                         VariationExistingVisibility = Visibility.Collapsed;
+                        ItemsVisibility = Visibility.Visible;
                     }
                 }
             }
@@ -213,7 +194,6 @@ namespace ProjectManager.ViewModels
             _windowManagerService = windowManagerService;
             _navigationService = navigationService;
 
-            Options = new ObservableCollection<Option>() { new Option() { OptionId = 1, OptionName = "Multi" }, new Option() { OptionId = 2, OptionName = "Single" } };
         }
 
         private void NavigateToBasicFormat()
