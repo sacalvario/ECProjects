@@ -8,7 +8,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       DataContext="{Binding FrontCaptureViewModel, Source={StaticResource Locator}}"
       mc:Ignorable="d" 
-      d:DesignHeight="650" d:DesignWidth="1200"
+      d:DesignHeight="550" d:DesignWidth="1200"
       Title="Ecn">
 
     <Page.Resources>
@@ -104,25 +104,26 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <materialDesign:Card  Foreground="Black" UniformCornerRadius="10" Margin="20, 100">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="6*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Style="{DynamicResource PageTitleStyle}" Text="New product introduction"/>
+            <materialDesign:Card  Foreground="Black" Margin="20, 10, 20, 100" Grid.Row="1">
                 <StackPanel>
-                    <TextBlock Text="Multi assembly or Single assembly?" FontSize="16" FontWeight="SemiBold" Margin="10, 30, 20, 0"/>
-                    <ui:RadioButtons Margin="20, 20, 0, 0" FontSize="16" >
-                        <RadioButton Content="Multi Ensamble " IsChecked="{Binding MultiOn}" />
-                        <RadioButton Content="Single Ensamble" />
-                    </ui:RadioButtons>
+                    <TextBlock Text="Multi assembly or Single assembly?" FontSize="16" FontWeight="SemiBold" Margin="20, 20, 30, 0" />
+                    <RadioButton Content="Multi assembly " IsChecked="{Binding MultiOn}" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="20, 20, 0, 0"/>
+                    <RadioButton Content="Single assembly" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="20, 20, 0, 0" IsChecked="{Binding SingleOn}"/>
                 </StackPanel>
             </materialDesign:Card>
-            <materialDesign:Card  Foreground="Black" UniformCornerRadius="10" Margin="20, 100" Grid.Column="1" Visibility="{Binding MultiEnsambleVisibility}">
+            <materialDesign:Card Grid.Row="1" Foreground="Black"  Margin="20, 10, 20, 100" Grid.Column="1" Visibility="{Binding MultiEnsambleVisibility}">
                 <StackPanel>
                     <TextBlock Text="Number of assemblies" FontSize="16" FontWeight="SemiBold" Margin="10, 30, 140, 0"/>
-                    <ui:RadioButtons Margin="20, 20, 0, 0" FontSize="16" >
-                        <RadioButton Content="More than ten " IsChecked="{Binding MoreThanTen}"/>
-                        <RadioButton Content="Less than ten" />
-                    </ui:RadioButtons>
+                    <RadioButton Content="More than ten " IsChecked="{Binding MoreThanTen}" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="20, 20, 0, 0"/>
+                    <RadioButton Content="Less than ten" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="20, 20, 0, 0"/>
                 </StackPanel>
             </materialDesign:Card>
-            <materialDesign:Card Margin="20, 100" Grid.Column="1" Visibility="{Binding SingleEnsambleVisibility}">
+            <materialDesign:Card Grid.Row="1"  Margin="20, 10, 20, 100" Grid.Column="1" Visibility="{Binding SingleEnsambleVisibility}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
@@ -131,7 +132,7 @@
                     <StackPanel>
                         <TextBlock Text="New customer?" Margin="20, 20, 150, 0" FontWeight="SemiBold" FontSize="16"/>
                         <RadioButton Content="Yes" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="20, 20, 0, 0" IsChecked="{Binding NewCustomer}"/>
-                        <RadioButton Content="No" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="20, 20, 0, 0"/>
+                        <RadioButton Content="No" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="20, 20, 0, 0" IsChecked="{Binding NewCustomerOff}"/>
                     </StackPanel>
                     <Separator Grid.Row="1" Style="{StaticResource MaterialDesignDarkSeparator}" VerticalAlignment="Top" Visibility="{Binding VariationExistingVisibility}"/>
                     <StackPanel Grid.Row="1"  Visibility="{Binding VariationExistingVisibility}">
@@ -141,16 +142,19 @@
                     </StackPanel>
                 </Grid>
             </materialDesign:Card>
-            <materialDesign:Card  Foreground="Black" UniformCornerRadius="10" Margin="20, 100" Grid.Column="2" Visibility="{Binding ItemsVisibility}">
+            <materialDesign:Card Grid.Row="1" Foreground="Black"  Margin="20, 10, 20, 100" Grid.Column="2" Visibility="{Binding ItemsVisibility}">
                 <StackPanel>
-                    <TextBlock Text="Number of assemblies" FontSize="16" FontWeight="SemiBold" Margin="10, 30, 140, 0"/>
-                    <ui:RadioButtons Margin="20, 20, 0, 0" FontSize="16" >
-                        <RadioButton Content="More than ten " />
-                        <RadioButton Content="Less than ten" />
-                    </ui:RadioButtons>
+                    <TextBlock Text="Number of assemblies" FontSize="16" FontWeight="SemiBold" Margin="20, 20, 140, 0"/>
+                    <RadioButton Content="More than ten " Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="20, 20, 0, 0" />
+                    <RadioButton Content="Less than ten" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="20, 20, 0, 0" />
                 </StackPanel>
             </materialDesign:Card>
         </Grid>
-        <Button Content="Navegar" Grid.Row="2" Grid.ColumnSpan="2" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="Red" Command="{Binding NavigateToBasicCommand}"/>
+        <Button Margin="0, 0, 0, 30" Grid.Row="2" Grid.ColumnSpan="2" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="Green" Command="{Binding NavigateToBasicCommand}">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="Play" VerticalAlignment="Center" Width="24" Height="24"/>
+                <TextBlock Text="Start project" VerticalAlignment="Center" Margin="5, 0, 0, 0"/>
+            </StackPanel>
+        </Button>
     </Grid>
 </Page>

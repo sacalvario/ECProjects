@@ -53,6 +53,31 @@ namespace ProjectManager.ViewModels
             }
         }
 
+        private bool _SingleOn = false;
+        public bool SingleOn
+        {
+            get => _SingleOn;
+            set
+            {
+                if (_SingleOn != value)
+                {
+                    _SingleOn = value;
+                    RaisePropertyChanged("SingleOn");
+
+                    if (_SingleOn)
+                    {
+                        MultiEnsambleVisibility = Visibility.Collapsed;
+                        SingleEnsambleVisibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        SingleEnsambleVisibility = Visibility.Collapsed;
+                        MultiEnsambleVisibility = Visibility.Visible;
+                    }
+                }
+            }
+        }
+
         private bool _MoreThanTen;
         public bool MoreThanTen
         {
@@ -127,6 +152,32 @@ namespace ProjectManager.ViewModels
                     {
                         VariationExistingVisibility = Visibility.Collapsed;
                         ItemsVisibility = Visibility.Visible;
+                    }
+                }
+            }
+        }
+
+        private bool _NewCustomerOff = false;
+        public bool NewCustomerOff
+        {
+            get => _NewCustomerOff;
+            set
+            {
+                if (_NewCustomerOff != value)
+                {
+                    _NewCustomerOff = value;
+                    RaisePropertyChanged("NewCustomerOff");
+
+                    if (!_NewCustomerOff)
+                    {
+                        VariationExistingVisibility = Visibility.Collapsed;
+                        ItemsVisibility = Visibility.Visible;
+
+                    }
+                    else
+                    {
+                        VariationExistingVisibility = Visibility.Visible;
+                        ItemsVisibility = Visibility.Collapsed;
                     }
                 }
             }

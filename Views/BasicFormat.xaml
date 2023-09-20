@@ -25,9 +25,9 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <TextBlock Text="General information" FontSize="20" Foreground="Black" VerticalAlignment="Center" Margin="24, 0, 0, 0" />
+                    <TextBlock Text="General information" Style="{DynamicResource PageTitleStyle}" />
                     <StackPanel Margin="30, 15, 0, 0" Orientation="Horizontal" Grid.Row="1">
-                        <materialDesign:PackIcon Kind="AccountSupervisorCircle" Foreground="Black" VerticalAlignment="Center" Width="38" Height="38" Margin="0, 15, 10, 0"/>
+                        <materialDesign:PackIcon Kind="AccountSupervisorCircle" Foreground="#FF3AA00A" VerticalAlignment="Center" Width="38" Height="38" Margin="0, 15, 10, 0"/>
                         <StackPanel Orientation="Vertical">
                             <TextBlock Text="Customer name" Foreground="Black" Margin="0, 0, 0, 15"/>
                             <ComboBox materialDesign:HintAssist.Hint="Select an option"
@@ -43,7 +43,7 @@
                             </ComboBox>
                         </StackPanel>
                     </StackPanel>
-                    <Grid Grid.Row="2" Grid.RowSpan="2" >
+                    <Grid Grid.Row="2" Grid.RowSpan="2" Margin="30, 15, 0, 0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="10*" />
                             <ColumnDefinition Width="*" />
@@ -52,13 +52,19 @@
                             <ItemsControl ItemsSource="{Binding Options}" VerticalAlignment="Center" >
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <Grid Margin="0, 0, 0, 25">
+                                        <Grid Margin="0, 0, 0, 15">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*" />
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
-                                            <TextBox Text="{Binding OptionId}" Background="Yellow" BorderThickness="0" Margin="0, 0, 40, 0" ui:ControlHelper.Header="JOB" ui:ControlHelper.PlaceholderText="Ingresa la job" FontSize="15"  />
-                                            <TextBox Grid.Column="1" Text="{Binding OptionName}" BorderThickness="0" Margin="0, 0, 80, 0" ui:ControlHelper.Header="Número de piezas" ui:ControlHelper.PlaceholderText="Ingresa la cantidad de piezas"  FontSize="15"/>
+                                            <StackPanel Orientation="Horizontal">
+                                                <materialDesign:PackIcon Kind="PowerPlug" Foreground="#FF3AA00A" VerticalAlignment="Center" Width="40" Height="40" Margin="0, 15, 10, 0" />
+                                                <TextBox Text="{Binding OptionId}" Width="350" BorderThickness="1" Margin="0, 0, 0, 15" ui:ControlHelper.Header="Customer part number" ui:ControlHelper.PlaceholderText="Enter the new part number" FontSize="15"  />
+                                            </StackPanel>
+                                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                                <Image Source="/Assets/version.png" Width="40" Height="40" VerticalAlignment="Center" Margin="0, 15, 10, 0"/>
+                                                <TextBox  Text="{Binding OptionName}" Width="350" HorizontalAlignment="Stretch" BorderThickness="1" Margin="0, 0, 0, 15"  ui:ControlHelper.Header="Customer par revision" ui:ControlHelper.PlaceholderText="Enter revision part"  FontSize="15"/>
+                                            </StackPanel>
                                         </Grid>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
@@ -75,7 +81,7 @@
             </TabItem>
             <TabItem Height="40" Margin="0, 0, 10, 0">
                 <TabItem.Header>
-                    <TextBlock Text="(Part II" Foreground="Black" />
+                    <TextBlock Text="Part II" Foreground="Black" />
                 </TabItem.Header >
             </TabItem>
         </TabControl>

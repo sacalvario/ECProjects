@@ -61,6 +61,7 @@
     <None Remove="Assets\userblack.png" />
     <None Remove="Assets\userw.png" />
     <None Remove="Assets\verified.png" />
+    <None Remove="Assets\version.png" />
     <None Remove="Assets\wire.png" />
     <None Remove="Assets\xls.png" />
     <None Remove="plug.ico" />
@@ -222,6 +223,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\verified.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\version.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\wire.png">
