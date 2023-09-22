@@ -111,14 +111,14 @@
             <TextBlock Style="{DynamicResource PageTitleStyle}" Text="New product introduction"/>
             <materialDesign:Card  Foreground="Black" Margin="20, 10, 20, 100" Grid.Row="1">
                 <StackPanel>
-                    <TextBlock Text="Multi assembly or Single assembly?" FontSize="16" FontWeight="SemiBold" Margin="20, 20, 30, 0" />
+                    <TextBlock Text="Multi assembly or Single assembly?" FontSize="16" FontWeight="SemiBold" Margin="20, 20, 5, 0" />
                     <RadioButton Content="Multi assembly " IsChecked="{Binding MultiOn}" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="20, 20, 0, 0"/>
                     <RadioButton Content="Single assembly" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="20, 20, 0, 0" IsChecked="{Binding SingleOn}"/>
                 </StackPanel>
             </materialDesign:Card>
             <materialDesign:Card Grid.Row="1" Foreground="Black"  Margin="20, 10, 20, 100" Grid.Column="1" Visibility="{Binding MultiEnsambleVisibility}">
                 <StackPanel>
-                    <TextBlock Text="Number of assemblies" FontSize="16" FontWeight="SemiBold" Margin="10, 30, 140, 0"/>
+                    <TextBlock Text="Number of assemblies" FontSize="16" FontWeight="SemiBold" Margin="10, 30, 5, 0"/>
                     <RadioButton Content="More than ten " IsChecked="{Binding MoreThanTen}" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="20, 20, 0, 0"/>
                     <RadioButton Content="Less than ten" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="20, 20, 0, 0"/>
                 </StackPanel>
@@ -130,7 +130,7 @@
                         <RowDefinition Height="1.5*" />
                     </Grid.RowDefinitions>
                     <StackPanel>
-                        <TextBlock Text="New customer?" Margin="20, 20, 150, 0" FontWeight="SemiBold" FontSize="16"/>
+                        <TextBlock Text="New customer?" Margin="20, 20, 5, 0" FontWeight="SemiBold" FontSize="16"/>
                         <RadioButton Content="Yes" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="20, 20, 0, 0" IsChecked="{Binding NewCustomer}"/>
                         <RadioButton Content="No" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="20, 20, 0, 0" IsChecked="{Binding NewCustomerOff}"/>
                     </StackPanel>
@@ -144,7 +144,7 @@
             </materialDesign:Card>
             <materialDesign:Card Grid.Row="1" Foreground="Black"  Margin="20, 10, 20, 100" Grid.Column="2" Visibility="{Binding ItemsVisibility}">
                 <StackPanel>
-                    <TextBlock Text="Number of assemblies" FontSize="16" FontWeight="SemiBold" Margin="20, 20, 140, 0"/>
+                    <TextBlock Text="Number of assemblies" FontSize="16" FontWeight="SemiBold" Margin="20, 20, 5, 0"/>
                     <RadioButton Content="More than ten " Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="20, 20, 0, 0" />
                     <RadioButton Content="Less than ten" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="20, 20, 0, 0" />
                 </StackPanel>

@@ -7,7 +7,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:ui="http://schemas.modernwpf.com/2019"
       mc:Ignorable="d" 
-      d:DesignHeight="600" d:DesignWidth="800"
+      d:DesignHeight="640" d:DesignWidth="900"
       Title="Page1">
 
     <Grid Background="#FFEAE7E7">
@@ -17,6 +17,10 @@
                     <TextBlock Text="Part 1" Foreground="Black" Margin="0,  0, 10, 0" />
                 </TabItem.Header>
                 <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
@@ -26,15 +30,17 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <TextBlock Text="General information" Style="{DynamicResource PageTitleStyle}" />
-                    <StackPanel Margin="30, 15, 0, 0" Orientation="Horizontal" Grid.Row="1">
-                        <materialDesign:PackIcon Kind="AccountSupervisorCircle" Foreground="#FF3AA00A" VerticalAlignment="Center" Width="38" Height="38" Margin="0, 15, 10, 0"/>
+                    <StackPanel Margin="30, 0, 0, 0" Orientation="Horizontal" Grid.Row="1">
+                        <materialDesign:PackIcon Kind="AccountSupervisorCircle" Foreground="#FF3AA00A" VerticalAlignment="Center" Width="30" Height="30" Margin="0, 5, 10, 0"/>
                         <StackPanel Orientation="Vertical">
                             <TextBlock Text="Customer name" Foreground="Black" Margin="0, 0, 0, 15"/>
                             <ComboBox materialDesign:HintAssist.Hint="Select an option"
-                                      materialDesign:HintAssist.Foreground="Black"
+                                      materialDesign:HintAssist.Foreground="White"
                                       materialDesign:HintAssist.HintOpacity=".26"
+                                      Foreground="Black"
+                                      Width="300"
+                                      Style="{DynamicResource MaterialDesignComboBox}"
                                       IsEditable="True"
-                                      Width="400"
                                       VerticalAlignment="Center">
                                 <ComboBoxItem Content="Apple" />
                                 <ComboBoxItem Content="Banana" />
@@ -43,40 +49,43 @@
                             </ComboBox>
                         </StackPanel>
                     </StackPanel>
-                    <Grid Grid.Row="2" Grid.RowSpan="2" Margin="30, 15, 0, 0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="10*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <ScrollViewer >
-                            <ItemsControl ItemsSource="{Binding Options}" VerticalAlignment="Center" >
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid Margin="0, 0, 0, 15">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="*" />
-                                            </Grid.ColumnDefinitions>
-                                            <StackPanel Orientation="Horizontal">
-                                                <materialDesign:PackIcon Kind="PowerPlug" Foreground="#FF3AA00A" VerticalAlignment="Center" Width="40" Height="40" Margin="0, 15, 10, 0" />
-                                                <TextBox Text="{Binding OptionId}" Width="350" BorderThickness="1" Margin="0, 0, 0, 15" ui:ControlHelper.Header="Customer part number" ui:ControlHelper.PlaceholderText="Enter the new part number" FontSize="15"  />
-                                            </StackPanel>
-                                            <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                                <Image Source="/Assets/version.png" Width="40" Height="40" VerticalAlignment="Center" Margin="0, 15, 10, 0"/>
-                                                <TextBox  Text="{Binding OptionName}" Width="350" HorizontalAlignment="Stretch" BorderThickness="1" Margin="0, 0, 0, 15"  ui:ControlHelper.Header="Customer par revision" ui:ControlHelper.PlaceholderText="Enter revision part"  FontSize="15"/>
-                                            </StackPanel>
-                                        </Grid>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </ScrollViewer>
-                        <Button Grid.Column="1" Command="{Binding AddCommand}" Background="Transparent" VerticalAlignment="Top" Margin="0, 50, 0, 0" >
-                            <materialDesign:PackIcon Kind="PlusCircle" Foreground="Orange" Width="38" Height="38"/>
-                        </Button>
-                    </Grid>
-                    <Grid Grid.Row="4">
-                        <TextBlock />
-                    </Grid>
+                    <StackPanel Grid.Column="1" Grid.Row="1" Grid.RowSpan="3">
+                        <TextBlock Text="New parts numbers" Style="{DynamicResource ListSubTitleStyle}" Margin="30, 0, 0, 0 "/>
+                        <materialDesign:Card Background="#FFF5F1F1" Margin="30, 10, 30, 0" MinHeight="200" MaxHeight="250">
+                            <Grid>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" >
+                                    <Button Command="{Binding AddCommand}" >
+                                        <materialDesign:PackIcon Kind="Add" Foreground="White" />
+                                    </Button>
+                                    <Button >
+                                        <materialDesign:PackIcon Kind="Delete" Foreground="White" />
+                                    </Button>
+                                </StackPanel>
+                                <ScrollViewer Margin="0, 40, 20, 0" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Visible">
+                                    <ItemsControl ItemsSource="{Binding Options}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid Margin="0, 0, 0, 10">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <materialDesign:PackIcon Kind="About" Margin="5, 0, 10, 0" VerticalAlignment="Center" Foreground="Green"/>
+                                                        <TextBox Width="200" Style="{DynamicResource MaterialDesignTextBox}"  materialDesign:TextFieldAssist.TextFieldCornerRadius="10" BorderBrush="Black" materialDesign:HintAssist.Hint="Enter the part number" Foreground="Black" Margin="0, 0, 10, 0"/>
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="20, 0, 0, 0">
+                                                        <materialDesign:PackIcon Kind="About" Margin="5, 0, 10, 0" VerticalAlignment="Center" Foreground="Green"/>
+                                                        <TextBox Width="200" Style="{DynamicResource MaterialDesignTextBox}" materialDesign:TextFieldAssist.TextFieldCornerRadius="10" BorderBrush="Black"  materialDesign:HintAssist.Hint="Enter the revision part" Foreground="Black" Margin="0, 0, 10, 0"/>
+                                                    </StackPanel>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </ScrollViewer>
+                            </Grid>
+                        </materialDesign:Card>
+                    </StackPanel>
                 </Grid>
             </TabItem>
             <TabItem Height="40" Margin="0, 0, 10, 0">
