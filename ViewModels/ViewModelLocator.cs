@@ -96,6 +96,9 @@ namespace ProjectManager.ViewModels
 
         public BasicFormatViewModel BasicFormatViewModel
             => SimpleIoc.Default.GetInstance<BasicFormatViewModel>();
+        
+        public AdvancedFormatViewModel AdvancedFormatViewModel
+            => SimpleIoc.Default.GetInstance<AdvancedFormatViewModel>();
 
         public ViewModelLocator()
         {
@@ -155,6 +158,7 @@ namespace ProjectManager.ViewModels
             Register<NumberPartHistoryChangeViewModel, NumberPartHistoryChange>();
             Register<SearchViewModel, Search>();
             Register<BasicFormatViewModel, BasicFormat>();
+            Register<AdvancedFormatViewModel, AdvancedFormat>();
         }
 
         private void Register<VM, V>()

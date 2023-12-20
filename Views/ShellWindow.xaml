@@ -11,8 +11,8 @@
     DataContext="{Binding ShellViewModel, Source={StaticResource Locator}}"
     Title=" Electri-Cord"
     mc:Ignorable="d"
-    Width="1086"
-    Height="748"
+    Width="1386"
+    Height="848"
     Icon="/plug.ico"
     WindowStartupLocation="CenterScreen">
 

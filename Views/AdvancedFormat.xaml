@@ -1,0 +1,369 @@
+﻿<Page x:Class="ProjectManager.Views.AdvancedFormat"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      DataContext="{Binding AdvancedFormatViewModel, Source={StaticResource Locator}}"
+      xmlns:dd="urn:gong-wpf-dragdrop"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:ui="http://schemas.modernwpf.com/2019"
+      mc:Ignorable="d" 
+      d:DesignHeight="640" d:DesignWidth="900"
+      Title="AdvancedFormat">
+
+    <Page.Resources>
+
+        <DataTemplate x:Key="TaskTemplate">
+            <Grid Margin="0, 10, 0, 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition Width="200" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{Binding ActivityName}" Foreground="Red" VerticalAlignment="Center" FontSize="15" />
+                <TextBlock Text="2" Grid.Column="1" Margin="20, 0, 0, 0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <DatePicker Text="{Binding StartDate}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Grid.Column="2" Margin="20, 0, 0, 0"/>
+                <DatePicker Text="{Binding FinishDate}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Grid.Column="3" Margin="20, 0, 0, 0"/>
+                <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}" Grid.Column="4" Margin="20, 0, 0, 0">
+                    <ComboBoxItem Content="Alvaro Segura"/>
+                    <ComboBoxItem Content="Martin Salazar"/>
+                    <ComboBoxItem Content="Simon Calvario"/>
+                </ComboBox>
+            </Grid>
+        </DataTemplate>
+
+        <HierarchicalDataTemplate x:Key="GroupTemplate" ItemsSource="{Binding Path=Items}" ItemTemplate="{StaticResource TaskTemplate}">
+            <Grid Margin="0, 5, 0, 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition Width="200" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{Binding Name.GroupName}" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                <StackPanel Grid.Column="1" Margin="60, 0, 0, 0">
+                    <TextBlock Text="Duration" HorizontalAlignment="Center"/>
+                    <TextBlock Text="2" HorizontalAlignment="Center" />
+                </StackPanel>
+                <StackPanel Grid.Column="2" Margin="60, 0, 0, 0">
+                    <TextBlock Text="Start" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding Name.StartDate}" Width="70" />
+                </StackPanel>
+                <StackPanel Grid.Column="3" Margin="60, 0, 0, 0" >
+                    <TextBlock Text="Finish" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding Name.FinishDate}" Width="70" />
+                </StackPanel>
+                <TextBlock Text="Responsable" Grid.Column="4" HorizontalAlignment="Center"/>
+            </Grid>
+        </HierarchicalDataTemplate>
+        
+        
+        <Style TargetType="{x:Type TreeViewItem}" x:Key="ContainerStyle">
+            <Setter Property="ItemTemplate" Value="{StaticResource TaskTemplate}" />
+            <Setter Property="IsExpanded" Value="True" />
+            <Style.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="LightGray" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="LightGray" />
+            </Style.Resources>
+        </Style>
+
+    </Page.Resources>
+
+    <Grid Background="#FFEAE7E7">
+        <TabControl Style="{StaticResource TabControlPivotStyle}">
+            <TabItem Height="40" >
+                <TabItem.Header>
+                    <TextBlock Text="Part I" Foreground="Black" Margin="0,  0, 10, 0" />
+                </TabItem.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="General information" Style="{DynamicResource PageTitleStyle}" Grid.ColumnSpan="2" Margin="24,0,0,0" />
+                    <StackPanel Margin="30,0,0,0" Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2">
+                        <materialDesign:PackIcon Kind="AccountSupervisorCircle" Foreground="#FF3AA00A" VerticalAlignment="Center" Width="30" Height="30" Margin="0, 5, 10, 0"/>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="Customer name" Foreground="Black" Margin="0, 0, 0, 5"/>
+                            <ComboBox materialDesign:HintAssist.Hint="Select an option"
+                                      materialDesign:HintAssist.Foreground="White"
+                                      materialDesign:HintAssist.HintOpacity=".26"
+                                      Foreground="Black"
+                                      Width="350"
+                                      Style="{DynamicResource MaterialDesignFilledComboBox}"
+                                      IsEditable="True"
+                                      VerticalAlignment="Center">
+                                <ComboBoxItem Content="SENSATA" />
+                                <ComboBoxItem Content="MOTIVAIR" />
+                                <ComboBoxItem Content="TAILOS" />
+                                <ComboBoxItem Content="PEOPLE NET" />
+                            </ComboBox>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" Grid.Row="1" Grid.RowSpan="4" Margin="0,0,0,99">
+                        <TextBlock Text="New parts numbers" Style="{DynamicResource ListSubTitleStyle}" Margin="50, 0, 0, 0 "/>
+                        <materialDesign:Card Background="#FFD8D5D5" Margin="50, 10, 50, 0" MinHeight="200" MaxHeight="200">
+                            <Grid>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" >
+                                    <Button Command="{Binding AddCommand}" >
+                                        <materialDesign:PackIcon Kind="Add" Foreground="White" />
+                                    </Button>
+                                    <Button >
+                                        <materialDesign:PackIcon Kind="Delete" Foreground="White" />
+                                    </Button>
+                                </StackPanel>
+                                <ScrollViewer Margin="0, 40, 20, 0" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Visible">
+                                    <ItemsControl ItemsSource="{Binding Options}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid Margin="0, 0, 0, 10">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <materialDesign:PackIcon Kind="About" Margin="5, 0, 10, 0" VerticalAlignment="Center" Foreground="Green"/>
+                                                        <TextBox Width="200" Style="{DynamicResource MaterialDesignTextBox}"  materialDesign:TextFieldAssist.TextFieldCornerRadius="10" BorderBrush="Black" materialDesign:HintAssist.Hint="Enter the part number" Foreground="Black" Margin="0, 0, 10, 0"/>
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="20, 0, 0, 0">
+                                                        <materialDesign:PackIcon Kind="About" Margin="5, 0, 10, 0" VerticalAlignment="Center" Foreground="Green"/>
+                                                        <TextBox Width="200" Style="{DynamicResource MaterialDesignTextBox}" materialDesign:TextFieldAssist.TextFieldCornerRadius="10" BorderBrush="Black"  materialDesign:HintAssist.Hint="Enter the revision part" Foreground="Black" Margin="0, 0, 10, 0"/>
+                                                    </StackPanel>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </ScrollViewer>
+                            </Grid>
+                        </materialDesign:Card>
+                    </StackPanel>
+                    <Separator Grid.Row="1" VerticalAlignment="Bottom" Margin="40, 0, 20, 0" />
+                    <StackPanel Margin="30, 30, 0, 0" Orientation="Horizontal" Grid.Row="2" d:IsLocked="True" Grid.ColumnSpan="2">
+                        <Image Source="/Assets/cotizacion.png" VerticalAlignment="Center" Width="24" Height="24" Margin="0, 20, 15, 0"/>
+                        <TextBox materialDesign:HintAssist.Hint="Enter the quote number"
+                                materialDesign:HintAssist.Foreground="Black"
+                                materialDesign:HintAssist.HintOpacity=".26"
+                                Foreground="White"
+                                Width="350"
+                                ui:ControlHelper.Header="Quote number"
+                                ui:ControlHelper.CornerRadius="5"
+                                ui:ControlHelper.PlaceholderText="Enter the quote number"
+                                ui:ControlHelper.PlaceholderForeground="White"
+                                Background="#FF3AA00A"
+                                VerticalAlignment="Center" Cursor="Arrow">
+                        </TextBox>
+                    </StackPanel>
+                    <StackPanel Margin="25,30,0,99" Orientation="Horizontal" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="2" >
+                        <Button VerticalAlignment="Center" Width="42" Height="42" Margin="0, 10, 0, 0" Background="Transparent">
+                            <materialDesign:PackIcon Kind="Paperclip" Foreground="#FF3AA00A" VerticalAlignment="Stretch" Width="24" Height="24" />
+                        </Button>
+                        <TextBlock Text="Attach the quote file" VerticalAlignment="Center" Margin="10, 10, 0, 0"/>
+                    </StackPanel>
+                    <Separator Grid.Row="4" VerticalAlignment="Top" Margin="40, 40, 0, 0"/>
+                    <ui:SimpleStackPanel Grid.Row="3" Grid.Column="2"   Grid.RowSpan="3" Orientation="Horizontal" Spacing="20" Margin="40,70,40,70">
+                        <materialDesign:Card Background="#FFD8D5D5" Width="150" Margin="20, 0, 0, 0" UniformCornerRadius="10" >
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="MapMarker" Foreground="#FF3AA00A" VerticalAlignment="Center" Margin="10, 20, 0, 0" Width="20" Height="20" />
+                                    <TextBlock Text="MFR Location" FontSize="13" FontWeight="Bold" Margin="2, 22, 0, 0" />
+                                </StackPanel>
+                                <RadioButton Content="MX" IsChecked="{Binding MultiOn}" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="20, 10, 0, 0"/>
+                                <RadioButton Content="PA" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="20, 10, 0, 0" IsChecked="{Binding SingleOn}"/>
+                                <RadioButton Content="BK" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="20, 10, 0, 0" IsChecked="{Binding SingleOn}"/>
+                            </StackPanel>
+                        </materialDesign:Card>
+                        <materialDesign:Card Background="#FFD8D5D5" Width="150" UniformCornerRadius="10">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image  VerticalAlignment="Center" Margin="10, 20, 0, 0" Width="16" Height="16" Source="/Assets/fabrica.png" />
+                                    <TextBlock Text="Type of industry" FontSize="13" FontWeight="Bold" Margin="8, 22, 0, 0" />
+                                </StackPanel>
+                                <RadioButton Content="Auto" IsChecked="{Binding MultiOn}" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="20, 10, 0, 0"/>
+                                <RadioButton Content="Industrial" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="20, 10, 0, 0" IsChecked="{Binding SingleOn}"/>
+                            </StackPanel>
+                        </materialDesign:Card>
+                    </ui:SimpleStackPanel>
+                    <StackPanel Margin="30, 20, 0, 0" Orientation="Horizontal" Grid.Row="4" Grid.RowSpan="2" d:IsLocked="True" Grid.ColumnSpan="2">
+                        <materialDesign:PackIcon Kind="FileLink" Foreground="Green" VerticalAlignment="Center" Width="30" Height="30" Margin="0, 20, 15, 0"/>
+                        <TextBox materialDesign:HintAssist.Hint="Enter the quote number"
+                                materialDesign:HintAssist.Foreground="Black"
+                                materialDesign:HintAssist.HintOpacity=".26"
+                                Foreground="White"
+                                Width="350"
+                                ui:ControlHelper.Header="Project path"
+                                ui:ControlHelper.CornerRadius="5"
+                                ui:ControlHelper.PlaceholderText="Select the project folder"
+                                ui:ControlHelper.PlaceholderForeground="White"
+                                Background="#FF3AA00A"
+                                VerticalAlignment="Center" Cursor="Arrow">
+                        </TextBox>
+                    </StackPanel>
+                    <Button Grid.Column="2" Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="Transparent">
+                        <materialDesign:PackIcon Kind="ArrowRightBoldBox" Width="34" Height="34" Foreground="Green"/>
+                    </Button>
+                </Grid>
+            </TabItem>
+            <TabItem Height="40" Margin="0, 0, 10, 0">
+                <TabItem.Header>
+                    <TextBlock Text="Part II" Foreground="Black" />
+                </TabItem.Header >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Specific information" Style="{DynamicResource PageTitleStyle}" Grid.ColumnSpan="3" Margin="24,0,0,0" />
+                    <StackPanel Margin="2,0,0,0" Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2" >
+                        <materialDesign:PackIcon Kind="AccountBox" Foreground="#FF3AA00A" VerticalAlignment="Center" Width="38" Height="38" Margin="0, 0, 10, 10"/>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="Project manager" Foreground="Black" Margin="0, 0, 0, 5"/>
+                            <ComboBox materialDesign:HintAssist.Hint="Select an option"
+                                      materialDesign:HintAssist.Foreground="White"
+                                      materialDesign:HintAssist.HintOpacity=".26"
+                                      Foreground="Black"
+                                      Width="350"
+                                      Style="{DynamicResource MaterialDesignFilledComboBox}"
+                                      IsEditable="True"
+                                      VerticalAlignment="Center">
+                                <ComboBoxItem Content="Alejandra Lizarez" />
+                                <ComboBoxItem Content="Daniel Sandoval" />
+                            </ComboBox>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Grid.Row="2" Grid.RowSpan="2"  Margin="7,0,0,0">
+                        <TextBlock Text="Team involved" Style="{DynamicResource ListSubTitleStyle}" Margin="50, 10, 0, 10 "/>
+                        <ui:ListView Margin="10, 0, 20 ,0" Background="#FFD8D5D5" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" IsSelectionEnabled="False" BorderThickness="0, 0, 0, 0" BorderBrush="Black"  Height="160">
+                            <ListViewItem>
+                                <StackPanel Orientation="Horizontal" Margin="10">
+                                    <materialDesign:PackIcon Kind="User" Width="32" Height="32" />
+                                    <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="10, 0, 0, 0">
+                                        <TextBlock Text="Alberto Torres"/>
+                                        <TextBlock Text="NPI" Foreground="Green"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </ListViewItem>
+                        </ui:ListView>
+                    </StackPanel>
+                    <StackPanel Grid.Row="2" Grid.Column="1" Grid.RowSpan="2">
+                        <TextBlock Text="Employees List" Margin="50, 10, 0, 10"/>
+                        <ui:ListView Background="#FFD8D5D5" Margin="30, 0, 0 ,0" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" IsSelectionEnabled="False" Height="160">
+                            <ListViewItem>
+                                <StackPanel Orientation="Horizontal" Margin="10">
+                                    <materialDesign:PackIcon Kind="User" Width="32" Height="32" />
+                                    <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="10, 0, 0, 0">
+                                        <TextBlock Text="Simón Alejandro Calvairo"/>
+                                        <TextBlock Text="Ingenieria" Foreground="Green"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </ListViewItem>
+                            <ListViewItem>
+                                <StackPanel Orientation="Horizontal" Margin="10">
+                                    <materialDesign:PackIcon Kind="User" Width="32" Height="32" />
+                                    <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="10, 0, 0, 0">
+                                        <TextBlock Text="Alvaro Segura"/>
+                                        <TextBlock Text="Gerencia" Foreground="Green"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </ListViewItem>
+                            <ListViewItem>
+                                <StackPanel Orientation="Horizontal" Margin="10">
+                                    <materialDesign:PackIcon Kind="User" Width="32" Height="32" />
+                                    <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="10, 0, 0, 0">
+                                        <TextBlock Text="Julio Barreto"/>
+                                        <TextBlock Text="Gerencia calidad" Foreground="Green"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </ListViewItem>
+                            <ListViewItem>
+                                <StackPanel Orientation="Horizontal" Margin="10">
+                                    <materialDesign:PackIcon Kind="User" Width="32" Height="32" />
+                                    <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="10, 0, 0, 0">
+                                        <TextBlock Text="Altair moscoso"/>
+                                        <TextBlock Text="Calidad" Foreground="Green"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </ListViewItem>
+                        </ui:ListView>
+                    </StackPanel>
+                    <ui:SimpleStackPanel Grid.Row="4"  Grid.RowSpan="2" Orientation="Horizontal" Spacing="20" Margin="2, 40 ,0, 10" >
+                        <materialDesign:Card Background="#FFD8D5D5" Width="170" Margin="20, 0, 0, 0" UniformCornerRadius="10" >
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Tools" Foreground="#FF3AA00A" VerticalAlignment="Center" Margin="10, 20, 0, 0" Width="20" Height="20" />
+                                    <TextBlock Text="New tooling nedeed?" FontSize="13" FontWeight="Bold" Margin="2, 22, 0, 0" />
+                                </StackPanel>
+                                <RadioButton Content="Yes" IsChecked="{Binding MultiOn}" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="20, 10, 0, 0"/>
+                                <RadioButton Content="No" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="20, 10, 0, 0" IsChecked="{Binding SingleOn}"/>
+                            </StackPanel>
+                        </materialDesign:Card>
+                        <materialDesign:Card Background="#FFD8D5D5" Width="220" UniformCornerRadius="10">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon  VerticalAlignment="Center" Margin="10, 20, 0, 0" Width="16" Height="16" Kind="FileDocumentMultiple" Foreground="Green"/>
+                                    <TextBlock Text="Additional Doc requirements" FontSize="13" FontWeight="Bold" Margin="8, 22, 0, 0" />
+                                </StackPanel>
+                                <RadioButton Content="PPAP" IsChecked="{Binding MultiOn}" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="20, 10, 0, 0"/>
+                                <RadioButton Content="FAIR" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="20, 10, 0, 0" IsChecked="{Binding SingleOn}"/>
+                                <RadioButton Content="Other" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="20, 10, 0, 0" IsChecked="{Binding SingleOn}"/>
+                            </StackPanel>
+                        </materialDesign:Card>
+                    </ui:SimpleStackPanel>
+                    <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal"  Margin="0,10,0,0" Grid.RowSpan="2" HorizontalAlignment="Center">
+                        <materialDesign:PackIcon Kind="Calendar" Width="38" Height="38" VerticalAlignment="Center" Margin="30, 20, 0, 0" Foreground="Green"/>
+                        <StackPanel VerticalAlignment="Center" Margin="10, 0, 0, 0">
+                            <TextBlock Text="Customer Needby"/>
+                            <DatePicker />
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Text="Part III"/>
+                </TabItem.Header>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Project Breakdown" Style="{DynamicResource PageTitleStyle}" Margin="24,0,0,0" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                        <Button Command="{Binding AddActivityCommand}" >
+                            <materialDesign:PackIcon Kind="Add" Foreground="White" />
+                        </Button>
+                        <Button >
+                            <materialDesign:PackIcon Kind="Delete" Foreground="White" />
+                        </Button>
+                    </StackPanel>
+                    <ScrollViewer Grid.Row="1" Grid.RowSpan="4" Margin="20, 0, 0, 0" HorizontalScrollBarVisibility="Visible">
+                        <TreeView x:Name="ProjectTask" ItemsSource="{Binding Path=CvsActivities.View.Groups}" ItemTemplate="{StaticResource GroupTemplate}" ItemContainerStyle="{StaticResource ContainerStyle}"   dd:DragDrop.IsDropTarget="True" dd:DragDrop.IsDragSource="True" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling">
+                            
+                        </TreeView>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Page>
