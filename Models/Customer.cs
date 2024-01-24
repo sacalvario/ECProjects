@@ -9,12 +9,12 @@ namespace ProjectManager.Models
     {
         public Customer()
         {
-            Numberparts = new HashSet<Numberpart>();
+            Projects = new HashSet<Project>();
         }
 
-        public int CustomerId { get; set; }
-        public string CustomerName { get; set; }
+        public int IdCustomer { get; set; }
+        public string Name { get; set; }
 
-        public virtual ICollection<Numberpart> Numberparts { get; set; }
+        public virtual ICollection<Project> Projects { get; set; }
     }
 }

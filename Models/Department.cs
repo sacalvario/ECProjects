@@ -12,8 +12,8 @@ namespace ProjectManager.Models
             Employees = new HashSet<Employee>();
         }
 
-        public int DepartmentId { get; set; }
-        public string DepartmentName { get; set; }
+        public int IdDepartment { get; set; }
+        public string Name { get; set; }
 
         public virtual ICollection<Employee> Employees { get; set; }
     }

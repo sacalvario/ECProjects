@@ -8,10 +8,10 @@ namespace ProjectManager.Services
 {
     public class LoginDataService : ILoginDataService
     {
-        private readonly EcnContext context = null;
+        private readonly projectsContext context = null;
         public LoginDataService()
         {
-            context = new EcnContext();
+            context = new projectsContext();
         }
 
         public bool Exist(string employeeid)
@@ -70,5 +70,6 @@ namespace ProjectManager.Services
 
             return user != null;
         }
+
     }
 }

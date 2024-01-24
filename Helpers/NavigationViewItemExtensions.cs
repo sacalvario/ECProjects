@@ -12,16 +12,7 @@ namespace ModernWpf.Controls
             return navigationViewItem != null
                 ? navigationViewItem.Tag.ToString() switch
                 {
-                    "History" => typeof(HistoryViewModel),
                     "FrontCapture" => typeof(FrontCaptureViewModel),
-                    "Records" => typeof(EcnRecordsViewModel),
-                    "Checklist" => typeof(ChecklistViewModel),
-                    "Approved" => typeof(ApprovedViewModel),
-                    "NumberPartHistory" => typeof(NumberPartHistoryViewModel),
-                    "Dashboard" => typeof(DashboardViewModel),
-                    "NumberParts" => typeof(NumberPartsPageViewModel),
-                    "Employees" => typeof(EmployeesPageViewModel),
-                    "Search" => typeof(SearchViewModel),
                     _ => null,
                 }
                 : null;

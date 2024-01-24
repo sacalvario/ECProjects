@@ -19,37 +19,14 @@ namespace ProjectManager.ViewModels
     public class ShellViewModel : ViewModelBase
     {
         private readonly INavigationService _navigationService;
-        private IEcnDataService _ecnDataService;
         private ILoginWindow _loginWindow;
         private NavigationViewItem _selectedMenuItem;
         private ICommand _menuItemInvokedCommand;
         private ICommand _signOutCommand;
 
-        public string Name => UserRecord.Employee.EmployeeFirstName + " " + UserRecord.Employee.EmployeeLastName;
-        public string Department => UserRecord.Employee.Department.DepartmentName;
+        public string Name => UserRecord.Employee.FirstName + " " + UserRecord.Employee.LastName;
+        public string Department => UserRecord.Employee.IdDepartamentNavigation.Name;
 
-        private bool _Holidays;
-        public bool Holidays
-        {
-            get => _Holidays;
-            set
-            {
-                if (_Holidays != value)
-                {
-                    _Holidays = value;
-                    RaisePropertyChanged("Holidays");
-
-                    if (_Holidays)
-                    {
-                        _ = _ecnDataService.SetHolidays(UserRecord.Employee);
-                    }
-                    else
-                    {
-                        _ = _ecnDataService.RemoveHolidays(UserRecord.Employee);
-                    }
-                }
-            }
-        }
 
         public NavigationViewItem SelectedMenuItem
         {
@@ -75,11 +52,9 @@ namespace ProjectManager.ViewModels
             }
         }
 
-        public ShellViewModel(INavigationService navigationService, IEcnDataService ecnDataService)
+        public ShellViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
-            _ecnDataService = ecnDataService;
-            Holidays = Convert.ToBoolean(UserRecord.Employee.EmployeeHolidays);
             
             if (UserRecord.Employee_ID == 3806)
             {

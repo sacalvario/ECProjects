@@ -1,63 +1,29 @@
-﻿using GalaSoft.MvvmLight;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Windows;
 
 #nullable disable
 
 namespace ProjectManager.Models
 {
-    public partial class Employee : ViewModelBase
+    public partial class Employee
     {
         public Employee()
         {
-            EcnRevisions = new HashSet<EcnRevision>();
-            Ecns = new HashSet<Ecn>();
+            ProjectIdGeneratedbyNavigations = new HashSet<Project>();
+            ProjectIdManagerNavigations = new HashSet<Project>();
+            ProjectTasks = new HashSet<ProjectTask>();
         }
 
-        public int EmployeeId { get; set; }
-        public string EmployeeLastName { get; set; }
-        public string EmployeeFirstName { get; set; }
-        public string EmployeeEmail { get; set; }
-        public int DepartmentId { get; set; }
-        public sbyte EmployeeHolidays { get; set; }
-        public string Name => EmployeeFirstName + " " + EmployeeLastName;
+        public int IdEmployee { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public int IdDepartament { get; set; }
 
-        private Visibility _IsInHolidaysVisibility = Visibility.Collapsed;
-        public Visibility IsInHolidaysVisibility
-        {
-            get
-            {
-                if (Convert.ToBoolean(EmployeeHolidays))
-                {
-                    _IsInHolidaysVisibility = Visibility.Visible;
-                }
-                else
-                {
-                    _IsInHolidaysVisibility = Visibility.Collapsed;
-                }
-
-                return _IsInHolidaysVisibility;
-            }
-        }
-
-        private int _Index;
-        public int Index
-        {
-            get => _Index;
-            set
-            {
-                if (_Index != value)
-                {
-                    _Index = value;
-                    RaisePropertyChanged("Index");
-                }
-            }
-        }
-
-        public virtual Department Department { get; set; }
+        public virtual Department IdDepartamentNavigation { get; set; }
         public virtual User User { get; set; }
-        public virtual ICollection<EcnRevision> EcnRevisions { get; set; }
-        public virtual ICollection<Ecn> Ecns { get; set; }
+        public virtual ICollection<Project> ProjectIdGeneratedbyNavigations { get; set; }
+        public virtual ICollection<Project> ProjectIdManagerNavigations { get; set; }
+        public virtual ICollection<ProjectTask> ProjectTasks { get; set; }
     }
 }

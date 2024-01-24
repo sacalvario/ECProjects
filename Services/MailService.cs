@@ -39,44 +39,44 @@ namespace ProjectManager.Services
             }
         }
 
-        public void SendCancelECN(string email, Ecn ecn, string generatorname)
-        {
-            MailMessage msg = new MailMessage();
-            SmtpClient client = new SmtpClient("smtp-mail.outlook.com");
+        //public void SendCancelECN(string email, Ecn ecn, string generatorname)
+        //{
+        //    MailMessage msg = new MailMessage();
+        //    SmtpClient client = new SmtpClient("smtp-mail.outlook.com");
 
-            msg.From = new MailAddress("ecnsystem@outlook.com");
+        //    msg.From = new MailAddress("ecnsystem@outlook.com");
 
-            if (ecn.Employee.EmployeeId == UserRecord.Employee_ID)
-            {
-                msg.To.Add("controldedocumentos@electri-cord.com.mx");
-                msg.CC.Add(email);
-                msg.Body = "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:12pt'>Hola<strong><span style='color:black'> Control de documentos! </span></strong></span></span></p>" +
-              "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:16px'> El <span style='color:#ff0000'><strong> ECN </strong></span> con folio <span style='color:#ff0000'><strong> " + ecn.Id + " </strong></span> generado por <span ><strong>" + generatorname + "</strong></span> ha sido <span style='color:#ff0000'><strong> cancelado </strong></span></span></span></p>";
-            }
-            else
-            {
-                msg.To.Add(email);
-                msg.CC.Add("controldedocumentos@electri-cord.com.mx");
-                msg.Body = "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:12pt'>Hola<strong><span style='color:black'> " + generatorname + "! </span></strong></span></span></p>" +
-              "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:16px'> El <span style='color:#ff0000'><strong> ECN </strong></span> con folio <span style='color:#ff0000'><strong> " + ecn.Id + " </strong></span> generado por ti, ha sido <span style='color:#ff0000'><strong> cancelado </strong></span> por control de documentos.</span></span></p>";
-            }
+        //    if (ecn.Employee.EmployeeId == UserRecord.Employee_ID)
+        //    {
+        //        msg.To.Add("controldedocumentos@electri-cord.com.mx");
+        //        msg.CC.Add(email);
+        //        msg.Body = "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:12pt'>Hola<strong><span style='color:black'> Control de documentos! </span></strong></span></span></p>" +
+        //      "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:16px'> El <span style='color:#ff0000'><strong> ECN </strong></span> con folio <span style='color:#ff0000'><strong> " + ecn.Id + " </strong></span> generado por <span ><strong>" + generatorname + "</strong></span> ha sido <span style='color:#ff0000'><strong> cancelado </strong></span></span></span></p>";
+        //    }
+        //    else
+        //    {
+        //        msg.To.Add(email);
+        //        msg.CC.Add("controldedocumentos@electri-cord.com.mx");
+        //        msg.Body = "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:12pt'>Hola<strong><span style='color:black'> " + generatorname + "! </span></strong></span></span></p>" +
+        //      "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:16px'> El <span style='color:#ff0000'><strong> ECN </strong></span> con folio <span style='color:#ff0000'><strong> " + ecn.Id + " </strong></span> generado por ti, ha sido <span style='color:#ff0000'><strong> cancelado </strong></span> por control de documentos.</span></span></p>";
+        //    }
 
-            msg.Subject = "ECN Cancelado!";
-            msg.IsBodyHtml = true;
+        //    msg.Subject = "ECN Cancelado!";
+        //    msg.IsBodyHtml = true;
 
-            client.Port = 587;
-            client.Credentials = new NetworkCredential("ecnsystem@outlook.com", "ecmx-ecn");
-            client.EnableSsl = true;
+        //    client.Port = 587;
+        //    client.Credentials = new NetworkCredential("ecnsystem@outlook.com", "ecmx-ecn");
+        //    client.EnableSsl = true;
 
-            try
-            {
-                client.Send(msg);
-            }
-            catch
-            {
-                return;
-            }
-        }
+        //    try
+        //    {
+        //        client.Send(msg);
+        //    }
+        //    catch
+        //    {
+        //        return;
+        //    }
+        //}
 
         public void SendCloseECN(string email, int id, string generatorname)
         {
@@ -136,40 +136,45 @@ namespace ProjectManager.Services
             }
         }
 
-        public void SendEmail(List<string> emails, int id)
+        public void SendEmail(List<string> email, int id)
         {
-            MailMessage msg = new MailMessage();
-            SmtpClient client = new SmtpClient("smtp-mail.outlook.com");
-
-            msg.From = new MailAddress("ecnsystem@outlook.com");
-
-            foreach (var item in emails)
-            {
-                msg.To.Add(item);
-            }
-
-            msg.CC.Add(UserRecord.Employee.EmployeeEmail);
-
-            msg.Subject = "Nuevo ECN!";
-            msg.Body = "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:12pt'>Hola</span></span></p>" +
-              "<p><span style = 'font-family:Verdana,Geneva,sans-serif'><span style = 'font-size:12pt'> Se ha generado un nuevo<strong><span style = 'color:red'> ECN </span ></strong> con el folio<strong><span style = 'color:red'> " + id + " </span></strong></span></span></p>" +
-              "<p><span style = 'font-family:Verdana,Geneva,sans-serif'><span style = 'font-size:12pt'> Generado por<strong><span style = 'color:#0066cc'> " + UserRecord.Employee.Name + "</span></strong><span style = 'color:black'>.</span ></strong></span></span></p> ";
-
-            msg.IsBodyHtml = true;
-
-            client.Port = 587;
-            client.Credentials = new NetworkCredential("ecnsystem@outlook.com", "ecmx-ecn");
-            client.EnableSsl = true;
-
-            try
-            {
-                client.Send(msg);
-            }
-            catch
-            {
-                return;
-            }
+            throw new System.NotImplementedException();
         }
+
+        //public void SendEmail(List<string> emails, int id)
+        //{
+        //    MailMessage msg = new MailMessage();
+        //    SmtpClient client = new SmtpClient("smtp-mail.outlook.com");
+
+        //    msg.From = new MailAddress("ecnsystem@outlook.com");
+
+        //    foreach (var item in emails)
+        //    {
+        //        msg.To.Add(item);
+        //    }
+
+        //    msg.CC.Add(UserRecord.Employee.EmployeeEmail);
+
+        //    msg.Subject = "Nuevo ECN!";
+        //    msg.Body = "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:12pt'>Hola</span></span></p>" +
+        //      "<p><span style = 'font-family:Verdana,Geneva,sans-serif'><span style = 'font-size:12pt'> Se ha generado un nuevo<strong><span style = 'color:red'> ECN </span ></strong> con el folio<strong><span style = 'color:red'> " + id + " </span></strong></span></span></p>" +
+        //      "<p><span style = 'font-family:Verdana,Geneva,sans-serif'><span style = 'font-size:12pt'> Generado por<strong><span style = 'color:#0066cc'> " + UserRecord.Employee.Name + "</span></strong><span style = 'color:black'>.</span ></strong></span></span></p> ";
+
+        //    msg.IsBodyHtml = true;
+
+        //    client.Port = 587;
+        //    client.Credentials = new NetworkCredential("ecnsystem@outlook.com", "ecmx-ecn");
+        //    client.EnableSsl = true;
+
+        //    try
+        //    {
+        //        client.Send(msg);
+        //    }
+        //    catch
+        //    {
+        //        return;
+        //    }
+        //}
 
         public void SendRefuseECNEmail(string email, int id, string signedname, string generatorname)
         {

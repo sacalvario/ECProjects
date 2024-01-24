@@ -19,16 +19,16 @@ namespace ProjectManager.ViewModels
     public class LoginViewModel : ViewModelBase, INavigationAware
     {
         private readonly ILoginDataService _loginService;
-        private readonly IEcnDataService _ecnDataService;
+        private readonly IProjectsDataService _projectsDataService;
         private readonly INavigationService _navigationService;
         private readonly IWindowManagerService _windowManagerService;
         private IShellWindow _shellWindow;
         private ILoginWindow _loginWindow;
 
-        public LoginViewModel(ILoginDataService loginDataService, IEcnDataService ecnDataService, INavigationService navigationService, IWindowManagerService windowManagerService)
+        public LoginViewModel(ILoginDataService loginDataService, IProjectsDataService projectsDataService, INavigationService navigationService, IWindowManagerService windowManagerService)
         {
             _loginService = loginDataService;
-            _ecnDataService = ecnDataService;
+            _projectsDataService = projectsDataService;
             _navigationService = navigationService;
             _windowManagerService = windowManagerService;
         }
@@ -99,11 +99,11 @@ namespace ProjectManager.ViewModels
 
                 User user = _loginService.Login(Username, pass);
 
-                await Task.CompletedTask;
+                await System.Threading.Tasks.Task.CompletedTask;
 
                 if (user != null)
                 {
-                    Employee emp = await _ecnDataService.GetEmployeeAsync(user.EmployeeId);
+                    Employee emp = await _projectsDataService.GetEmployeeAsync(user.EmployeeId);
                     user.Employee = emp;
 
                     UserRecord.Employee = user.Employee;
@@ -120,7 +120,7 @@ namespace ProjectManager.ViewModels
                         _navigationService.Initialize(_shellWindow.GetNavigationFrame());
                         _shellWindow.ShowWindow();
                         _navigationService.NavigateTo(typeof(FrontCaptureViewModel).FullName);
-                        await Task.CompletedTask;
+                        await System.Threading.Tasks.Task.CompletedTask;
                     }
                 }
                 else
