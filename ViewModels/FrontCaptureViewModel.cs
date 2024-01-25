@@ -27,69 +27,173 @@ namespace ProjectManager.ViewModels
         private ICommand _navigateBasicFormatCommand;
         public ICommand NavigateToBasicCommand => _navigateBasicFormatCommand ??= new RelayCommand(NavigateToBasicFormat);
 
-
-        private bool _MultiOn = false;
-        public bool MultiOn
+        private int _Points;
+        public int Points
         {
-            get => _MultiOn;
+            get => _Points;
             set
             {
-                if (_MultiOn != value)
+                if (_Points != value)
                 {
-                    _MultiOn = value;
-                    RaisePropertyChanged("MultiOn");
-
-                    if (_MultiOn)
-                    {
-                        MultiEnsambleVisibility = Visibility.Visible;
-                        SingleEnsambleVisibility = Visibility.Collapsed;
-                    }
-                    else
-                    {
-                        SingleEnsambleVisibility = Visibility.Visible;
-                        MultiEnsambleVisibility = Visibility.Collapsed;
-                    }
+                    _Points = value;
+                    RaisePropertyChanged("Points");
                 }
             }
         }
 
-        private bool _SingleOn = false;
-        public bool SingleOn
+        private bool _NewCustomer = false;
+        public bool NewCustomer
         {
-            get => _SingleOn;
+            get => _NewCustomer;
             set
             {
-                if (_SingleOn != value)
+                if (_NewCustomer != value)
                 {
-                    _SingleOn = value;
-                    RaisePropertyChanged("SingleOn");
+                    if (_NewCustomer)
+                    {
+                        Points++;
+                    }
+                    else if (Points > 0)
+                    {
+                        Points--;
+                    }
 
-                    if (_SingleOn)
-                    {
-                        MultiEnsambleVisibility = Visibility.Collapsed;
-                        SingleEnsambleVisibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        SingleEnsambleVisibility = Visibility.Collapsed;
-                        MultiEnsambleVisibility = Visibility.Visible;
-                    }
+                    _NewCustomer = value;
+                    RaisePropertyChanged("NewCustomer");
                 }
             }
         }
 
-        private bool _MoreThanTen;
-        public bool MoreThanTen
+        private int _AssemblyQuantity;
+        public int AssemblyQuantity
         {
-            get => _MoreThanTen;
+            get => _AssemblyQuantity;
             set
             {
-                if (_MoreThanTen != value)
+                if (_AssemblyQuantity != value)
                 {
-                    _MoreThanTen = value;
-                    RaisePropertyChanged("MoreThanTen");
+                    if (_AssemblyQuantity > 9 && _AssemblyQuantity < 20)
+                    {
+                        Points++;
+                    }
+                    else if (_AssemblyQuantity > 20)
+                    {
+                        Points += 2;
+                    }
+                    _AssemblyQuantity = value;
+                    RaisePropertyChanged("AssemblyQuantity");
+                }
+            }
+        }
 
-                    
+        private bool _CustomerDrawingAvailable;
+        public bool CustomerDrawingAvailable
+        {
+            get => _CustomerDrawingAvailable;
+            set
+            {
+                if (_CustomerDrawingAvailable != value)
+                {
+                    _CustomerDrawingAvailable = value;
+                    RaisePropertyChanged("CustomerDrawingAvailable");
+                }
+            }
+        }
+
+        private string _NewRawMaterialQty;
+        public string NewRawMaterialQty
+        {
+            get => _NewRawMaterialQty;
+            set
+            {
+                if (_NewRawMaterialQty != value)
+                {
+                    _NewRawMaterialQty = value;
+                    RaisePropertyChanged("NewRawMaterialQty");
+                }
+            }
+        }
+
+        private bool _NewTooling;
+        public bool NewTooling
+        {
+            get => _NewTooling;
+            set
+            {
+                if (_NewTooling != value)
+                {
+                    _NewTooling = value;
+                    RaisePropertyChanged("NewTooling");
+                }
+            }
+        }
+
+        private bool _TestingBoard;
+        public bool TestingBoard
+        {
+            get => _TestingBoard;
+            set
+            {
+                if (_TestingBoard != value)
+                {
+                    _TestingBoard = value;
+                    RaisePropertyChanged("TestingBoard");
+                }
+            }
+        }
+
+        private bool _RoutingBoard;
+        public bool RoutingBoard
+        {
+            get => _RoutingBoard;
+            set
+            {
+                if (_RoutingBoard != value)
+                {
+                    _RoutingBoard = value;
+                    RaisePropertyChanged("RoutingBoard");
+                }
+            }
+        }
+
+        private bool _NewMachine;
+        public bool NewMachine
+        {
+            get => _NewMachine;
+            set
+            {
+                if (_NewMachine != value)
+                {
+                    _NewMachine = value;
+                    RaisePropertyChanged("NewMachine");
+                }
+            }
+        }
+
+        private bool _NewMold;
+        public bool NewMold
+        {
+            get => _NewMold;
+            set
+            {
+                if (_NewMold != value)
+                {
+                    _NewMold = value;
+                    RaisePropertyChanged("NewMold");
+                }
+            }
+        }
+
+        private string _CrimpApplication;
+        public string CrimpApplication
+        {
+            get => _CrimpApplication;
+            set
+            {
+                if (_CrimpApplication != value)
+                {
+                    _CrimpApplication = value;
+                    RaisePropertyChanged("CrimpApplication");
                 }
             }
         }
@@ -104,137 +208,6 @@ namespace ProjectManager.ViewModels
                 {
                     _SingleMoreThanTen = value;
                     RaisePropertyChanged("SingleMoreThanTen");
-                }
-            }
-        }
-
-        private bool _VariationExisting = false;
-        public bool VariationExisting
-        {
-            get => _VariationExisting;
-            set
-            {
-                if (_VariationExisting != value)
-                {
-                    _VariationExisting = value;
-                    RaisePropertyChanged("VariationExisting");
-
-                    if (_VariationExisting)
-                    {
-                        ItemsVisibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        ItemsVisibility = Visibility.Collapsed;
-                    }
-                }
-            }
-        }
-
-        private bool _NewCustomer = false;
-        public bool NewCustomer
-        {
-            get => _NewCustomer;
-            set
-            {
-                if (_NewCustomer != value)
-                {
-                    _NewCustomer = value;
-                    RaisePropertyChanged("NewCustomer");
-
-                    if (!_NewCustomer)
-                    {
-                        VariationExistingVisibility = Visibility.Visible;
-                        ItemsVisibility = Visibility.Collapsed;
-
-                    }
-                    else
-                    {
-                        VariationExistingVisibility = Visibility.Collapsed;
-                        ItemsVisibility = Visibility.Visible;
-                    }
-                }
-            }
-        }
-
-        private bool _NewCustomerOff = false;
-        public bool NewCustomerOff
-        {
-            get => _NewCustomerOff;
-            set
-            {
-                if (_NewCustomerOff != value)
-                {
-                    _NewCustomerOff = value;
-                    RaisePropertyChanged("NewCustomerOff");
-
-                    if (!_NewCustomerOff)
-                    {
-                        VariationExistingVisibility = Visibility.Collapsed;
-                        ItemsVisibility = Visibility.Visible;
-
-                    }
-                    else
-                    {
-                        VariationExistingVisibility = Visibility.Visible;
-                        ItemsVisibility = Visibility.Collapsed;
-                    }
-                }
-            }
-        }
-
-        private Visibility _MultiEnsambleVisibility = Visibility.Collapsed;
-        public Visibility MultiEnsambleVisibility
-        {
-            get => _MultiEnsambleVisibility;
-            set
-            {
-                if (_MultiEnsambleVisibility != value)
-                {
-                    _MultiEnsambleVisibility = value;
-                    RaisePropertyChanged("MultiEnsambleVisibility");
-                }
-            }
-        }
-
-        private Visibility _SingleEnsambleVisibility = Visibility.Collapsed;
-        public Visibility SingleEnsambleVisibility
-        {
-            get => _SingleEnsambleVisibility;
-            set
-            {
-                if (_SingleEnsambleVisibility != value)
-                {
-                    _SingleEnsambleVisibility = value;
-                    RaisePropertyChanged("SingleEnsambleVisibility");
-                }
-            }
-        }
-
-        private Visibility _ItemsVisibility = Visibility.Collapsed;
-        public Visibility ItemsVisibility
-        {
-            get => _ItemsVisibility;
-            set
-            {
-                if (_ItemsVisibility != value)
-                {
-                    _ItemsVisibility = value;
-                    RaisePropertyChanged("ItemsVisibility");
-                }
-            }
-        }
-
-        private Visibility _VariationExistingVisibility = Visibility.Collapsed;
-        public Visibility VariationExistingVisibility
-        {
-            get => _VariationExistingVisibility;
-            set
-            {
-                if (_VariationExistingVisibility != value)
-                {
-                    _VariationExistingVisibility = value;
-                    RaisePropertyChanged("VariationExistingVisibility");
                 }
             }
         }
