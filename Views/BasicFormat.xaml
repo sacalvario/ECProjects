@@ -129,7 +129,7 @@
                         </Button>
                     </StackPanel>
                     <ScrollViewer Grid.Row="1" Grid.RowSpan="4" Margin="20, 0, 0, 0" HorizontalScrollBarVisibility="Visible">
-                        <ItemsControl ItemsSource="{Binding Activities}" >
+                        <ItemsControl ItemsSource="{Binding Project.ProjectTasks}" >
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Grid Margin="0, 0, 0, 40">
@@ -146,16 +146,16 @@
                                         </Grid.RowDefinitions>
                                         <TextBlock FontWeight="Black" FontSize="16" Margin="0, 0, 0, 10">
                                             <Run Text="Activity "/>
-                                            <Run Text="{Binding ActivityId}"/>
+                                            <Run Text="{Binding IdTaskNavigation.IdTask}"/>
                                         </TextBlock>
                                         <StackPanel Orientation="Horizontal" Grid.Row="1">
                                             <materialDesign:PackIcon Kind="LocalActivity" Margin="5, 0, 10, 0" VerticalAlignment="Center" Foreground="Green"/>
-                                            <TextBlock Width="200" Text="{Binding ActivityName}" FontSize="16
+                                            <TextBlock Width="200" Text="{Binding IdTaskNavigation.Name}" FontSize="16
                                                        " VerticalAlignment="Center" Foreground="Black" Margin="0, 0, 10, 0"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="20, 0, 0, 0"  Grid.Row="1">
                                             <materialDesign:PackIcon Kind="Counter" Margin="5, 0, 10, 0" VerticalAlignment="Center" Foreground="Green"/>
-                                            <TextBox Width="200" Text="{Binding ActivityDuration}" Style="{DynamicResource MaterialDesignTextBox}" materialDesign:TextFieldAssist.TextFieldCornerRadius="10" BorderBrush="Black"  materialDesign:HintAssist.Hint="Enter duration (days)" Foreground="Black" Margin="0, 0, 10, 0"/>
+                                            <TextBox Width="200" Text="{Binding Duration}" Style="{DynamicResource MaterialDesignTextBox}" materialDesign:TextFieldAssist.TextFieldCornerRadius="10" BorderBrush="Black"  materialDesign:HintAssist.Hint="Enter duration (days)" Foreground="Black" Margin="0, 0, 10, 0"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="10, 0, 0, 0"  Grid.Row="1">
                                             <materialDesign:PackIcon Kind="Calendar" Margin="5, 0, 10, 0" VerticalAlignment="Center" Foreground="Green"/>
@@ -163,7 +163,7 @@
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" Grid.Column="3" Margin="10, 0, 0, 0"  Grid.Row="1">
                                             <materialDesign:PackIcon Kind="Calendar" Margin="5, 0, 10, 0" VerticalAlignment="Center" Foreground="Green"/>
-                                            <DatePicker Width="180" SelectedDate="{Binding FinishDate}"  BorderBrush="Black"  materialDesign:HintAssist.Hint="Select the finish day" Foreground="Black" Margin="0, 0, 0, 0"/>
+                                            <DatePicker Width="180" SelectedDate="{Binding EndDate}"  BorderBrush="Black"  materialDesign:HintAssist.Hint="Select the finish day" Foreground="Black" Margin="0, 0, 0, 0"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" Grid.Column="4" Margin="20, 0, 0, 0" Grid.Row="1">
                                             <materialDesign:PackIcon Kind="User" Margin="5, 0, 10, 0" VerticalAlignment="Center" Foreground="Green"/>

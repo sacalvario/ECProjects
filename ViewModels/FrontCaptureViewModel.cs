@@ -76,9 +76,16 @@ namespace ProjectManager.ViewModels
                     {
                         Points++;
                     }
-                    else if (_AssemblyQuantity > 20)
+                    else if (_AssemblyQuantity >= 20)
                     {
                         Points += 2;
+                    }
+                    else if (_AssemblyQuantity <= 9 )
+                    {
+                        if (Points > 0)
+                        {
+                            Points--;
+                        }
                     }
                     _AssemblyQuantity = value;
                     RaisePropertyChanged("AssemblyQuantity");
@@ -86,7 +93,7 @@ namespace ProjectManager.ViewModels
             }
         }
 
-        private bool _CustomerDrawingAvailable;
+        private bool _CustomerDrawingAvailable = false;
         public bool CustomerDrawingAvailable
         {
             get => _CustomerDrawingAvailable;
@@ -94,27 +101,54 @@ namespace ProjectManager.ViewModels
             {
                 if (_CustomerDrawingAvailable != value)
                 {
+                    if (_CustomerDrawingAvailable)
+                    {
+                        if (Points > 0)
+                        {
+                            Points--;
+                        }
+                    }
+                    else
+                    {
+                        Points++;
+                    }
                     _CustomerDrawingAvailable = value;
                     RaisePropertyChanged("CustomerDrawingAvailable");
                 }
             }
         }
 
-        private string _NewRawMaterialQty;
-        public string NewRawMaterialQty
+        private int _NewRawMaterialQty;
+        public int NewRawMaterialQty
         {
             get => _NewRawMaterialQty;
             set
             {
                 if (_NewRawMaterialQty != value)
                 {
-                    _NewRawMaterialQty = value;
+                    if (_NewRawMaterialQty > 15 && _NewRawMaterialQty < 41)
+                    {
+                        Points++;
+                    }
+                    else if (_NewRawMaterialQty > 40)
+                    {
+                        Points += 2;
+                    }
+                    else if (_NewRawMaterialQty <= 15)
+                    {
+                        if (Points > 0)
+                        {
+                            Points--;
+                        }
+                    }
+
+                        _NewRawMaterialQty = value;
                     RaisePropertyChanged("NewRawMaterialQty");
                 }
             }
         }
 
-        private bool _NewTooling;
+        private bool _NewTooling = false;
         public bool NewTooling
         {
             get => _NewTooling;
@@ -122,13 +156,23 @@ namespace ProjectManager.ViewModels
             {
                 if (_NewTooling != value)
                 {
+
+                    if (_NewTooling)
+                    {
+                        Points++;
+                    }
+                    else if (Points > 0)
+                    {
+                        Points--;
+                    }
+
                     _NewTooling = value;
                     RaisePropertyChanged("NewTooling");
                 }
             }
         }
 
-        private bool _TestingBoard;
+        private bool _TestingBoard = false;
         public bool TestingBoard
         {
             get => _TestingBoard;
@@ -136,13 +180,23 @@ namespace ProjectManager.ViewModels
             {
                 if (_TestingBoard != value)
                 {
+
+                    if (_TestingBoard)
+                    {
+                        Points++;
+                    }
+                    else if (Points > 0)
+                    {
+                        Points--;
+                    }
+
                     _TestingBoard = value;
                     RaisePropertyChanged("TestingBoard");
                 }
             }
         }
 
-        private bool _RoutingBoard;
+        private bool _RoutingBoard = false;
         public bool RoutingBoard
         {
             get => _RoutingBoard;
@@ -150,13 +204,21 @@ namespace ProjectManager.ViewModels
             {
                 if (_RoutingBoard != value)
                 {
+                    if (_RoutingBoard)
+                    {
+                        Points++;
+                    }
+                    else if (Points > 0)
+                    {
+                        Points--;
+                    }
                     _RoutingBoard = value;
                     RaisePropertyChanged("RoutingBoard");
                 }
             }
         }
 
-        private bool _NewMachine;
+        private bool _NewMachine = false;
         public bool NewMachine
         {
             get => _NewMachine;
@@ -164,13 +226,23 @@ namespace ProjectManager.ViewModels
             {
                 if (_NewMachine != value)
                 {
+
+                    if (_NewMachine)
+                    {
+                        Points++;
+                    }
+                    else if (Points > 0)
+                    {
+                        Points--;
+                    }
+
                     _NewMachine = value;
                     RaisePropertyChanged("NewMachine");
                 }
             }
         }
 
-        private bool _NewMold;
+        private bool _NewMold = false;
         public bool NewMold
         {
             get => _NewMold;
@@ -178,20 +250,44 @@ namespace ProjectManager.ViewModels
             {
                 if (_NewMold != value)
                 {
+                    if (_NewMold)
+                    {
+                        Points++;
+                    }
+                    else if (Points > 0)
+                    {
+                        Points--;
+                    }
+
                     _NewMold = value;
                     RaisePropertyChanged("NewMold");
                 }
             }
         }
 
-        private string _CrimpApplication;
-        public string CrimpApplication
+        private int _CrimpApplication;
+        public int CrimpApplication
         {
             get => _CrimpApplication;
             set
             {
                 if (_CrimpApplication != value)
                 {
+                    if (_CrimpApplication > 2 && _CrimpApplication < 8)
+                    {
+                        Points++;
+                    }
+                    else if (_CrimpApplication > 7)
+                    {
+                        Points += 2;
+                    }
+                    else if (_CrimpApplication < 3)
+                    {
+                        if (Points > 0)
+                        {
+                            Points--;
+                        }
+                    }
                     _CrimpApplication = value;
                     RaisePropertyChanged("CrimpApplication");
                 }
@@ -218,11 +314,13 @@ namespace ProjectManager.ViewModels
             _windowManagerService = windowManagerService;
             _navigationService = navigationService;
 
+            Points = new int();
+
         }
 
         private void NavigateToBasicFormat()
         {
-             _navigationService.NavigateTo(typeof(BasicFormatViewModel).FullName);
+             _navigationService.NavigateTo(typeof(BasicFormatViewModel).FullName, Points+10);
         }
 
         public void OnNavigatedTo(object parameter)

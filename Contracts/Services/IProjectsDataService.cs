@@ -9,5 +9,6 @@ namespace ProjectManager.Contracts.Services
     public interface IProjectsDataService
     {
         Task<Employee> GetEmployeeAsync(int id);
+        Task<IEnumerable<ProjectManager.Models.Task>> GetTasksAsync();
     }
 }
