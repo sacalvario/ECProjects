@@ -19,6 +19,9 @@ namespace ProjectManager.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public int IdDepartament { get; set; }
+        public sbyte Active { get; set; }
+
+        public string Name => FirstName + " " + LastName;
 
         public virtual Department IdDepartamentNavigation { get; set; }
         public virtual User User { get; set; }

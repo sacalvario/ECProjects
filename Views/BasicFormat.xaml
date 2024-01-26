@@ -17,7 +17,7 @@
                 <TabItem.Header>
                     <TextBlock Text="Part I" Foreground="Black" Margin="0,  0, 10, 0" />
                 </TabItem.Header>
-                <Grid>
+                <Grid Margin="50,0,-50,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*"/>
@@ -39,15 +39,14 @@
                                       materialDesign:HintAssist.Foreground="White"
                                       materialDesign:HintAssist.HintOpacity=".26"
                                       Foreground="Black"
+                                      ItemsSource="{Binding Customers}"
+                                      SelectedItem="{Binding Project.IdCustomerNavigation}"
                                       Width="350"
+                                      SelectedValuePath="IdCustomer"
+                                      DisplayMemberPath="Name"
                                       Style="{DynamicResource MaterialDesignFilledComboBox}"
                                       IsEditable="True"
-                                      VerticalAlignment="Center">
-                                <ComboBoxItem Content="SENSATA" />
-                                <ComboBoxItem Content="MOTIVAIR" />
-                                <ComboBoxItem Content="TAILOS" />
-                                <ComboBoxItem Content="PEOPLE NET" />
-                            </ComboBox>
+                                      VerticalAlignment="Center" />
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Grid.Column="1" Grid.Row="1" Margin="30, 0, 0, 0" Orientation="Horizontal">
@@ -56,6 +55,7 @@
                                       materialDesign:HintAssist.Foreground="White"
                                       materialDesign:HintAssist.HintOpacity=".26"
                                       Foreground="Black"
+                                 Text="{Binding Project.TotalAssembliesInProject}"
                                  Margin="10, 0, 0, 0"
                                       Width="350"
                                       Style="{DynamicResource MaterialDesignFilledTextBox}"
@@ -69,6 +69,7 @@
                                 materialDesign:HintAssist.HintOpacity=".26"
                                 Foreground="White"
                                 Width="350"
+                                 Text="{Binding Project.QuoteNumber}"
                                 ui:ControlHelper.Header="Quote number"
                                 ui:ControlHelper.CornerRadius="5"
                                 ui:ControlHelper.PlaceholderText="Enter the quote number"
@@ -86,20 +87,21 @@
                                       materialDesign:HintAssist.Foreground="White"
                                       materialDesign:HintAssist.HintOpacity=".26"
                                       Foreground="Black"
+                                      ItemsSource="{Binding Employees}"
+                                      SelectedItem="{Binding Project.IdManagerNavigation}"
+                                      DisplayMemberPath="Name"
+                                      SelectedValuePath="IdEmployee"
                                       Width="350"
                                       Style="{DynamicResource MaterialDesignFilledComboBox}"
                                       IsEditable="True"
-                                      VerticalAlignment="Center">
-                                <ComboBoxItem Content="Alejandra Lizarez" />
-                                <ComboBoxItem Content="Daniel Sandoval" />
-                            </ComboBox>
+                                      VerticalAlignment="Center" />
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Grid.Row="4" Orientation="Horizontal" Grid.Column="1" Margin="30,0,0,0"  >
                         <materialDesign:PackIcon Kind="Calendar" Width="38" Height="38" VerticalAlignment="Center" Margin="0, 5, 10, 0" Foreground="Green"/>
                         <StackPanel VerticalAlignment="Center" Margin="5, 0, 0, 0">
                             <TextBlock Text="Customer Needby"/>
-                            <DatePicker />
+                            <DatePicker SelectedDate="{Binding Project.CustomerNeedby}" />
                         </StackPanel>
                     </StackPanel>
                     <Button Grid.Column="2" Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="Transparent">
@@ -121,11 +123,11 @@
                     </Grid.RowDefinitions>
                     <TextBlock Text="Project Breakdown" Style="{DynamicResource PageTitleStyle}" Margin="24,0,0,0" />
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                        <Button Command="{Binding AddActivityCommand}" >
-                            <materialDesign:PackIcon Kind="Add" Foreground="White" />
-                        </Button>
-                        <Button >
-                            <materialDesign:PackIcon Kind="Delete" Foreground="White" />
+                        <Button Command="{Binding AddProjectCommand}" Background="Green" >
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Generar proyecto" Foreground="White"/>
+                                <materialDesign:PackIcon Kind="Approve" Foreground="White" VerticalAlignment="Center" Margin="3"/>
+                            </StackPanel>
                         </Button>
                     </StackPanel>
                     <ScrollViewer Grid.Row="1" Grid.RowSpan="4" Margin="20, 0, 0, 0" HorizontalScrollBarVisibility="Visible">
@@ -167,11 +169,7 @@
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" Grid.Column="4" Margin="20, 0, 0, 0" Grid.Row="1">
                                             <materialDesign:PackIcon Kind="User" Margin="5, 0, 10, 0" VerticalAlignment="Center" Foreground="Green"/>
-                                            <ComboBox Width="200" ui:ControlHelper.PlaceholderText="Select a responsable"  BorderBrush="Black"  Foreground="Black" Margin="0, 0, 10, 0">
-                                                <ComboBoxItem Content="Alvaro Segura"/>
-                                                <ComboBoxItem Content="Simón Calvario"/>
-                                                <ComboBoxItem Content="Martín Salazar"/>
-                                            </ComboBox>
+                                            <ComboBox Width="200" SelectedItem="{Binding IdEmployeeNavigation}" ItemsSource="{Binding Path=DataContext.Employees, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}" SelectedValuePath="IdEmployee" DisplayMemberPath="Name" ui:ControlHelper.PlaceholderText="Select a responsable"  BorderBrush="Black"  Foreground="Black" Margin="0, 0, 10, 0" />
                                         </StackPanel>
                                     </Grid>
                                 </DataTemplate>

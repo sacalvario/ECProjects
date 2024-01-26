@@ -16,6 +16,7 @@ namespace ProjectManager.ViewModels
     {
         private readonly Contracts.Services.INavigationService _navigationService;
         private readonly IProjectsDataService _projectsDataService;
+        private readonly IWindowManagerService _windowManagerService;
 
         private Project _Project;
         public Project Project
@@ -31,193 +32,32 @@ namespace ProjectManager.ViewModels
             }
         }
 
-        public BasicFormatViewModel(Contracts.Services.INavigationService navigationService, IProjectsDataService projectsDataService)
+        public BasicFormatViewModel(Contracts.Services.INavigationService navigationService, IProjectsDataService projectsDataService, IWindowManagerService windowManagerService)
         {
             _navigationService = navigationService;
             _projectsDataService = projectsDataService;
+            _windowManagerService = windowManagerService;
 
             Task6DurationDays = 10;
-            Project = new Project();
-           
+            Project = new Project() 
+            {
+                CustomerNeedby = DateTime.Now
+            };
+
+            GetCustomers();
+            GetEmployees();
             GetTasks();
             CreateTasks();
-        //    Options = new ObservableCollection<Option>();
-        //    Activities = new ObservableCollection<Activity>()
-        //    {
-        //            new Activity()
-        //            {
-        //                ActivityId = 1,
-        //                ActivityName = "New Assembly set-up",
-        //                StartDate = DateTime.Now,
-        //                ActivityDuration = 1,
-        //                 FinishDate = DateTime.Now.AddDays(1)
-        //            },
-        //            new Activity()
-        //            {
-        //                ActivityId = 2,
-        //                ActivityName = "Tooling/Bom validation",
-        //                StartDate = DateTime.Now,
-        //                ActivityDuration = 1,
-        //                 FinishDate = DateTime.Now.AddDays(1)
-        //            },
-        //             new Activity()
-        //            {
-        //                ActivityId = 3,
-        //                ActivityName = "Order is entered",
-        //                StartDate = DateTime.Now,
-        //                ActivityDuration = 1,
-        //                 FinishDate = DateTime.Now.AddDays(1)
-        //            },
-        //               new Activity()
-        //            {
-        //                ActivityId = 4,
-        //                ActivityName = "Material confirmation",
-        //                StartDate = DateTime.Now,
-        //                ActivityDuration = 1,
-        //                 FinishDate = DateTime.Now.AddDays(1)
-        //            },
-        //                 new Activity()
-        //            {
-        //                ActivityId = 5,
-        //                ActivityName = "Tooling Validation",
-        //                StartDate = DateTime.Now,
-        //                ActivityDuration = 1,
-        //                 FinishDate = DateTime.Now.AddDays(1)
-        //            },
-        //                   new Activity()
-        //            {
-        //                ActivityId = 6,
-        //                ActivityName = "Engineering documentation",
-        //                StartDate = DateTime.Now,
-        //                ActivityDuration = 1,
-        //                 FinishDate = DateTime.Now.AddDays(1)
-        //            },
-        //                     new Activity()
-        //            {
-        //                ActivityId = 7,
-        //                ActivityName = "QA validation",
-        //                StartDate = DateTime.Now,
-        //                ActivityDuration = 1,
-        //                 FinishDate = DateTime.Now.AddDays(1)
-        //            },
-        //                       new Activity()
-        //            {
-        //                ActivityId = 8,
-        //                ActivityName = "Ready to build",
-        //                StartDate = DateTime.Now,
-        //                ActivityDuration = 1,
-        //                 FinishDate = DateTime.Now.AddDays(1)
-        //            },
-        //             new Activity()
-        //            {
-        //                ActivityId = 9,
-        //                ActivityName = "Order is confirmed",
-        //                StartDate = DateTime.Now,
-        //                ActivityDuration = 1,
-        //                 FinishDate = DateTime.Now.AddDays(1)
-        //            },
-        //              new Activity()
-        //            {
-        //                ActivityId = 10,
-        //                ActivityName = "Material confirmation",
-        //                StartDate = DateTime.Now,
-        //                ActivityDuration = 1,
-        //                 FinishDate = DateTime.Now.AddDays(1)
-        //            },
-        //               new Activity()
-        //            {
-        //                ActivityId = 11,
-        //                ActivityName = "Order confirmation",
-        //                StartDate = DateTime.Now,
-        //                ActivityDuration = 1,
-        //                 FinishDate = DateTime.Now.AddDays(1)
-        //            },
-        //                new Activity()
-        //            {
-        //                ActivityId = 12,
-        //                ActivityName = "Production floor layout",
-        //                StartDate = DateTime.Now,
-        //                ActivityDuration = 1,
-        //                 FinishDate = DateTime.Now.AddDays(1)
-        //            },
-        //                 new Activity()
-        //            {
-        //                ActivityId = 13,
-        //                ActivityName = "FA Order shippeed to customer",
-        //                StartDate = DateTime.Now,
-        //                ActivityDuration = 1,
-        //                 FinishDate = DateTime.Now.AddDays(1)
-        //            },
-        //                  new Activity()
-        //            {
-        //                ActivityId = 14,
-        //                ActivityName = "Customer approval",
-        //                StartDate = DateTime.Now,
-        //                ActivityDuration = 1,
-        //                 FinishDate = DateTime.Now.AddDays(1)
-        //            },
-        //};
+       
         }
 
-        public partial class Option
-        {
-            public int OptionId { get; set; }
-            public string OptionName { get; set; }
-
-            public Option()
-            {
-                
-            }
-        }
-
-        public partial class Activity
-        {
-            public int ActivityId { get; set; }
-            public string ActivityName { get; set; }
-            public int ActivityDuration { get; set; }
-            public DateTime StartDate { get; set; }
-            public DateTime FinishDate { get; set; }
-            public Option Responsable { get; set; }
-
-            public Activity()
-            {
-
-            }
-        }
 
         private ICommand _AddCommand;
         public ICommand AddCommand => _AddCommand ??= new RelayCommand(AddControl);
 
-        private ICommand _AddActivity;
-        public ICommand AddActivityCommand => _AddActivity ??= new RelayCommand(AddActivity);
+        private ICommand _AddProject;
+        public ICommand AddProjectCommand => _AddProject ??= new RelayCommand(AddProject);
 
-        private ObservableCollection<Option> _Options;
-        public ObservableCollection<Option> Options
-        {
-            get => _Options;
-            set
-            {
-                if (_Options != value)
-                {
-                    _Options = value;
-                    RaisePropertyChanged("Options");
-                }
-            }
-        }
-
-        private ObservableCollection<Activity> _Activities;
-        public ObservableCollection<Activity> Activities
-        {
-            get => _Activities;
-            set
-            {
-                if (_Activities != value)
-                {
-                    _Activities = value;
-                    RaisePropertyChanged("Activities");
-                }
-            }
-        }
 
         private ObservableCollection<Task> _Tasks;
         public ObservableCollection<Task> Tasks
@@ -229,6 +69,34 @@ namespace ProjectManager.ViewModels
                 {
                     _Tasks = value;
                     RaisePropertyChanged("Tasks");
+                }
+            }
+        }
+
+        private ObservableCollection<Customer> _Customers;
+        public ObservableCollection<Customer> Customers
+        {
+            get => _Customers;
+            set
+            {
+                if (_Customers != value)
+                {
+                    _Customers = value;
+                    RaisePropertyChanged("Customers");
+                }
+            }
+        }
+        
+        private ObservableCollection<Employee> _Employees;
+        public ObservableCollection<Employee> Employees
+        {
+            get => _Employees;
+            set
+            {
+                if (_Employees != value)
+                {
+                    _Employees = value;
+                    RaisePropertyChanged("Employees");
                 }
             }
         }
@@ -270,7 +138,8 @@ namespace ProjectManager.ViewModels
                        IdTaskNavigation = Tasks[0],
                        Duration = 3,
                        StartDate = DateTime.Now.AddDays(5),
-                       EndDate = DateTime.Now.AddDays(8)
+                       EndDate = DateTime.Now.AddDays(8),
+                       IdStatus = 5
                     },
                 new ProjectTask
                     {
@@ -278,7 +147,8 @@ namespace ProjectManager.ViewModels
                        Duration = 3,
                        StartDate = DateTime.Now.AddDays(8),
                        EndDate = DateTime.Now.AddDays(11),
-                       Predecessor = 1
+                       Predecessor = 1,
+                       IdStatus = 5
                     },
                 new ProjectTask
                     {
@@ -286,7 +156,8 @@ namespace ProjectManager.ViewModels
                        Duration = 1,
                        StartDate = DateTime.Now.AddDays(11),
                        EndDate = DateTime.Now.AddDays(12),
-                       Predecessor = 2
+                       Predecessor = 2,
+                       IdStatus = 5
                     },
                 new ProjectTask
                     {
@@ -294,7 +165,8 @@ namespace ProjectManager.ViewModels
                        Duration = 7,
                        StartDate = DateTime.Now.AddDays(12),
                        EndDate = DateTime.Now.AddDays(19),
-                       Predecessor = 3
+                       Predecessor = 3,
+                       IdStatus = 5
                     },
                   new ProjectTask
                     {
@@ -302,7 +174,8 @@ namespace ProjectManager.ViewModels
                        Duration = 5,
                        StartDate = DateTime.Now.AddDays(19),
                        EndDate = DateTime.Now.AddDays(24),
-                       Predecessor = 3
+                       Predecessor = 3,
+                       IdStatus = 5
                     },
                     new ProjectTask
                     {
@@ -310,7 +183,8 @@ namespace ProjectManager.ViewModels
                        Duration =  Task6DurationDays,
                        StartDate = DateTime.Now.AddDays(24),
                        EndDate = DateTime.Now.AddDays(Task6DurationDays),
-                       Predecessor = 3
+                       Predecessor = 3,
+                       IdStatus = 5
                     },
                      new ProjectTask
                     {
@@ -318,7 +192,8 @@ namespace ProjectManager.ViewModels
                        Duration =  5,
                        StartDate = DateTime.Now.AddDays(Task6DurationDays),
                        EndDate = DateTime.Now.AddDays(29),
-                       Predecessor = 3
+                       Predecessor = 3,
+                       IdStatus = 5
                     },
                       new ProjectTask
                     {
@@ -326,7 +201,8 @@ namespace ProjectManager.ViewModels
                        Duration =  2,
                        StartDate = DateTime.Now.AddDays(29),
                        EndDate = DateTime.Now.AddDays(31),
-                       Predecessor = 4
+                       Predecessor = 4,
+                       IdStatus = 5
                     }
             };
         }
@@ -342,15 +218,60 @@ namespace ProjectManager.ViewModels
                 Tasks.Add(item);
             }
         }
+        
+        private async void GetCustomers()
+        {
+            Customers = new ObservableCollection<Customer>();
+
+            var data = await _projectsDataService.GetCustomersAsync();
+
+            foreach (var item in data)
+            {
+                Customers.Add(item);
+            }
+        }
+        
+        private async void GetEmployees()
+        {
+            Employees = new ObservableCollection<Employee>();
+
+            var data = await _projectsDataService.GetEmployeesAsync();
+
+            foreach (var item in data)
+            {
+                item.IdDepartamentNavigation = await _projectsDataService.GetDepartmentAsync(item.IdDepartament);
+                Employees.Add(item);
+            }
+        }
 
         private void AddControl()
         {
-            Options.Add(new Option());
         }
 
-        private void AddActivity()
+        private void AddProject()
         {
-            Activities.Add(new Activity());
+            Project.IdGeneratedby = UserRecord.Employee_ID;
+            Project.ProjectComplexity = TypeProject;
+            Project.IdStatus = 5;
+            Project.CreationDate = DateTime.Now;
+            Project.EndDate = DateTime.Now;
+            Project.TotalEstimatedDuration = 1;
+            Project.SuccesRateEstimate = 1;
+
+            try
+            {
+                if (_projectsDataService.SaveProject(Project))
+                {
+                    _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, Project.IdProject);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Error al registrar - " + ex.ToString());
+            }
+
+
         }
 
 

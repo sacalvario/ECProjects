@@ -41,5 +41,50 @@ namespace ProjectManager.Services
             employee.IdDepartamentNavigation = context.Departments.Find(employee.IdDepartament);
             return employee;
         }
+
+        public async Task<IEnumerable<Customer>> GetCustomersAsync()
+        {
+            await System.Threading.Tasks.Task.CompletedTask;
+            return GetCustomers();
+        }
+
+        private IEnumerable<Customer> GetCustomers()
+        {
+            return context.Customers.ToList().OrderBy(data => data.Name);
+        }   
+
+        public async Task<IEnumerable<Employee>> GetEmployeesAsync()
+        {
+            await System.Threading.Tasks.Task.CompletedTask;
+            return GetEmployees();
+        }
+
+        private IEnumerable<Employee> GetEmployees()
+        {
+            return context.Employees.ToList().Where(i => i.IdEmployee != UserRecord.Employee_ID);
+        }
+
+        public async Task<Department> GetDepartmentAsync(int id)
+        {
+            await System.Threading.Tasks.Task.CompletedTask;
+            return GetDepartment(id);
+        }
+
+        private Department GetDepartment(int id)
+        {
+            return context.Departments.Find(id);
+        }
+
+        public bool SaveProject(Project project)
+        {
+            if (project != null)
+            {
+                context.Projects.Add(project);
+
+                var result = context.SaveChanges();
+                return result > 0;
+            }
+            return false;
+        }
     }
 }

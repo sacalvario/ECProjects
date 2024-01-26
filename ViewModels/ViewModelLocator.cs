@@ -36,7 +36,10 @@ namespace ProjectManager.ViewModels
             => SimpleIoc.Default.GetInstance<ShellLoginViewModel>();
 
         public SignUpViewModel SignUpViewModel
-            => SimpleIoc.Default.GetInstance<SignUpViewModel>();
+            => SimpleIoc.Default.GetInstance<SignUpViewModel>(); 
+        
+        public HistoryViewModel HistoryViewModel
+            => SimpleIoc.Default.GetInstance<HistoryViewModel>();
 
         public BasicFormatViewModel BasicFormatViewModel
             => SimpleIoc.Default.GetInstance<BasicFormatViewModel>();
