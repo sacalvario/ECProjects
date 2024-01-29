@@ -73,12 +73,12 @@
                         <Label Content="Checklist" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center" />
                     </StackPanel>
                 </ui:NavigationViewItem>-->
-                <!--<ui:NavigationViewItem x:Name="btnHistoryECNs" Tag="History" Margin="0, 2, 0, 0">
+                <ui:NavigationViewItem x:Name="btnHistoryECNs" Tag="History" Margin="0, 2, 0, 0">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Assets/historyred.png" Width="24" VerticalAlignment="Center"  />
+                        <md:PackIcon Kind="History" Width="24" Height="24" Foreground="Green" VerticalAlignment="Center"  />
                         <Label Content="Historial" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center" />
                     </StackPanel>
-                </ui:NavigationViewItem>-->
+                </ui:NavigationViewItem>
                 <!--<ui:NavigationViewItem x:Name="btnSearchECNs" Tag="Search" Margin="0, 2, 0, 0">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Assets/search2.png" Width="24" VerticalAlignment="Center"  />

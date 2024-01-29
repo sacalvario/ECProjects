@@ -25,7 +25,6 @@ namespace ProjectManager.ViewModels
         public LoginViewModel LoginViewModel
             => SimpleIoc.Default.GetInstance<LoginViewModel>();
 
-
         public EcnSignedViewModel EcnSignedViewModel
             => SimpleIoc.Default.GetInstance<EcnSignedViewModel>();
 
@@ -46,6 +45,12 @@ namespace ProjectManager.ViewModels
         
         public AdvancedFormatViewModel AdvancedFormatViewModel
             => SimpleIoc.Default.GetInstance<AdvancedFormatViewModel>();
+        
+        public ApplyMessageViewModel ApplyMessageViewModel
+            => SimpleIoc.Default.GetInstance<ApplyMessageViewModel>();
+        
+        public ProjectDetailsViewModel ProjectDetailsViewModel
+            => SimpleIoc.Default.GetInstance<ProjectDetailsViewModel>();
 
         public ViewModelLocator()
         {
@@ -79,6 +84,9 @@ namespace ProjectManager.ViewModels
             Register<SignUpViewModel, SignUp>();
             Register<BasicFormatViewModel, BasicFormat>();
             Register<AdvancedFormatViewModel, AdvancedFormat>();
+            Register<ApplyMessageViewModel, ApplyMesagge>();
+            Register<HistoryViewModel, History>();
+            Register<ProjectDetailsViewModel, ProjectDetails>();
         }
 
         private void Register<VM, V>()

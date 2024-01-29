@@ -262,7 +262,7 @@ namespace ProjectManager.ViewModels
             {
                 if (_projectsDataService.SaveProject(Project))
                 {
-                    _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, Project.IdProject);
+                    _ = _windowManagerService.OpenInDialog(typeof(ApplyMessageViewModel).FullName, Project.IdProject);
                 }
 
             }

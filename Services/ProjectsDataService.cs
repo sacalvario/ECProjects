@@ -86,5 +86,28 @@ namespace ProjectManager.Services
             }
             return false;
         }
+
+        public async Task<IEnumerable<Project>> GetHistoryAsync()
+        {
+            await System.Threading.Tasks.Task.CompletedTask;
+            return GetHistory();
+        }
+
+        private IEnumerable<Project> GetHistory()
+        {
+            using projectsContext context = new projectsContext();
+            return context.Projects.Where(data => data.IdGeneratedby == UserRecord.Employee_ID).ToList();
+        }
+
+        public async Task<Status> GetStatusAsync(int id)
+        {
+            await System.Threading.Tasks.Task.CompletedTask;
+            return GetStatus(id);
+        }
+
+        private Status GetStatus(int id)
+        {
+            return context.Status.Find(id);
+        }
     }
 }

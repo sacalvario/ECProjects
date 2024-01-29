@@ -13,6 +13,7 @@ namespace ModernWpf.Controls
                 ? navigationViewItem.Tag.ToString() switch
                 {
                     "FrontCapture" => typeof(FrontCaptureViewModel),
+                    "History" => typeof(HistoryViewModel),
                     _ => null,
                 }
                 : null;

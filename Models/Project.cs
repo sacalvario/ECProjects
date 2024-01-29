@@ -26,6 +26,8 @@ namespace ProjectManager.Models
         public int TotalEstimatedDuration { get; set; }
         public int SuccesRateEstimate { get; set; }
 
+        public string LongDate => CreationDate.ToLongDateString();
+
         public virtual Customer IdCustomerNavigation { get; set; }
         public virtual Employee IdGeneratedbyNavigation { get; set; }
         public virtual Employee IdManagerNavigation { get; set; }
