@@ -17,7 +17,7 @@
     WindowStartupLocation="CenterScreen">
 
     <DockPanel>
-        <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" HorizontalAlignment="Stretch" Background="#FF3AA00A">
+        <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" HorizontalAlignment="Stretch" Background="Green">
             <TextBlock Text="ELECTRI-CORD" FontFamily="Arial" FontWeight="Black" Foreground="White" FontSize="20" FontStyle="Oblique" VerticalAlignment="Center" Margin="10"/>
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
                 <StackPanel Margin="6">
