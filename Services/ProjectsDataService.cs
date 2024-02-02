@@ -109,5 +109,16 @@ namespace ProjectManager.Services
         {
             return context.Status.Find(id);
         }
+
+        public async Task<Customer> GetCustomerAsync(int id)
+        {
+            await System.Threading.Tasks.Task.CompletedTask;
+            return GetCustomer(id);
+        }
+
+        private Customer GetCustomer(int id)
+        {
+            return context.Customers.Find(id);
+        }
     }
 }

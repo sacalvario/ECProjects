@@ -26,7 +26,33 @@ namespace ProjectManager.Models
         public int TotalEstimatedDuration { get; set; }
         public int SuccesRateEstimate { get; set; }
 
+        public int Year => CreationDate.Year;
+        public int Month => CreationDate.Month;
+        public string MonthName => System.Globalization.CultureInfo.GetCultureInfo("en-US").DateTimeFormat.GetMonthName(CreationDate.Month);
+        public int Day => CreationDate.Day;
         public string LongDate => CreationDate.ToLongDateString();
+        public string LongNeedByDate => CustomerNeedby.ToLongDateString();
+
+        private string _ProjectComplexity;
+        public string ProjectComplexityString
+        {
+            get
+            {
+                if (ProjectComplexity == 1)
+                {
+                    _ProjectComplexity = "LOW";
+                }
+                else if (ProjectComplexity == 2)
+                {
+                    _ProjectComplexity = "MEDIUM";
+                }
+                else if (ProjectComplexity == 3)
+                {
+                    _ProjectComplexity = "HIGH";
+                }
+                return _ProjectComplexity;
+            }
+        }
 
         public virtual Customer IdCustomerNavigation { get; set; }
         public virtual Employee IdGeneratedbyNavigation { get; set; }

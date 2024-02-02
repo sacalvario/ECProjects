@@ -3,12 +3,189 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:ProjectManager.Views"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:local="clr-namespace:ProjectManager.Views"
+      xmlns:ui="http://schemas.modernwpf.com/2019"
+      DataContext="{Binding ProjectDetailsViewModel, Source={StaticResource Locator}}"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="950" d:DesignWidth="1200"
       Title="Project">
 
-    <Grid>
-        
+    <Grid Background="#FFE0E0E0">
+        <Button VerticalAlignment="Top" Margin="0, 30, 0, 0" Background="Transparent" Command="{Binding GoToBackCommand}">
+            <Image Source="/Assets/reply.png" Width="32" Height="32"/>
+        </Button>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Height="100" Width="550" Margin="50, 10, 0, 0" >
+            <md:PackIcon Kind="FileDocument" Foreground="Green" Height="78" Width="78" Margin="0, 15, 5, 15" />
+            <StackPanel Margin="5, 10, 10, 10">
+                <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 3">
+                    <TextBlock FontSize="26" FontWeight="Black" >
+                        <Run Text="ID" />
+                        <Run Text="{Binding Project.IdProject}" Foreground="Green"  />
+                    </TextBlock>
+                    <!--<Border VerticalAlignment="Top" Height="25" Width="115" Margin="30, 8, 0, 0" Visibility="{Binding Ecn.IsEcoVisibility}" CornerRadius="10" Background="#FFFF0033">
+                        <TextBlock Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black" FontSize="15" >
+                            <Run Text="ECO:"/>
+                            <Run Text="{Binding Ecn.EcnEco.IdEco}"/>
+                        </TextBlock>
+                    </Border>-->
+                    <Border VerticalAlignment="Top" CornerRadius="10" Background="{Binding Project.IdStatusNavigation.StatusColor}" Height="25" Width="115" Margin="15, 8, 0, 0">
+                        <TextBlock Foreground="White" Text="{Binding Project.IdStatusNavigation.Name}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black" FontSize="15"/>
+                    </Border>
+                </StackPanel>
+                <TextBlock FontSize="16" >
+                    <Run Text="Creation date" />
+                    <Run Text="{Binding Project.LongDate, Mode=OneWay}" FontWeight="Black" />
+                </TextBlock>
+                <TextBlock FontSize="16">
+                    <Run Text="Customer need by date"/>
+                    <Run Text="{Binding Project.LongNeedByDate, Mode=OneWay}" FontWeight="Black" />
+                </TextBlock>
+                <TextBlock FontSize="16" Visibility="{Binding EcnCloseDateVisibility}" >
+                    <Run Text="Cerrado el día"/>
+                    <Run Text="{Binding Ecn.LongEndDate, Mode=OneWay}" FontWeight="Black" />
+                </TextBlock>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="100, 20, 50, 0">
+            <md:PackIcon Kind="User" Width="38" Height="38" Margin="5, 0, 0, 0"/>
+            <TextBlock Text="{Binding Project.IdGeneratedbyNavigation.Name}" HorizontalAlignment="Center" FontWeight="Black"/>
+            <TextBlock Text="{Binding Project.IdGeneratedbyNavigation.IdDepartamentNavigation.Name}" HorizontalAlignment="Center" Foreground="Green" FontWeight="Black"/>
+        </StackPanel>
+        <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="50, 130, 10, 10" Style="{StaticResource MahApps.Styles.TabControl}" Background="#FFE0E0E0" SelectedIndex="{Binding SelectedTabItem}">
+            <TabItem Height="40">
+                <TabItem.Header>
+                    <TextBlock Text="Information" FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
+                </TabItem.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="General information" Margin="10, 20, 10, 10" FontSize="16" FontFamily="Quicksand Medium" FontWeight="Bold"/>
+                    <Border Margin="10, 60, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="200" Width="200" Background="#FFD6D6D6" CornerRadius="20">
+                        <StackPanel >
+                        <TextBlock Text="Customer" FontSize="16" HorizontalAlignment="Center" FontFamily="Quicksand" Margin="0, 10, 0, 0"  />
+                            <StackPanel  Margin="0, 20, 0, 0">
+                                <md:PackIcon Kind="AccountSupervisorCircle" Foreground="#FF3AA00A" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="80" />
+                                <TextBlock Text="{Binding Project.IdCustomerNavigation.Name}" FontStyle="Italic" Margin="0, 10, 0, 0" HorizontalAlignment="Center" FontSize="24" FontWeight="Bold" FontFamily="Quicksand" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </TabItem>
+            <TabItem Height="40">
+                <TabItem.Header>
+                    <TextBlock Text="Project breakdown" FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
+                </TabItem.Header>
+                <ListView ItemsSource="{Binding Revisions}" VerticalAlignment="Top" Margin="0, 20, 0, 0" Width="1115" HorizontalAlignment="Left" SelectionMode="Single">
+                    <ListView.View>
+                        <GridView>
+                            <GridView.ColumnHeaderContainerStyle>
+                                <Style TargetType="GridViewColumnHeader" >
+                                    <Setter Property="Background" Value="#FFE20000"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="Height" Value="30"/>
+                                    <Setter Property="FontStyle" Value="Italic"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="IsHitTestVisible" Value="False"/>
+                                </Style>
+                            </GridView.ColumnHeaderContainerStyle>
+                            <GridViewColumn Header="Responsable" Width="350"  >
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="0, 10, 0, 0" >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding RevisionSequence}" FontWeight="Bold" VerticalAlignment="Center" FontSize="18"/>
+                                                <Image Source="/Assets/signing.png"
+                                                       Width="32"
+                                                       Height="32"
+                                                       Margin="5"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                                <Image Source="/Assets/userblack.png" Width="40" Height="40"/>
+                                                <StackPanel Margin="5">
+                                                    <TextBlock Text="{Binding Employee.Name}"
+                                                               FontWeight="Black"
+                                                               FontSize="14"/>
+                                                    <TextBlock Text="{Binding Employee.Department.DepartmentName}"
+                                                               FontWeight="Bold"
+                                                               Foreground="Red"
+                                                               FontSize="14"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Estatus" Width="150">
+                                <GridViewColumn.CellTemplate >
+                                    <DataTemplate >
+                                        <Border CornerRadius="10"
+                                                Background="{Binding Status.StatusColor}"
+                                                Height="25"
+                                                Width="95"
+                                                Margin="20">
+                                            <TextBlock Foreground="White" Text="{Binding Status.StatusName}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black"/>
+                                        </Border>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Fecha de firma" Width="250">
+                                <GridViewColumn.CellTemplate  >
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding LongRevisionDate}"
+                                                   FontStyle="Italic"
+                                                   Margin="20"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Hora de firma" Width="150">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding LongRevisionHour}"
+                                                   FontStyle="Italic"
+                                                   Margin="20"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Notas" Width="200">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Notes}"
+                                                   TextWrapping="Wrap"
+                                                   Margin="20, 5"
+                                                   FontStyle="Italic"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem" >
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="LightGray" />
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="LightGray"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Page>

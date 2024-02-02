@@ -20,8 +20,8 @@
         <TextBox Text="{Binding Username}" Margin="30, 30" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="Black" md:HintAssist.Hint="Employee number or Username"  md:TextFieldAssist.HasClearButton="True" Cursor="Arrow"/>
         <PasswordBox Margin="30, 30" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" Foreground="Black" md:HintAssist.Hint="Password" PasswordChanged="txtPassword_PasswordChanged" md:TextFieldAssist.HasClearButton="True" Cursor="Arrow"/>
         <TextBlock HorizontalAlignment="Center" Margin="0, 50, 0, 0" Foreground="Black">
-            <Run Text="¿No tienes una cuenta?"/>
-            <Run Text="Registrate ahora" Foreground="Green" Cursor="Hand" Focusable="True">
+            <Run Text="You do not have an account?"/>
+            <Run Text="Register now" Foreground="Green" Cursor="Hand" Focusable="True">
                 <Run.InputBindings>
                     <MouseBinding Command="{Binding NavigateToSignUpCommand}" MouseAction="LeftClick"/>
                 </Run.InputBindings>

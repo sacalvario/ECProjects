@@ -9,26 +9,26 @@
       d:DesignHeight="600" d:DesignWidth="430"
       Title="Sign Up">
 
-    <StackPanel Margin="25" Background="Black">
+    <StackPanel Margin="25" Background="White">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0, 5">
-            <Image Source="/Assets/enchufe.png" Width="52" Height="52" />
+            <md:PackIcon Kind="PowerPlug" Width="52" Height="52" Foreground="Green" />
             <StackPanel Margin="10, 0" VerticalAlignment="Center">
                 <TextBlock Text="Projects System" FontSize="16" FontWeight="Black"/>
                 <TextBlock Text="Electri-Cord" FontSize="16" FontWeight="Normal" />
             </StackPanel>
         </StackPanel>
-        <TextBox Text="{Binding EmployeeID}" Margin="30, 15" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Número de empleado"  md:TextFieldAssist.HasClearButton="True" Cursor="Arrow"/>
-        <TextBox Text="{Binding Username}" Margin="30, 15" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Nombre de usuario"  md:TextFieldAssist.HasClearButton="True" Cursor="Arrow"/>
-        <PasswordBox Margin="30, 15" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" md:HintAssist.Hint="Contraseña" PasswordChanged="txtPassword_PasswordChanged" md:TextFieldAssist.HasClearButton="True" />
-        <PasswordBox Margin="30, 15" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" md:HintAssist.Hint="Repite la contraseña" PasswordChanged="txtPassword_PasswordChanged1" md:TextFieldAssist.HasClearButton="True" />
+        <TextBox Text="{Binding EmployeeID}" Margin="30, 15" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Employee number"  md:TextFieldAssist.HasClearButton="True" Cursor="Arrow"/>
+        <TextBox Text="{Binding Username}" Margin="30, 15" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Username"  md:TextFieldAssist.HasClearButton="True" Cursor="Arrow"/>
+        <PasswordBox Margin="30, 15" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" md:HintAssist.Hint="Password" PasswordChanged="txtPassword_PasswordChanged" md:TextFieldAssist.HasClearButton="True" />
+        <PasswordBox Margin="30, 15" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" md:HintAssist.Hint="Password confirmation" PasswordChanged="txtPassword_PasswordChanged1" md:TextFieldAssist.HasClearButton="True" />
         <TextBlock HorizontalAlignment="Center" Margin="0, 30, 0, 0">
-            <Run Text="¿Ya tienes una cuenta?"/>
-            <Run Text="Inicia sesión" Foreground="Red" Cursor="Hand" Focusable="True">
+            <Run Text="Do you already have an account??"/>
+            <Run Text="Log in" Foreground="Green" Cursor="Hand" Focusable="True">
                 <Run.InputBindings>
                     <MouseBinding Command="{Binding NavigateToLoginCommand}" MouseAction="LeftClick"/>
                 </Run.InputBindings>
             </Run>
         </TextBlock>
-        <Button Margin="50, 50, 50, 0" Content="Registrarse" Style="{StaticResource MaterialDesignRaisedDarkButton}" Command="{Binding SignUpCommand}" Cursor="Hand" Background="#FFF10303"/>
+        <Button Margin="50, 50, 50, 0" Content="Sign in" Style="{StaticResource MaterialDesignRaisedDarkButton}" Command="{Binding SignUpCommand}" Cursor="Hand" Background="Green"/>
     </StackPanel>
 </Page>

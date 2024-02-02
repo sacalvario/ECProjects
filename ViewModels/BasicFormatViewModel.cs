@@ -252,7 +252,7 @@ namespace ProjectManager.ViewModels
         {
             Project.IdGeneratedby = UserRecord.Employee_ID;
             Project.ProjectComplexity = TypeProject;
-            Project.IdStatus = 5;
+            Project.IdStatus = 2;
             Project.CreationDate = DateTime.Now;
             Project.EndDate = DateTime.Now;
             Project.TotalEstimatedDuration = 1;

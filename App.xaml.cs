@@ -8,6 +8,9 @@ using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Threading;
+using System.Globalization;
+using System.Threading;
+using System.Windows.Markup;
 
 namespace ProjectManager
 {
@@ -31,8 +34,16 @@ namespace ProjectManager
 
         private async void OnStartup(object sender, StartupEventArgs e)
         {
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
+            CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-US");
+            XmlLanguage lang = XmlLanguage.GetLanguage(CultureInfo.GetCultureInfo("en-US").IetfLanguageTag);
+            FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(lang));
+            FrameworkContentElement.LanguageProperty.OverrideMetadata(typeof(System.Windows.Documents.TextElement), new FrameworkPropertyMetadata(lang));
+
             AddConfiguration(e.Args);
             _host = SimpleIoc.Default.GetInstance<IApplicationHostService>();
+
+
             await _host.StartAsync();
         }
 
@@ -49,6 +60,7 @@ namespace ProjectManager
             var serviceCollection = new ServiceCollection();
             ConfigureServices(serviceCollection);
             Locator.AddConfiguration(configuration);
+
         }
 
         private void ConfigureServices(IServiceCollection services)

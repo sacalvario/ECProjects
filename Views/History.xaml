@@ -25,28 +25,44 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="400" />
-                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="300" />
+                    <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <materialDesign:PackIcon Kind="File" Foreground="Green" Width="42" Height="42" Grid.RowSpan="4"/>
+                <materialDesign:PackIcon Kind="File" Foreground="Green" Width="42" Height="42" Grid.RowSpan="4" VerticalAlignment="Center"/>
                 <StackPanel Grid.RowSpan="4" Grid.Column="1" Margin="10, 12, 20, 12" >
                     <TextBlock Text="ID" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Black" FontSize="17"/>
                     <TextBlock Text="{Binding IdProject}" FontWeight="Black" Foreground="Green" FontSize="17" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </StackPanel>
                 <TextBlock Grid.Column="2"
                            Grid.Row="2"
+                           Margin="20, 0, 0, 0"
                            FontSize="14">
                     <Run Text="Creation date: " Foreground="Black" FontWeight="Normal"/>
                     <Run Text="{Binding LongDate, Mode=OneWay}" FontWeight="UltraBold" Foreground="Black" />
                 </TextBlock>
                 <TextBlock Grid.Column="2"
                            Grid.Row="3"
+                           Margin="20, 0, 0, 0"
                            FontSize="14">
-                    <Run Text="Quote Number: " Foreground="Black" FontWeight="Regular"/>
-                    <Run Text="{Binding QuoteNumber}" Foreground="Green" FontWeight="UltraBold" />
+                    <Run Text="Customer need by: " Foreground="Black" FontWeight="Regular"/>
+                    <Run Text="{Binding LongNeedByDate, Mode=OneWay}" Foreground="Green" FontWeight="UltraBold" />
                 </TextBlock>
-               
-                <StackPanel Grid.Column="4" Grid.Row="0" Grid.RowSpan="4" VerticalAlignment="Center" >
+                <StackPanel  Grid.RowSpan="4" Grid.Column="3" >
+                    <TextBlock Text="Project manager:" FontSize="11" FontFamily="Quicksand Medium" Foreground="Black" Margin="40, 0, 0, 0"/>
+                    <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                        <materialDesign:PackIcon Kind="User" Width="44" Height="44" Foreground="Black"/>
+                        <StackPanel Margin="5, 0, 0, 0"  VerticalAlignment="Center">
+                            <TextBlock Text="{Binding IdManagerNavigation.Name, Mode=OneWay}" HorizontalAlignment="Left" FontWeight="Bold" Foreground="Black" FontSize="14"/>
+                            <TextBlock Text="{Binding IdManagerNavigation.IdDepartamentNavigation.Name}" HorizontalAlignment="Left" FontWeight="DemiBold" Foreground="Green" FontSize="14" VerticalAlignment="Center" FontStyle="Italic"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Grid.Column="4" Grid.Row="0" Grid.RowSpan="4" VerticalAlignment="Center" Margin="40, 0, 0, 0" >
+                    <TextBlock Text="Project Complexity" HorizontalAlignment="Center" FontSize="12"/>
+                    <TextBlock Text="{Binding ProjectComplexityString}" Foreground="Green" FontSize="15" HorizontalAlignment="Center" FontWeight="Bold" FontFamily="Quicksand Medium"/>
+                </StackPanel>
+                <StackPanel Grid.Column="5" Grid.Row="0" Grid.RowSpan="4" VerticalAlignment="Center" Margin="40, 0, 0, 0" >
                     <Border 
                         CornerRadius="10"
                         Background="{Binding IdStatusNavigation.StatusColor}"

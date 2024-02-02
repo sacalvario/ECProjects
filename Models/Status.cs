@@ -24,11 +24,11 @@ namespace ProjectManager.Models
             {
                 if (IdStatus == 1)
                 {
-                    _StatusColor = new SolidColorBrush(Color.FromRgb(251, 100, 45));
+                    _StatusColor = new SolidColorBrush(Colors.LightGreen);
                 }
                 else if (IdStatus == 2)
                 {
-                    _StatusColor = new SolidColorBrush(Colors.Red);
+                    _StatusColor = new SolidColorBrush(Colors.DarkOrange);
                 }
                 else if (IdStatus == 3)
                 {
@@ -39,10 +39,6 @@ namespace ProjectManager.Models
                     _StatusColor = new SolidColorBrush(Color.FromRgb(100, 184, 0));
                 }
                 else if (IdStatus == 5)
-                {
-                    _StatusColor = new SolidColorBrush(Colors.DarkOrange);
-                }
-                else if (IdStatus == 6)
                 {
                     _StatusColor = new SolidColorBrush(Colors.Red);
                 }

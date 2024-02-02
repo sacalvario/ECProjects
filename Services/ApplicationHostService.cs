@@ -9,6 +9,9 @@ using ProjectManager.Contracts.Views;
 using ProjectManager.ViewModels;
 
 using GalaSoft.MvvmLight.Ioc;
+using System.Threading;
+using System.Globalization;
+using System.Windows.Markup;
 
 namespace ProjectManager.Services
 {
@@ -23,10 +26,13 @@ namespace ProjectManager.Services
         {
             _navigationService = navigationService;
             Application.Current.Resources[AutoHideScrollBarsKey] = true;
+
         }
 
         public async Task StartAsync()
         {
+  
+
             // Initialize services that you need before app activation
             await InitializeAsync();
 
