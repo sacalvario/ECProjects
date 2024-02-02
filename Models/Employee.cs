@@ -21,7 +21,7 @@ namespace ProjectManager.Models
         public int IdDepartament { get; set; }
         public sbyte Active { get; set; }
 
-        public string Name => FirstName + " " + LastName;
+        public string Name => LastName + " " + FirstName;
 
         public virtual Department IdDepartamentNavigation { get; set; }
         public virtual User User { get; set; }

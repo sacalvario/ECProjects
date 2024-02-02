@@ -110,7 +110,7 @@ namespace ProjectManager.ViewModels
                     UserRecord.Username = user.Username;
                     UserRecord.Employee_ID = user.EmployeeId;
 
-                    _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "¡Bienvenido!");
+                    _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "¡Welcome!");
 
                     if (Application.Current.Windows.OfType<IShellWindow>().Count() == 0)
                     {
@@ -126,12 +126,12 @@ namespace ProjectManager.ViewModels
                 else
                 {
 
-                    _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Nombre de usuario o contraseña incorrecto/a");
+                    _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Incorrect username or password");
                 }
             }
             else
             {
-                _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Ingresa el nombre de usuario y la contraseña");
+                _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Enter the username and password");
             }
 
         }

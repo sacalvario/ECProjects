@@ -120,5 +120,28 @@ namespace ProjectManager.Services
         {
             return context.Customers.Find(id);
         }
+
+        public async Task<ICollection<ProjectTask>> GetActivitiesAsync(int project)
+        {
+            await System.Threading.Tasks.Task.CompletedTask;
+            return GetActivities(project);
+        }
+
+        private ICollection<ProjectTask> GetActivities(int project)
+        {
+            using projectsContext context = new projectsContext();
+            return context.ProjectTasks.Where(i => i.IdProject == project).ToList();
+        }
+
+        public async Task<Models.Task> GetTaskAsync(int id)
+        {
+            await System.Threading.Tasks.Task.CompletedTask;
+            return GetTask(id);
+        }
+
+        private Models.Task GetTask(int id)
+        {
+            return context.Tasks.Find(id);
+        }
     }
 }

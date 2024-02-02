@@ -22,7 +22,7 @@
         <PasswordBox Margin="30, 15" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" md:HintAssist.Hint="Password" PasswordChanged="txtPassword_PasswordChanged" md:TextFieldAssist.HasClearButton="True" />
         <PasswordBox Margin="30, 15" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" md:HintAssist.Hint="Password confirmation" PasswordChanged="txtPassword_PasswordChanged1" md:TextFieldAssist.HasClearButton="True" />
         <TextBlock HorizontalAlignment="Center" Margin="0, 30, 0, 0">
-            <Run Text="Do you already have an account??"/>
+            <Run Text="Do you already have an account?"/>
             <Run Text="Log in" Foreground="Green" Cursor="Hand" Focusable="True">
                 <Run.InputBindings>
                     <MouseBinding Command="{Binding NavigateToLoginCommand}" MouseAction="LeftClick"/>

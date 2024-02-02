@@ -16,6 +16,9 @@ namespace ProjectManager.Models
         public int? Predecessor { get; set; }
         public int IdStatus { get; set; }
 
+        public string LongStartDate => StartDate.ToLongDateString();
+        public string LongEndDate => EndDate.ToLongDateString();
+
         public virtual Employee IdEmployeeNavigation { get; set; }
         public virtual Project IdProjectNavigation { get; set; }
         public virtual Status IdStatusNavigation { get; set; }

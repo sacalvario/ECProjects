@@ -4,6 +4,7 @@ using ProjectManager.Contracts.ViewModels;
 using ProjectManager.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 
 namespace ProjectManager.ViewModels
@@ -39,6 +40,34 @@ namespace ProjectManager.ViewModels
             }
         }
 
+        private ObservableCollection<ProjectTask> _Activities;
+        public ObservableCollection<ProjectTask> Activities
+        {
+            get => _Activities;
+            set
+            {
+                if (_Activities != value)
+                {
+                    _Activities = value;
+                    RaisePropertyChanged("Activities");
+                }
+            }
+        }
+
+        private async void GetActivities()
+        {
+            var activities = await _projectsDataService.GetActivitiesAsync(Project.IdProject);
+
+            foreach (var item in activities)
+            {
+                item.IdEmployeeNavigation = await _projectsDataService.GetEmployeeAsync(item.IdEmployee);
+                item.IdEmployeeNavigation.IdDepartamentNavigation = await _projectsDataService.GetDepartmentAsync(item.IdEmployeeNavigation.IdDepartament);
+                item.IdStatusNavigation = await _projectsDataService.GetStatusAsync(item.IdStatus);
+                item.IdTaskNavigation = await _projectsDataService.GetTaskAsync(item.IdTask);
+                Activities.Add(item);
+            }
+        }
+
         public void OnNavigatedFrom()
         {
 
@@ -46,11 +75,14 @@ namespace ProjectManager.ViewModels
 
         public void OnNavigatedTo(object parameter)
         {
-            if(parameter is Project project)
+            if (parameter is Project project)
             {
                 Project = new Project();
                 Project = project;
             }
+
+            Activities = new ObservableCollection<ProjectTask>();
+            GetActivities();
         }
     }
 }

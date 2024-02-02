@@ -38,7 +38,6 @@ namespace ProjectManager.ViewModels
             _projectsDataService = projectsDataService;
             _windowManagerService = windowManagerService;
 
-            Task6DurationDays = 10;
             Project = new Project() 
             {
                 CustomerNeedby = DateTime.Now
@@ -113,6 +112,20 @@ namespace ProjectManager.ViewModels
                     RaisePropertyChanged("TypeProject");
                 }
             }
+        }    
+        
+        private int _Points;
+        public int Points
+        {
+            get => _Points;
+            set
+            {
+                if (_Points != value)
+                {
+                    _Points = value;
+                    RaisePropertyChanged("Points");
+                }
+            }
         }
 
         private int _Task6DurationDays;
@@ -129,6 +142,27 @@ namespace ProjectManager.ViewModels
             }
         }
 
+        private DateTime WorkDays(int days)
+        {
+            DateTime date = new DateTime();
+            date = DateTime.Now;
+
+            for (int i = 1; i <= days; i++)
+            {
+                if (DateTime.Now.AddDays(i).DayOfWeek == DayOfWeek.Saturday)
+                {
+                    days++;
+                }
+                else if (DateTime.Now.AddDays(i).DayOfWeek == DayOfWeek.Sunday)
+                {
+                    days++;
+                }
+            }
+
+            return date.AddDays(days);
+
+        }
+
         private void CreateTasks()
         {
             Project.ProjectTasks = new ObservableCollection<ProjectTask>()
@@ -137,16 +171,16 @@ namespace ProjectManager.ViewModels
                     {
                        IdTaskNavigation = Tasks[0],
                        Duration = 3,
-                       StartDate = DateTime.Now.AddDays(5),
-                       EndDate = DateTime.Now.AddDays(8),
+                       StartDate = WorkDays(3),
+                       EndDate = WorkDays(6),
                        IdStatus = 5
                     },
                 new ProjectTask
                     {
                        IdTaskNavigation = Tasks[1],
                        Duration = 3,
-                       StartDate = DateTime.Now.AddDays(8),
-                       EndDate = DateTime.Now.AddDays(11),
+                       StartDate = WorkDays(6),
+                       EndDate = WorkDays(9),
                        Predecessor = 1,
                        IdStatus = 5
                     },
@@ -154,8 +188,8 @@ namespace ProjectManager.ViewModels
                     {
                        IdTaskNavigation = Tasks[2],
                        Duration = 1,
-                       StartDate = DateTime.Now.AddDays(11),
-                       EndDate = DateTime.Now.AddDays(12),
+                       StartDate = DateTime.Now.AddDays(7),
+                       EndDate = DateTime.Now.AddDays(8),
                        Predecessor = 2,
                        IdStatus = 5
                     },
@@ -282,15 +316,18 @@ namespace ProjectManager.ViewModels
 
         public void OnNavigatedTo(object parameter)
         {
-
            if (parameter is int points)
             {
-                if (points <= 3)
+                Points = new int();
+                Points = points;
+                
+
+                if (Points <= 3)
                 {
                     TypeProject = 1;
                     Task6DurationDays = 10;
                 }
-                else if (points > 3 && points < 8)
+                else if (Points > 3 && Points < 8)
                 {
                     TypeProject = 2;
                     Task6DurationDays = 15;
@@ -300,7 +337,10 @@ namespace ProjectManager.ViewModels
                     TypeProject = 3;
                     Task6DurationDays = 20;
                 }
+                
+                _ = _windowManagerService.OpenInDialog(typeof(ApplyMessageViewModel).FullName, Points);
             }
+
         }
     }
 }

@@ -139,35 +139,35 @@ namespace ProjectManager.ViewModels
                             {
                                 if (_loginDataService.SaveUser(user))
                                 {
-                                    _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "Has sido registrado exitosamente al sistema de ECN's de Electri-Cord.");
+                                    _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "You have been successfully registered to the Electri-Cord project system.");
                                     _navigationService.GoBack();
                                     Clean();
                                 }
                             }
                             catch (Exception ex)
                             {
-                                _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Error al registrar - " + ex.ToString());
+                                _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Error registering - " + ex.ToString());
                             }
                         }
                         else
                         {
-                            _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Las contraseñas deben de coincidir.");
+                            _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Passwords must match.");
                         }
 
                     }
                     else
                     {
-                        _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "El número de empleado ingresado ya esta registrado.");
+                        _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "The employee number entered is already registered.");
                     }
                 }
                 else
                 {
-                    _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "El número de empleado ingresado no fue localizado, intentalo de nuevo.");
+                    _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "The employee number entered was not located, please try again.");
                 }
             }
             else
             {
-                _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Llena todos los campos.");
+                _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Fill out all fields.");
             }
         }
 
