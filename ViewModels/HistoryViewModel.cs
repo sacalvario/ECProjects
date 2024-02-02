@@ -86,8 +86,9 @@ namespace ProjectManager.ViewModels
             foreach (var item in data)
             {
                 item.IdStatusNavigation = await _projectsDataService.GetStatusAsync(item.IdStatus);
-                //item.Employee = await _historyDataService.GetEmployeeAsync(item.EmployeeId);
-
+                item.IdManagerNavigation = await _projectsDataService.GetEmployeeAsync(item.IdManager);
+                item.IdCustomerNavigation = await _projectsDataService.GetCustomerAsync(item.IdCustomer);
+                
                 History.Add(item);
 
                 HistoryCount = History.Count;
