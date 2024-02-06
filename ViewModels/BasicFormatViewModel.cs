@@ -144,16 +144,16 @@ namespace ProjectManager.ViewModels
 
         private DateTime WorkDays(int days)
         {
-            DateTime date = new DateTime();
-            date = DateTime.Now;
+            DateTime date = new DateTime(2023, 11, 9);
+            //date = DateTime.Now;
 
             for (int i = 1; i <= days; i++)
             {
-                if (DateTime.Now.AddDays(i).DayOfWeek == DayOfWeek.Saturday)
+                if (date.AddDays(i).DayOfWeek == DayOfWeek.Saturday)
                 {
                     days++;
                 }
-                else if (DateTime.Now.AddDays(i).DayOfWeek == DayOfWeek.Sunday)
+                else if (date.AddDays(i).DayOfWeek == DayOfWeek.Sunday)
                 {
                     days++;
                 }
@@ -172,7 +172,7 @@ namespace ProjectManager.ViewModels
                        IdTaskNavigation = Tasks[0],
                        Duration = 3,
                        StartDate = WorkDays(3),
-                       EndDate = WorkDays(6),
+                       EndDate = WorkDays(3),
                        IdStatus = 5
                     },
                 new ProjectTask
@@ -180,7 +180,7 @@ namespace ProjectManager.ViewModels
                        IdTaskNavigation = Tasks[1],
                        Duration = 3,
                        StartDate = WorkDays(6),
-                       EndDate = WorkDays(9),
+                       EndDate = WorkDays(6),
                        Predecessor = 1,
                        IdStatus = 5
                     },
@@ -188,8 +188,8 @@ namespace ProjectManager.ViewModels
                     {
                        IdTaskNavigation = Tasks[2],
                        Duration = 1,
-                       StartDate = DateTime.Now.AddDays(7),
-                       EndDate = DateTime.Now.AddDays(8),
+                       StartDate = WorkDays(7),
+                       EndDate = WorkDays(7),
                        Predecessor = 2,
                        IdStatus = 5
                     },
@@ -197,8 +197,8 @@ namespace ProjectManager.ViewModels
                     {
                        IdTaskNavigation = Tasks[3],
                        Duration = 7,
-                       StartDate = DateTime.Now.AddDays(12),
-                       EndDate = DateTime.Now.AddDays(19),
+                       StartDate = WorkDays(14),
+                       EndDate = WorkDays(14),
                        Predecessor = 3,
                        IdStatus = 5
                     },
@@ -206,8 +206,8 @@ namespace ProjectManager.ViewModels
                     {
                        IdTaskNavigation = Tasks[4],
                        Duration = 5,
-                       StartDate = DateTime.Now.AddDays(19),
-                       EndDate = DateTime.Now.AddDays(24),
+                       StartDate = WorkDays(12),
+                       EndDate = WorkDays(12),
                        Predecessor = 3,
                        IdStatus = 5
                     },
@@ -215,8 +215,8 @@ namespace ProjectManager.ViewModels
                     {
                        IdTaskNavigation = Tasks[5],
                        Duration =  Task6DurationDays,
-                       StartDate = DateTime.Now.AddDays(24),
-                       EndDate = DateTime.Now.AddDays(Task6DurationDays),
+                       StartDate = WorkDays(7 + Task6DurationDays),
+                       EndDate = WorkDays(7 + Task6DurationDays),
                        Predecessor = 3,
                        IdStatus = 5
                     },
@@ -224,8 +224,8 @@ namespace ProjectManager.ViewModels
                     {
                        IdTaskNavigation = Tasks[6],
                        Duration =  5,
-                       StartDate = DateTime.Now.AddDays(Task6DurationDays),
-                       EndDate = DateTime.Now.AddDays(29),
+                       StartDate = WorkDays(12),
+                       EndDate = WorkDays(12),
                        Predecessor = 3,
                        IdStatus = 5
                     },
@@ -233,8 +233,8 @@ namespace ProjectManager.ViewModels
                     {
                        IdTaskNavigation = Tasks[7],
                        Duration =  2,
-                       StartDate = DateTime.Now.AddDays(29),
-                       EndDate = DateTime.Now.AddDays(31),
+                       StartDate = WorkDays(16),
+                       EndDate = WorkDays(16),
                        Predecessor = 4,
                        IdStatus = 5
                     }
@@ -287,7 +287,7 @@ namespace ProjectManager.ViewModels
             Project.IdGeneratedby = UserRecord.Employee_ID;
             Project.ProjectComplexity = TypeProject;
             Project.IdStatus = 2;
-            Project.CreationDate = DateTime.Now;
+            Project.CreationDate = new DateTime(2023, 11, 9);
             Project.EndDate = DateTime.Now;
             Project.TotalEstimatedDuration = 1;
             Project.SuccesRateEstimate = 1;
