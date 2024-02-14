@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 #nullable disable
 
@@ -16,8 +17,8 @@ namespace ProjectManager.Models
         public int? Predecessor { get; set; }
         public int IdStatus { get; set; }
 
-        public string LongStartDate => StartDate.ToLongDateString();
-        public string LongEndDate => EndDate.ToLongDateString();
+        public string LongStartDate => StartDate.ToString("D", CultureInfo.CreateSpecificCulture("en-US"));
+        public string LongEndDate => EndDate.ToString("D", CultureInfo.CreateSpecificCulture("en-US"));
 
         public virtual Employee IdEmployeeNavigation { get; set; }
         public virtual Project IdProjectNavigation { get; set; }

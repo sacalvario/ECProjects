@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using ProjectManager.Contracts.Services;
 using ProjectManager.Contracts.ViewModels;
 using ProjectManager.Models;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Windows.Input;
 
 namespace ProjectManager.ViewModels
 {
@@ -24,6 +26,19 @@ namespace ProjectManager.ViewModels
             _navigationService = navigationService;
 
 
+        }
+
+        private ICommand _GoToBackCommand;
+        public ICommand GoToBackCommand
+        {
+            get
+            {
+                if (_GoToBackCommand == null)
+                {
+                    _GoToBackCommand = new RelayCommand(GoBack);
+                }
+                return _GoToBackCommand;
+            }
         }
 
         private Project _project;
@@ -83,6 +98,11 @@ namespace ProjectManager.ViewModels
 
             Activities = new ObservableCollection<ProjectTask>();
             GetActivities();
+        }
+
+        private void GoBack()
+        {
+            _navigationService.GoBack();
         }
     }
 }

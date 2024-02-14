@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 #nullable disable
 
@@ -28,10 +29,10 @@ namespace ProjectManager.Models
 
         public int Year => CreationDate.Year;
         public int Month => CreationDate.Month;
-        public string MonthName => System.Globalization.CultureInfo.GetCultureInfo("en-US").DateTimeFormat.GetMonthName(CreationDate.Month);
+        public string MonthName => CultureInfo.GetCultureInfo("en-US").DateTimeFormat.GetMonthName(CreationDate.Month);
         public int Day => CreationDate.Day;
-        public string LongDate => CreationDate.ToLongDateString();
-        public string LongNeedByDate => CustomerNeedby.ToLongDateString();
+        public string LongDate => CreationDate.ToString("D", CultureInfo.CreateSpecificCulture("en-US"));
+        public string LongNeedByDate => CustomerNeedby.ToString("D", CultureInfo.CreateSpecificCulture("en-US"));
 
         private string _ProjectComplexity;
         public string ProjectComplexityString

@@ -305,8 +305,7 @@ namespace ProjectManager.ViewModels
         {
             _navigationService = navigationService;
 
-            Points = new int();
-            Points = 0;
+         
         }
 
         private void NavigateToBasicFormat()
@@ -316,7 +315,19 @@ namespace ProjectManager.ViewModels
 
         public void OnNavigatedTo(object parameter)
         {
-            //throw new NotImplementedException();
+            Points = new int();
+            Points = 0;
+
+            NewCustomer = new bool();
+            AssemblyQuantity = new int();
+            CustomerDrawingAvailable = new bool();
+            NewRawMaterialQty = new int();
+            NewTooling = new bool();
+            TestingBoard = new bool();
+            RoutingBoard = new bool();
+            NewMachine = new bool();
+            NewMold = new bool();
+            CrimpApplication = new int();
         }
 
         public void OnNavigatedFrom()

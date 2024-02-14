@@ -46,7 +46,7 @@
                            Margin="20, 0, 0, 0"
                            FontSize="14">
                     <Run Text="Customer need by: " Foreground="Black" FontWeight="Regular"/>
-                    <Run Text="{Binding LongNeedByDate, Mode=OneWay}" Foreground="Green" FontWeight="UltraBold" />
+                    <Run Text="{Binding LongNeedByDate, Mode=OneWay}" Foreground="Black" FontWeight="UltraBold" />
                 </TextBlock>
                 <StackPanel  Grid.RowSpan="4" Grid.Column="3" >
                     <TextBlock Text="Project manager:" FontSize="11" FontFamily="Quicksand Medium" Foreground="Black" Margin="40, 0, 0, 0"/>
@@ -59,7 +59,7 @@
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Grid.Column="4" Grid.Row="0" Grid.RowSpan="4" VerticalAlignment="Center" Margin="40, 0, 0, 0" >
-                    <TextBlock Text="Project Complexity" HorizontalAlignment="Center" FontSize="12"/>
+                    <TextBlock Text="Project Complexity" HorizontalAlignment="Center" FontSize="12" FontWeight="Black" Foreground="Black"/>
                     <TextBlock Text="{Binding ProjectComplexityString}" Foreground="Green" FontSize="15" HorizontalAlignment="Center" FontWeight="Bold" FontFamily="Quicksand Medium"/>
                 </StackPanel>
                 <StackPanel Grid.Column="5" Grid.Row="0" Grid.RowSpan="4" VerticalAlignment="Center" Margin="40, 0, 0, 0" >

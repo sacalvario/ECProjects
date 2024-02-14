@@ -18,6 +18,9 @@ namespace ProjectManager.ViewModels
         private readonly IProjectsDataService _projectsDataService;
         private readonly IWindowManagerService _windowManagerService;
 
+        public RelayCommand GoToNextTabItemCommand { get; set; }
+        public RelayCommand GoToLastTabItemCommand { get; set; }
+
         private Project _Project;
         public Project Project
         {
@@ -47,7 +50,10 @@ namespace ProjectManager.ViewModels
             GetEmployees();
             GetTasks();
             CreateTasks();
-       
+
+
+            GoToNextTabItemCommand = new RelayCommand(GoToNexTabItem);
+            GoToLastTabItemCommand = new RelayCommand(GoToLastTabItem);
         }
 
 
@@ -112,8 +118,22 @@ namespace ProjectManager.ViewModels
                     RaisePropertyChanged("TypeProject");
                 }
             }
-        }    
-        
+        }
+
+        private int _SelectedTabItem;
+        public int SelectedTabItem
+        {
+            get => _SelectedTabItem;
+            set
+            {
+                if (_SelectedTabItem != value)
+                {
+                    _SelectedTabItem = value;
+                    RaisePropertyChanged("SelectedTabItem");
+                }
+            }
+        }
+
         private int _Points;
         public int Points
         {
@@ -143,9 +163,9 @@ namespace ProjectManager.ViewModels
         }
 
         private DateTime WorkDays(int days)
-        {
-            DateTime date = new DateTime(2023, 11, 9);
-            //date = DateTime.Now;
+        { 
+            DateTime date = new DateTime();
+            date = DateTime.Now;
 
             for (int i = 1; i <= days; i++)
             {
@@ -161,6 +181,15 @@ namespace ProjectManager.ViewModels
 
             return date.AddDays(days);
 
+        }
+
+        private void GoToNexTabItem()
+        {
+            SelectedTabItem++;
+        }
+        private void GoToLastTabItem()
+        {
+            SelectedTabItem--;
         }
 
         private void CreateTasks()
@@ -287,7 +316,7 @@ namespace ProjectManager.ViewModels
             Project.IdGeneratedby = UserRecord.Employee_ID;
             Project.ProjectComplexity = TypeProject;
             Project.IdStatus = 2;
-            Project.CreationDate = new DateTime(2023, 11, 9);
+            Project.CreationDate = DateTime.Now;
             Project.EndDate = DateTime.Now;
             Project.TotalEstimatedDuration = 1;
             Project.SuccesRateEstimate = 1;
@@ -297,6 +326,9 @@ namespace ProjectManager.ViewModels
                 if (_projectsDataService.SaveProject(Project))
                 {
                     _ = _windowManagerService.OpenInDialog(typeof(ApplyMessageViewModel).FullName, Project.IdProject);
+                    _navigationService.NavigateTo(typeof(ProjectDetailsViewModel).FullName, Project);
+                    SelectedTabItem = 0;
+                    ResetData();
                 }
 
             }
@@ -306,6 +338,19 @@ namespace ProjectManager.ViewModels
             }
 
 
+        }
+
+        private void ResetData()
+        {
+            Project = new Project
+            {
+                CustomerNeedby = DateTime.Now
+            };
+
+            GetCustomers();
+            GetEmployees();
+            GetTasks();
+            CreateTasks();
         }
 
 
@@ -339,6 +384,7 @@ namespace ProjectManager.ViewModels
                 }
                 
                 _ = _windowManagerService.OpenInDialog(typeof(ApplyMessageViewModel).FullName, Points);
+    
             }
 
         }

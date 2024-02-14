@@ -45,7 +45,7 @@ namespace ProjectManager.ViewModels
             CvsHistory.GroupDescriptions.Add(new PropertyGroupDescription("MonthName"));
             CvsHistory.SortDescriptions.Add(new SortDescription("Year", ListSortDirection.Descending));
             CvsHistory.SortDescriptions.Add(new SortDescription("Month", ListSortDirection.Descending));
-            CvsHistory.SortDescriptions.Add(new SortDescription("Id", ListSortDirection.Descending));
+            CvsHistory.SortDescriptions.Add(new SortDescription("IdProject", ListSortDirection.Descending));
 
             CvsHistory.Filter += ApplyFilter;
         }
