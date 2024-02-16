@@ -131,107 +131,17 @@
                 <TabItem.Header>
                     <TextBlock Text="Project breakdown" FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
                 </TabItem.Header>
-                <ListView ItemsSource="{Binding Activities}" VerticalAlignment="Top" Margin="0, 20, 0, 0" Width="1315" HorizontalAlignment="Left" SelectionMode="Single">
-                    <ListView.View>
-                        <GridView>
-                            <GridView.ColumnHeaderContainerStyle>
-                                <Style TargetType="GridViewColumnHeader" >
-                                    <Setter Property="Background" Value="Green"/>
-                                    <Setter Property="Foreground" Value="White"/>
-                                    <Setter Property="Height" Value="30"/>
-                                    <Setter Property="FontStyle" Value="Italic"/>
-                                    <Setter Property="FontWeight" Value="Bold"/>
-                                    <Setter Property="IsHitTestVisible" Value="False"/>
-                                </Style>
-                            </GridView.ColumnHeaderContainerStyle>
-                            <GridViewColumn Header="Activity" Width="300"  >
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Grid Margin="0, 10, 0, 0" >
-                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <md:PackIcon Kind="FormatListCheckbox"
-                                                       Width="32"
-                                                             Foreground="Black"
-                                                       Height="32"
-                                                       Margin="5"/>
-                                                <TextBlock Text="{Binding IdTask}" Foreground="Green" FontWeight="Bold" VerticalAlignment="Center" FontSize="18"/>
-                                                <TextBlock Text="{Binding IdTaskNavigation.Name}" FontWeight="Bold" Margin="5, 0, 0, 0" VerticalAlignment="Center" FontSize="15"/>
-                                            </StackPanel>
-                                        </Grid>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Duration" Width="150">
-                                <GridViewColumn.CellTemplate >
-                                    <DataTemplate >
-                                        <StackPanel Orientation="Horizontal">
-                                            <md:PackIcon Kind="TimerSand" Height="28" Width="28"/>
-                                            <TextBlock Margin="10, 0, 0, 0" Foreground="Black" FontSize="15"  HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                                <Run Text="{Binding Duration}" FontWeight="Black" Foreground="Green"/>
-                                                <Run Text="Days" />
-                                            </TextBlock>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Target Date" Width="250">
-                                <GridViewColumn.CellTemplate  >
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" Margin="20">
-                                            <md:PackIcon Kind="CalendarClock" Width="28" Height="28" Foreground="Green" />
-                                            <TextBlock Text="{Binding LongStartDate}"
-                                                       FontStyle="Italic"
-                                                       Margin="10, 0, 0, 0"
-                                                       />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Completation date" Width="250">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding LongEndDate}"
-                                                       FontStyle="Italic"
-                                                   Foreground="Black"
-                                                       Margin="20"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Assigned to" Width="350">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" Grid.Column="1">
-                                            <md:PackIcon Kind="AccountTie" Width="40" Height="40"/>
-                                            <StackPanel Margin="5">
-                                                <TextBlock Text="{Binding IdEmployeeNavigation.Name}"
-                                                               FontWeight="Black"
-                                                               FontSize="14"/>
-                                                <TextBlock Text="{Binding IdEmployeeNavigation.IdDepartamentNavigation.Name}"
-                                                               FontWeight="Bold"
-                                                               Foreground="Green"
-                                                               FontSize="14"/>
-                                            </StackPanel>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem" >
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="LightGray" />
-                                    <Setter Property="BorderThickness" Value="0"/>
-                                </Trigger>
-                                <Trigger Property="IsSelected" Value="True">
-                                    <Setter Property="Background" Value="LightGray"/>
-                                    <Setter Property="BorderThickness" Value="0"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
+                <DataGrid ItemsSource="{Binding Project.ProjectTasks}" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.IsVirtualizingWhenGrouping="True" HeadersVisibility="Column" GridLinesVisibility="Horizontal">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="#" HeaderStyle="{DynamicResource MaterialDesignOutlinedButton }">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock  Text="{Binding IdTask}" Foreground="Black" FontWeight="Bold" FontFamily="Quicksand"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
             </TabItem>
         </TabControl>
     </Grid>

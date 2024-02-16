@@ -25,7 +25,6 @@ namespace ProjectManager.ViewModels
             _mailService = mailService;
             _navigationService = navigationService;
 
-
         }
 
         private ICommand _GoToBackCommand;

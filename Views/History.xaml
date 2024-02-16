@@ -29,7 +29,7 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <materialDesign:PackIcon Kind="File" Foreground="Green" Width="42" Height="42" Grid.RowSpan="4" VerticalAlignment="Center"/>
+                <materialDesign:PackIcon Kind="FileDocument" Foreground="Green" Width="42" Height="42" Grid.RowSpan="4" VerticalAlignment="Center"/>
                 <StackPanel Grid.RowSpan="4" Grid.Column="1" Margin="10, 12, 20, 12" >
                     <TextBlock Text="ID" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Black" FontSize="17"/>
                     <TextBlock Text="{Binding IdProject}" FontWeight="Black" Foreground="Green" FontSize="17" VerticalAlignment="Center" HorizontalAlignment="Center"/>
