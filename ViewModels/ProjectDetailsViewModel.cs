@@ -95,6 +95,7 @@ namespace ProjectManager.ViewModels
                 Project = project;
             }
 
+
             Activities = new ObservableCollection<ProjectTask>();
             GetActivities();
         }
