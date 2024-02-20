@@ -41,7 +41,7 @@ namespace ProjectManager.ViewModels
             _projectsDataService = projectsDataService;
             _windowManagerService = windowManagerService;
 
-            Project = new Project() 
+            Project = new Project()
             {
                 CustomerNeedby = DateTime.Now
             };
@@ -51,6 +51,7 @@ namespace ProjectManager.ViewModels
             GetTasks();
             CreateTasks();
 
+            _ = _windowManagerService.OpenInDialog(typeof(ApplyMessageViewModel).FullName, Points);
 
             GoToNextTabItemCommand = new RelayCommand(GoToNexTabItem);
             GoToLastTabItemCommand = new RelayCommand(GoToLastTabItem);
@@ -377,14 +378,12 @@ namespace ProjectManager.ViewModels
                     TypeProject = 2;
                     Task6DurationDays = 15;
                 }
-                else
+                else if (Points > 8)
                 {
                     TypeProject = 3;
                     Task6DurationDays = 20;
                 }
-                
-                _ = _windowManagerService.OpenInDialog(typeof(ApplyMessageViewModel).FullName, Points);
-    
+
             }
 
         }

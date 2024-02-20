@@ -150,8 +150,8 @@
                         <DataGridTemplateColumn Header="Duration" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <md:PackIcon Kind="TimerSand" Height="22" Width="22"/>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <md:PackIcon Kind="TimerSand" Height="22" Width="22" VerticalAlignment="Center"/>
                                         <TextBlock Margin="10, 0, 0, 0" Foreground="Black" FontSize="15"  HorizontalAlignment="Center" VerticalAlignment="Center" >
                                                 <Run Text="{Binding Duration}" FontWeight="Black" Foreground="Green"/>
                                                 <Run Text="Days" />
@@ -163,7 +163,7 @@
                         <DataGridTemplateColumn Header="Target Date" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <StackPanel Orientation="Horizontal" >
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                         <md:PackIcon Kind="CalendarClock" Width="28" Height="28" Foreground="Green" />
                                         <TextBlock Text="{Binding LongStartDate}"
                                                        FontStyle="Italic"
@@ -179,7 +179,34 @@
                                     <TextBlock Text="{Binding LongEndDate}"
                                                        FontStyle="Italic"
                                                        Margin="10, 0, 0, 0"
+                                                       VerticalAlignment="Center"
                                                        />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Status" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border CornerRadius="10"
+                                                Background="{Binding IdStatusNavigation.StatusColor}"
+                                                Height="25"
+                                                Width="115"
+                                                Margin="10, 0, 0, 0">
+                                        <TextBlock Foreground="White" Text="{Binding IdStatusNavigation.Name}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black"/>
+                                    </Border>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Responsible" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="20, 0, 0, 0">
+                                        <md:PackIcon Kind="AccountTie" Width="40" Height="40"/>
+                                        <StackPanel Margin="10, 0, 0, 0">
+                                            <TextBlock  Text="{Binding IdEmployeeNavigation.Name}" />
+                                            <TextBlock Text="{Binding IdEmployeeNavigation.IdDepartamentNavigation.Name}" Foreground="Green" />
+                                        </StackPanel>
+                                    </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
