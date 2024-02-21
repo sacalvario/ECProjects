@@ -18,6 +18,7 @@ namespace ProjectManager.Contracts.Services
         Task<IEnumerable<Employee>> GetEmployeesAsync();
         Task<ICollection<ProjectTask>> GetActivitiesAsync(int project);
         bool SaveProject(Project project);
+        bool CompleteTask(ProjectTask task);
         Task<Status> GetStatusAsync(int id);
     }
 }

@@ -143,5 +143,28 @@ namespace ProjectManager.Services
         {
             return context.Tasks.Find(id);
         }
+
+        public bool CompleteTask(ProjectTask task)
+        {
+            if (task.EndDate > DateTime.Now)
+            {
+                task.IdStatus = 1;
+                
+             //   Ajustar fechas cuando se retrasa el cierre de actividad 
+            }
+            else
+            {
+                task.IdStatus = 4;
+
+                //   Ajustar fechas cuando se completa con tiempo
+            }
+                task.CompletationDate = DateTime.Now;
+
+            // MAandar correo a siguiente persona
+            // Cambiar status de siguiente tarea
+
+            var result = context.SaveChanges();
+            return result > 0;
+        }
     }
 }
