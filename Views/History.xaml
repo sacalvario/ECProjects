@@ -51,7 +51,7 @@
                 <StackPanel  Grid.RowSpan="4" Grid.Column="3" >
                     <TextBlock Text="Project manager:" FontSize="11" FontFamily="Quicksand Medium" Foreground="Black" Margin="40, 0, 0, 0"/>
                     <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
-                        <materialDesign:PackIcon Kind="User" Width="44" Height="44" Foreground="Black"/>
+                        <materialDesign:PackIcon Kind="AccountTie" Width="44" Height="44" Foreground="Black"/>
                         <StackPanel Margin="5, 0, 0, 0"  VerticalAlignment="Center">
                             <TextBlock Text="{Binding IdManagerNavigation.Name, Mode=OneWay}" HorizontalAlignment="Left" FontWeight="Bold" Foreground="Black" FontSize="14"/>
                             <TextBlock Text="{Binding IdManagerNavigation.IdDepartamentNavigation.Name}" HorizontalAlignment="Left" FontWeight="DemiBold" Foreground="Green" FontSize="14" VerticalAlignment="Center" FontStyle="Italic"/>

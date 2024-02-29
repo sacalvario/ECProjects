@@ -93,12 +93,6 @@ namespace ProjectManager.ViewModels
 
                 HistoryCount = History.Count;
 
-                //if (Convert.ToBoolean(item.IsEco))
-                //{
-                //    EcoHardStopsCount = History.Count(data => data.EcnEco.EcoType.EcoTypeId == 1);
-                //    EcoRollingChangesCount = History.Count(data => data.EcnEco.EcoType.EcoTypeId == 2);
-                //}
-
             }
         }
 

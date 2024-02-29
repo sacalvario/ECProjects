@@ -163,7 +163,7 @@
                         <DataGridTemplateColumn Header="Target Date" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20, 0, 0, 0">
                                         <md:PackIcon Kind="CalendarClock" Width="28" Height="28" Foreground="Green" />
                                         <TextBlock Text="{Binding LongStartDate}"
                                                        FontStyle="Italic"
@@ -203,8 +203,8 @@
                                     <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="20, 0, 0, 0">
                                         <md:PackIcon Kind="AccountTie" Width="40" Height="40"/>
                                         <StackPanel Margin="10, 0, 0, 0">
-                                            <TextBlock  Text="{Binding IdEmployeeNavigation.Name}" />
-                                            <TextBlock Text="{Binding IdEmployeeNavigation.IdDepartamentNavigation.Name}" Foreground="Green" />
+                                            <TextBlock  Text="{Binding IdEmployeeNavigation.Name}" FontWeight="Bold" />
+                                            <TextBlock Text="{Binding IdEmployeeNavigation.IdDepartamentNavigation.Name}" FontWeight="Bold" Foreground="Green" />
                                         </StackPanel>
                                     </StackPanel>
                                 </DataTemplate>
