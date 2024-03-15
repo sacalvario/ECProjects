@@ -134,90 +134,71 @@
                             </StackPanel>
                         </Button>
                     </StackPanel>
-                    <ScrollViewer Grid.Row="1" Grid.RowSpan="4" Margin="20, 0, 0, 0" HorizontalScrollBarVisibility="Visible">
-                        <ListView ItemsSource="{Binding Project.ProjectTasks}" VerticalAlignment="Top" Margin="0, 20, 0, 0" Width="1115" HorizontalAlignment="Left" SelectionMode="Single">
-                            <ListView.View>
-                                <GridView>
-                                    <GridView.ColumnHeaderContainerStyle>
-                                        <Style TargetType="GridViewColumnHeader" >
-                                            <Setter Property="Background" Value="Green"/>
-                                            <Setter Property="Foreground" Value="White"/>
-                                            <Setter Property="Height" Value="30"/>
-                                            <Setter Property="FontStyle" Value="Italic"/>
-                                            <Setter Property="FontWeight" Value="Bold"/>
-                                            <Setter Property="IsHitTestVisible" Value="False"/>
-                                        </Style>
-                                    </GridView.ColumnHeaderContainerStyle>
-                                    <GridViewColumn Header="Activity" Width="300"  >
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Grid Margin="0, 10, 0, 0" >
-                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                        <materialDesign:PackIcon Kind="FormatListCheckbox"
-                                                       Width="32"
-                                                             Foreground="Black"
-                                                       Height="32"
-                                                       Margin="5"/>
-                                                        <TextBlock Text="{Binding IdTaskNavigation.Name}" FontWeight="Bold" Margin="5, 0, 0, 0" VerticalAlignment="Center" FontSize="15"/>
-                                                    </StackPanel>
-                                                </Grid>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="Duration" Width="150">
-                                        <GridViewColumn.CellTemplate >
-                                            <DataTemplate >
-                                                <StackPanel Orientation="Horizontal">
-                                                    <materialDesign:PackIcon Kind="TimerSand" Height="28" Width="28"/>
-                                                    <TextBlock Margin="10, 0, 0, 0" Foreground="Black" FontSize="15"  HorizontalAlignment="Center" VerticalAlignment="Center" >
+                    <DataGrid ItemsSource="{Binding Project.ProjectTasks}" Grid.Row="1" Grid.RowSpan="4" CanUserAddRows="False" CanUserDeleteRows="False" Margin="20, 20, 0, 0" AutoGenerateColumns="False" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.IsVirtualizingWhenGrouping="True" HeadersVisibility="Column" GridLinesVisibility="Horizontal">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="#" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Text="{Binding IdTaskNavigation.IdTask}" Foreground="Black" FontWeight="Bold" FontFamily="Quicksand"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Task Name" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Text="{Binding IdTaskNavigation.Name}" Foreground="Black" FontWeight="Bold" FontFamily="Quicksand"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Duration" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                            <materialDesign:PackIcon Kind="TimerSand" Height="22" Width="22" VerticalAlignment="Center"/>
+                                            <TextBlock Margin="10, 0, 0, 0" Foreground="Black" FontSize="15"  HorizontalAlignment="Center" VerticalAlignment="Center" >
                                                 <Run Text="{Binding Duration}" FontWeight="Black" Foreground="Green"/>
                                                 <Run Text="Days" />
-                                                    </TextBlock>
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="Target Date" Width="300">
-                                        <GridViewColumn.CellTemplate  >
-                                            <DataTemplate>
-                                                <StackPanel Orientation="Horizontal" Margin="20">
-                                                    <materialDesign:PackIcon Kind="CalendarClock" Width="28" Height="28" Foreground="Green" />
-                                                    <TextBlock Text="{Binding LongStartDate}"
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Target Date" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20, 0, 0, 0">
+                                            <materialDesign:PackIcon Kind="CalendarClock" Width="28" Height="28" Foreground="Green" />
+                                            <TextBlock Text="{Binding LongStartDate}"
                                                        FontStyle="Italic"
                                                        Margin="10, 0, 0, 0"
                                                        />
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="Responsible" Width="350">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="20, 0, 0, 0">
-                                                    <materialDesign:PackIcon Kind="AccountTie" Width="40" Height="40"/>
-                                                    <ComboBox  Width="200" SelectedItem="{Binding IdEmployeeNavigation}"  SelectedValuePath="IdEmployee" ItemsSource="{Binding Path=DataContext.Employees, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" DisplayMemberPath="Name" ui:ControlHelper.PlaceholderText="Select a responsable"  BorderBrush="Black"  Foreground="Black" Margin="10, 5, 0, 0" />
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                            <ListView.ItemContainerStyle>
-                                <Style TargetType="ListViewItem" >
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="LightGray" />
-                                            <Setter Property="BorderThickness" Value="0"/>
-                                        </Trigger>
-                                        <Trigger Property="IsSelected" Value="True">
-                                            <Setter Property="Background" Value="LightGray"/>
-                                            <Setter Property="BorderThickness" Value="0"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </ListView.ItemContainerStyle>
-                        </ListView>
-                    </ScrollViewer>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Completion Date" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding LongEndDate}"
+                                                       FontStyle="Italic"
+                                                       Margin="10, 0, 0, 0"
+                                                       VerticalAlignment="Center"
+                                                       />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Responsible" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="20, 0, 0, 0">
+                                            <materialDesign:PackIcon Kind="AccountTie" Width="40" Height="40"/>
+                                            <ComboBox SelectedItem="{Binding IdEmployeeNavigation}"  SelectedValuePath="IdEmployee" ItemsSource="{Binding Path=DataContext.Employees, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}" DisplayMemberPath="Name" ui:ControlHelper.PlaceholderText="Select a responsable"  BorderBrush="Black"  Foreground="Black" Margin="10, 5, 0, 0"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </TabItem>
         </TabControl>
