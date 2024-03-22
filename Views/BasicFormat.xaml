@@ -134,7 +134,7 @@
                             </StackPanel>
                         </Button>
                     </StackPanel>
-                    <DataGrid ItemsSource="{Binding Project.ProjectTasks}" Grid.Row="1" Grid.RowSpan="4" CanUserAddRows="False" CanUserDeleteRows="False" Margin="20, 20, 0, 0" AutoGenerateColumns="False" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.IsVirtualizingWhenGrouping="True" HeadersVisibility="Column" GridLinesVisibility="Horizontal">
+                    <DataGrid ItemsSource="{Binding TaskList}" Grid.Row="1" Grid.RowSpan="4" CanUserAddRows="False" CanUserDeleteRows="False" Margin="20, 20, 0, 0" AutoGenerateColumns="False"  HeadersVisibility="Column" GridLinesVisibility="Horizontal">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Header="#" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
                                 <DataGridTemplateColumn.CellTemplate>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -6,7 +7,7 @@ using System.Globalization;
 
 namespace ProjectManager.Models
 {
-    public partial class Project
+    public partial class Project : ViewModelBase
     {
         public Project()
         {
@@ -20,7 +21,22 @@ namespace ProjectManager.Models
         public string QuoteNumber { get; set; }
         public int ProjectComplexity { get; set; }
         public int IdStatus { get; set; }
-        public int TotalAssembliesInProject { get; set; }
+
+        private int _TotalAssembliesInProject;
+        public int TotalAssembliesInProject 
+        {
+            get => _TotalAssembliesInProject;
+            set
+            {
+                if (_TotalAssembliesInProject != value)
+                {
+                    _TotalAssembliesInProject = value;
+                    RaisePropertyChanged("TotalAssembliesInProject");
+                }
+            }
+        }
+
+
         public DateTime CreationDate { get; set; }
         public DateTime EndDate { get; set; }
         public DateTime CustomerNeedby { get; set; }

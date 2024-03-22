@@ -18,7 +18,7 @@
 
     <DockPanel>
         <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" HorizontalAlignment="Stretch" Background="Green">
-            <TextBlock Text="ELECTRI-CORD" FontFamily="Arial" FontWeight="Black" Foreground="White" FontSize="20" FontStyle="Oblique" VerticalAlignment="Center" Margin="10"/>
+            <Image Source="/Assets/Picture5.png" Height="38" Width="100" Margin="10, 0, 0 ,0"/>
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
                 <StackPanel Margin="6">
                     <TextBlock Text="{Binding Name}" FontSize="16" Foreground="White" /> 

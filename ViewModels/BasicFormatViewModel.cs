@@ -41,17 +41,17 @@ namespace ProjectManager.ViewModels
             _projectsDataService = projectsDataService;
             _windowManagerService = windowManagerService;
 
+            Data = new ProjectData();
+
             Project = new Project()
             {
-                CustomerNeedby = DateTime.Now
+                CustomerNeedby = DateTime.Now,
             };
 
             GetCustomers();
             GetEmployees();
             GetTasks();
-            CreateTasks();
 
-            _ = _windowManagerService.OpenInDialog(typeof(ApplyMessageViewModel).FullName, Points);
 
             GoToNextTabItemCommand = new RelayCommand(GoToNexTabItem);
             GoToLastTabItemCommand = new RelayCommand(GoToLastTabItem);
@@ -106,17 +106,17 @@ namespace ProjectManager.ViewModels
                 }
             }
         }
-
-        private int _TypeProject;
-        public int TypeProject
+        
+        private ObservableCollection<ProjectTask> _TaskList;
+        public ObservableCollection<ProjectTask> TaskList
         {
-            get => _TypeProject;
+            get => _TaskList;
             set
             {
-                if (_TypeProject != value)
+                if (_TaskList != value)
                 {
-                    _TypeProject = value;
-                    RaisePropertyChanged("TypeProject");
+                    _TaskList = value;
+                    RaisePropertyChanged("TaskList");
                 }
             }
         }
@@ -135,30 +135,16 @@ namespace ProjectManager.ViewModels
             }
         }
 
-        private int _Points;
-        public int Points
+        private ProjectData _Data;
+        public ProjectData Data
         {
-            get => _Points;
+            get => _Data;
             set
             {
-                if (_Points != value)
+                if (_Data != value)
                 {
-                    _Points = value;
-                    RaisePropertyChanged("Points");
-                }
-            }
-        }
-
-        private int _Task6DurationDays;
-        public int Task6DurationDays
-        {
-            get => _Task6DurationDays;
-            set
-            {
-                if (_Task6DurationDays != value)
-                {
-                    _Task6DurationDays = value;
-                    RaisePropertyChanged("Task6DurationDays");
+                    _Data = value;
+                    RaisePropertyChanged("Data");
                 }
             }
         }
@@ -195,7 +181,7 @@ namespace ProjectManager.ViewModels
 
         private void CreateTasks()
         {
-            Project.ProjectTasks = new ObservableCollection<ProjectTask>()
+            TaskList = new ObservableCollection<ProjectTask>()
             {
                 new ProjectTask
                     {
@@ -244,9 +230,9 @@ namespace ProjectManager.ViewModels
                     new ProjectTask
                     {
                        IdTaskNavigation = Tasks[5],
-                       Duration =  Task6DurationDays,
-                       StartDate = WorkDays(7 + Task6DurationDays),
-                       EndDate = WorkDays(7 + Task6DurationDays),
+                       Duration =  Data.TaskDurationDays,
+                       StartDate = WorkDays(7 + Data.TaskDurationDays),
+                       EndDate = WorkDays(7 + Data.TaskDurationDays),
                        Predecessor = 3,
                        IdStatus = 5
                     },
@@ -315,12 +301,13 @@ namespace ProjectManager.ViewModels
         private void AddProject()
         {
             Project.IdGeneratedby = UserRecord.Employee_ID;
-            Project.ProjectComplexity = TypeProject;
+            Project.ProjectComplexity = Data.TypeProject;
             Project.IdStatus = 2;
             Project.CreationDate = DateTime.Now;
             Project.EndDate = DateTime.Now;
             Project.TotalEstimatedDuration = 1;
             Project.SuccesRateEstimate = 1;
+            Project.ProjectTasks = TaskList;
 
             try
             {
@@ -362,30 +349,17 @@ namespace ProjectManager.ViewModels
 
         public void OnNavigatedTo(object parameter)
         {
-           if (parameter is int points)
+       
+            if (parameter is ProjectData data)
             {
-                Points = new int();
-                Points = points;
-                
+                Data = data;
 
-                if (Points <= 3)
-                {
-                    TypeProject = 1;
-                    Task6DurationDays = 10;
-                }
-                else if (Points > 3 && Points < 8)
-                {
-                    TypeProject = 2;
-                    Task6DurationDays = 15;
-                }
-                else if (Points > 8)
-                {
-                    TypeProject = 3;
-                    Task6DurationDays = 20;
-                }
+                Project.TotalAssembliesInProject = data.TotalAssemblies;
+
+                _ = _windowManagerService.OpenInDialog(typeof(ApplyMessageViewModel).FullName, Data.TaskDurationDays);
+                CreateTasks();
 
             }
-
         }
     }
 }

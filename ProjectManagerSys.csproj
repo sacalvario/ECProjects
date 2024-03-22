@@ -40,6 +40,7 @@
     <None Remove="Assets\nuevo-proyecto.png" />
     <None Remove="Assets\panerecord.png" />
     <None Remove="Assets\pdf.png" />
+    <None Remove="Assets\Picture5.png" />
     <None Remove="Assets\plug.png" />
     <None Remove="Assets\plug128.png" />
     <None Remove="Assets\plug48.png" />
@@ -165,6 +166,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\pdf.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Picture5.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\plug.png">

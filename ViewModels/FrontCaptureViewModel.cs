@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight.Command;
 
 using System.Windows.Input;
 using ProjectManager.Contracts.ViewModels;
+using ProjectManager.Models;
 
 namespace ProjectManager.ViewModels
 {
@@ -310,7 +311,27 @@ namespace ProjectManager.ViewModels
 
         private void NavigateToBasicFormat()
         {
-             _navigationService.NavigateTo(typeof(BasicFormatViewModel).FullName, Points);
+            ProjectData data = new ProjectData();
+
+            if (Points <= 3)
+            {
+                data.TypeProject = 1;
+                data.TaskDurationDays = 10;
+            }
+            else if (Points > 3 && Points < 8)
+            {
+                data.TypeProject = 2;
+                data.TaskDurationDays = 15;
+            }
+            else if (Points > 8)
+            {
+                data.TypeProject = 3;
+                data.TaskDurationDays = 20;
+            }
+
+            data.TotalAssemblies = AssemblyQuantity;
+
+            _navigationService.NavigateTo(typeof(BasicFormatViewModel).FullName, data);
         }
 
         public void OnNavigatedTo(object parameter)
@@ -328,6 +349,8 @@ namespace ProjectManager.ViewModels
             NewMachine = new bool();
             NewMold = new bool();
             CrimpApplication = new int();
+
+
         }
 
         public void OnNavigatedFrom()
