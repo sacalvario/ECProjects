@@ -20,7 +20,19 @@ namespace ProjectManager.ViewModels
 
         public EmployeesViewModel(IProjectsDataService projectsDataService, IWindowManagerService windowManagerService)
         {
+            _projectsDataService = projectsDataService;
+            _windowManagerService = windowManagerService;
+            Employees = new ObservableCollection<Employee>();
+            GetEmployees();
 
+            CvsEmployees = new CollectionViewSource
+            {
+                Source = Employees
+            };
+
+            CvsEmployees.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+
+            CvsEmployees.Filter += ApplyFilter;
         }
 
 
@@ -35,6 +47,17 @@ namespace ProjectManager.ViewModels
                     _Employees = value;
                     RaisePropertyChanged("Employees");
                 }
+            }
+        }
+
+        private async void GetEmployees()
+        {
+            var data = await _projectsDataService.GetEmployeesAsync();
+
+            foreach (var item in data)
+            {
+                item.IdDepartamentNavigation = await _projectsDataService.GetDepartmentAsync(item.IdDepartament);
+                Employees.Add(item);
             }
         }
 

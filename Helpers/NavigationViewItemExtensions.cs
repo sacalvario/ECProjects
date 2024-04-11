@@ -15,6 +15,7 @@ namespace ModernWpf.Controls
                     "FrontCapture" => typeof(FrontCaptureViewModel),
                     "History" => typeof(HistoryViewModel),
                     "Tasks" => typeof(TasksViewModel),
+                    "Employees" => typeof(EmployeesViewModel),
                     _ => null,
                 }
                 : null;

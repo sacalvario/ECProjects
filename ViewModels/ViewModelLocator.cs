@@ -94,6 +94,7 @@ namespace ProjectManager.ViewModels
             Register<HistoryViewModel, History>();
             Register<ProjectDetailsViewModel, ProjectDetails>();
             Register<TasksViewModel, Tasks>();
+            Register<EmployeesViewModel, Employees>();
         }
 
         private void Register<VM, V>()
