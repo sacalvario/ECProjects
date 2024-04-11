@@ -51,6 +51,12 @@ namespace ProjectManager.ViewModels
         
         public ProjectDetailsViewModel ProjectDetailsViewModel
             => SimpleIoc.Default.GetInstance<ProjectDetailsViewModel>();
+        
+        public TasksViewModel TasksViewMoodel
+            => SimpleIoc.Default.GetInstance<TasksViewModel>();
+        
+        public EmployeesViewModel EmployeesViewModel
+            => SimpleIoc.Default.GetInstance<EmployeesViewModel>();
 
         public ViewModelLocator()
         {
@@ -87,6 +93,7 @@ namespace ProjectManager.ViewModels
             Register<ApplyMessageViewModel, ApplyMesagge>();
             Register<HistoryViewModel, History>();
             Register<ProjectDetailsViewModel, ProjectDetails>();
+            Register<TasksViewModel, Tasks>();
         }
 
         private void Register<VM, V>()
