@@ -19,6 +19,7 @@
                        FontFamily="Quicksand"
                        FontWeight="Medium"/>
         </DataTemplate>
+        
         <DataTemplate x:Key="ToggleSwitchHeaderTemplate">
             <TextBlock Text="{Binding}"
                        FontSize="17"

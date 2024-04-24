@@ -350,7 +350,6 @@ namespace ProjectManager.ViewModels
             NewMold = new bool();
             CrimpApplication = new int();
 
-
         }
 
         public void OnNavigatedFrom()

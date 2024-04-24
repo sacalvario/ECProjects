@@ -166,5 +166,28 @@ namespace ProjectManager.Services
             var result = context.SaveChanges();
             return result > 0;
         }
+
+        public async Task<ICollection<ProjectTask>> GetTasksAsync(int employee)
+        {
+            await System.Threading.Tasks.Task.CompletedTask;
+            return GetTasks(employee); 
+        }
+
+        private ICollection<ProjectTask> GetTasks(int employee)
+        {
+            using projectsContext context = new projectsContext();
+            return context.ProjectTasks.Where(i =>  i.IdEmployee == employee).ToList();
+        }
+
+        public async Task<Project> GetProjectAsync(int id)
+        {
+            await System.Threading.Tasks.Task.CompletedTask;
+            return GetProject(id);
+        }
+
+        private Project GetProject(int id)
+        {
+            return context.Projects.Find(id);
+        }
     }
 }
