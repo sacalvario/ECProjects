@@ -3,12 +3,155 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:ProjectManager.Views"
+      xmlns:ui="http://schemas.modernwpf.com/2019" 
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      DataContext="{Binding TasksViewMoodel, Source={StaticResource Locator}}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Tasks">
 
-    <Grid Background="#FFEAE7E7">
-        
+    <Page.Resources>
+
+        <DataTemplate x:Key="DayTemplate">
+            <Grid Margin="12" x:Name="Ea">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="400" />
+                    <ColumnDefinition Width="300" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <materialDesign:PackIcon Kind="FileDocument" Foreground="Green" Width="42" Height="42" Grid.RowSpan="4" VerticalAlignment="Center"/>
+                <StackPanel Grid.RowSpan="4" Grid.Column="1" Margin="10, 12, 20, 12" >
+                    <TextBlock Text="ID" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Black" FontSize="17"/>
+                    <TextBlock Text="{Binding IdProject}" FontWeight="Black" Foreground="Green" FontSize="17" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </StackPanel>
+                <TextBlock Grid.Column="2"
+                           Grid.Row="2"
+                           Margin="20, 0, 0, 0"
+                           FontSize="14">
+                    <Run Text="Creation date: " Foreground="Black" FontWeight="Normal"/>
+                    <Run Text="{Binding IdProjectNavigation.LongDate, Mode=OneWay}" FontWeight="UltraBold" Foreground="Black" />
+                </TextBlock>
+                <TextBlock Grid.Column="2"
+                           Grid.Row="3"
+                           Margin="20, 0, 0, 0"
+                           FontSize="14">
+                    <Run Text="Customer need by: " Foreground="Black" FontWeight="Regular"/>
+                    <Run Text="{Binding IdProjectNavigation.LongNeedByDate, Mode=OneWay}" Foreground="Black" FontWeight="UltraBold" />
+                </TextBlock>
+                <StackPanel  Grid.RowSpan="4" Grid.Column="3" >
+                    <TextBlock Text="Project manager:" FontSize="11" FontFamily="Quicksand Medium" Foreground="Black" Margin="40, 0, 0, 0"/>
+                    <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                        <materialDesign:PackIcon Kind="AccountTie" Width="44" Height="44" Foreground="Black"/>
+                        <StackPanel Margin="5, 0, 0, 0"  VerticalAlignment="Center">
+                            <TextBlock Text="{Binding IdManagerNavigation.Name, Mode=OneWay}" HorizontalAlignment="Left" FontWeight="Bold" Foreground="Black" FontSize="14"/>
+                            <TextBlock Text="{Binding IdManagerNavigation.IdDepartamentNavigation.Name}" HorizontalAlignment="Left" FontWeight="DemiBold" Foreground="Green" FontSize="14" VerticalAlignment="Center" FontStyle="Italic"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Grid.Column="4" Grid.Row="0" Grid.RowSpan="4" VerticalAlignment="Center" Margin="40, 0, 0, 0" >
+                    <TextBlock Text="Project Complexity" HorizontalAlignment="Center" FontSize="12" FontWeight="Black" Foreground="Black"/>
+                    <TextBlock Text="{Binding ProjectComplexityString}" Foreground="Green" FontSize="15" HorizontalAlignment="Center" FontWeight="Bold" FontFamily="Quicksand Medium"/>
+                </StackPanel>
+                <StackPanel Grid.Column="5" Grid.Row="0" Grid.RowSpan="4" VerticalAlignment="Center" Margin="40, 0, 0, 0" >
+                    <Border 
+                        CornerRadius="10"
+                        Background="{Binding IdStatusNavigation.StatusColor}"
+                        Grid.Column="4"
+                        Grid.Row="0"
+                        Grid.RowSpan="4"
+                        Height="30"
+                        Width="95">
+                        <TextBlock Foreground="White" Text="{Binding IdStatusNavigation.Name}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black" FontSize="15"/>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+        <HierarchicalDataTemplate x:Key="MonthTemplate"
+                                  ItemsSource="{Binding Path=Items}"
+                                  ItemTemplate="{StaticResource DayTemplate}">
+            <TextBlock Text="{Binding Path=Name, Mode=OneWay}" FontSize="16" FontStyle="Italic" Foreground="Black"/>
+        </HierarchicalDataTemplate>
+
+        <HierarchicalDataTemplate x:Key="YearTemplate"
+                                  ItemsSource="{Binding Path=Items}"
+                                  ItemTemplate="{StaticResource MonthTemplate}">
+            <TextBlock Text="{Binding Path=Name, Mode=OneWay}" FontSize="18" FontWeight="Black" Foreground="Black"/>
+        </HierarchicalDataTemplate>
+
+        <Style TargetType="{x:Type TreeViewItem}" x:Key="ContainerStyle">
+            <Setter Property="ItemTemplate" Value="{StaticResource DayTemplate}" />
+            <Setter Property="IsExpanded" Value="True" />
+            <Style.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FFCFCFCF" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#FFCFCFCF" />
+            </Style.Resources>
+        </Style>
+
+    </Page.Resources>
+
+    <Grid Background="#FFE0E0E0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="6*" />
+        </Grid.RowDefinitions>
+        <StackPanel VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    Margin="100, 0, 0, 0">
+            <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Left" 
+                        Margin="0, 0, 0, 5">
+                <Label Content="Search" 
+                       FontFamily="Quicksand Medium" 
+                       FontSize="16" />
+                <Image Source="/Assets/search.png"
+                       Width="22" 
+                       Margin="2, 0, 0, 0"/>
+            </StackPanel>
+            <TextBox Text="{Binding Path=Filter, UpdateSourceTrigger=PropertyChanged}"
+                     Background="Green"
+                     Foreground="White"
+                     BorderThickness="0"
+                     FontFamily="Quicksand Medium" 
+                     FontSize="15" 
+                     ui:ControlHelper.PlaceholderText="Enter an ID" 
+                     ui:ControlHelper.PlaceholderForeground="White"
+                     Width="450"  />
+        </StackPanel>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="350, 0, 0, 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Margin="10, 0">
+                <TextBlock Text="{Binding HistoryCount}" FontSize="38" Foreground="Green" FontWeight="Black" HorizontalAlignment="Center"/>
+                <TextBlock Text="Projects generated" FontStyle="Italic"/>
+            </StackPanel>
+
+        </Grid>
+        <TreeView x:Name="tvHistory" 
+                  ItemsSource="{Binding Path=CvsChecklist.View.Groups}"
+                  ItemContainerStyle="{StaticResource ContainerStyle}" 
+                  ItemTemplate="{StaticResource YearTemplate}" 
+                  Margin="100, 10 , 40, 40"
+                  Grid.Row="1">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick" >
+                    <i:InvokeCommandAction Command="{Binding ElementName=tvHistory, Path=DataContext.NavigateToDetailCommand}" CommandParameter="{Binding ElementName=tvHistory, Path=SelectedItem}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TreeView>
     </Grid>
 </Page>
