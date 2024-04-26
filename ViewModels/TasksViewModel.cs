@@ -27,13 +27,12 @@ namespace ProjectManager.ViewModels
             _projectsDataService = projectsDataService;
             _navigationService = navigationService;
 
-            CvsChecklist = new CollectionViewSource();
+            //CvsChecklist = new CollectionViewSource();
 
-            CvsChecklist.GroupDescriptions.Add(new PropertyGroupDescription("IdProjectNavigation.Year"));
-            CvsChecklist.GroupDescriptions.Add(new PropertyGroupDescription("IdProjectNavigation.MonthName"));
-            CvsChecklist.SortDescriptions.Add(new SortDescription("IdProjectNavigation.Year", ListSortDirection.Descending));
-            CvsChecklist.SortDescriptions.Add(new SortDescription("IdProjectNavigation.Month", ListSortDirection.Descending));
-            CvsChecklist.SortDescriptions.Add(new SortDescription("IdProjectNavigation.IdProject", ListSortDirection.Descending));
+            //CvsChecklist.GroupDescriptions.Add(new PropertyGroupDescription("IdProjectNavigation"));
+            //CvsChecklist.SortDescriptions.Add(new SortDescription("IdProjectNavigation.Year", ListSortDirection.Descending));
+            //CvsChecklist.SortDescriptions.Add(new SortDescription("IdProjectNavigation.Month", ListSortDirection.Descending));
+            //CvsChecklist.SortDescriptions.Add(new SortDescription("IdProjectNavigation.IdProject", ListSortDirection.Descending));
         }
 
         private CollectionViewSource _CvsChecklist;
@@ -87,7 +86,7 @@ namespace ProjectManager.ViewModels
 
         public void OnNavigatedTo(object parameter)
         {
-            CvsChecklist.Source = null;
+            //CvsChecklist.Source = null;
 
             if (parameter is Employee employee)
             {
@@ -98,13 +97,20 @@ namespace ProjectManager.ViewModels
                 GetChecklist(UserRecord.Employee_ID);
             }
 
+            CvsChecklist = new CollectionViewSource();
+
+            CvsChecklist.GroupDescriptions.Add(new PropertyGroupDescription("IdProjectNavigation"));
+            CvsChecklist.SortDescriptions.Add(new SortDescription("IdProjectNavigation.Year", ListSortDirection.Descending));
+            CvsChecklist.SortDescriptions.Add(new SortDescription("IdProjectNavigation.Month", ListSortDirection.Descending));
+            CvsChecklist.SortDescriptions.Add(new SortDescription("IdProjectNavigation.IdProject", ListSortDirection.Descending));
+
             CvsChecklist.Source = Checklist;
 
         }
 
         public void OnNavigatedFrom()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }
