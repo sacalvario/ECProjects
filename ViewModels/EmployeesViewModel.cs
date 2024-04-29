@@ -17,11 +17,17 @@ namespace ProjectManager.ViewModels
     {
         public readonly IProjectsDataService _projectsDataService;
         public readonly IWindowManagerService _windowManagerService;
+        private readonly INavigationService _navigationService;
 
-        public EmployeesViewModel(IProjectsDataService projectsDataService, IWindowManagerService windowManagerService)
+        private ICommand _navigateToTasksListCommand;
+        public ICommand NavigateToTasksListCommand => _navigateToTasksListCommand ??= new RelayCommand<Employee>(NavigateToTasksList);
+
+        public EmployeesViewModel(IProjectsDataService projectsDataService, IWindowManagerService windowManagerService, INavigationService navigationService)
         {
             _projectsDataService = projectsDataService;
             _windowManagerService = windowManagerService;
+            _navigationService = navigationService;
+
             Employees = new ObservableCollection<Employee>();
             GetEmployees();
 
@@ -58,6 +64,14 @@ namespace ProjectManager.ViewModels
             {
                 item.IdDepartamentNavigation = await _projectsDataService.GetDepartmentAsync(item.IdDepartament);
                 Employees.Add(item);
+            }
+        }
+
+        private void NavigateToTasksList(Employee employee)
+        {
+            if (employee != null)
+            {
+                _navigationService.NavigateTo(typeof(TasksViewModel).FullName, employee);
             }
         }
 
