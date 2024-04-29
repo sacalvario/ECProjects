@@ -301,12 +301,26 @@ namespace ProjectManager.ViewModels
             }
         }
 
-     
+        private bool _IsAutomotive;
+        public bool IsAutomotive
+        {
+            get => _IsAutomotive;
+            set
+            {
+                if (_IsAutomotive != value)
+                {
+                    _IsAutomotive = value;
+                    RaisePropertyChanged("IsAutomotive");
+                }
+            }
+        }
+
+
+
         public FrontCaptureViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
 
-         
         }
 
         private void NavigateToBasicFormat()
@@ -330,6 +344,7 @@ namespace ProjectManager.ViewModels
             }
 
             data.TotalAssemblies = AssemblyQuantity;
+            data.IsAutomotive = IsAutomotive;
 
             _navigationService.NavigateTo(typeof(BasicFormatViewModel).FullName, data);
         }
@@ -349,6 +364,7 @@ namespace ProjectManager.ViewModels
             NewMachine = new bool();
             NewMold = new bool();
             CrimpApplication = new int();
+            IsAutomotive = new bool();
 
         }
 

@@ -27,29 +27,29 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="300" />
                     <ColumnDefinition Width="130" />
-                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition Width="250" />
                 </Grid.ColumnDefinitions>
-                <materialDesign:PackIcon Kind="FileDocument" Foreground="Green" Width="42" Height="42" Grid.RowSpan="4" VerticalAlignment="Center"/>
+                <materialDesign:PackIcon Kind="CheckboxMultipleBlank" Foreground="Black" Width="34" Height="34" Grid.RowSpan="4" VerticalAlignment="Center"/>
                 <StackPanel Grid.RowSpan="4" Grid.Column="1" Margin="10, 12, 20, 12" Orientation="Horizontal" >
                     <TextBlock Text="{Binding IdTask}" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Black" FontSize="14" VerticalAlignment="Center"/>
                     <TextBlock Text="{Binding IdTaskNavigation.Name}" Margin="5, 0, 0, 0" FontWeight="Black" Foreground="Black" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </StackPanel>
-                <materialDesign:PackIcon Grid.Column="2" Margin="20, 0, 0, 0" Grid.RowSpan="4" Kind="CalendarClock" Width="28" Height="28" Foreground="Green" VerticalAlignment="Center" />
+                <materialDesign:PackIcon Grid.Column="2" Margin="20, 0, 0, 0" Grid.RowSpan="4" Kind="CalendarClock" Width="32" Height="32" Foreground="Black" VerticalAlignment="Center" />
                 <TextBlock Grid.Column="3"
-                           Margin="20, 0, 0, 0"
+                           Margin="10, 0, 0, 0"
                            FontSize="14">
                     <Run Text="Start date: " Foreground="Black" FontWeight="Normal"/>
                     <Run Text="{Binding LongStartDate, Mode=OneWay}" FontWeight="UltraBold" Foreground="Black" />
                 </TextBlock>
                 <TextBlock Grid.Column="3"
                            Grid.Row="1"
-                           Margin="20, 0, 0, 0"
+                           Margin="10, 0, 0, 0"
                            FontSize="14">
                     <Run Text="Target date: " Foreground="Black" FontWeight="Regular"/>
                     <Run Text="{Binding LongEndDate, Mode=OneWay}" Foreground="Black" FontWeight="UltraBold" />
                 </TextBlock>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="4" Grid.RowSpan="4" Margin="40, 0, 0, 0">
-                    <materialDesign:PackIcon Kind="TimerSand" Height="22" Width="22" VerticalAlignment="Center"/>
+                    <materialDesign:PackIcon Kind="TimerSand" Height="22" Width="22" VerticalAlignment="Center" Foreground="Black"/>
                     <TextBlock Margin="10, 0, 0, 0" Foreground="Black" FontSize="15"  HorizontalAlignment="Center" VerticalAlignment="Center" >
                                                 <Run Text="{Binding Duration}" FontWeight="Black" Foreground="Green"/>
                                                 <Run Text="Days" />

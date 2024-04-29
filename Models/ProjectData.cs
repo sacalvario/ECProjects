@@ -9,5 +9,6 @@ namespace ProjectManager.Models
         public int TaskDurationDays { get; set; }
         public int TypeProject { get; set; }
         public int TotalAssemblies { get; set; }
+        public bool IsAutomotive { get; set; }
     }
 }
