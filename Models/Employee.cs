@@ -20,10 +20,12 @@ namespace ProjectManager.Models
         public string Email { get; set; }
         public int IdDepartament { get; set; }
         public sbyte Active { get; set; }
+        public int IdSite { get; set; }
 
-        public string Name => LastName + " " + FirstName;
+        public string Name => FirstName + " " + LastName;
 
         public virtual Department IdDepartamentNavigation { get; set; }
+        public virtual Site IdSiteNavigation { get; set; }
         public virtual User User { get; set; }
         public virtual ICollection<Project> ProjectIdGeneratedbyNavigations { get; set; }
         public virtual ICollection<Project> ProjectIdManagerNavigations { get; set; }

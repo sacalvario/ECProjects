@@ -19,7 +19,7 @@
                 </TabItem.Header>
                 <Grid Margin="50,0,-50,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="1.5*" />
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -41,7 +41,7 @@
                                       Foreground="Black"
                                       ItemsSource="{Binding Customers}"
                                       SelectedItem="{Binding Project.IdCustomerNavigation}"
-                                      Width="350"
+                                      Width="450"
                                       SelectedValuePath="IdCustomer"
                                       DisplayMemberPath="Name"
                                       Style="{DynamicResource MaterialDesignFilledComboBox}"
@@ -49,26 +49,19 @@
                                       VerticalAlignment="Center" />
                         </StackPanel>
                     </StackPanel>
-                    <StackPanel Grid.Column="1" Grid.Row="1" Margin="30, 0, 0, 0" Orientation="Horizontal">
-                        <materialDesign:PackIcon VerticalAlignment="Center" Kind="Plug" Foreground="Green" Width="32" Height="32"/>
-                        <TextBox materialDesign:HintAssist.Hint="Total assemblies in project"
-                                      materialDesign:HintAssist.Foreground="White"
-                                      materialDesign:HintAssist.HintOpacity=".26"
-                                      Foreground="Black"
-                                 Text="{Binding Project.TotalAssembliesInProject}"
-                                 Margin="10, 0, 0, 0"
-                                      Width="350"
-                                      Style="{DynamicResource MaterialDesignFilledTextBox}"
-                                      VerticalAlignment="Center"/>
+                    <StackPanel Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Left" Margin="20, 0, 0, 0">
+                        <TextBlock Text="Total assemblies in project" FontSize="15" HorizontalAlignment="Center" FontFamily="Quicksand" Margin="0, 10, 0, 0"  />
+                        <Border Margin="0, 10, 0, 0"  HorizontalAlignment="Center" VerticalAlignment="Top" Height="150" Width="120" Background="#FFD6D6D6" CornerRadius="20">
+                            <TextBlock Text="{Binding Project.TotalAssembliesInProject}" Foreground="Green" Margin="0, 10, 0, 0" HorizontalAlignment="Center" FontSize="64" FontWeight="Bold" FontFamily="Quicksand" VerticalAlignment="Center"/>
+                        </Border>
                     </StackPanel>
-                    <Separator Grid.Row="1" VerticalAlignment="Bottom" Margin="40, 0, 20, 0" />
                     <StackPanel Margin="30, 30, 0, 0" Orientation="Horizontal" Grid.Row="2" d:IsLocked="True" Grid.ColumnSpan="2">
                         <Image Source="/Assets/cotizacion.png" VerticalAlignment="Center" Width="24" Height="24" Margin="0, 20, 15, 0"/>
                         <TextBox materialDesign:HintAssist.Hint="Enter the quote number"
                                 materialDesign:HintAssist.Foreground="Black"
                                 materialDesign:HintAssist.HintOpacity=".26"
                                 Foreground="White"
-                                Width="350"
+                                Width="450"
                                  Text="{Binding Project.QuoteNumber}"
                                 ui:ControlHelper.Header="Quote number"
                                 ui:ControlHelper.CornerRadius="5"
@@ -78,9 +71,9 @@
                                 VerticalAlignment="Center" Cursor="Arrow">
                         </TextBox>
                     </StackPanel>
-                    <TextBlock Text="Specific information" Style="{DynamicResource PageTitleStyle}" Grid.Row="3" Grid.ColumnSpan="2" Margin="24,0,0,0" />
-                    <StackPanel Margin="30, 0, 0,0" Orientation="Horizontal" Grid.Row="4" Grid.ColumnSpan="2" >
-                        <materialDesign:PackIcon Kind="AccountBox" Foreground="#FF3AA00A" VerticalAlignment="Center" Width="38" Height="38" Margin="0, 5, 10, 0"/>
+                    <TextBlock Text="Specific information" Style="{DynamicResource PageTitleStyle}" Grid.Row="3" Grid.ColumnSpan="2" Margin="24,50,0,0" />
+                    <StackPanel Margin="30, 30, 0,0" Orientation="Horizontal" Grid.Row="4" Grid.ColumnSpan="2" Grid.RowSpan="2" >
+                        <materialDesign:PackIcon Kind="AccountBox" Foreground="#FF3AA00A" VerticalAlignment="Center" Width="38" Height="38" Margin="0, 5, 10, 70"/>
                         <StackPanel Orientation="Vertical">
                             <TextBlock Text="Project manager" Foreground="Black" Margin="0, 0, 0, 5"/>
                             <ComboBox materialDesign:HintAssist.Hint="Select an option"
@@ -89,15 +82,25 @@
                                       Foreground="Black"
                                       ItemsSource="{Binding Employees}"
                                       SelectedItem="{Binding Project.IdManagerNavigation}"
-                                      DisplayMemberPath="Name"
                                       SelectedValuePath="IdEmployee"
-                                      Width="350"
+                                      Width="450"
                                       Style="{DynamicResource MaterialDesignFilledComboBox}"
                                       IsEditable="True"
-                                      VerticalAlignment="Center" />
+                                      VerticalAlignment="Center" >
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Kind="AccountTie" Width="28" Height="24"/>
+                                            <TextBlock Text="{Binding Name}" Margin="8, 0, 0, 0" VerticalAlignment="Center" FontFamily="Quicksand" FontWeight="Bold"/>
+                                            <TextBlock Text="-" Margin="2, 0, 0, 0" VerticalAlignment="Center" FontFamily="Quicksand Medium"/>
+                                            <TextBlock Text="{Binding IdDepartamentNavigation.Name}" Margin="5, 0, 0, 0" VerticalAlignment="Center" FontFamily="Quicksand" Foreground="Green" FontWeight="SemiBold"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
                         </StackPanel>
                     </StackPanel>
-                    <StackPanel Grid.Row="4" Orientation="Horizontal" Grid.Column="1" Margin="30,0,0,0"  >
+                    <StackPanel Grid.Row="4" Orientation="Horizontal" Grid.Column="1" Margin="30,0,0,50" Grid.RowSpan="2"  >
                         <materialDesign:PackIcon Kind="Calendar" Width="38" Height="38" VerticalAlignment="Center" Margin="0, 5, 10, 0" Foreground="Green"/>
                         <StackPanel VerticalAlignment="Center" Margin="5, 0, 0, 0">
                             <TextBlock Text="Customer Needby"/>

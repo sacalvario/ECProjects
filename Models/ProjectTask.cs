@@ -13,10 +13,11 @@ namespace ProjectManager.Models
         public int Duration { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public DateTime? CompletationDate { get; set; }
         public int IdEmployee { get; set; }
         public int? Predecessor { get; set; }
         public int IdStatus { get; set; }
+        public DateTime? CompletationDate { get; set; }
+        public DateTime? ReadyToBuildDate { get; set; }
 
         public string LongStartDate => StartDate.ToString("D", CultureInfo.CreateSpecificCulture("en-US"));
         public string LongEndDate => EndDate.ToString("D", CultureInfo.CreateSpecificCulture("en-US"));

@@ -23,7 +23,7 @@ namespace ProjectManager.Models
         public int IdStatus { get; set; }
 
         private int _TotalAssembliesInProject;
-        public int TotalAssembliesInProject 
+        public int TotalAssembliesInProject
         {
             get => _TotalAssembliesInProject;
             set
@@ -35,8 +35,6 @@ namespace ProjectManager.Models
                 }
             }
         }
-
-
         public DateTime CreationDate { get; set; }
         public DateTime EndDate { get; set; }
         public DateTime CustomerNeedby { get; set; }

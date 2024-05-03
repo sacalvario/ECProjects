@@ -22,6 +22,7 @@ namespace ProjectManager.Models
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<ProjectTask> ProjectTasks { get; set; }
+        public virtual DbSet<Site> Sites { get; set; }
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<Task> Tasks { get; set; }
         public virtual DbSet<User> Users { get; set; }
@@ -31,7 +32,7 @@ namespace ProjectManager.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseMySql("server=192.168.36.4;database=projects;userid=usermysql;password=user", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.25-mysql"));
+                optionsBuilder.UseMySql("server=192.168.36.4;database=projects;user id=usermysql;password=user", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.25-mysql"));
             }
         }
 
@@ -42,7 +43,7 @@ namespace ProjectManager.Models
 
             modelBuilder.Entity<Customer>(entity =>
             {
-               entity.HasKey(e => e.IdCustomer)
+                entity.HasKey(e => e.IdCustomer)
                     .HasName("PRIMARY");
 
                 entity.ToTable("customers");
@@ -92,6 +93,8 @@ namespace ProjectManager.Models
 
                 entity.HasIndex(e => e.IdDepartament, "fkdepartment_idx");
 
+                entity.HasIndex(e => e.IdSite, "fksite_idx");
+
                 entity.Property(e => e.IdEmployee)
                     .ValueGeneratedNever()
                     .HasColumnName("ID_Employee");
@@ -107,7 +110,7 @@ namespace ProjectManager.Models
 
                 entity.Property(e => e.IdDepartament).HasColumnName("ID_Departament");
 
-                entity.Property(e => e.Active).HasColumnName("Active");
+                entity.Property(e => e.IdSite).HasColumnName("ID_Site");
 
                 entity.Property(e => e.LastName)
                     .IsRequired()
@@ -119,6 +122,12 @@ namespace ProjectManager.Models
                     .HasForeignKey(d => d.IdDepartament)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fkdepartment");
+
+                entity.HasOne(d => d.IdSiteNavigation)
+                    .WithMany(p => p.Employees)
+                    .HasForeignKey(d => d.IdSite)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fksite");
             });
 
             modelBuilder.Entity<Project>(entity =>
@@ -204,15 +213,17 @@ namespace ProjectManager.Models
 
                 entity.Property(e => e.IdTask).HasColumnName("ID_Task");
 
+                entity.Property(e => e.CompletationDate).HasColumnType("date");
+
                 entity.Property(e => e.EndDate).HasColumnType("date");
 
                 entity.Property(e => e.IdEmployee).HasColumnName("ID_Employee");
 
                 entity.Property(e => e.IdStatus).HasColumnName("ID_Status");
 
-                entity.Property(e => e.StartDate).HasColumnType("date");
+                entity.Property(e => e.ReadyToBuildDate).HasColumnType("date");
 
-                entity.Property(e => e.CompletationDate).HasColumnType("date");
+                entity.Property(e => e.StartDate).HasColumnType("date");
 
                 entity.HasOne(d => d.IdEmployeeNavigation)
                     .WithMany(p => p.ProjectTasks)
@@ -243,7 +254,27 @@ namespace ProjectManager.Models
                     .HasForeignKey(d => d.Predecessor)
                     .HasConstraintName("fk-predecessor");
             });
-               
+
+            modelBuilder.Entity<Site>(entity =>
+            {
+                entity.HasKey(e => e.IdSite)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("sites");
+
+                entity.HasIndex(e => e.IdSite, "ID_Site_UNIQUE")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Name, "Name_UNIQUE")
+                    .IsUnique();
+
+                entity.Property(e => e.IdSite).HasColumnName("ID_Site");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(2);
+            });
+
             modelBuilder.Entity<Status>(entity =>
             {
                 entity.HasKey(e => e.IdStatus)
@@ -317,7 +348,6 @@ namespace ProjectManager.Models
             });
 
             OnModelCreatingPartial(modelBuilder);
-
             _ = modelBuilder.Entity<Employee>().Ignore(t => t.Name);
         }
 

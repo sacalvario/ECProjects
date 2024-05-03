@@ -25,7 +25,7 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <StackPanel Grid.RowSpan="2" Margin="0, 5, 0, 0">
-                    <TextBlock Text="No. De Empleado" HorizontalAlignment="Center" FontSize="11" Foreground="Black"/>
+                    <TextBlock Text="ID" HorizontalAlignment="Center" FontSize="11" Foreground="Black"/>
                     <TextBlock Text="{Binding IdEmployee}" FontWeight="Black" FontSize="19" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 3, 0, 0" Foreground="Black"/>
                 </StackPanel>
                 <Image Source="/Assets/user64.png" Grid.Column="1" Width="54" Height="54" Grid.RowSpan="2" HorizontalAlignment="Center" Margin="5" />
