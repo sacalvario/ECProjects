@@ -8,7 +8,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:ui="http://schemas.modernwpf.com/2019"
       mc:Ignorable="d" 
-      d:DesignHeight="640" d:DesignWidth="1100"
+      d:DesignHeight="640" d:DesignWidth="1200"
       Title="Page1">
 
     <Grid Background="#FFEAE7E7">
@@ -19,7 +19,7 @@
                 </TabItem.Header>
                 <Grid Margin="50,0,-50,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1.5*" />
+                        <ColumnDefinition Width="1.2*" />
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -32,9 +32,9 @@
                     </Grid.RowDefinitions>
                     <TextBlock Text="General information" Style="{DynamicResource PageTitleStyle}" Grid.ColumnSpan="2" Margin="24,0,0,0" />
                     <StackPanel Margin="30,0,0,0" Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2">
-                        <materialDesign:PackIcon Kind="AccountSupervisorCircle" Foreground="#FF3AA00A" VerticalAlignment="Center" Width="30" Height="30" Margin="0, 5, 10, 0"/>
+                        <materialDesign:PackIcon Kind="AccountSupervisorCircle" Foreground="#FF3AA00A" VerticalAlignment="Center" Width="38" Height="38" Margin="0, 5, 10, 0"/>
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Text="Customer name" Foreground="Black" Margin="0, 0, 0, 5"/>
+                            <TextBlock Text="Customer name" Foreground="Black" Margin="0, 0, 0, 5" FontSize="18"/>
                             <ComboBox materialDesign:HintAssist.Hint="Select an option"
                                       materialDesign:HintAssist.Foreground="White"
                                       materialDesign:HintAssist.HintOpacity=".26"
@@ -49,33 +49,35 @@
                                       VerticalAlignment="Center" />
                         </StackPanel>
                     </StackPanel>
-                    <StackPanel Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Left" Margin="20, 0, 0, 0">
-                        <TextBlock Text="Total assemblies in project" FontSize="15" HorizontalAlignment="Center" FontFamily="Quicksand" Margin="0, 10, 0, 0"  />
+                    <StackPanel Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Left" Margin="0, 0, 0, 0">
+                        <TextBlock Text="Total assemblies in project" FontSize="18" HorizontalAlignment="Center" FontFamily="Quicksand" Margin="0, 10, 0, 0"  />
                         <Border Margin="0, 10, 0, 0"  HorizontalAlignment="Center" VerticalAlignment="Top" Height="150" Width="120" Background="#FFD6D6D6" CornerRadius="20">
                             <TextBlock Text="{Binding Project.TotalAssembliesInProject}" Foreground="Green" Margin="0, 10, 0, 0" HorizontalAlignment="Center" FontSize="64" FontWeight="Bold" FontFamily="Quicksand" VerticalAlignment="Center"/>
                         </Border>
                     </StackPanel>
-                    <StackPanel Margin="30, 30, 0, 0" Orientation="Horizontal" Grid.Row="2" d:IsLocked="True" Grid.ColumnSpan="2">
-                        <Image Source="/Assets/cotizacion.png" VerticalAlignment="Center" Width="24" Height="24" Margin="0, 20, 15, 0"/>
-                        <TextBox materialDesign:HintAssist.Hint="Enter the quote number"
+                    <StackPanel Margin="35, 30, 0, 0" Orientation="Horizontal" Grid.Row="2" d:IsLocked="True" Grid.ColumnSpan="2">
+                        <Image Source="/Assets/cotizacion.png" VerticalAlignment="Center" Width="32" Height="32" Margin="0, 20, 15, 0"/>
+                        <StackPanel>
+                            <TextBlock Text="Quote number" FontSize="18" Margin="0, 0, 0, 5"/>
+                            <TextBox materialDesign:HintAssist.Hint="Enter the quote number"
                                 materialDesign:HintAssist.Foreground="Black"
                                 materialDesign:HintAssist.HintOpacity=".26"
                                 Foreground="White"
                                 Width="450"
                                  Text="{Binding Project.QuoteNumber}"
-                                ui:ControlHelper.Header="Quote number"
                                 ui:ControlHelper.CornerRadius="5"
                                 ui:ControlHelper.PlaceholderText="Enter the quote number"
                                 ui:ControlHelper.PlaceholderForeground="White"
                                 Background="#FF3AA00A"
                                 VerticalAlignment="Center" Cursor="Arrow">
                         </TextBox>
+                        </StackPanel>
                     </StackPanel>
                     <TextBlock Text="Specific information" Style="{DynamicResource PageTitleStyle}" Grid.Row="3" Grid.ColumnSpan="2" Margin="24,50,0,0" />
                     <StackPanel Margin="30, 30, 0,0" Orientation="Horizontal" Grid.Row="4" Grid.ColumnSpan="2" Grid.RowSpan="2" >
-                        <materialDesign:PackIcon Kind="AccountBox" Foreground="#FF3AA00A" VerticalAlignment="Center" Width="38" Height="38" Margin="0, 5, 10, 70"/>
+                        <materialDesign:PackIcon Kind="AccountBox" Foreground="#FF3AA00A" VerticalAlignment="Center" Width="38" Height="38" Margin="0, 5, 10, 60"/>
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Text="Project manager" Foreground="Black" Margin="0, 0, 0, 5"/>
+                            <TextBlock Text="Project manager" Foreground="Black" Margin="0, 0, 0, 5" FontSize="18"/>
                             <ComboBox materialDesign:HintAssist.Hint="Select an option"
                                       materialDesign:HintAssist.Foreground="White"
                                       materialDesign:HintAssist.HintOpacity=".26"
@@ -103,7 +105,7 @@
                     <StackPanel Grid.Row="4" Orientation="Horizontal" Grid.Column="1" Margin="30,0,0,50" Grid.RowSpan="2"  >
                         <materialDesign:PackIcon Kind="Calendar" Width="38" Height="38" VerticalAlignment="Center" Margin="0, 5, 10, 0" Foreground="Green"/>
                         <StackPanel VerticalAlignment="Center" Margin="5, 0, 0, 0">
-                            <TextBlock Text="Customer Needby"/>
+                            <TextBlock Text="Customer Needby" FontSize="18"/>
                             <DatePicker SelectedDate="{Binding Project.CustomerNeedby}" />
                         </StackPanel>
                     </StackPanel>
