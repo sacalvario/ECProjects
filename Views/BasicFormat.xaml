@@ -8,7 +8,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:ui="http://schemas.modernwpf.com/2019"
       mc:Ignorable="d" 
-      d:DesignHeight="640" d:DesignWidth="1200"
+      d:DesignHeight="740" d:DesignWidth="1200"
       Title="Page1">
 
     <Grid Background="#FFEAE7E7">
@@ -56,7 +56,7 @@
                         </Border>
                     </StackPanel>
                     <StackPanel Margin="35, 30, 0, 0" Orientation="Horizontal" Grid.Row="2" d:IsLocked="True" Grid.ColumnSpan="2">
-                        <Image Source="/Assets/cotizacion.png" VerticalAlignment="Center" Width="32" Height="32" Margin="0, 20, 15, 0"/>
+                        <Image Source="/Assets/cotizacion.png" VerticalAlignment="Center" Width="32" Height="32" Margin="0, 0, 15, 0"/>
                         <StackPanel>
                             <TextBlock Text="Quote number" FontSize="18" Margin="0, 0, 0, 5"/>
                             <TextBox materialDesign:HintAssist.Hint="Enter the quote number"
@@ -75,19 +75,18 @@
                     </StackPanel>
                     <TextBlock Text="Specific information" Style="{DynamicResource PageTitleStyle}" Grid.Row="3" Grid.ColumnSpan="2" Margin="24,50,0,0" />
                     <StackPanel Margin="30, 30, 0,0" Orientation="Horizontal" Grid.Row="4" Grid.ColumnSpan="2" Grid.RowSpan="2" >
-                        <materialDesign:PackIcon Kind="AccountBox" Foreground="#FF3AA00A" VerticalAlignment="Center" Width="38" Height="38" Margin="0, 5, 10, 60"/>
+                        <materialDesign:PackIcon Kind="AccountBox" Foreground="#FF3AA00A" VerticalAlignment="Center" Width="38" Height="38" Margin="0, 0, 10, 90"/>
                         <StackPanel Orientation="Vertical">
                             <TextBlock Text="Project manager" Foreground="Black" Margin="0, 0, 0, 5" FontSize="18"/>
                             <ComboBox materialDesign:HintAssist.Hint="Select an option"
-                                      materialDesign:HintAssist.Foreground="White"
+                                      materialDesign:HintAssist.Foreground="Black"
                                       materialDesign:HintAssist.HintOpacity=".26"
                                       Foreground="Black"
                                       ItemsSource="{Binding Employees}"
-                                      SelectedItem="{Binding Project.IdManagerNavigation}"
+                                      SelectedValue="{Binding Project.IdManagerNavigation.IdEmployee}"
                                       SelectedValuePath="IdEmployee"
                                       Width="450"
                                       Style="{DynamicResource MaterialDesignFilledComboBox}"
-                                      IsEditable="True"
                                       VerticalAlignment="Center" >
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
@@ -102,12 +101,11 @@
                             </ComboBox>
                         </StackPanel>
                     </StackPanel>
-                    <StackPanel Grid.Row="4" Orientation="Horizontal" Grid.Column="1" Margin="30,0,0,50" Grid.RowSpan="2"  >
-                        <materialDesign:PackIcon Kind="Calendar" Width="38" Height="38" VerticalAlignment="Center" Margin="0, 5, 10, 0" Foreground="Green"/>
+                    <StackPanel Grid.Row="3" Grid.Column="1" Margin="30,0,0,50" Grid.RowSpan="3"  >
                         <StackPanel VerticalAlignment="Center" Margin="5, 0, 0, 0">
-                            <TextBlock Text="Customer Needby" FontSize="18"/>
-                            <DatePicker SelectedDate="{Binding Project.CustomerNeedby}" />
+                            <TextBlock Text="Customer Needby" FontSize="18" Foreground="Black"/>
                         </StackPanel>
+                        <Calendar HorizontalAlignment="Left" Margin="0, 20, 0, 0" Width="350" Height="200" SelectedDate="{Binding Project.CustomerNeedby}" materialDesign:CalendarAssist.Orientation="Horizontal" Style="{DynamicResource MaterialDesignCalendarPortrait}"  />
                     </StackPanel>
                     <Button Grid.Column="1" Grid.Row="5" Margin="0, 0, 50, 0" Command="{Binding GoToNextTabItemCommand}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="Transparent">
                         <materialDesign:PackIcon Kind="ArrowRightBoldBox" Width="34" Height="34" Foreground="Green"/>
