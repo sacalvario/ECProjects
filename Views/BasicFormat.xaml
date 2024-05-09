@@ -30,7 +30,7 @@
                         <RowDefinition />
                         <RowDefinition />
                     </Grid.RowDefinitions>
-                    <TextBlock Text="General information" Style="{DynamicResource PageTitleStyle}" Grid.ColumnSpan="2" Margin="24,0,0,0" />
+                    <TextBlock Text="General information" Style="{DynamicResource PageTitleStyle}" FontWeight="Bold" Grid.ColumnSpan="2" Margin="24,0,0,0" />
                     <Grid Margin="30, 0, 0 ,0" Grid.Row="1" VerticalAlignment="Top" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -41,7 +41,7 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <materialDesign:PackIcon Kind="AccountSupervisorCircle" Foreground="#FF3AA00A" Width="48" Height="48" Grid.RowSpan="2" VerticalAlignment="Bottom" Margin="0. 0. 10. 0" />
-                        <TextBlock Text="Customer" VerticalAlignment="Bottom" Foreground="Black" Margin="0, 0, 0, 5" FontSize="18" Grid.Column="1"/>
+                        <TextBlock Text="Customer" VerticalAlignment="Bottom" FontFamily="Quicksand" Foreground="Black" Margin="0, 0, 0, 5" FontSize="18" Grid.Column="1"/>
                         <ComboBox materialDesign:HintAssist.Hint="Select an option"
                                   materialDesign:HintAssist.Foreground="Black"
                                   materialDesign:HintAssist.HintOpacity=".26"
@@ -65,7 +65,10 @@
                         </ComboBox>
                     </Grid>
                     <StackPanel Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Left" Margin="0, 0, 0, 60">
-                        <TextBlock Text="Total assemblies in project" FontSize="18" HorizontalAlignment="Center" FontFamily="Quicksand" Margin="0, 10, 0, 0"  />
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Connection" Foreground="Green" VerticalAlignment="Center" Margin="0, 0, 10, 0" Width="32" Height="32"/>
+                            <TextBlock Text="Total assemblies in project" FontSize="18" HorizontalAlignment="Center" FontFamily="Quicksand" VerticalAlignment="Center" />
+                        </StackPanel>
                         <Border Margin="0, 10, 0, 0"  HorizontalAlignment="Center" VerticalAlignment="Top" Height="120" Width="120" Background="#FFD6D6D6" CornerRadius="20">
                             <TextBlock Text="{Binding Project.TotalAssembliesInProject}" Foreground="Green" Margin="0, 10, 0, 0" HorizontalAlignment="Center" FontSize="64" FontWeight="Bold" FontFamily="Quicksand" VerticalAlignment="Center"/>
                         </Border>
@@ -80,7 +83,7 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <Image Source="/Assets/cotizacion.png" Grid.RowSpan="2" VerticalAlignment="Bottom" Width="38" Height="38" Margin="0, 0, 10, 0"/>
-                        <TextBlock Text="Quote number" FontSize="18" Margin="0, 0, 0, 5" Grid.Column="1" VerticalAlignment="Bottom"/>
+                        <TextBlock Text="Quote number" FontSize="18" Margin="3, 0, 0, 10" Grid.Column="1" VerticalAlignment="Bottom"/>
                         <TextBox materialDesign:HintAssist.Hint="Enter the quote number"
                                  materialDesign:HintAssist.Foreground="Black"
                                  materialDesign:HintAssist.HintOpacity=".26"
@@ -88,7 +91,7 @@
                                  Grid.Row="1"
                                  Foreground="White"
                                  Width="450"
-                                 FontSize="16"
+                                 FontSize="19"
                                  Height="50"
                                  Text="{Binding Project.QuoteNumber}"
                                  ui:ControlHelper.CornerRadius="5"
@@ -97,10 +100,11 @@
                                  Background="#FF3AA00A"
                                  VerticalAlignment="Center"
                                  HorizontalAlignment="Left"
+                                 Margin="3, 0, 0, 0"
                                  Cursor="Arrow">
                         </TextBox>
                     </Grid>
-                    <TextBlock Text="Specific information" Style="{DynamicResource PageTitleStyle}" Grid.Row="3" Grid.ColumnSpan="2" Margin="24, 50, 0, 0" />
+                    <TextBlock Text="Specific information" Style="{DynamicResource PageTitleStyle}" FontWeight="Bold" Grid.Row="3" Grid.ColumnSpan="2" Margin="24, 50, 0, 0" />
                     <Grid Margin="30, 10, 0,0" Grid.Row="4" Grid.RowSpan="1" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -137,11 +141,12 @@
                             </ComboBox.ItemTemplate>
                         </ComboBox>
                     </Grid>
-                    <StackPanel Grid.Row="2" Grid.Column="1" Margin="30, 70, 0, 50" Grid.RowSpan="4"  >
-                        <StackPanel VerticalAlignment="Center" Margin="5, 0, 0, 0">
-                            <TextBlock Text="Customer Needby" FontSize="18" Foreground="Black"/>
+                    <StackPanel Grid.Row="2" Grid.Column="1" Margin="0, 90, 0, 50" Grid.RowSpan="4"  >
+                        <StackPanel VerticalAlignment="Center"  Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Calendar" VerticalAlignment="Center" Foreground="Green" Margin="0, 0, 10, 0" Width="32" Height="32" />
+                            <TextBlock Text="Customer Needby" FontSize="18" Foreground="Black" VerticalAlignment="Center"/>
                         </StackPanel>
-                        <Calendar HorizontalAlignment="Left" Margin="0, 20, 0, 0" Width="370" Height="250" SelectedDate="{Binding Project.CustomerNeedby}" materialDesign:CalendarAssist.Orientation="Horizontal" Style="{DynamicResource MaterialDesignCalendarPortrait}"  />
+                        <Calendar HorizontalAlignment="Left" Margin="0, 20, 0, 0" Width="380" Height="260" SelectedDate="{Binding Project.CustomerNeedby}" materialDesign:CalendarAssist.Orientation="Horizontal" Style="{DynamicResource MaterialDesignCalendarPortrait}"  />
                     </StackPanel>
                     <Button Grid.Column="1" Grid.Row="5" Margin="0, 0, 50, 0" Command="{Binding GoToNextTabItemCommand}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="Transparent">
                         <materialDesign:PackIcon Kind="ArrowRightBoldBox" Width="34" Height="34" Foreground="Green"/>

@@ -186,17 +186,17 @@ namespace ProjectManager.ViewModels
                 new ProjectTask
                     {
                        IdTaskNavigation = Tasks[0],
-                       Duration = 3,
-                       StartDate = WorkDays(3),
-                       EndDate = WorkDays(3),
+                       Duration = 1,
+                       StartDate = DateTime.Now,
+                       EndDate = WorkDays(1),
                        IdStatus = 5
                     },
                 new ProjectTask
                     {
                        IdTaskNavigation = Tasks[1],
-                       Duration = 3,
-                       StartDate = WorkDays(6),
-                       EndDate = WorkDays(6),
+                       Duration = 2,
+                       StartDate = WorkDays(1),
+                       EndDate = WorkDays(3),
                        Predecessor = 1,
                        IdStatus = 5
                     },
@@ -204,53 +204,62 @@ namespace ProjectManager.ViewModels
                     {
                        IdTaskNavigation = Tasks[2],
                        Duration = 1,
-                       StartDate = WorkDays(7),
-                       EndDate = WorkDays(7),
+                       StartDate = WorkDays(3),
+                       EndDate = WorkDays(6),
                        Predecessor = 2,
                        IdStatus = 5
                     },
                 new ProjectTask
                     {
                        IdTaskNavigation = Tasks[3],
-                       Duration = 7,
-                       StartDate = WorkDays(14),
-                       EndDate = WorkDays(14),
+                       Duration = 1,
+                       StartDate = WorkDays(6),
+                       EndDate = WorkDays(7),
                        Predecessor = 3,
                        IdStatus = 5
                     },
                   new ProjectTask
                     {
                        IdTaskNavigation = Tasks[4],
-                       Duration = 5,
-                       StartDate = WorkDays(12),
-                       EndDate = WorkDays(12),
-                       Predecessor = 3,
+                       Duration = 7,
+                       StartDate = WorkDays(7),
+                       EndDate = WorkDays(14),
+                       Predecessor = 4,
                        IdStatus = 5
                     },
                     new ProjectTask
                     {
                        IdTaskNavigation = Tasks[5],
-                       Duration =  Data.TaskDurationDays,
-                       StartDate = WorkDays(7 + Data.TaskDurationDays),
-                       EndDate = WorkDays(7 + Data.TaskDurationDays),
-                       Predecessor = 3,
+                       Duration =  5,
+                       StartDate = WorkDays(7),
+                       EndDate = WorkDays(12),
+                       Predecessor = 4,
                        IdStatus = 5
                     },
                      new ProjectTask
                     {
                        IdTaskNavigation = Tasks[6],
-                       Duration =  5,
-                       StartDate = WorkDays(12),
-                       EndDate = WorkDays(12),
-                       Predecessor = 3,
+                       Duration =  Data.TaskDurationDays,
+                       StartDate = WorkDays(7),
+                       EndDate = WorkDays(7 + Data.TaskDurationDays),
+                       Predecessor = 4,
                        IdStatus = 5
                     },
                       new ProjectTask
                     {
                        IdTaskNavigation = Tasks[7],
+                       Duration =  5,
+                       StartDate = WorkDays(7),
+                       EndDate = WorkDays(12),
+                       Predecessor = 4,
+                       IdStatus = 5
+                    },
+                      new ProjectTask
+                    {
+                       IdTaskNavigation = Tasks[8],
                        Duration =  2,
-                       StartDate = WorkDays(16),
-                       EndDate = WorkDays(16),
+                       StartDate = WorkDays(7 + Data.TaskDurationDays),
+                       EndDate = WorkDays(9 + Data.TaskDurationDays),
                        Predecessor = 4,
                        IdStatus = 5
                     }
