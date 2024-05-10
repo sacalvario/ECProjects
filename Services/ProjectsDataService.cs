@@ -189,5 +189,16 @@ namespace ProjectManager.Services
         {
             return context.Projects.Find(id);
         }
+
+        public async Task<Site> GetSiteAsync(int id)
+        {
+            await System.Threading.Tasks.Task.CompletedTask;
+            return GetSite(id);
+        }
+
+        private Site GetSite(int id)
+        {
+            return context.Sites.Find(id);
+        }
     }
 }

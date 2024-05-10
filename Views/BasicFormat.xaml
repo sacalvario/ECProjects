@@ -122,7 +122,7 @@
                                   Foreground="Black"
                                   Grid.Column="1"
                                   Grid.Row="1"
-                                  ItemsSource="{Binding Employees}"
+                                  ItemsSource="{Binding Managers}"
                                   SelectedValue="{Binding Project.IdManagerNavigation.IdEmployee}"
                                   SelectedValuePath="IdEmployee"
                                   Width="450"
@@ -136,6 +136,7 @@
                                         <TextBlock Text="{Binding Name}" Margin="8, 0, 0, 0" VerticalAlignment="Center" FontFamily="Quicksand" FontWeight="Bold"/>
                                         <TextBlock Text="-" Margin="2, 0, 0, 0" VerticalAlignment="Center" FontFamily="Quicksand Medium"/>
                                         <TextBlock Text="{Binding IdDepartamentNavigation.Name}" Margin="5, 0, 0, 0" VerticalAlignment="Center" FontFamily="Quicksand" Foreground="Green" FontWeight="SemiBold"/>
+                                        <TextBlock Text="{Binding IdSiteNavigation.Name}" Margin="8, 0, 0, 0" VerticalAlignment="Center" FontWeight="Bold" Foreground="Black"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
@@ -183,14 +184,14 @@
                             <DataGridTemplateColumn Header="#" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock  Text="{Binding IdTaskNavigation.IdTask}" Foreground="Black" FontWeight="Bold" FontFamily="Quicksand"/>
+                                        <TextBlock  Text="{Binding IdTaskNavigation.Number}" VerticalAlignment="Center" FontSize="20" Foreground="Black" FontWeight="Bold" FontFamily="Quicksand"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTemplateColumn Header="Task Name" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock  Text="{Binding IdTaskNavigation.Name}" Foreground="Black" FontWeight="Bold" FontFamily="Quicksand"/>
+                                        <TextBlock  Text="{Binding IdTaskNavigation.Name}" VerticalAlignment="Center" Foreground="Black" FontWeight="Bold" FontFamily="Quicksand"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -202,6 +203,18 @@
                                             <TextBlock Margin="10, 0, 0, 0" Foreground="Black" FontSize="15"  HorizontalAlignment="Center" VerticalAlignment="Center" >
                                                 <Run Text="{Binding Duration}" FontWeight="Black" Foreground="Green"/>
                                                 <Run Text="Days" />
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Predecessor" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <materialDesign:PackIcon Kind="ArrowUp" Height="22" Width="22" VerticalAlignment="Center"/>
+                                            <TextBlock Margin="10, 0, 0, 0" Foreground="Black" FontSize="15"  HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                <Run Text="{Binding IdTaskNavigation.Predecessor}" FontWeight="Black" Foreground="Green"/>
                                             </TextBlock>
                                         </StackPanel>
                                     </DataTemplate>
@@ -236,7 +249,19 @@
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="20, 0, 0, 0">
                                             <materialDesign:PackIcon Kind="AccountTie" Width="40" Height="40"/>
-                                            <ComboBox SelectedValue="{Binding IdEmployeeNavigation.IdEmployee}"  SelectedValuePath="IdEmployee" ItemsSource="{Binding Path=DataContext.Employees, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}" DisplayMemberPath="Name" ui:ControlHelper.PlaceholderText="Select a responsable"  BorderBrush="Black"  Foreground="Black" Margin="10, 5, 0, 0"/>
+                                            <ComboBox SelectedValue="{Binding IdEmployee}"  SelectedValuePath="IdEmployee" ItemsSource="{Binding Path=DataContext.Employees, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"  ui:ControlHelper.PlaceholderText="Select a responsable"  BorderBrush="Black"  Foreground="Black" Margin="10, 5, 0, 0">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <materialDesign:PackIcon Kind="AccountTie" Width="28" Height="24"/>
+                                                            <TextBlock Text="{Binding Name}" Margin="8, 0, 0, 0" VerticalAlignment="Center" FontFamily="Quicksand" FontWeight="Bold"/>
+                                                            <TextBlock Text="-" Margin="2, 0, 0, 0" VerticalAlignment="Center" FontFamily="Quicksand Medium"/>
+                                                            <TextBlock Text="{Binding IdDepartamentNavigation.Name}" Margin="5, 0, 0, 0" VerticalAlignment="Center" FontFamily="Quicksand" Foreground="Green" FontWeight="SemiBold"/>
+                                                            <TextBlock Text="{Binding IdSiteNavigation.Name}" Margin="8, 0, 0, 0" VerticalAlignment="Center" FontWeight="Bold" Foreground="Black"/>
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>

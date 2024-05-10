@@ -48,8 +48,8 @@ namespace ProjectManager.ViewModels
                 CustomerNeedby = DateTime.Now,
             };
 
-            GetCustomers();
             GetEmployees();
+            GetCustomers();
             GetTasks();
 
 
@@ -106,7 +106,21 @@ namespace ProjectManager.ViewModels
                 }
             }
         }
-        
+
+        private ObservableCollection<Employee> _Managers;
+        public ObservableCollection<Employee> Managers
+        {
+            get => _Managers;
+            set
+            {
+                if (_Managers != value)
+                {
+                    _Managers = value;
+                    RaisePropertyChanged("Managers");
+                }
+            }
+        }
+
         private ObservableCollection<ProjectTask> _TaskList;
         public ObservableCollection<ProjectTask> TaskList
         {
@@ -197,7 +211,6 @@ namespace ProjectManager.ViewModels
                        Duration = 2,
                        StartDate = WorkDays(1),
                        EndDate = WorkDays(3),
-                       Predecessor = 1,
                        IdStatus = 5
                     },
                 new ProjectTask
@@ -206,7 +219,6 @@ namespace ProjectManager.ViewModels
                        Duration = 1,
                        StartDate = WorkDays(3),
                        EndDate = WorkDays(6),
-                       Predecessor = 2,
                        IdStatus = 5
                     },
                 new ProjectTask
@@ -215,7 +227,6 @@ namespace ProjectManager.ViewModels
                        Duration = 1,
                        StartDate = WorkDays(6),
                        EndDate = WorkDays(7),
-                       Predecessor = 3,
                        IdStatus = 5
                     },
                   new ProjectTask
@@ -224,7 +235,6 @@ namespace ProjectManager.ViewModels
                        Duration = 7,
                        StartDate = WorkDays(7),
                        EndDate = WorkDays(14),
-                       Predecessor = 4,
                        IdStatus = 5
                     },
                     new ProjectTask
@@ -233,7 +243,6 @@ namespace ProjectManager.ViewModels
                        Duration =  5,
                        StartDate = WorkDays(7),
                        EndDate = WorkDays(12),
-                       Predecessor = 4,
                        IdStatus = 5
                     },
                      new ProjectTask
@@ -242,7 +251,6 @@ namespace ProjectManager.ViewModels
                        Duration =  Data.TaskDurationDays,
                        StartDate = WorkDays(7),
                        EndDate = WorkDays(7 + Data.TaskDurationDays),
-                       Predecessor = 4,
                        IdStatus = 5
                     },
                       new ProjectTask
@@ -251,7 +259,6 @@ namespace ProjectManager.ViewModels
                        Duration =  5,
                        StartDate = WorkDays(7),
                        EndDate = WorkDays(12),
-                       Predecessor = 4,
                        IdStatus = 5
                     },
                       new ProjectTask
@@ -260,7 +267,6 @@ namespace ProjectManager.ViewModels
                        Duration =  2,
                        StartDate = WorkDays(7 + Data.TaskDurationDays),
                        EndDate = WorkDays(9 + Data.TaskDurationDays),
-                       Predecessor = 4,
                        IdStatus = 5
                     }
             };
@@ -289,7 +295,7 @@ namespace ProjectManager.ViewModels
                 Customers.Add(item);
             }
         }
-        
+
         private async void GetEmployees()
         {
             Employees = new ObservableCollection<Employee>();
@@ -298,8 +304,43 @@ namespace ProjectManager.ViewModels
 
             foreach (var item in data)
             {
-                item.IdDepartamentNavigation = await _projectsDataService.GetDepartmentAsync(item.IdDepartament);
-                Employees.Add(item);
+                    item.IdDepartamentNavigation = await _projectsDataService.GetDepartmentAsync(item.IdDepartament);
+                    item.IdSiteNavigation = await _projectsDataService.GetSiteAsync(item.IdSite);
+                    Employees.Add(item);
+            }
+        }
+
+        private async void GetManagersAndEnginers()
+        {
+            Managers = new ObservableCollection<Employee>();
+
+            var data = await _projectsDataService.GetEmployeesAsync();
+
+            foreach (var item in data)
+            {
+                if (item.IdDepartament == 1 || item.IdDepartament == 2)
+                {
+                    item.IdDepartamentNavigation = await _projectsDataService.GetDepartmentAsync(item.IdDepartament);
+                    item.IdSiteNavigation = await _projectsDataService.GetSiteAsync(item.IdSite);
+                    Managers.Add(item);
+                }
+            }
+        }
+
+        private async void GetManagers()
+        {
+            Managers = new ObservableCollection<Employee>();
+
+            var data = await _projectsDataService.GetEmployeesAsync();
+
+            foreach (var item in data)
+            {
+                if (item.IdDepartament == 1)
+                {
+                    item.IdDepartamentNavigation = await _projectsDataService.GetDepartmentAsync(item.IdDepartament);
+                    item.IdSiteNavigation = await _projectsDataService.GetSiteAsync(item.IdSite);
+                    Managers.Add(item);
+                }
             }
         }
 
@@ -364,6 +405,15 @@ namespace ProjectManager.ViewModels
                 Data = data;
 
                 Project.TotalAssembliesInProject = data.TotalAssemblies;
+
+                if (Data.IsAutomotive)
+                {
+                    GetManagers();
+                }
+                else
+                {
+                    GetManagersAndEnginers();
+                }
 
                 _ = _windowManagerService.OpenInDialog(typeof(ApplyMessageViewModel).FullName, Data.TaskDurationDays);
                 CreateTasks();

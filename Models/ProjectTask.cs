@@ -14,7 +14,6 @@ namespace ProjectManager.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int IdEmployee { get; set; }
-        public int? Predecessor { get; set; }
         public int IdStatus { get; set; }
         public DateTime? CompletationDate { get; set; }
         public DateTime? ReadyToBuildDate { get; set; }
@@ -28,6 +27,5 @@ namespace ProjectManager.Models
         public virtual Project IdProjectNavigation { get; set; }
         public virtual Status IdStatusNavigation { get; set; }
         public virtual Task IdTaskNavigation { get; set; }
-        public virtual Task PredecessorNavigation { get; set; }
     }
 }

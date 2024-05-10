@@ -203,8 +203,6 @@ namespace ProjectManager.Models
 
                 entity.HasIndex(e => e.IdEmployee, "fk-employee_idx");
 
-                entity.HasIndex(e => e.Predecessor, "fk-predecessor_idx");
-
                 entity.HasIndex(e => e.IdStatus, "fk-status_idx");
 
                 entity.HasIndex(e => e.IdTask, "fk-task_idx");
@@ -248,11 +246,6 @@ namespace ProjectManager.Models
                     .HasForeignKey(d => d.IdTask)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk-task");
-
-                entity.HasOne(d => d.PredecessorNavigation)
-                    .WithMany(p => p.ProjectTaskPredecessorNavigations)
-                    .HasForeignKey(d => d.Predecessor)
-                    .HasConstraintName("fk-predecessor");
             });
 
             modelBuilder.Entity<Site>(entity =>
@@ -313,6 +306,9 @@ namespace ProjectManager.Models
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(90);
+
+                entity.Property(e => e.Number).HasColumnType("float");
+                entity.Property(e => e.Predecessor).HasColumnType("float");
             });
 
             modelBuilder.Entity<User>(entity =>

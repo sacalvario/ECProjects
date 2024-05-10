@@ -10,6 +10,7 @@ namespace ProjectManager.Contracts.Services
     {
         Task<Employee> GetEmployeeAsync(int id);
         Task<Department> GetDepartmentAsync(int id);
+        Task<Site> GetSiteAsync(int id);
         Task<Customer> GetCustomerAsync(int id);
         Task<Models.Task> GetTaskAsync(int id);
         Task<Project> GetProjectAsync(int id);

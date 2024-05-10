@@ -183,7 +183,7 @@
             <materialDesign:Card Grid.Row="4" Grid.Column="1" Foreground="Black"  Margin="20, 20, 20, 10" UniformCornerRadius="10" >
                 <StackPanel>
                     <TextBlock Text="Is it automotive??" FontSize="16" FontWeight="SemiBold" Margin="20, 10, 5, 0"/>
-                    <RadioButton Content="Yes " IsChecked="{Binding NewMachine}" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="20, 10, 0, 0" />
+                    <RadioButton Content="Yes " IsChecked="{Binding IsAutomotive}" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="20, 10, 0, 0" />
                     <RadioButton Content="No" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="20, 10, 0, 0" />
                 </StackPanel>
             </materialDesign:Card>
