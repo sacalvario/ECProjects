@@ -46,6 +46,7 @@ namespace ProjectManager.ViewModels
             Project = new Project()
             {
                 CustomerNeedby = DateTime.Now,
+                IdCustomerNavigation = new Customer()
             };
 
             GetEmployees();

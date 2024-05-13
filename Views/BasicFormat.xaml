@@ -51,7 +51,7 @@
                                   ItemsSource="{Binding Customers}"
                                   SelectedValue="{Binding Project.IdCustomerNavigation.IdCustomer}"
                                   Width="450"
-                                  SelectedValuePath="IdCustomer"
+                                  
                                   Style="{DynamicResource MaterialDesignFilledComboBox}"
                                   HorizontalAlignment="Left" >
                             <ComboBox.ItemTemplate>
@@ -220,7 +220,7 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Header="Target Date" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
+                            <DataGridTemplateColumn Header="Start Date" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20, 0, 0, 0">
@@ -233,7 +233,7 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Header="Completion Date" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
+                            <DataGridTemplateColumn Header="Target Date" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding LongEndDate}"
@@ -248,7 +248,6 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="20, 0, 0, 0">
-                                            <materialDesign:PackIcon Kind="AccountTie" Width="40" Height="40"/>
                                             <ComboBox SelectedValue="{Binding IdEmployee}"  SelectedValuePath="IdEmployee" ItemsSource="{Binding Path=DataContext.Employees, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"  ui:ControlHelper.PlaceholderText="Select a responsable"  BorderBrush="Black"  Foreground="Black" Margin="10, 5, 0, 0">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
