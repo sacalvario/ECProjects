@@ -51,7 +51,7 @@
                                   ItemsSource="{Binding Customers}"
                                   SelectedValue="{Binding Project.IdCustomerNavigation.IdCustomer}"
                                   Width="450"
-                                  
+                                  SelectedValuePath="IdCustomer"
                                   Style="{DynamicResource MaterialDesignFilledComboBox}"
                                   HorizontalAlignment="Left" >
                             <ComboBox.ItemTemplate>
