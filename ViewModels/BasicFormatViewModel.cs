@@ -45,8 +45,7 @@ namespace ProjectManager.ViewModels
 
             Project = new Project()
             {
-                CustomerNeedby = DateTime.Now,
-                IdCustomerNavigation = new Customer()
+                CustomerNeedby = DateTime.Now
             };
 
             GetEmployees();
@@ -204,7 +203,8 @@ namespace ProjectManager.ViewModels
                        Duration = 1,
                        StartDate = DateTime.Now,
                        EndDate = WorkDays(1),
-                       IdStatus = 5
+                       IdStatus = 2,
+                       IdEmployee = 212
                     },
                 new ProjectTask
                     {
@@ -212,7 +212,8 @@ namespace ProjectManager.ViewModels
                        Duration = 2,
                        StartDate = WorkDays(1),
                        EndDate = WorkDays(3),
-                       IdStatus = 5
+                       IdStatus = 3,
+                       IdEmployee = 212
                     },
                 new ProjectTask
                     {
@@ -220,7 +221,8 @@ namespace ProjectManager.ViewModels
                        Duration = 1,
                        StartDate = WorkDays(3),
                        EndDate = WorkDays(6),
-                       IdStatus = 5
+                       IdStatus = 3,
+                       IdEmployee = 212
                     },
                 new ProjectTask
                     {
@@ -228,7 +230,8 @@ namespace ProjectManager.ViewModels
                        Duration = 1,
                        StartDate = WorkDays(6),
                        EndDate = WorkDays(7),
-                       IdStatus = 5
+                       IdStatus = 3,
+                       IdEmployee = 212
                     },
                   new ProjectTask
                     {
@@ -236,7 +239,8 @@ namespace ProjectManager.ViewModels
                        Duration = 7,
                        StartDate = WorkDays(7),
                        EndDate = WorkDays(14),
-                       IdStatus = 5
+                       IdStatus = 3,
+                       IdEmployee = 212
                     },
                     new ProjectTask
                     {
@@ -244,7 +248,8 @@ namespace ProjectManager.ViewModels
                        Duration =  5,
                        StartDate = WorkDays(7),
                        EndDate = WorkDays(12),
-                       IdStatus = 5
+                       IdStatus = 3,
+                       IdEmployee = 212
                     },
                      new ProjectTask
                     {
@@ -252,7 +257,8 @@ namespace ProjectManager.ViewModels
                        Duration =  Data.TaskDurationDays,
                        StartDate = WorkDays(7),
                        EndDate = WorkDays(7 + Data.TaskDurationDays),
-                       IdStatus = 5
+                       IdStatus = 3,
+                       IdEmployee = 212
                     },
                       new ProjectTask
                     {
@@ -260,7 +266,8 @@ namespace ProjectManager.ViewModels
                        Duration =  5,
                        StartDate = WorkDays(7),
                        EndDate = WorkDays(12),
-                       IdStatus = 5
+                       IdStatus = 3,
+                       IdEmployee = 212
                     },
                       new ProjectTask
                     {
@@ -268,7 +275,8 @@ namespace ProjectManager.ViewModels
                        Duration =  2,
                        StartDate = WorkDays(7 + Data.TaskDurationDays),
                        EndDate = WorkDays(9 + Data.TaskDurationDays),
-                       IdStatus = 5
+                       IdStatus = 3,
+                       IdEmployee = 212
                     }
             };
         }

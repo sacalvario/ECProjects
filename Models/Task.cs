@@ -10,7 +10,6 @@ namespace ProjectManager.Models
         public Task()
         {
             ProjectTaskIdTaskNavigations = new HashSet<ProjectTask>();
-            ProjectTaskPredecessorNavigations = new HashSet<ProjectTask>();
         }
 
         public int IdTask { get; set; }
@@ -19,6 +18,5 @@ namespace ProjectManager.Models
         public float? Number { get; set; }
 
         public virtual ICollection<ProjectTask> ProjectTaskIdTaskNavigations { get; set; }
-        public virtual ICollection<ProjectTask> ProjectTaskPredecessorNavigations { get; set; }
     }
 }
