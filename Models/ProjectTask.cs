@@ -11,7 +11,19 @@ namespace ProjectManager.Models
     {
         public int IdProject { get; set; }
         public int IdTask { get; set; }
-        public int Duration { get; set; }
+        private int _Duration;
+        public int Duration
+        {
+            get => _Duration;
+            set
+            {
+                if (_Duration != value)
+                {
+                    _Duration = value;
+                    RaisePropertyChanged("Duration");
+                }
+            }
+        }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 

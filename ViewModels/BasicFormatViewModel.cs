@@ -203,8 +203,7 @@ namespace ProjectManager.ViewModels
                        Duration = 1,
                        StartDate = DateTime.Now,
                        EndDate = WorkDays(1),
-                       IdStatus = 2,
-                       IdEmployee = 212
+                       IdStatus = 2
                     },
                 new ProjectTask
                     {
@@ -279,6 +278,8 @@ namespace ProjectManager.ViewModels
                        IdEmployee = 212
                     }
             };
+
+            Project.ProjectTasks = TaskList;
         }
 
         private async void GetTasks()
@@ -366,7 +367,7 @@ namespace ProjectManager.ViewModels
             Project.EndDate = DateTime.Now;
             Project.TotalEstimatedDuration = 1;
             Project.SuccesRateEstimate = 1;
-            Project.ProjectTasks = TaskList;
+            //Project.ProjectTasks = TaskList;
 
             try
             {
