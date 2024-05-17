@@ -22,7 +22,7 @@
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
                 <StackPanel Margin="6">
                     <TextBlock Text="{Binding Name}" FontSize="16" Foreground="White" /> 
-                    <TextBlock Text="{Binding Department}" Foreground="Red" FontSize="15" HorizontalAlignment="Right" FontWeight="Bold" />
+                    <TextBlock Text="{Binding Department}" Foreground="White" FontSize="15" HorizontalAlignment="Right" FontWeight="Bold" />
                 </StackPanel>
                 <ui:DropDownButton Background="Transparent" Foreground="White" FontWeight="Bold">
                     <Image Source="/Assets/user2white.png" Width="32" Height="32"/>
