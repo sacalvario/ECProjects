@@ -199,7 +199,7 @@
                                     <Border CornerRadius="10"
                                                 Background="{Binding IdStatusNavigation.StatusColor}"
                                                 Height="25"
-                                                Width="115"
+                                                Width="120"
                                                 Margin="10, 0, 0, 0">
                                         <TextBlock Foreground="White" Text="{Binding IdStatusNavigation.Name}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black"/>
                                     </Border>
