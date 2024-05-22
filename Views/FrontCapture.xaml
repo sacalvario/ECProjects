@@ -8,7 +8,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       DataContext="{Binding FrontCaptureViewModel, Source={StaticResource Locator}}"
       mc:Ignorable="d" 
-      d:DesignHeight="550" d:DesignWidth="1200"
+      d:DesignHeight="750" d:DesignWidth="1200"
       Title="Ecn">                                                                                                                                                                                                                                                           
 
     <Page.Resources>
@@ -115,9 +115,21 @@
             <TextBlock Style="{DynamicResource PageTitleStyle}" Text="New product introduction"/>
             <materialDesign:Card  Foreground="Black" Margin="20, 20, 20, 10" Grid.Row="1" UniformCornerRadius="10">
                 <StackPanel>
-                    <TextBlock Text="New Costumer?" FontSize="16" FontWeight="SemiBold" Margin="10, 10, 5, 0" />
-                    <RadioButton Content="Yes"  Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="20, 10, 0, 0" IsChecked="{Binding NewCustomer}"/>
-                    <RadioButton Content="No" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="20, 10, 0, 0" />
+                    <TextBlock Text="New Costumer?" FontSize="18" FontWeight="SemiBold" Margin="10, 10, 5, 0" />
+                    <Grid Margin="0, 4, 0, 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <materialDesign:PackIcon Width="24" Height="24" VerticalAlignment="Center" Margin="10, 10, 0, 0" Kind="ThumbsUp" Foreground="Green"/>
+                        <materialDesign:PackIcon Width="24" Height="24" VerticalAlignment="Center" Margin="10, 10, 0, 0" Kind="ThumbsDown" Grid.Row="1" Foreground="red"/>
+                        <RadioButton Content="Yes" Grid.Column="1"  Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0" IsChecked="{Binding NewCustomer}" FontSize="16" VerticalAlignment="Center"/>
+                    <RadioButton Content="No" Grid.Column="1" Grid.Row="1" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0" FontSize="16" VerticalAlignment="Center" />
+                    </Grid>
                 </StackPanel>
             </materialDesign:Card>
             <materialDesign:Card Grid.Row="1" Foreground="Black"  Margin="20, 20, 20, 10" Grid.Column="1" UniformCornerRadius="10" >
