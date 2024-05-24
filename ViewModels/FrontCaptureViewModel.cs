@@ -13,6 +13,7 @@ namespace ProjectManager.ViewModels
     {
 
         private readonly INavigationService _navigationService;
+        private readonly IWindowManagerService _windowManagerService;
 
         private ICommand _navigateBasicFormatCommand;
         public ICommand NavigateToBasicCommand => _navigateBasicFormatCommand ??= new RelayCommand(NavigateToBasicFormat);
@@ -31,8 +32,8 @@ namespace ProjectManager.ViewModels
             }
         }
 
-        private bool _NewCustomer;
-        public bool NewCustomer
+        private bool? _NewCustomer;
+        public bool? NewCustomer
         {
             get => _NewCustomer;
             set
@@ -42,7 +43,7 @@ namespace ProjectManager.ViewModels
                     _NewCustomer = value;
                     RaisePropertyChanged("NewCustomer");
 
-                    if (_NewCustomer)
+                    if ((bool)_NewCustomer)
                     {
                         _Points++;
                     }
@@ -88,8 +89,8 @@ namespace ProjectManager.ViewModels
             }
         }
 
-        private bool _CustomerDrawingAvailable;
-        public bool CustomerDrawingAvailable
+        private bool? _CustomerDrawingAvailable;
+        public bool? CustomerDrawingAvailable
         {
             get => _CustomerDrawingAvailable;
             set
@@ -99,7 +100,7 @@ namespace ProjectManager.ViewModels
                     _CustomerDrawingAvailable = value;
                     RaisePropertyChanged("CustomerDrawingAvailable");
 
-                    if (_CustomerDrawingAvailable)
+                    if ((bool)_CustomerDrawingAvailable)
                     {
                         if (Points > 0)
                         {
@@ -145,8 +146,8 @@ namespace ProjectManager.ViewModels
             }
         }
 
-        private bool _NewTooling;
-        public bool NewTooling
+        private bool? _NewTooling;
+        public bool? NewTooling
         {
             get => _NewTooling;
             set
@@ -156,7 +157,7 @@ namespace ProjectManager.ViewModels
                     _NewTooling = value;
                     RaisePropertyChanged("NewTooling");
 
-                    if (_NewTooling)
+                    if ((bool)_NewTooling)
                     {
                         Points++;
                     }
@@ -171,8 +172,8 @@ namespace ProjectManager.ViewModels
             }
         }
 
-        private bool _TestingBoard;
-        public bool TestingBoard
+        private bool? _TestingBoard;
+        public bool? TestingBoard
         {
             get => _TestingBoard;
             set
@@ -184,7 +185,7 @@ namespace ProjectManager.ViewModels
                     _TestingBoard = value;
                     RaisePropertyChanged("TestingBoard");
 
-                    if (_TestingBoard)
+                    if ((bool)_TestingBoard)
                     {
                         Points++;
                     }
@@ -199,8 +200,8 @@ namespace ProjectManager.ViewModels
             }
         }
 
-        private bool _RoutingBoard;
-        public bool RoutingBoard
+        private bool? _RoutingBoard;
+        public bool? RoutingBoard
         {
             get => _RoutingBoard;
             set
@@ -210,7 +211,7 @@ namespace ProjectManager.ViewModels
                     _RoutingBoard = value;
                     RaisePropertyChanged("RoutingBoard");
 
-                    if (_RoutingBoard)
+                    if ((bool)_RoutingBoard)
                     {
                         Points++;
                     }
@@ -225,8 +226,8 @@ namespace ProjectManager.ViewModels
             }
         }
 
-        private bool _NewMachine;
-        public bool NewMachine
+        private bool? _NewMachine;
+        public bool? NewMachine
         {
             get => _NewMachine;
             set
@@ -236,7 +237,7 @@ namespace ProjectManager.ViewModels
                     _NewMachine = value;
                     RaisePropertyChanged("NewMachine");
 
-                    if (_NewMachine)
+                    if ((bool)_NewMachine)
                     {
                         Points++;
                     }
@@ -248,8 +249,8 @@ namespace ProjectManager.ViewModels
             }
         }
 
-        private bool _NewMold;
-        public bool NewMold
+        private bool? _NewMold;
+        public bool? NewMold
         {
             get => _NewMold;
             set
@@ -259,7 +260,7 @@ namespace ProjectManager.ViewModels
                     _NewMold = value;
                     RaisePropertyChanged("NewMold");
 
-                    if (_NewMold)
+                    if ((bool)_NewMold)
                     {
                         Points++;
                     }
@@ -301,8 +302,8 @@ namespace ProjectManager.ViewModels
             }
         }
 
-        private bool _IsAutomotive;
-        public bool IsAutomotive
+        private bool? _IsAutomotive;
+        public bool? IsAutomotive
         {
             get => _IsAutomotive;
             set
@@ -317,36 +318,44 @@ namespace ProjectManager.ViewModels
 
 
 
-        public FrontCaptureViewModel(INavigationService navigationService)
+        public FrontCaptureViewModel(INavigationService navigationService, IWindowManagerService windowManagerService)
         {
             _navigationService = navigationService;
-
+            _windowManagerService = windowManagerService;
         }
 
         private void NavigateToBasicFormat()
         {
-            ProjectData data = new ProjectData();
-
-            if (Points <= 3)
+            if (NewCustomer.HasValue && CustomerDrawingAvailable.HasValue && NewTooling.HasValue && TestingBoard.HasValue && RoutingBoard.HasValue && NewMachine.HasValue && NewMold.HasValue && IsAutomotive.HasValue)
             {
-                data.TypeProject = 1;
-                data.TaskDurationDays = 10;
+                ProjectData data = new ProjectData();
+
+                if (Points <= 3)
+                {
+                    data.TypeProject = 1;
+                    data.TaskDurationDays = 10;
+                }
+                else if (Points > 3 && Points < 8)
+                {
+                    data.TypeProject = 2;
+                    data.TaskDurationDays = 15;
+                }
+                else if (Points > 8)
+                {
+                    data.TypeProject = 3;
+                    data.TaskDurationDays = 20;
+                }
+
+                data.TotalAssemblies = AssemblyQuantity;
+                data.IsAutomotive = (bool)IsAutomotive;
+
+                _navigationService.NavigateTo(typeof(BasicFormatViewModel).FullName, data);
             }
-            else if (Points > 3 && Points < 8)
+            else
             {
-                data.TypeProject = 2;
-                data.TaskDurationDays = 15;
-            }
-            else if (Points > 8)
-            {
-                data.TypeProject = 3;
-                data.TaskDurationDays = 20;
+                _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "You have not completed the questions");
             }
 
-            data.TotalAssemblies = AssemblyQuantity;
-            data.IsAutomotive = IsAutomotive;
-
-            _navigationService.NavigateTo(typeof(BasicFormatViewModel).FullName, data);
         }
 
         public void OnNavigatedTo(object parameter)
@@ -354,17 +363,17 @@ namespace ProjectManager.ViewModels
             Points = new int();
             Points = 0;
 
-            NewCustomer = new bool();
-            AssemblyQuantity = new int();
-            CustomerDrawingAvailable = new bool();
-            NewRawMaterialQty = new int();
-            NewTooling = new bool();
-            TestingBoard = new bool();
-            RoutingBoard = new bool();
-            NewMachine = new bool();
-            NewMold = new bool();
-            CrimpApplication = new int();
-            IsAutomotive = new bool();
+            //NewCustomer = new bool();
+            //AssemblyQuantity = new int();
+            //CustomerDrawingAvailable = new bool();
+            //NewRawMaterialQty = new int();
+            //NewTooling = new bool();
+            //TestingBoard = new bool();
+            //RoutingBoard = new bool();
+            //NewMachine = new bool();
+            //NewMold = new bool();
+            //CrimpApplication = new int();
+            //IsAutomotive = new bool();
 
         }
 
