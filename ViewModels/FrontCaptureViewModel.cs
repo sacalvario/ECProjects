@@ -18,6 +18,20 @@ namespace ProjectManager.ViewModels
         private ICommand _navigateBasicFormatCommand;
         public ICommand NavigateToBasicCommand => _navigateBasicFormatCommand ??= new RelayCommand(NavigateToBasicFormat);
 
+        private int _QuestionsAnswered;
+        public int QuestionsAnswered
+        {
+            get => _QuestionsAnswered;
+            set
+            {
+                if (_QuestionsAnswered != value)
+                {
+                    _QuestionsAnswered = value;
+                    RaisePropertyChanged("QuestionsAnswered");
+                }
+            }
+        }
+
         private int _Points;
         public int Points
         {
@@ -32,8 +46,8 @@ namespace ProjectManager.ViewModels
             }
         }
 
-        private bool? _NewCustomer;
-        public bool? NewCustomer
+        private bool _NewCustomer;
+        public bool NewCustomer
         {
             get => _NewCustomer;
             set
@@ -43,7 +57,9 @@ namespace ProjectManager.ViewModels
                     _NewCustomer = value;
                     RaisePropertyChanged("NewCustomer");
 
-                    if ((bool)_NewCustomer)
+                    QuestionsAnswered++;
+
+                    if (_NewCustomer)
                     {
                         _Points++;
                     }
@@ -89,8 +105,8 @@ namespace ProjectManager.ViewModels
             }
         }
 
-        private bool? _CustomerDrawingAvailable;
-        public bool? CustomerDrawingAvailable
+        private bool _CustomerDrawingAvailable;
+        public bool CustomerDrawingAvailable
         {
             get => _CustomerDrawingAvailable;
             set
@@ -99,8 +115,9 @@ namespace ProjectManager.ViewModels
                 {
                     _CustomerDrawingAvailable = value;
                     RaisePropertyChanged("CustomerDrawingAvailable");
+                    QuestionsAnswered++;
 
-                    if ((bool)_CustomerDrawingAvailable)
+                    if (_CustomerDrawingAvailable)
                     {
                         if (Points > 0)
                         {
@@ -146,8 +163,8 @@ namespace ProjectManager.ViewModels
             }
         }
 
-        private bool? _NewTooling;
-        public bool? NewTooling
+        private bool _NewTooling;
+        public bool NewTooling
         {
             get => _NewTooling;
             set
@@ -156,8 +173,9 @@ namespace ProjectManager.ViewModels
                 {
                     _NewTooling = value;
                     RaisePropertyChanged("NewTooling");
+                    QuestionsAnswered++;
 
-                    if ((bool)_NewTooling)
+                    if (_NewTooling)
                     {
                         Points++;
                     }
@@ -172,8 +190,8 @@ namespace ProjectManager.ViewModels
             }
         }
 
-        private bool? _TestingBoard;
-        public bool? TestingBoard
+        private bool _TestingBoard;
+        public bool TestingBoard
         {
             get => _TestingBoard;
             set
@@ -184,8 +202,9 @@ namespace ProjectManager.ViewModels
 
                     _TestingBoard = value;
                     RaisePropertyChanged("TestingBoard");
+                    QuestionsAnswered++;
 
-                    if ((bool)_TestingBoard)
+                    if (_TestingBoard)
                     {
                         Points++;
                     }
@@ -200,8 +219,8 @@ namespace ProjectManager.ViewModels
             }
         }
 
-        private bool? _RoutingBoard;
-        public bool? RoutingBoard
+        private bool _RoutingBoard;
+        public bool RoutingBoard
         {
             get => _RoutingBoard;
             set
@@ -210,8 +229,9 @@ namespace ProjectManager.ViewModels
                 {
                     _RoutingBoard = value;
                     RaisePropertyChanged("RoutingBoard");
+                    QuestionsAnswered++;
 
-                    if ((bool)_RoutingBoard)
+                    if (_RoutingBoard)
                     {
                         Points++;
                     }
@@ -226,8 +246,8 @@ namespace ProjectManager.ViewModels
             }
         }
 
-        private bool? _NewMachine;
-        public bool? NewMachine
+        private bool _NewMachine;
+        public bool NewMachine
         {
             get => _NewMachine;
             set
@@ -236,8 +256,9 @@ namespace ProjectManager.ViewModels
                 {
                     _NewMachine = value;
                     RaisePropertyChanged("NewMachine");
+                    QuestionsAnswered++;
 
-                    if ((bool)_NewMachine)
+                    if (_NewMachine)
                     {
                         Points++;
                     }
@@ -249,8 +270,8 @@ namespace ProjectManager.ViewModels
             }
         }
 
-        private bool? _NewMold;
-        public bool? NewMold
+        private bool _NewMold;
+        public bool NewMold
         {
             get => _NewMold;
             set
@@ -259,8 +280,9 @@ namespace ProjectManager.ViewModels
                 {
                     _NewMold = value;
                     RaisePropertyChanged("NewMold");
+                    QuestionsAnswered++;
 
-                    if ((bool)_NewMold)
+                    if (_NewMold)
                     {
                         Points++;
                     }
@@ -302,8 +324,8 @@ namespace ProjectManager.ViewModels
             }
         }
 
-        private bool? _IsAutomotive;
-        public bool? IsAutomotive
+        private bool _IsAutomotive;
+        public bool IsAutomotive
         {
             get => _IsAutomotive;
             set
@@ -311,6 +333,7 @@ namespace ProjectManager.ViewModels
                 if (_IsAutomotive != value)
                 {
                     _IsAutomotive = value;
+                    QuestionsAnswered++;
                     RaisePropertyChanged("IsAutomotive");
                 }
             }
@@ -326,7 +349,7 @@ namespace ProjectManager.ViewModels
 
         private void NavigateToBasicFormat()
         {
-            if (NewCustomer.HasValue && CustomerDrawingAvailable.HasValue && NewTooling.HasValue && TestingBoard.HasValue && RoutingBoard.HasValue && NewMachine.HasValue && NewMold.HasValue && IsAutomotive.HasValue)
+            if (QuestionsAnswered == 8)
             {
                 ProjectData data = new ProjectData();
 
@@ -355,25 +378,27 @@ namespace ProjectManager.ViewModels
             {
                 _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "You have not completed the questions");
             }
-
         }
 
         public void OnNavigatedTo(object parameter)
         {
             Points = new int();
-            Points = 0;
+            Points = 0; 
+            
+            QuestionsAnswered = new int();
+            QuestionsAnswered = 0;
 
-            //NewCustomer = new bool();
-            //AssemblyQuantity = new int();
-            //CustomerDrawingAvailable = new bool();
-            //NewRawMaterialQty = new int();
-            //NewTooling = new bool();
-            //TestingBoard = new bool();
-            //RoutingBoard = new bool();
-            //NewMachine = new bool();
-            //NewMold = new bool();
-            //CrimpApplication = new int();
-            //IsAutomotive = new bool();
+            NewCustomer = new bool();
+            AssemblyQuantity = new int();
+            CustomerDrawingAvailable = new bool();
+            NewRawMaterialQty = new int();
+            NewTooling = new bool();
+            TestingBoard = new bool();
+            RoutingBoard = new bool();
+            NewMachine = new bool();
+            NewMold = new bool();
+            CrimpApplication = new int();
+            IsAutomotive = new bool();
 
         }
 
