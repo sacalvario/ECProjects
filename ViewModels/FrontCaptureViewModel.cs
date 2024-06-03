@@ -52,12 +52,13 @@ namespace ProjectManager.ViewModels
             get => _NewCustomer;
             set
             {
+                QuestionsAnswered++;
+
                 if (_NewCustomer != value)
                 {
                     _NewCustomer = value;
                     RaisePropertyChanged("NewCustomer");
 
-                    QuestionsAnswered++;
 
                     if (_NewCustomer)
                     {
@@ -111,11 +112,12 @@ namespace ProjectManager.ViewModels
             get => _CustomerDrawingAvailable;
             set
             {
+                QuestionsAnswered++;
+
                 if (_CustomerDrawingAvailable != value)
                 {
                     _CustomerDrawingAvailable = value;
                     RaisePropertyChanged("CustomerDrawingAvailable");
-                    QuestionsAnswered++;
 
                     if (_CustomerDrawingAvailable)
                     {
@@ -169,11 +171,12 @@ namespace ProjectManager.ViewModels
             get => _NewTooling;
             set
             {
+
+                QuestionsAnswered++;
                 if (_NewTooling != value)
                 {
                     _NewTooling = value;
                     RaisePropertyChanged("NewTooling");
-                    QuestionsAnswered++;
 
                     if (_NewTooling)
                     {
@@ -196,13 +199,13 @@ namespace ProjectManager.ViewModels
             get => _TestingBoard;
             set
             {
+
+                QuestionsAnswered++;
                 if (_TestingBoard != value)
                 {
 
-
                     _TestingBoard = value;
                     RaisePropertyChanged("TestingBoard");
-                    QuestionsAnswered++;
 
                     if (_TestingBoard)
                     {
@@ -225,11 +228,12 @@ namespace ProjectManager.ViewModels
             get => _RoutingBoard;
             set
             {
+
+                QuestionsAnswered++;
                 if (_RoutingBoard != value)
                 {
                     _RoutingBoard = value;
                     RaisePropertyChanged("RoutingBoard");
-                    QuestionsAnswered++;
 
                     if (_RoutingBoard)
                     {
@@ -252,11 +256,13 @@ namespace ProjectManager.ViewModels
             get => _NewMachine;
             set
             {
+
+                QuestionsAnswered++;
+
                 if (_NewMachine != value)
                 {
                     _NewMachine = value;
                     RaisePropertyChanged("NewMachine");
-                    QuestionsAnswered++;
 
                     if (_NewMachine)
                     {
@@ -276,11 +282,13 @@ namespace ProjectManager.ViewModels
             get => _NewMold;
             set
             {
+
+                QuestionsAnswered++;
+
                 if (_NewMold != value)
                 {
                     _NewMold = value;
                     RaisePropertyChanged("NewMold");
-                    QuestionsAnswered++;
 
                     if (_NewMold)
                     {
@@ -330,10 +338,11 @@ namespace ProjectManager.ViewModels
             get => _IsAutomotive;
             set
             {
+                QuestionsAnswered++;
+
                 if (_IsAutomotive != value)
                 {
                     _IsAutomotive = value;
-                    QuestionsAnswered++;
                     RaisePropertyChanged("IsAutomotive");
                 }
             }
@@ -349,7 +358,7 @@ namespace ProjectManager.ViewModels
 
         private void NavigateToBasicFormat()
         {
-            if (QuestionsAnswered == 8)
+            if (QuestionsAnswered >= 8)
             {
                 ProjectData data = new ProjectData();
 
@@ -370,7 +379,7 @@ namespace ProjectManager.ViewModels
                 }
 
                 data.TotalAssemblies = AssemblyQuantity;
-                data.IsAutomotive = (bool)IsAutomotive;
+                data.IsAutomotive = IsAutomotive;
 
                 _navigationService.NavigateTo(typeof(BasicFormatViewModel).FullName, data);
             }
@@ -386,7 +395,6 @@ namespace ProjectManager.ViewModels
             Points = 0; 
             
             QuestionsAnswered = new int();
-            QuestionsAnswered = 0;
 
             NewCustomer = new bool();
             AssemblyQuantity = new int();
@@ -399,6 +407,8 @@ namespace ProjectManager.ViewModels
             NewMold = new bool();
             CrimpApplication = new int();
             IsAutomotive = new bool();
+
+            QuestionsAnswered = 0;
 
         }
 

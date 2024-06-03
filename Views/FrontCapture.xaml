@@ -9,7 +9,7 @@
       DataContext="{Binding FrontCaptureViewModel, Source={StaticResource Locator}}"
       mc:Ignorable="d" 
       d:DesignHeight="750" d:DesignWidth="1200"
-      Title="Ecn">                                                                                                                                                                                                                                                           
+      Title="Ecn">
 
     <Page.Resources>
 
@@ -19,7 +19,7 @@
                        FontFamily="Quicksand"
                        FontWeight="Medium"/>
         </DataTemplate>
-        
+
         <DataTemplate x:Key="ToggleSwitchHeaderTemplate">
             <TextBlock Text="{Binding}"
                        FontSize="17"
@@ -127,8 +127,8 @@
                         </Grid.RowDefinitions>
                         <materialDesign:PackIcon Width="24" Height="24" VerticalAlignment="Center" Margin="10, 10, 0, 0" Kind="ThumbsUp" Foreground="Green"/>
                         <materialDesign:PackIcon Width="24" Height="24" VerticalAlignment="Center" Margin="10, 10, 0, 0" Kind="ThumbsDown" Grid.Row="1" Foreground="red"/>
-                        <RadioButton Content="Yes" Grid.Column="1"  Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0" IsChecked="{Binding NewCustomer}" FontSize="16" VerticalAlignment="Center"/>
-                    <RadioButton Content="No" Grid.Column="1" Grid.Row="1" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0" FontSize="16" VerticalAlignment="Center" />
+                        <RadioButton Content="Yes" Grid.Column="1"  Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0"  FontSize="16" VerticalAlignment="Center"/>
+                        <RadioButton Content="No" Grid.Column="1" Grid.Row="1" Style="{DynamicResource MaterialDesignAccentRadioButton}" IsChecked="{Binding NewCustomer}" Margin="10, 10, 0, 0"  FontSize="16" VerticalAlignment="Center" />
                     </Grid>
                 </StackPanel>
             </materialDesign:Card>
@@ -147,16 +147,17 @@
                     <Grid Margin="0, 4, 0, 0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="146*" />
+                            <ColumnDefinition Width="167*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <materialDesign:PackIcon Width="24" Height="24" VerticalAlignment="Center" Margin="10, 10, 0, 0" Kind="ThumbsUp" Foreground="Green"/>
-                        <materialDesign:PackIcon Width="24" Height="24" VerticalAlignment="Center" Margin="10, 10, 0, 0" Kind="ThumbsDown" Grid.Row="1" Foreground="red"/>
-                        <RadioButton Content="Yes" Grid.Column="1"  Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0" IsChecked="{Binding CustomerDrawingAvailable}" FontSize="16" VerticalAlignment="Center"/>
-                        <RadioButton Content="No" Grid.Column="1" Grid.Row="1" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0" FontSize="16" VerticalAlignment="Center" />
+                        <materialDesign:PackIcon Width="24" Height="24" Margin="10, 10, 0, 0" Kind="ThumbsUp" Foreground="Green"/>
+                        <materialDesign:PackIcon Width="24" Height="24" Margin="10, 10, 0, 0" Kind="ThumbsDown" Grid.Row="1" Foreground="red"/>
+                        <RadioButton Content="Yes" Grid.Column="1"  Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0"  FontSize="16" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                        <RadioButton Content="No" Grid.Column="1" Grid.Row="1" Style="{DynamicResource MaterialDesignAccentRadioButton}" IsChecked="{Binding CustomerDrawingAvailable}" Margin="10, 10, 0, 0" FontSize="16" VerticalAlignment="Top" Grid.ColumnSpan="2" />
                     </Grid>
                 </StackPanel>
             </materialDesign:Card>
@@ -183,8 +184,8 @@
                         </Grid.RowDefinitions>
                         <materialDesign:PackIcon Width="24" Height="24" VerticalAlignment="Center" Margin="10, 10, 0, 0" Kind="ThumbsUp" Foreground="Green"/>
                         <materialDesign:PackIcon Width="24" Height="24" VerticalAlignment="Center" Margin="10, 10, 0, 0" Kind="ThumbsDown" Grid.Row="1" Foreground="red"/>
-                        <RadioButton Content="Yes" Grid.Column="1"  Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0" IsChecked="{Binding NewTooling}" FontSize="16" VerticalAlignment="Center"/>
-                        <RadioButton Content="No" Grid.Column="1" Grid.Row="1" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0" FontSize="16" VerticalAlignment="Center" />
+                        <RadioButton Content="Yes" Grid.Column="1"  Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0"  FontSize="16" VerticalAlignment="Center"/>
+                        <RadioButton Content="No" Grid.Column="1" Grid.Row="1" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0" IsChecked="{Binding NewTooling}" FontSize="16" VerticalAlignment="Center" />
                     </Grid>
                 </StackPanel>
             </materialDesign:Card>
@@ -202,8 +203,8 @@
                         </Grid.RowDefinitions>
                         <materialDesign:PackIcon Width="24" Height="24" VerticalAlignment="Center" Margin="10, 10, 0, 0" Kind="ThumbsUp" Foreground="Green"/>
                         <materialDesign:PackIcon Width="24" Height="24" VerticalAlignment="Center" Margin="10, 10, 0, 0" Kind="ThumbsDown" Grid.Row="1" Foreground="red"/>
-                        <RadioButton Content="Yes" Grid.Column="1"  Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0" IsChecked="{Binding TestingBoard}" FontSize="16" VerticalAlignment="Center"/>
-                        <RadioButton Content="No" Grid.Column="1" Grid.Row="1" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0" FontSize="16" VerticalAlignment="Center" />
+                        <RadioButton Content="Yes" Grid.Column="1"  Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0"  FontSize="16" VerticalAlignment="Center"/>
+                        <RadioButton Content="No" Grid.Column="1" Grid.Row="1" Style="{DynamicResource MaterialDesignAccentRadioButton}" IsChecked="{Binding TestingBoard}" Margin="10, 10, 0, 0" FontSize="16" VerticalAlignment="Center" />
                     </Grid>
                 </StackPanel>
             </materialDesign:Card>
@@ -221,8 +222,8 @@
                         </Grid.RowDefinitions>
                         <materialDesign:PackIcon Width="24" Height="24" VerticalAlignment="Center" Margin="10, 10, 0, 0" Kind="ThumbsUp" Foreground="Green"/>
                         <materialDesign:PackIcon Width="24" Height="24" VerticalAlignment="Center" Margin="10, 10, 0, 0" Kind="ThumbsDown" Grid.Row="1" Foreground="red"/>
-                        <RadioButton Content="Yes" Grid.Column="1"  Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0" IsChecked="{Binding RoutingBoard}" FontSize="16" VerticalAlignment="Center"/>
-                        <RadioButton Content="No" Grid.Column="1" Grid.Row="1" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0" FontSize="16" VerticalAlignment="Center" />
+                        <RadioButton Content="Yes" Grid.Column="1"  Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0"  FontSize="16" VerticalAlignment="Center"/>
+                        <RadioButton Content="No" Grid.Column="1" Grid.Row="1" Style="{DynamicResource MaterialDesignAccentRadioButton}" IsChecked="{Binding RoutingBoard}" Margin="10, 10, 0, 0" FontSize="16" VerticalAlignment="Center" />
                     </Grid>
                 </StackPanel>
             </materialDesign:Card>
@@ -240,8 +241,8 @@
                         </Grid.RowDefinitions>
                         <materialDesign:PackIcon Width="24" Height="24" VerticalAlignment="Center" Margin="10, 10, 0, 0" Kind="ThumbsUp" Foreground="Green"/>
                         <materialDesign:PackIcon Width="24" Height="24" VerticalAlignment="Center" Margin="10, 10, 0, 0" Kind="ThumbsDown" Grid.Row="1" Foreground="red"/>
-                        <RadioButton Content="Yes" Grid.Column="1"  Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0" IsChecked="{Binding NewMachine}" FontSize="16" VerticalAlignment="Center"/>
-                        <RadioButton Content="No" Grid.Column="1" Grid.Row="1" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0" FontSize="16" VerticalAlignment="Center" />
+                        <RadioButton Content="Yes" Grid.Column="1"  Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0" FontSize="16" VerticalAlignment="Center"/>
+                        <RadioButton Content="No" Grid.Column="1" Grid.Row="1" Style="{DynamicResource MaterialDesignAccentRadioButton}" IsChecked="{Binding NewMachine}"  Margin="10, 10, 0, 0" FontSize="16" VerticalAlignment="Center" />
                     </Grid>
                 </StackPanel>
             </materialDesign:Card>
@@ -259,8 +260,8 @@
                         </Grid.RowDefinitions>
                         <materialDesign:PackIcon Width="24" Height="24" VerticalAlignment="Center" Margin="10, 10, 0, 0" Kind="ThumbsUp" Foreground="Green"/>
                         <materialDesign:PackIcon Width="24" Height="24" VerticalAlignment="Center" Margin="10, 10, 0, 0" Kind="ThumbsDown" Grid.Row="1" Foreground="red"/>
-                        <RadioButton Content="Yes" Grid.Column="1"  Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0" IsChecked="{Binding NewMold}" FontSize="16" VerticalAlignment="Center"/>
-                        <RadioButton Content="No" Grid.Column="1" Grid.Row="1" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0" FontSize="16" VerticalAlignment="Center" />
+                        <RadioButton Content="Yes" Grid.Column="1"  Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0"  FontSize="16" VerticalAlignment="Center"/>
+                        <RadioButton Content="No" Grid.Column="1" Grid.Row="1" Style="{DynamicResource MaterialDesignAccentRadioButton}" IsChecked="{Binding NewMold}" Margin="10, 10, 0, 0" FontSize="16" VerticalAlignment="Center" />
                     </Grid>
                 </StackPanel>
             </materialDesign:Card>
@@ -287,8 +288,8 @@
                         </Grid.RowDefinitions>
                         <materialDesign:PackIcon Width="24" Height="24" VerticalAlignment="Center" Margin="10, 10, 0, 0" Kind="ThumbsUp" Foreground="Green"/>
                         <materialDesign:PackIcon Width="24" Height="24" VerticalAlignment="Center" Margin="10, 10, 0, 0" Kind="ThumbsDown" Grid.Row="1" Foreground="red"/>
-                        <RadioButton Content="Yes" Grid.Column="1"  Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0" IsChecked="{Binding IsAutomotive}" FontSize="16" VerticalAlignment="Center"/>
-                        <RadioButton Content="No" Grid.Column="1" Grid.Row="1" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0" FontSize="16" VerticalAlignment="Center" />
+                        <RadioButton Content="Yes" Grid.Column="1"  Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0"  FontSize="16" VerticalAlignment="Center"/>
+                        <RadioButton Content="No" Grid.Column="1" Grid.Row="1" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0" IsChecked="{Binding IsAutomotive}" FontSize="16" VerticalAlignment="Center"  Checked="RadioButton_Checked"/>
                     </Grid>
                 </StackPanel>
             </materialDesign:Card>
