@@ -7,8 +7,8 @@ namespace ProjectManager.Contracts.Services
 {
     public interface IMailService
     {
-        void SendEmail(List<string> email, int id);
-        void SendSignEmail(string email, string generatoremail, int id, string signedname, string generatorname);
+        void SendAssignedManagerEmail(string manageremail, string managername, string generatorname, int id);
+        void SendNewTaskEmail(string email, string generatoremail, int id, string resposiblename, string generatorname, string targetdate);
         void SendRefuseECNToGeneratorEmail(string email, int id, string refusedname, string generatorname, List<string> emails);
         void SendCloseECN(string email, int id, string generatorname);
         //void SendCancelECN(string email, Ecn ecn, string generatorname);

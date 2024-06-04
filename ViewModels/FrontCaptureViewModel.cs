@@ -14,6 +14,7 @@ namespace ProjectManager.ViewModels
 
         private readonly INavigationService _navigationService;
         private readonly IWindowManagerService _windowManagerService;
+        private readonly IMailService _mailService;
 
         private ICommand _navigateBasicFormatCommand;
         public ICommand NavigateToBasicCommand => _navigateBasicFormatCommand ??= new RelayCommand(NavigateToBasicFormat);
@@ -350,14 +351,18 @@ namespace ProjectManager.ViewModels
 
 
 
-        public FrontCaptureViewModel(INavigationService navigationService, IWindowManagerService windowManagerService)
+        public FrontCaptureViewModel(INavigationService navigationService, IWindowManagerService windowManagerService, IMailService mailService)
         {
             _navigationService = navigationService;
             _windowManagerService = windowManagerService;
+            _mailService = mailService;
         }
 
         private void NavigateToBasicFormat()
         {
+            _mailService.SendNewTaskEmail("scalvario@ecmfg.com", "ecnsystem@outlook.com", 1, "Simón Calvario", "Alvaro Segura", "Tuesday, May 18, 2024");
+            _mailService.SendAssignedManagerEmail("scalvario@ecmfg.com", "Ale Lizarez", "Alberto Torres", 1);
+
             if (QuestionsAnswered >= 8)
             {
                 ProjectData data = new ProjectData();
