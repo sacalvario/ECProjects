@@ -360,11 +360,11 @@ namespace ProjectManager.ViewModels
 
         private void NavigateToBasicFormat()
         {
-            _mailService.SendNewTaskEmail("scalvario@ecmfg.com", "ecnsystem@outlook.com", 1, "Simón Calvario", "Alvaro Segura", "Tuesday, May 18, 2024");
-            _mailService.SendAssignedManagerEmail("scalvario@ecmfg.com", "Ale Lizarez", "Alberto Torres", 1);
+            //_mailService.SendNewTaskEmail("scalvario@ecmfg.com", "ecnsystem@outlook.com", 1, "Simón Calvario", "Alvaro Segura", "Tuesday, May 18, 2024");
+            //_mailService.SendAssignedManagerEmail("scalvario@ecmfg.com", "Ale Lizarez", "Alberto Torres", 1);
 
-            if (QuestionsAnswered >= 8)
-            {
+            //if (QuestionsAnswered >= 8)
+            //{
                 ProjectData data = new ProjectData();
 
                 if (Points <= 3)
@@ -387,11 +387,11 @@ namespace ProjectManager.ViewModels
                 data.IsAutomotive = IsAutomotive;
 
                 _navigationService.NavigateTo(typeof(BasicFormatViewModel).FullName, data);
-            }
-            else
-            {
-                _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "You have not completed the questions");
-            }
+            //}
+            //else
+            //{
+            //    _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "You have not completed the questions");
+            //}
         }
 
         public void OnNavigatedTo(object parameter)

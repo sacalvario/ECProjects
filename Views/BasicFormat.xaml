@@ -179,7 +179,7 @@
                             </StackPanel>
                         </Button>
                     </StackPanel>
-                    <DataGrid ItemsSource="{Binding Project.ProjectTasks}" Grid.Row="1" Grid.RowSpan="4" CanUserAddRows="False" CanUserDeleteRows="False" Margin="20, 20, 0, 0" AutoGenerateColumns="False"  HeadersVisibility="Column" GridLinesVisibility="Horizontal">
+                    <DataGrid ItemsSource="{Binding TaskList}" Grid.Row="1" Grid.RowSpan="4" CanUserAddRows="False" CanUserDeleteRows="False" Margin="20, 20, 0, 0" AutoGenerateColumns="False"  HeadersVisibility="Column" GridLinesVisibility="Horizontal">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Header="#" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
                                 <DataGridTemplateColumn.CellTemplate>
@@ -252,8 +252,8 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="20, 0, 0, 0">
-                                            <ComboBox  SelectedValue="{Binding IdEmployee, Mode=TwoWay}" SelectedValuePath="IdEmployee" ItemsSource="{Binding Path=DataContext.Employees, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"  ui:ControlHelper.PlaceholderText="Select a responsable"  BorderBrush="Black"  Foreground="Black" Margin="10, 5, 0, 0">
-                                                <ComboBox.ItemTemplate>
+                                            <ComboBox SelectedValue="{Binding IdEmployeeNavigation.IdEmployee}" DisplayMemberPath="Name" SelectedValuePath="IdEmployee" ItemsSource="{Binding Path=DataContext.Employees, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"  ui:ControlHelper.PlaceholderText="Select a responsable"  BorderBrush="Black"  Foreground="Black" Margin="10, 5, 0, 0" />
+                                            <!--<ComboBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <StackPanel Orientation="Horizontal">
                                                             <materialDesign:PackIcon Kind="AccountTie" Width="28" Height="24"/>
@@ -264,7 +264,7 @@
                                                         </StackPanel>
                                                     </DataTemplate>
                                                 </ComboBox.ItemTemplate>
-                                            </ComboBox>
+                                            </ComboBox>-->
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>

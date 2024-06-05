@@ -51,6 +51,7 @@ namespace ProjectManager.ViewModels
             GetEmployees();
             GetCustomers();
             GetTasks();
+    
 
 
             GoToNextTabItemCommand = new RelayCommand(GoToNexTabItem);
@@ -211,8 +212,7 @@ namespace ProjectManager.ViewModels
                        Duration = 2,
                        StartDate = WorkDays(1),
                        EndDate = WorkDays(3),
-                       IdStatus = 3,
-                       IdEmployee = 212
+                       IdStatus = 3
                     },
                 new ProjectTask
                     {
@@ -220,8 +220,7 @@ namespace ProjectManager.ViewModels
                        Duration = 1,
                        StartDate = WorkDays(3),
                        EndDate = WorkDays(6),
-                       IdStatus = 3,
-                       IdEmployee = 212
+                       IdStatus = 3
                     },
                 new ProjectTask
                     {
@@ -229,8 +228,7 @@ namespace ProjectManager.ViewModels
                        Duration = 1,
                        StartDate = WorkDays(6),
                        EndDate = WorkDays(7),
-                       IdStatus = 3,
-                       IdEmployee = 212
+                       IdStatus = 3
                     },
                   new ProjectTask
                     {
@@ -238,8 +236,7 @@ namespace ProjectManager.ViewModels
                        Duration = 7,
                        StartDate = WorkDays(7),
                        EndDate = WorkDays(14),
-                       IdStatus = 3,
-                       IdEmployee = 212
+                       IdStatus = 3
                     },
                     new ProjectTask
                     {
@@ -247,8 +244,7 @@ namespace ProjectManager.ViewModels
                        Duration =  5,
                        StartDate = WorkDays(7),
                        EndDate = WorkDays(12),
-                       IdStatus = 3,
-                       IdEmployee = 212
+                       IdStatus = 3
                     },
                      new ProjectTask
                     {
@@ -256,8 +252,7 @@ namespace ProjectManager.ViewModels
                        Duration =  Data.TaskDurationDays,
                        StartDate = WorkDays(7),
                        EndDate = WorkDays(7 + Data.TaskDurationDays),
-                       IdStatus = 3,
-                       IdEmployee = 212
+                       IdStatus = 3
                     },
                       new ProjectTask
                     {
@@ -265,8 +260,7 @@ namespace ProjectManager.ViewModels
                        Duration =  5,
                        StartDate = WorkDays(7),
                        EndDate = WorkDays(12),
-                       IdStatus = 3,
-                       IdEmployee = 212
+                       IdStatus = 3
                     },
                       new ProjectTask
                     {
@@ -274,12 +268,10 @@ namespace ProjectManager.ViewModels
                        Duration =  2,
                        StartDate = WorkDays(7 + Data.TaskDurationDays),
                        EndDate = WorkDays(9 + Data.TaskDurationDays),
-                       IdStatus = 3,
-                       IdEmployee = 212
+                       IdStatus = 3
                     }
             };
 
-            Project.ProjectTasks = TaskList;
         }
 
         private async void GetTasks()
@@ -314,9 +306,9 @@ namespace ProjectManager.ViewModels
 
             foreach (var item in data)
             {
-                    item.IdDepartamentNavigation = await _projectsDataService.GetDepartmentAsync(item.IdDepartament);
-                    item.IdSiteNavigation = await _projectsDataService.GetSiteAsync(item.IdSite);
-                    Employees.Add(item);
+                item.IdDepartamentNavigation = await _projectsDataService.GetDepartmentAsync(item.IdDepartament);
+                item.IdSiteNavigation = await _projectsDataService.GetSiteAsync(item.IdSite);
+                Employees.Add(item);
             }
         }
 
@@ -367,7 +359,7 @@ namespace ProjectManager.ViewModels
             Project.EndDate = DateTime.Now;
             Project.TotalEstimatedDuration = 1;
             Project.SuccesRateEstimate = 1;
-            //Project.ProjectTasks = TaskList;
+            Project.ProjectTasks = TaskList;
 
             try
             {
@@ -425,8 +417,8 @@ namespace ProjectManager.ViewModels
                     GetManagersAndEnginers();
                 }
 
-                _ = _windowManagerService.OpenInDialog(typeof(ApplyMessageViewModel).FullName, Data.TaskDurationDays);
                 CreateTasks();
+                _ = _windowManagerService.OpenInDialog(typeof(ApplyMessageViewModel).FullName, Data.TaskDurationDays);
 
             }
         }
