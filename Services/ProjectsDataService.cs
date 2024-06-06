@@ -11,6 +11,7 @@ namespace ProjectManager.Services
     public class ProjectsDataService : IProjectsDataService
     {
         private readonly projectsContext context = null;
+        DateTime LastDate;
 
         public ProjectsDataService()
         {
@@ -146,25 +147,89 @@ namespace ProjectManager.Services
 
         public bool CompleteTask(ProjectTask task)
         {
-            if (task.EndDate > DateTime.Now)
+            if (DateTime.Now > task.EndDate)
             {
                 task.IdStatus = 1;
-                
-             //   Ajustar fechas cuando se retrasa el cierre de actividad 
+                task.EndDate = DateTime.Now;
+
+                ICollection<ProjectTask> projectTasks = GetActivities(task.IdProject);
+
+                foreach (ProjectTask obj in projectTasks)
+                {
+                    if (obj.IdTask > task.IdTask)
+                    {
+
+                        if (task.IdTask + 1 == obj.IdTask)
+                        {
+                            obj.IdStatus = 2;
+                            obj.StartDate = DateTime.Now;
+                            obj.EndDate = WorkDays(obj.Duration);
+                            LastDate = WorkDays(obj.Duration);
+                        }
+                        else
+                        {
+                            obj.StartDate = LastDate;
+                            obj.EndDate = WorkDays(obj.Duration);
+                        }
+                    }
+                }
+
+                //   Ajustar fechas cuando se retrasa el cierre de actividad 
             }
             else
             {
                 task.IdStatus = 4;
+                task.EndDate = DateTime.Now;
 
-                //   Ajustar fechas cuando se completa con tiempo
+                ICollection<ProjectTask> projectTasks = GetActivities(task.IdProject);
+
+                foreach (ProjectTask obj in projectTasks)
+                {
+                    if (obj.IdTask > task.IdTask)
+                    {
+
+                        if (task.IdTask + 1 == obj.IdTask)
+                        {
+                            obj.IdStatus = 2;
+                            obj.StartDate = DateTime.Now;
+                            obj.EndDate = WorkDays(obj.Duration);
+                            LastDate = WorkDays(obj.Duration);
+                        }
+                        else
+                        {
+                            obj.StartDate = LastDate;
+                            obj.EndDate = WorkDays(obj.Duration);
+                        }
+                    }
+                }
             }
-                task.CompletationDate = DateTime.Now;
 
             // MAandar correo a siguiente persona
             // Cambiar status de siguiente tarea
 
             var result = context.SaveChanges();
             return result > 0;
+        }
+
+        private DateTime WorkDays(int days)
+        {
+            DateTime date = new DateTime();
+            date = DateTime.Now;
+
+            for (int i = 1; i <= days; i++)
+            {
+                if (date.AddDays(i).DayOfWeek == DayOfWeek.Saturday)
+                {
+                    days++;
+                }
+                else if (date.AddDays(i).DayOfWeek == DayOfWeek.Sunday)
+                {
+                    days++;
+                }
+            }
+
+            return date.AddDays(days);
+
         }
 
         public async Task<ICollection<ProjectTask>> GetTasksAsync(int employee)
@@ -199,6 +264,11 @@ namespace ProjectManager.Services
         private Site GetSite(int id)
         {
             return context.Sites.Find(id);
+        }
+
+        public ProjectTask GetActiveTask(int project)
+        {
+            return context.ProjectTasks.First(i => i.IdProject == project && i.IdStatus == 2);
         }
     }
 }

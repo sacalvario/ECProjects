@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ProjectManager.ViewModels
@@ -25,6 +26,8 @@ namespace ProjectManager.ViewModels
             _mailService = mailService;
             _navigationService = navigationService;
 
+            SelectedTabItem = 0;
+
         }
 
         private ICommand _GoToBackCommand;
@@ -40,6 +43,70 @@ namespace ProjectManager.ViewModels
             }
         }
 
+        private ICommand _CompleteTaskCommand;
+        public ICommand CompleteTaskCommand
+        {
+            get
+            {
+                if (_CompleteTaskCommand == null)
+                {
+                    _CompleteTaskCommand = new RelayCommand(CompleteTask);
+                }
+                return _CompleteTaskCommand;
+            }
+        }
+
+        private int _selectedTabItem;
+        public int SelectedTabItem
+        {
+            get => _selectedTabItem;
+            set
+            {
+                if (_selectedTabItem != value)
+                {
+                    _selectedTabItem = value;
+                    RaisePropertyChanged("SelectedTabItem");
+
+                    if (SelectedTabItem == 1 && ActiveTask.IdEmployee == UserRecord.Employee_ID)
+                    {
+                        CompleteTaskBtnVisibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        CompleteTaskBtnVisibility = Visibility.Collapsed;
+                    }
+                }
+            }
+        }
+
+        private Visibility _CancelProjectBtnVisibility = Visibility.Collapsed;
+        public Visibility CancelProjectBtnVisibility
+        {
+            get => _CancelProjectBtnVisibility;
+            set
+            {
+                if (_CancelProjectBtnVisibility != value)
+                {
+                    _CancelProjectBtnVisibility = value;
+                    RaisePropertyChanged("CancelProjectBtnVisibility");
+                }
+            }
+        }
+
+        private Visibility _CompleteTaskBtnVisibility = Visibility.Collapsed;
+        public Visibility CompleteTaskBtnVisibility
+        {
+            get => _CompleteTaskBtnVisibility;
+            set
+            {
+                if (_CompleteTaskBtnVisibility != value)
+                {
+                    _CompleteTaskBtnVisibility = value;
+                    RaisePropertyChanged("CompleteTaskBtnVisibility");
+                }
+            }
+        }
+
         private Project _project;
         public Project Project
         {
@@ -50,6 +117,20 @@ namespace ProjectManager.ViewModels
                 {
                     _project = value;
                     RaisePropertyChanged("Project");
+                }
+            }
+        }
+
+        private ProjectTask _ActiveTask;
+        public ProjectTask ActiveTask
+        {
+            get => _ActiveTask;
+            set
+            {
+                if (_ActiveTask != value)
+                {
+                    _ActiveTask = value;
+                    RaisePropertyChanged("ActiveTask");
                 }
             }
         }
@@ -82,6 +163,10 @@ namespace ProjectManager.ViewModels
             }
         }
 
+        private void CompleteTask()
+        {
+            _projectsDataService.CompleteTask(ActiveTask);
+        }
         public void OnNavigatedFrom()
         {
 
@@ -95,9 +180,15 @@ namespace ProjectManager.ViewModels
                 Project = project;
             }
 
+            if (Project.IdGeneratedby == UserRecord.Employee_ID)
+            {
+                CancelProjectBtnVisibility = Visibility.Visible;
+            }
 
             Activities = new ObservableCollection<ProjectTask>();
             GetActivities();
+
+            ActiveTask = _projectsDataService.GetActiveTask(Project.IdProject);
         }
 
         private void GoBack()

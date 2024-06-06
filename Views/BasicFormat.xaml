@@ -203,11 +203,11 @@
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                             <materialDesign:PackIcon Kind="TimerSand" Height="22" Width="22" VerticalAlignment="Center"/>
-                                            <!--<TextBlock Margin="10, 0, 0, 0" Foreground="Black" FontSize="15"  HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                            <TextBlock Margin="10, 0, 0, 0" Foreground="Black" FontSize="15"  HorizontalAlignment="Center" VerticalAlignment="Center" >
                                                 <Run Text="{Binding Duration}" FontWeight="Black" Foreground="Green"/>
                                                 <Run Text="Days" />
-                                            </TextBlock>-->
-                                            <TextBox Text="{Binding Duration}"/>
+                                            </TextBlock>
+                                            <!--<TextBox Text="{Binding Duration}"/>-->
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>

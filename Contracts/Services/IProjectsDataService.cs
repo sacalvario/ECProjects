@@ -22,6 +22,7 @@ namespace ProjectManager.Contracts.Services
         Task<ICollection<ProjectTask>> GetTasksAsync(int employee);
         bool SaveProject(Project project);
         bool CompleteTask(ProjectTask task);
+        ProjectTask GetActiveTask(int project);
         Task<Status> GetStatusAsync(int id);
     }
 }

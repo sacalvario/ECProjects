@@ -217,7 +217,7 @@ namespace ProjectManager.ViewModels
                 new ProjectTask
                     {
                        IdTaskNavigation = Tasks[2],
-                       Duration = 1,
+                       Duration = 3,
                        StartDate = WorkDays(3),
                        EndDate = WorkDays(6),
                        IdStatus = 3

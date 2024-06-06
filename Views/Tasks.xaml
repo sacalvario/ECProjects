@@ -161,7 +161,7 @@
                   Grid.Row="1">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick" >
-                    <i:InvokeCommandAction Command="{Binding ElementName=tvHistory, Path=DataContext.NavigateToDetailCommand}" CommandParameter="{Binding ElementName=tvHistory, Path=SelectedItem}" />
+                    <i:InvokeCommandAction Command="{Binding ElementName=tvHistory, Path=DataContext.NavigateToProjectCommand}" CommandParameter="{Binding ElementName=tvHistory, Path=SelectedItem.IdProjectNavigation}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </TreeView>
