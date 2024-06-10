@@ -152,7 +152,7 @@ namespace ProjectManager.Services
                 task.IdStatus = 1;
                 task.EndDate = DateTime.Now;
 
-                ICollection<ProjectTask> projectTasks = GetActivities(task.IdProject);
+                List<ProjectTask> projectTasks = context.ProjectTasks.Where(i => i.IdProject == task.IdProject).ToList();
 
                 foreach (ProjectTask obj in projectTasks)
                 {
@@ -181,7 +181,7 @@ namespace ProjectManager.Services
                 task.IdStatus = 4;
                 task.EndDate = DateTime.Now;
 
-                ICollection<ProjectTask> projectTasks = GetActivities(task.IdProject);
+                List<ProjectTask> projectTasks = context.ProjectTasks.Where(i => i.IdProject == task.IdProject).ToList();
 
                 foreach (ProjectTask obj in projectTasks)
                 {
