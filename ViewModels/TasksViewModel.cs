@@ -73,10 +73,12 @@ namespace ProjectManager.ViewModels
                 item.IdProjectNavigation = await _projectsDataService.GetProjectAsync(item.IdProject);
                 item.IdProjectNavigation.IdStatusNavigation = await _projectsDataService.GetStatusAsync(item.IdStatus);
                 item.IdProjectNavigation.IdManagerNavigation = await _projectsDataService.GetEmployeeAsync(item.IdProjectNavigation.IdManager);
+                item.IdProjectNavigation.IdGeneratedbyNavigation = await _projectsDataService.GetEmployeeAsync(item.IdProjectNavigation.IdGeneratedby);
                 item.IdProjectNavigation.IdCustomerNavigation = await _projectsDataService.GetCustomerAsync(item.IdProjectNavigation.IdCustomer);
                 item.IdStatusNavigation = await _projectsDataService.GetStatusAsync(item.IdStatus);
                 item.IdEmployeeNavigation = await _projectsDataService.GetEmployeeAsync(item.IdEmployee);
                 item.IdTaskNavigation = await _projectsDataService.GetTaskAsync(item.IdTask);
+
 
                 Checklist.Add(item);
             }

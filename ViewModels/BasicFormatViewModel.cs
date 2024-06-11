@@ -17,6 +17,7 @@ namespace ProjectManager.ViewModels
         private readonly Contracts.Services.INavigationService _navigationService;
         private readonly IProjectsDataService _projectsDataService;
         private readonly IWindowManagerService _windowManagerService;
+        private readonly IMailService _mailService;
 
         public RelayCommand GoToNextTabItemCommand { get; set; }
         public RelayCommand GoToLastTabItemCommand { get; set; }
@@ -35,11 +36,12 @@ namespace ProjectManager.ViewModels
             }
         }
 
-        public BasicFormatViewModel(Contracts.Services.INavigationService navigationService, IProjectsDataService projectsDataService, IWindowManagerService windowManagerService)
+        public BasicFormatViewModel(Contracts.Services.INavigationService navigationService, IProjectsDataService projectsDataService, IWindowManagerService windowManagerService, IMailService mailservice)
         {
             _navigationService = navigationService;
             _projectsDataService = projectsDataService;
             _windowManagerService = windowManagerService;
+            _mailService = mailservice;
 
             Data = new ProjectData();
 
@@ -204,7 +206,8 @@ namespace ProjectManager.ViewModels
                        Duration = 1,
                        StartDate = DateTime.Now,
                        EndDate = WorkDays(1),
-                       IdStatus = 2
+                       IdStatus = 2,
+                       IdEmployee = 39
                     },
                 new ProjectTask
                     {
@@ -212,7 +215,8 @@ namespace ProjectManager.ViewModels
                        Duration = 2,
                        StartDate = WorkDays(1),
                        EndDate = WorkDays(3),
-                       IdStatus = 3
+                       IdStatus = 3,
+                       IdEmployee = 59
                     },
                 new ProjectTask
                     {
@@ -220,7 +224,8 @@ namespace ProjectManager.ViewModels
                        Duration = 3,
                        StartDate = WorkDays(3),
                        EndDate = WorkDays(6),
-                       IdStatus = 3
+                       IdStatus = 3,
+                       IdEmployee = 67
                     },
                 new ProjectTask
                     {
@@ -228,7 +233,8 @@ namespace ProjectManager.ViewModels
                        Duration = 1,
                        StartDate = WorkDays(6),
                        EndDate = WorkDays(7),
-                       IdStatus = 3
+                       IdStatus = 3,
+                       IdEmployee = 76
                     },
                   new ProjectTask
                     {
@@ -236,7 +242,8 @@ namespace ProjectManager.ViewModels
                        Duration = 7,
                        StartDate = WorkDays(7),
                        EndDate = WorkDays(14),
-                       IdStatus = 3
+                       IdStatus = 3,
+                       IdEmployee = 92
                     },
                     new ProjectTask
                     {
@@ -244,7 +251,8 @@ namespace ProjectManager.ViewModels
                        Duration =  5,
                        StartDate = WorkDays(7),
                        EndDate = WorkDays(12),
-                       IdStatus = 3
+                       IdStatus = 3,
+                       IdEmployee = 101
                     },
                      new ProjectTask
                     {
@@ -252,7 +260,8 @@ namespace ProjectManager.ViewModels
                        Duration =  Data.TaskDurationDays,
                        StartDate = WorkDays(7),
                        EndDate = WorkDays(7 + Data.TaskDurationDays),
-                       IdStatus = 3
+                       IdStatus = 3,
+                       IdEmployee = 108
                     },
                       new ProjectTask
                     {
@@ -260,7 +269,8 @@ namespace ProjectManager.ViewModels
                        Duration =  5,
                        StartDate = WorkDays(7),
                        EndDate = WorkDays(12),
-                       IdStatus = 3
+                       IdStatus = 3,
+                       IdEmployee = 117
                     },
                       new ProjectTask
                     {
@@ -268,7 +278,8 @@ namespace ProjectManager.ViewModels
                        Duration =  2,
                        StartDate = WorkDays(7 + Data.TaskDurationDays),
                        EndDate = WorkDays(9 + Data.TaskDurationDays),
-                       IdStatus = 3
+                       IdStatus = 3,
+                       IdEmployee = 119
                     }
             };
 
@@ -350,7 +361,7 @@ namespace ProjectManager.ViewModels
         {
         }
 
-        private void AddProject()
+        private async void AddProject()
         {
             Project.IdGeneratedby = UserRecord.Employee_ID;
             Project.ProjectComplexity = Data.TypeProject;
@@ -366,6 +377,12 @@ namespace ProjectManager.ViewModels
                 if (_projectsDataService.SaveProject(Project))
                 {
                     _ = _windowManagerService.OpenInDialog(typeof(ApplyMessageViewModel).FullName, Project.IdProject);
+
+                    ProjectTask task = _projectsDataService.GetActiveTask(Project.IdProject);
+                    task.IdEmployeeNavigation = await _projectsDataService.GetEmployeeAsync(task.IdEmployee);
+
+                    _mailService.SendNewTaskEmail("Alizares@ecmfg.com", "Alizares@ecmfg.com", Project.IdProject, task.IdEmployeeNavigation.Name, UserRecord.Employee.Name, task.LongEndDate);
+
                     _navigationService.NavigateTo(typeof(ProjectDetailsViewModel).FullName, Project);
                     SelectedTabItem = 0;
                     ResetData();

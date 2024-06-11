@@ -163,9 +163,30 @@ namespace ProjectManager.ViewModels
             }
         }
 
-        private void CompleteTask()
+        private async void CompleteTask()
         {
-            _projectsDataService.CompleteTask(ActiveTask);
+            try
+            {
+                if (_projectsDataService.CompleteTask(ActiveTask))
+                {
+                    _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "The task has been completed");
+
+                    Activities = new ObservableCollection<ProjectTask>();
+                    GetActivities();
+
+                    ActiveTask = _projectsDataService.GetActiveTask(Project.IdProject);
+                    ActiveTask.IdEmployeeNavigation = await _projectsDataService.GetEmployeeAsync(ActiveTask.IdEmployee);
+
+                    _mailService.SendNewTaskEmail("Alizares@ecmfg.com", "Alizares@ecmfg.com", Project.IdProject, ActiveTask.IdEmployeeNavigation.Name, Project.IdGeneratedbyNavigation.Name, ActiveTask.LongEndDate);
+
+                    CompleteTaskBtnVisibility = Visibility.Hidden;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                 _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "ERROR - " + ex.ToString());
+            }
         }
         public void OnNavigatedFrom()
         {

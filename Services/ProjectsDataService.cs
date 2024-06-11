@@ -150,71 +150,52 @@ namespace ProjectManager.Services
             if (DateTime.Now > task.EndDate)
             {
                 task.IdStatus = 1;
-                task.EndDate = DateTime.Now;
-
-                List<ProjectTask> projectTasks = context.ProjectTasks.Where(i => i.IdProject == task.IdProject).ToList();
-
-                foreach (ProjectTask obj in projectTasks)
-                {
-                    if (obj.IdTask > task.IdTask)
-                    {
-
-                        if (task.IdTask + 1 == obj.IdTask)
-                        {
-                            obj.IdStatus = 2;
-                            obj.StartDate = DateTime.Now;
-                            obj.EndDate = WorkDays(obj.Duration);
-                            LastDate = WorkDays(obj.Duration);
-                        }
-                        else
-                        {
-                            obj.StartDate = LastDate;
-                            obj.EndDate = WorkDays(obj.Duration);
-                        }
-                    }
-                }
-
-                //   Ajustar fechas cuando se retrasa el cierre de actividad 
             }
             else
             {
                 task.IdStatus = 4;
-                task.EndDate = DateTime.Now;
+            }
 
-                List<ProjectTask> projectTasks = context.ProjectTasks.Where(i => i.IdProject == task.IdProject).ToList();
+            task.EndDate = DateTime.Now;
 
-                foreach (ProjectTask obj in projectTasks)
+            List<ProjectTask> projectTasks = context.ProjectTasks.Where(i => i.IdProject == task.IdProject).ToList();
+
+            foreach (ProjectTask obj in projectTasks)
+            {
+                if (obj.IdTask > task.IdTask)
                 {
-                    if (obj.IdTask > task.IdTask)
-                    {
 
-                        if (task.IdTask + 1 == obj.IdTask)
+                    if (task.IdTask + 1 == obj.IdTask)
+                    {
+                        obj.IdStatus = 2;
+                        obj.StartDate = DateTime.Now;
+                        obj.EndDate = WorkDays(obj.Duration, obj.StartDate);
+
+                        if (obj.IdTask < 5 || obj.IdTask > 7)
                         {
-                            obj.IdStatus = 2;
-                            obj.StartDate = DateTime.Now;
-                            obj.EndDate = WorkDays(obj.Duration);
-                            LastDate = WorkDays(obj.Duration);
+                            LastDate = obj.EndDate;
                         }
-                        else
+                    }
+                    else
+                    {
+                        obj.StartDate = LastDate;
+                        obj.EndDate = WorkDays(obj.Duration, obj.StartDate);
+
+                        if (obj.IdTask < 5 || obj.IdTask > 7)
                         {
-                            obj.StartDate = LastDate;
-                            obj.EndDate = WorkDays(obj.Duration);
+                            LastDate = obj.EndDate;
                         }
                     }
                 }
+
+
             }
-
-            // MAandar correo a siguiente persona
-            // Cambiar status de siguiente tarea
-
             var result = context.SaveChanges();
             return result > 0;
         }
 
-        private DateTime WorkDays(int days)
+        private DateTime WorkDays(int days, DateTime date)
         {
-            DateTime date = new DateTime();
-            date = DateTime.Now;
 
             for (int i = 1; i <= days; i++)
             {
