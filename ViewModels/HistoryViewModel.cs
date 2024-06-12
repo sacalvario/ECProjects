@@ -87,6 +87,7 @@ namespace ProjectManager.ViewModels
             {
                 item.IdStatusNavigation = await _projectsDataService.GetStatusAsync(item.IdStatus);
                 item.IdManagerNavigation = await _projectsDataService.GetEmployeeAsync(item.IdManager);
+                item.IdGeneratedbyNavigation = await _projectsDataService.GetEmployeeAsync(item.IdGeneratedby);
                 item.IdCustomerNavigation = await _projectsDataService.GetCustomerAsync(item.IdCustomer);
                 
                 History.Add(item);

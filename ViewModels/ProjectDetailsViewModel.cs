@@ -107,6 +107,20 @@ namespace ProjectManager.ViewModels
             }
         }
 
+        private Visibility _ProjectGeneratorVisibility = Visibility.Collapsed;
+        public Visibility ProjectGeneratorVisibility
+        {
+            get => _ProjectGeneratorVisibility;
+            set
+            {
+                if (_ProjectGeneratorVisibility != value)
+                {
+                    _ProjectGeneratorVisibility = value;
+                    RaisePropertyChanged("ProjectGeneratorVisibility");
+                }
+            }
+        }
+
         private Project _project;
         public Project Project
         {
@@ -204,6 +218,11 @@ namespace ProjectManager.ViewModels
             if (Project.IdGeneratedby == UserRecord.Employee_ID)
             {
                 CancelProjectBtnVisibility = Visibility.Visible;
+            }
+            else
+            {
+                ProjectGeneratorVisibility = Visibility.Visible;
+
             }
 
             Activities = new ObservableCollection<ProjectTask>();
