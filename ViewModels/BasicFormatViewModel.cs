@@ -53,7 +53,6 @@ namespace ProjectManager.ViewModels
             GetEmployees();
             GetCustomers();
             GetTasks();
-    
 
 
             GoToNextTabItemCommand = new RelayCommand(GoToNexTabItem);
@@ -166,6 +165,27 @@ namespace ProjectManager.ViewModels
             }
         }
 
+        private string _ProjectComplexity;
+        public string ProjectComplexityString
+        {
+            get
+            {
+                if (Data.TypeProject == 1)
+                {
+                    _ProjectComplexity = "LOW";
+                }
+                else if (Data.TypeProject == 2)
+                {
+                    _ProjectComplexity = "MEDIUM";
+                }
+                else if (Data.TypeProject == 3)
+                {
+                    _ProjectComplexity = "HIGH";
+                }
+                return _ProjectComplexity;
+            }
+        }
+
         private DateTime WorkDays(int days)
         { 
             DateTime date = new DateTime();
@@ -207,7 +227,6 @@ namespace ProjectManager.ViewModels
                        StartDate = DateTime.Now,
                        EndDate = WorkDays(1),
                        IdStatus = 2,
-                       IdEmployee = 39
                     },
                 new ProjectTask
                     {
@@ -216,7 +235,6 @@ namespace ProjectManager.ViewModels
                        StartDate = WorkDays(1),
                        EndDate = WorkDays(3),
                        IdStatus = 3,
-                       IdEmployee = 59
                     },
                 new ProjectTask
                     {
@@ -225,7 +243,6 @@ namespace ProjectManager.ViewModels
                        StartDate = WorkDays(3),
                        EndDate = WorkDays(6),
                        IdStatus = 3,
-                       IdEmployee = 67
                     },
                 new ProjectTask
                     {
@@ -234,7 +251,6 @@ namespace ProjectManager.ViewModels
                        StartDate = WorkDays(6),
                        EndDate = WorkDays(7),
                        IdStatus = 3,
-                       IdEmployee = 76
                     },
                   new ProjectTask
                     {
@@ -243,7 +259,6 @@ namespace ProjectManager.ViewModels
                        StartDate = WorkDays(7),
                        EndDate = WorkDays(14),
                        IdStatus = 3,
-                       IdEmployee = 92
                     },
                     new ProjectTask
                     {
@@ -252,7 +267,6 @@ namespace ProjectManager.ViewModels
                        StartDate = WorkDays(7),
                        EndDate = WorkDays(12),
                        IdStatus = 3,
-                       IdEmployee = 101
                     },
                      new ProjectTask
                     {
@@ -261,7 +275,6 @@ namespace ProjectManager.ViewModels
                        StartDate = WorkDays(7),
                        EndDate = WorkDays(7 + Data.TaskDurationDays),
                        IdStatus = 3,
-                       IdEmployee = 108
                     },
                       new ProjectTask
                     {
@@ -270,7 +283,6 @@ namespace ProjectManager.ViewModels
                        StartDate = WorkDays(7),
                        EndDate = WorkDays(12),
                        IdStatus = 3,
-                       IdEmployee = 117
                     },
                       new ProjectTask
                     {
@@ -279,7 +291,6 @@ namespace ProjectManager.ViewModels
                        StartDate = WorkDays(7 + Data.TaskDurationDays),
                        EndDate = WorkDays(9 + Data.TaskDurationDays),
                        IdStatus = 3,
-                       IdEmployee = 119
                     }
             };
 
@@ -434,8 +445,10 @@ namespace ProjectManager.ViewModels
                     GetManagersAndEnginers();
                 }
 
+
                 CreateTasks();
-                _ = _windowManagerService.OpenInDialog(typeof(ApplyMessageViewModel).FullName, Data.TaskDurationDays);
+
+                _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "Total points: " + Data.Points + " Project complexity: " + ProjectComplexityString);
 
             }
         }

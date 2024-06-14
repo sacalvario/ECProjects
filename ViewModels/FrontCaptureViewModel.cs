@@ -63,13 +63,13 @@ namespace ProjectManager.ViewModels
 
                     if (_NewCustomer)
                     {
-                        _Points++;
+                        Points++;
                     }
                     else
                     { 
                         if (Points > 0)
                         {
-                            _Points--;
+                            Points--;
                         }
                     }
                 }
@@ -144,7 +144,7 @@ namespace ProjectManager.ViewModels
                 if (_NewRawMaterialQty != value)
                 {
 
-                        _NewRawMaterialQty = value;
+                    _NewRawMaterialQty = value;
                     RaisePropertyChanged("NewRawMaterialQty");
 
                     if (_NewRawMaterialQty > 15 && _NewRawMaterialQty < 41)
@@ -360,38 +360,30 @@ namespace ProjectManager.ViewModels
 
         private void NavigateToBasicFormat()
         {
-            //_mailService.SendNewTaskEmail("scalvario@ecmfg.com", "ecnsystem@outlook.com", 1, "Simón Calvario", "Alvaro Segura", "Tuesday, May 18, 2024");
-            //_mailService.SendAssignedManagerEmail("scalvario@ecmfg.com", "Ale Lizarez", "Alberto Torres", 1);
+            ProjectData data = new ProjectData();
 
-            //if (QuestionsAnswered >= 8)
-            //{
-                ProjectData data = new ProjectData();
+            if (Points <= 3)
+            {
+                data.TypeProject = 1;
+                data.TaskDurationDays = 10;
+            }
+            else if (Points > 3 && Points < 8)
+            {
+                data.TypeProject = 2;
+                data.TaskDurationDays = 15;
+            }
+            else if (Points > 8)
+            {
+                data.TypeProject = 3;
+                data.TaskDurationDays = 20;
+            }
 
-                if (Points <= 3)
-                {
-                    data.TypeProject = 1;
-                    data.TaskDurationDays = 10;
-                }
-                else if (Points > 3 && Points < 8)
-                {
-                    data.TypeProject = 2;
-                    data.TaskDurationDays = 15;
-                }
-                else if (Points > 8)
-                {
-                    data.TypeProject = 3;
-                    data.TaskDurationDays = 20;
-                }
+            data.TotalAssemblies = AssemblyQuantity;
+            data.IsAutomotive = IsAutomotive;
+            data.Points = Points;
 
-                data.TotalAssemblies = AssemblyQuantity;
-                data.IsAutomotive = IsAutomotive;
+            _navigationService.NavigateTo(typeof(BasicFormatViewModel).FullName, data);
 
-                _navigationService.NavigateTo(typeof(BasicFormatViewModel).FullName, data);
-            //}
-            //else
-            //{
-            //    _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "You have not completed the questions");
-            //}
         }
 
         public void OnNavigatedTo(object parameter)

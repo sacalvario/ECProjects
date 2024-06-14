@@ -74,18 +74,18 @@ namespace ProjectManager.Models
         public virtual Employee IdManagerNavigation { get; set; }
         public virtual Status IdStatusNavigation { get; set; }
 
-        private ICollection<ProjectTask> _ProjectTasks;
-        public virtual ICollection<ProjectTask> ProjectTasks
-        {
-            get => _ProjectTasks;
-            set
-            {
-                if (_ProjectTasks != value)
-                {
-                    _ProjectTasks = value;
-                    RaisePropertyChanged("ProjectTasks");
-                }
-            }
-        }
+        //private ICollection<ProjectTask> _ProjectTasks;
+        public virtual ICollection<ProjectTask> ProjectTasks { get; set; }
+        //{
+        //    get => _ProjectTasks;
+        //    set
+        //    {
+        //        if (_ProjectTasks != value)
+        //        {
+        //            _ProjectTasks = value;
+        //            RaisePropertyChanged("ProjectTasks");
+        //        }
+        //    }
+        //}
     }
 }

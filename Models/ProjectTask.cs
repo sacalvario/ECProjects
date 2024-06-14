@@ -27,19 +27,19 @@ namespace ProjectManager.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
-        private int _IdEmployee;
-        public int IdEmployee
-        {
-            get => _IdEmployee;
-            set
-            {
-                if (_IdEmployee != value)
-                {
-                    _IdEmployee = value;
-                    RaisePropertyChanged("IdEmployee");
-                }
-            }
-        }
+        //private int _IdEmployee;
+        public int IdEmployee { get; set; }
+        //{
+        //    get => _IdEmployee;
+        //    set
+        //    {
+        //        if (_IdEmployee != value)
+        //        {
+        //            _IdEmployee = value;
+        //            RaisePropertyChanged("IdEmployee");
+        //        }
+        //    }
+        //}
         public int IdStatus { get; set; }
         public DateTime? CompletationDate { get; set; }
         public DateTime? ReadyToBuildDate { get; set; }
