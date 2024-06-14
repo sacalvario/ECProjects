@@ -71,7 +71,7 @@ namespace ProjectManager.ViewModels
             foreach (var item in data)
             {
                 item.IdProjectNavigation = await _projectsDataService.GetProjectAsync(item.IdProject);
-                item.IdProjectNavigation.IdStatusNavigation = await _projectsDataService.GetStatusAsync(item.IdStatus);
+                item.IdProjectNavigation.IdStatusNavigation = await _projectsDataService.GetStatusAsync(item.IdProjectNavigation.IdStatus);
                 item.IdProjectNavigation.IdManagerNavigation = await _projectsDataService.GetEmployeeAsync(item.IdProjectNavigation.IdManager);
                 item.IdProjectNavigation.IdGeneratedbyNavigation = await _projectsDataService.GetEmployeeAsync(item.IdProjectNavigation.IdGeneratedby);
                 item.IdProjectNavigation.IdCustomerNavigation = await _projectsDataService.GetCustomerAsync(item.IdProjectNavigation.IdCustomer);
