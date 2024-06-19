@@ -191,7 +191,7 @@ namespace ProjectManager.ViewModels
                     ActiveTask = _projectsDataService.GetActiveTask(Project.IdProject);
                     ActiveTask.IdEmployeeNavigation = await _projectsDataService.GetEmployeeAsync(ActiveTask.IdEmployee);
 
-                    _mailService.SendNewTaskEmail("simonsito_chiva@hotmail.com", "simonsito_chiva@hotmail.com", Project.IdProject, ActiveTask.IdEmployeeNavigation.Name, Project.IdGeneratedbyNavigation.Name, ActiveTask.LongEndDate);
+                    _mailService.SendNewTaskEmail("simonsito_chiva@hotmail.com", "simonsito_chiva@hotmail.com", Project.IdProject, ActiveTask.IdEmployeeNavigation.Name, Project.IdGeneratedbyNavigation.Name, ActiveTask.LongEndDate, Project.IdCustomerNavigation.Name);
 
                     CompleteTaskBtnVisibility = Visibility.Hidden;
                 }
