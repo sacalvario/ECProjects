@@ -159,37 +159,44 @@ namespace ProjectManager.Services
             task.EndDate = DateTime.Now;
 
             List<ProjectTask> projectTasks = context.ProjectTasks.Where(i => i.IdProject == task.IdProject).ToList();
+            int cont = 0;
 
-            foreach (ProjectTask obj in projectTasks)
+            while (cont < 9)
             {
-                if (obj.IdTask > task.IdTask)
-                {
-
-                    if (task.IdTask + 1 == obj.IdTask)
-                    {
-                        obj.IdStatus = 2;
-                        obj.StartDate = DateTime.Now;
-                        obj.EndDate = WorkDays(obj.Duration, obj.StartDate);
-
-                        if (obj.IdTask < 5 || obj.IdTask > 7)
-                        {
-                            LastDate = obj.EndDate;
-                        }
-                    }
-                    else
-                    {
-                        obj.StartDate = LastDate;
-                        obj.EndDate = WorkDays(obj.Duration, obj.StartDate);
-
-                        if (obj.IdTask < 5 || obj.IdTask > 7)
-                        {
-                            LastDate = obj.EndDate;
-                        }
-                    }
-                }
-
 
             }
+
+            //foreach (ProjectTask obj in projectTasks)
+            //{
+            //    if (obj.IdTask > task.IdTask)
+            //    {
+            //        if (obj.IdTask > 0 && obj.IdTask <  )
+
+            //        if (task.IdTask + 1 == obj.IdTask)
+            //        {
+            //            obj.IdStatus = 2;
+            //            obj.StartDate = DateTime.Now;
+            //            obj.EndDate = WorkDays(obj.Duration, obj.StartDate);
+
+            //            if (obj.IdTask < 5 || obj.IdTask > 7)
+            //            {
+            //                LastDate = obj.EndDate;
+            //            }
+            //        }
+            //        else
+            //        {
+            //            obj.StartDate = LastDate;
+            //            obj.EndDate = WorkDays(obj.Duration, obj.StartDate);
+
+            //            if (obj.IdTask < 5 || obj.IdTask > 7)
+            //            {
+            //                LastDate = obj.EndDate;
+            //            }
+            //        }
+            //    }
+
+
+            //}
             var result = context.SaveChanges();
             return result > 0;
         }
