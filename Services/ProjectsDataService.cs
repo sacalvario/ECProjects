@@ -159,11 +159,35 @@ namespace ProjectManager.Services
             task.EndDate = DateTime.Now;
 
             List<ProjectTask> projectTasks = context.ProjectTasks.Where(i => i.IdProject == task.IdProject).ToList();
-            int cont = 0;
-
-            while (cont < 9)
+            
+            for (int cont = task.IdTask; cont < 9; cont++)
             {
+                
+                    if (cont > 0 || cont < 4)
+                    {
+                        if (task.IdTask + 1 == cont)
+                        {
+                            projectTasks[cont].IdStatus = 2;
+                            projectTasks[cont].StartDate = DateTime.Now;
+                            projectTasks[cont].EndDate = WorkDays(projectTasks[cont].Duration, projectTasks[cont].StartDate);
 
+                            if (cont < 5 || cont > 7)
+                            {
+                                LastDate = projectTasks[cont].EndDate;
+                            }
+                        }
+                        else
+                        {
+                            projectTasks[cont].StartDate = LastDate;
+                            projectTasks[cont].EndDate = WorkDays(projectTasks[cont].Duration, projectTasks[cont].StartDate);
+
+                            if (projectTasks[cont].IdTask < 5 || projectTasks[cont].IdTask > 7)
+                            {
+                                LastDate = projectTasks[cont].EndDate;
+                            }
+                        }
+                    }
+                
             }
 
             //foreach (ProjectTask obj in projectTasks)
