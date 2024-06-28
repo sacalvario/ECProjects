@@ -163,30 +163,30 @@ namespace ProjectManager.Services
             for (int cont = task.IdTask; cont < 9; cont++)
             {
                 
-                    if (cont > 0 || cont < 4)
+                if (cont > 0 || cont < 4)
+                {
+                    if (task.IdTask == cont)
                     {
-                        if (task.IdTask + 1 == cont)
-                        {
-                            projectTasks[cont].IdStatus = 2;
-                            projectTasks[cont].StartDate = DateTime.Now;
-                            projectTasks[cont].EndDate = WorkDays(projectTasks[cont].Duration, projectTasks[cont].StartDate);
+                        projectTasks[cont].IdStatus = 2;
+                        projectTasks[cont].StartDate = DateTime.Now;
+                        projectTasks[cont].EndDate = WorkDays(projectTasks[cont].Duration, projectTasks[cont].StartDate);
 
-                            if (cont < 5 || cont > 7)
-                            {
-                                LastDate = projectTasks[cont].EndDate;
-                            }
-                        }
-                        else
+                        if (cont < 5 || cont > 7)
                         {
-                            projectTasks[cont].StartDate = LastDate;
-                            projectTasks[cont].EndDate = WorkDays(projectTasks[cont].Duration, projectTasks[cont].StartDate);
-
-                            if (projectTasks[cont].IdTask < 5 || projectTasks[cont].IdTask > 7)
-                            {
-                                LastDate = projectTasks[cont].EndDate;
-                            }
+                            LastDate = projectTasks[cont].EndDate;
                         }
                     }
+                    else
+                    {
+                        projectTasks[cont].StartDate = LastDate;
+                        projectTasks[cont].EndDate = WorkDays(projectTasks[cont].Duration, projectTasks[cont].StartDate);
+
+                        if (projectTasks[cont].IdTask < 5 || projectTasks[cont].IdTask > 7)
+                        {
+                            LastDate = projectTasks[cont].EndDate;
+                        }
+                    }
+                }
                 
             }
 
