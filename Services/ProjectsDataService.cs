@@ -12,6 +12,7 @@ namespace ProjectManager.Services
     {
         private readonly projectsContext context = null;
         DateTime LastDate;
+        DateTime WorsDate;
 
         public ProjectsDataService()
         {
@@ -180,10 +181,21 @@ namespace ProjectManager.Services
                     {
                         projectTasks[cont].StartDate = LastDate;
                         projectTasks[cont].EndDate = WorkDays(projectTasks[cont].Duration, projectTasks[cont].StartDate);
-
+                            
                         if (projectTasks[cont].IdTask < 5 || projectTasks[cont].IdTask > 7)
                         {
                             LastDate = projectTasks[cont].EndDate;
+                        }
+
+                        if (cont == 4)
+                        {
+                            WorsDate = projectTasks[cont].EndDate;
+                        }
+
+                        if (cont == 8)
+                        {
+                            projectTasks[cont].StartDate = WorsDate;
+                            projectTasks[cont].EndDate = WorkDays(projectTasks[cont].Duration, projectTasks[cont].StartDate);
                         }
                     }
                 }
