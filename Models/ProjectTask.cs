@@ -53,5 +53,7 @@ namespace ProjectManager.Models
         public virtual Project IdProjectNavigation { get; set; }
         public virtual Status IdStatusNavigation { get; set; }
         public virtual Task IdTaskNavigation { get; set; }
+
+        public virtual ICollection<Employee> EmployeeList { get; set; }
     }
 }

@@ -7,6 +7,7 @@
       xmlns:dd="urn:gong-wpf-dragdrop"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:ui="http://schemas.modernwpf.com/2019"
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d" 
       d:DesignHeight="740" d:DesignWidth="1200"
       Title="Page1">
@@ -179,7 +180,7 @@
                             </StackPanel>
                         </Button>
                     </StackPanel>
-                    <DataGrid ItemsSource="{Binding TaskList}" Grid.Row="1" Grid.RowSpan="4" CanUserAddRows="False" CanUserDeleteRows="False" Margin="20, 20, 0, 0" AutoGenerateColumns="False"  HeadersVisibility="Column" GridLinesVisibility="Horizontal">
+                    <DataGrid x:Name="DgTasks" ItemsSource="{Binding TaskList}" Grid.Row="1" Grid.RowSpan="4" CanUserAddRows="False" CanUserDeleteRows="False" Margin="20, 20, 0, 0" AutoGenerateColumns="False"  HeadersVisibility="Column" GridLinesVisibility="Horizontal">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Header="#" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
                                 <DataGridTemplateColumn.CellTemplate>
@@ -252,8 +253,8 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="20, 0, 0, 0">
-                                            <ComboBox SelectedValue="{Binding IdEmployeeNavigation.IdEmployee}" DisplayMemberPath="Name" SelectedValuePath="IdEmployee" ItemsSource="{Binding Path=DataContext.Employees, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"  ui:ControlHelper.PlaceholderText="Select a responsable"  BorderBrush="Black"  Foreground="Black" Margin="10, 5, 0, 0" />
-                                            <!--<ComboBox.ItemTemplate>
+                                            <ComboBox x:Name="CbEmployee" ItemsSource="{Binding EmployeeList}"  ui:ControlHelper.PlaceholderText="Select a responsable"  BorderBrush="Black"  Foreground="Black" Margin="10, 5, 0, 0" >
+                                            <ComboBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <StackPanel Orientation="Horizontal">
                                                             <materialDesign:PackIcon Kind="AccountTie" Width="28" Height="24"/>
@@ -264,7 +265,12 @@
                                                         </StackPanel>
                                                     </DataTemplate>
                                                 </ComboBox.ItemTemplate>
-                                            </ComboBox>-->
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="SelectionChanged">
+                                                        <i:InvokeCommandAction Command="{Binding ElementName=DgTasks, Path=DataContext.GetEmployeeCommand}" CommandParameter="{Binding ElementName=CbEmployee, Path=DataContext.IdEmployee}" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </ComboBox>
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>

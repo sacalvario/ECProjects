@@ -54,6 +54,7 @@ namespace ProjectManager.ViewModels
             GetCustomers();
             GetTasks();
 
+            Cont = 0;
 
             GoToNextTabItemCommand = new RelayCommand(GoToNexTabItem);
             GoToLastTabItemCommand = new RelayCommand(GoToLastTabItem);
@@ -65,6 +66,9 @@ namespace ProjectManager.ViewModels
 
         private ICommand _AddProject;
         public ICommand AddProjectCommand => _AddProject ??= new RelayCommand(AddProject);
+
+        private ICommand _GetEmployeeCommand;
+        public ICommand GetEmployeeCommand => _GetEmployeeCommand ??= new RelayCommand<int>(GetEmployee);
 
 
         private ObservableCollection<Task> _Tasks;
@@ -94,7 +98,35 @@ namespace ProjectManager.ViewModels
                 }
             }
         }
-        
+
+        private List <int> _EmployeeValue = new List<int>();
+        public List<int> EmployeeValue
+        {
+            get => _EmployeeValue;
+            set
+            {
+                if (_EmployeeValue != value)
+                {
+                    _EmployeeValue = value;
+                    RaisePropertyChanged("EmployeeValue");
+                }
+            }
+        }
+
+        private int _Cont = new int();
+        public int Cont
+        {
+            get => _Cont;
+            set
+            {
+                if (_Cont != value)
+                {
+                    _Cont = value;
+                    RaisePropertyChanged("Cont");
+                }
+            }
+        }
+
         private ObservableCollection<Employee> _Employees;
         public ObservableCollection<Employee> Employees
         {
@@ -226,8 +258,7 @@ namespace ProjectManager.ViewModels
                        Duration = 1,
                        StartDate = DateTime.Now,
                        EndDate = WorkDays(1),
-                       IdStatus = 2,
-                       IdEmployee = 39
+                       IdStatus = 2
                     },
                 new ProjectTask
                     {
@@ -235,8 +266,7 @@ namespace ProjectManager.ViewModels
                        Duration = 2,
                        StartDate = WorkDays(1),
                        EndDate = WorkDays(3),
-                       IdStatus = 3,
-                       IdEmployee = 59
+                       IdStatus = 3
                     },
                 new ProjectTask
                     {
@@ -244,8 +274,7 @@ namespace ProjectManager.ViewModels
                        Duration = 3,
                        StartDate = WorkDays(3),
                        EndDate = WorkDays(6),
-                       IdStatus = 3,
-                       IdEmployee = 67
+                       IdStatus = 3
                     },
                 new ProjectTask
                     {
@@ -253,8 +282,7 @@ namespace ProjectManager.ViewModels
                        Duration = 1,
                        StartDate = WorkDays(6),
                        EndDate = WorkDays(7),
-                       IdStatus = 3,
-                       IdEmployee = 76
+                       IdStatus = 3
                     },
                   new ProjectTask
                     {
@@ -262,8 +290,7 @@ namespace ProjectManager.ViewModels
                        Duration = 7,
                        StartDate = WorkDays(7),
                        EndDate = WorkDays(14),
-                       IdStatus = 3,
-                       IdEmployee = 92
+                       IdStatus = 3
                     },
                     new ProjectTask
                     {
@@ -271,8 +298,7 @@ namespace ProjectManager.ViewModels
                        Duration =  5,
                        StartDate = WorkDays(7),
                        EndDate = WorkDays(12),
-                       IdStatus = 3,
-                       IdEmployee = 101
+                       IdStatus = 3
                     },
                      new ProjectTask
                     {
@@ -280,8 +306,7 @@ namespace ProjectManager.ViewModels
                        Duration =  Data.TaskDurationDays,
                        StartDate = WorkDays(7),
                        EndDate = WorkDays(7 + Data.TaskDurationDays),
-                       IdStatus = 3,
-                       IdEmployee = 108
+                       IdStatus = 3
                     },
                       new ProjectTask
                     {
@@ -289,8 +314,7 @@ namespace ProjectManager.ViewModels
                        Duration =  5,
                        StartDate = WorkDays(7),
                        EndDate = WorkDays(12),
-                       IdStatus = 3,
-                       IdEmployee = 117
+                       IdStatus = 3
                     },
                       new ProjectTask
                     {
@@ -298,11 +322,21 @@ namespace ProjectManager.ViewModels
                        Duration =  2,
                        StartDate = WorkDays(7 + Data.TaskDurationDays),
                        EndDate = WorkDays(9 + Data.TaskDurationDays),
-                       IdStatus = 3,
-                       IdEmployee = 119
+                       IdStatus = 3
                     }
             };
 
+            foreach (ProjectTask task in TaskList)
+            {
+                task.EmployeeList = Employees;
+            }
+
+        }
+
+        private void GetEmployee(int emp)
+        {
+            _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Error al registrar - " + emp);
+            EmployeeValue.Add(emp);
         }
 
         private async void GetTasks()
@@ -390,7 +424,21 @@ namespace ProjectManager.ViewModels
             Project.EndDate = DateTime.Now;
             Project.TotalEstimatedDuration = 1;
             Project.SuccesRateEstimate = 1;
+
+            //for (int i = 0; i < 9; i++)
+            //{
+            //    TaskList[0].IdEmployee = EmployeeVal;
+            //}
+
+
             Project.ProjectTasks = TaskList;
+            int cont = 0;
+
+            foreach(ProjectTask obj in Project.ProjectTasks)
+            {
+                obj.IdEmployee = EmployeeValue[cont];
+                cont++;
+            }
 
             try
             {

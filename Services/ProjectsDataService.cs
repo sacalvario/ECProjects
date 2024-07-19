@@ -199,6 +199,26 @@ namespace ProjectManager.Services
                         }
                     }
                 }
+                else if (cont == 4)
+                {
+                    if (cont != 8)
+                    {
+                        projectTasks[cont].IdStatus = 2;
+                        projectTasks[cont].StartDate = DateTime.Now;
+                        projectTasks[cont].EndDate = WorkDays(projectTasks[cont].Duration, projectTasks[cont].StartDate);
+
+                        if (cont == 4)
+                        {
+                            WorsDate = projectTasks[cont].EndDate;
+                        }
+
+                        if (cont == 8)
+                        {
+                            projectTasks[cont].StartDate = WorsDate;
+                            projectTasks[cont].EndDate = WorkDays(projectTasks[cont].Duration, projectTasks[cont].StartDate);
+                        }
+                    }
+                }
                 
             }
 
@@ -249,6 +269,7 @@ namespace ProjectManager.Services
                 else if (date.AddDays(i).DayOfWeek == DayOfWeek.Sunday)
                 {
                     days++;
+
                 }
             }
 

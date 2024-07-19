@@ -345,6 +345,7 @@ namespace ProjectManager.Models
 
             OnModelCreatingPartial(modelBuilder);
             _ = modelBuilder.Entity<Employee>().Ignore(t => t.Name);
+            _ = modelBuilder.Entity<ProjectTask>().Ignore(t => t.EmployeeList);
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
