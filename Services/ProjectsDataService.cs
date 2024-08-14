@@ -311,9 +311,9 @@ namespace ProjectManager.Services
             return context.Sites.Find(id);
         }
 
-        public ProjectTask GetActiveTask(int project)
+        public ProjectTask GetActiveTask(int project, int employee)  
         {
-            return context.ProjectTasks.First(i => i.IdProject == project && i.IdStatus == 2);
+            return context.ProjectTasks.First(i => i.IdProject == project && i.IdStatus == 2 && i.IdEmployee == employee);
         }
     }
 }
