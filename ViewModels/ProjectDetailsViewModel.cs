@@ -188,6 +188,8 @@ namespace ProjectManager.ViewModels
                     Activities = new ObservableCollection<ProjectTask>();
                     GetActivities();
 
+                    if (ActiveTask.IdTask )
+
                     ActiveTask = _projectsDataService.GetActiveTask(Project.IdProject);
                     ActiveTask.IdEmployeeNavigation = await _projectsDataService.GetEmployeeAsync(ActiveTask.IdEmployee);
 
@@ -199,7 +201,7 @@ namespace ProjectManager.ViewModels
             }
             catch (Exception ex)
             {
-                 _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "ERROR - " + ex.ToString());
+                 _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel) .FullName, "ERROR - " + ex.ToString());
             }
         }
         public void OnNavigatedFrom()
@@ -228,12 +230,13 @@ namespace ProjectManager.ViewModels
             Activities = new ObservableCollection<ProjectTask>();
             GetActivities();
 
-            ActiveTask = _projectsDataService.GetActiveTask(Project.IdProject);
+            ActiveTask = _projectsDataService.GetActiveTask(Project.IdProject, UserRecord.Employee_ID);
         }
 
         private void GoBack()
         {
             _navigationService.GoBack();
+
         }
     }
 }

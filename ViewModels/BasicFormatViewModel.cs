@@ -486,7 +486,6 @@ namespace ProjectManager.ViewModels
 
         public void OnNavigatedTo(object parameter)
         {
-       
             if (parameter is ProjectData data)
             {
                 Data = data;
@@ -502,7 +501,6 @@ namespace ProjectManager.ViewModels
                     GetManagersAndEnginers();
                 }
 
-
                 CreateTasks();
 
                 _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "Total points: " + Data.Points + " Project complexity: " + ProjectComplexityString);
@@ -511,3 +509,4 @@ namespace ProjectManager.ViewModels
         }
     }
 }
+
