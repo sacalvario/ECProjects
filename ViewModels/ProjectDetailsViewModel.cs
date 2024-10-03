@@ -188,9 +188,9 @@ namespace ProjectManager.ViewModels
                     Activities = new ObservableCollection<ProjectTask>();
                     GetActivities();
 
-                    if (ActiveTask.IdTask )
+                    //if (ActiveTask.IdTask )
 
-                    ActiveTask = _projectsDataService.GetActiveTask(Project.IdProject);
+                    //ActiveTask = _projectsDataService.GetActiveTask(Project.IdProject);
                     ActiveTask.IdEmployeeNavigation = await _projectsDataService.GetEmployeeAsync(ActiveTask.IdEmployee);
 
                     _mailService.SendNewTaskEmail("simonsito_chiva@hotmail.com", "simonsito_chiva@hotmail.com", Project.IdProject, ActiveTask.IdEmployeeNavigation.Name, Project.IdGeneratedbyNavigation.Name, ActiveTask.LongEndDate, Project.IdCustomerNavigation.Name);
@@ -201,7 +201,7 @@ namespace ProjectManager.ViewModels
             }
             catch (Exception ex)
             {
-                 _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel) .FullName, "ERROR - " + ex.ToString());
+                 _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "ERROR - " + ex.ToString());
             }
         }
         public void OnNavigatedFrom()
@@ -240,3 +240,4 @@ namespace ProjectManager.ViewModels
         }
     }
 }
+ 

@@ -26,3 +26,4 @@ namespace ProjectManager.Contracts.Services
         Task<Status> GetStatusAsync(int id);
     }
 }
+

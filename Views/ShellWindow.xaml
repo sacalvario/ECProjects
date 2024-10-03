@@ -81,12 +81,24 @@
                         <Label Content="My tasks" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center" />
                     </StackPanel>
                 </ui:NavigationViewItem>
+                <ui:NavigationViewItem x:Name="btnProjects" Tag="Tasks" Margin="0, 2, 0, 0">
+                    <StackPanel Orientation="Horizontal">
+                        <md:PackIcon Kind="FileSearch" Width="24" Height="24" Foreground="Green" VerticalAlignment="Center"  />
+                        <Label Content="Projects" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </ui:NavigationViewItem>
             </ui:NavigationView.MenuItems>
             <ui:NavigationView.FooterMenuItems>
                 <ui:NavigationViewItem x:Name="btnEmployees" Tag="Employees" Margin="0, 2, 0 , 0">
                     <StackPanel Orientation="Horizontal">
-                        <md:PackIcon Kind="Users" Width="24" Height="24" VerticalAlignment="Center" />
+                        <md:PackIcon Kind="AccountTie" Width="28" Height="28" VerticalAlignment="Center" />
                         <Label Content="Employees" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </ui:NavigationViewItem>
+                <ui:NavigationViewItem x:Name="btnCustomers" Tag="Customers" Margin="0, 2, 0 , 0">
+                    <StackPanel Orientation="Horizontal">
+                        <md:PackIcon Kind="AccountSupervisorCircle" Width="28" Height="28" VerticalAlignment="Center" />
+                        <Label Content="Customers" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center" />
                     </StackPanel>
                 </ui:NavigationViewItem>
             </ui:NavigationView.FooterMenuItems>
