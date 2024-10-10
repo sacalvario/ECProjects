@@ -63,7 +63,7 @@ namespace ProjectManager.Services
 
         private IEnumerable<Employee> GetEmployees()
         {
-            return context.Employees.ToList().Where(i => i.IdEmployee != UserRecord.Employee_ID);
+            return context.Employees.ToList();
         }
 
         public async Task<Department> GetDepartmentAsync(int id)
@@ -314,6 +314,18 @@ namespace ProjectManager.Services
         public ProjectTask GetActiveTask(int project, int employee)  
         {
             return context.ProjectTasks.First(i => i.IdProject == project && i.IdStatus == 2 && i.IdEmployee == employee);
+        }
+
+        public bool AddCustomer(Customer customer)
+        {
+            if (customer != null)
+            {
+                context.Customers.Add(customer);
+
+                var result = context.SaveChanges();
+                return result > 0;
+            }
+            return false;
         }
     }
 }

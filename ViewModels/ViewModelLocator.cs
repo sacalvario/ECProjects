@@ -58,6 +58,12 @@ namespace ProjectManager.ViewModels
         public EmployeesViewModel EmployeesViewModel
             => SimpleIoc.Default.GetInstance<EmployeesViewModel>();
 
+        public CustomersViewModel CustomersViewModel
+            => SimpleIoc.Default.GetInstance<CustomersViewModel>();
+
+        public AddCustomerViewModel AddCustomerViewModel
+            => SimpleIoc.Default.GetInstance<AddCustomerViewModel>();
+
         public ViewModelLocator()
         {
             // App Host
@@ -95,6 +101,7 @@ namespace ProjectManager.ViewModels
             Register<ProjectDetailsViewModel, ProjectDetails>();
             Register<TasksViewModel, Tasks>();
             Register<EmployeesViewModel, Employees>();
+            Register<CustomersViewModel, Customers>();
         }
 
         private void Register<VM, V>()
