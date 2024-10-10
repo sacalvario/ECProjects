@@ -50,6 +50,8 @@ namespace ProjectManager.ViewModels
                 CustomerNeedby = DateTime.Now
             };
 
+            Project.ProjectTasks = new ObservableCollection<ProjectTask>();
+
             GetEmployees();
             GetCustomers();
             GetTasks();
@@ -331,6 +333,7 @@ namespace ProjectManager.ViewModels
                 task.EmployeeList = Employees;
             }
 
+            Project.ProjectTasks = TaskList;
         }
 
         private void GetEmployee(int emp)
