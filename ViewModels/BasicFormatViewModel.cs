@@ -7,6 +7,7 @@ using ProjectManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Windows.Input;
 
@@ -377,7 +378,9 @@ namespace ProjectManager.ViewModels
                 item.IdDepartamentNavigation = await _projectsDataService.GetDepartmentAsync(item.IdDepartament);
                 item.IdSiteNavigation = await _projectsDataService.GetSiteAsync(item.IdSite);
                 Employees.Add(item);
+                
             }
+            Employees =  new ObservableCollection<Employee>(Employees.OrderBy(i => i.Name));
         }
 
         private async void GetManagersAndEnginers()
@@ -452,7 +455,7 @@ namespace ProjectManager.ViewModels
                     //ProjectTask task = _projectsDataService.GetActiveTask(Project.IdProject, tas[7].IdEmployee);
                     //task.IdEmployeeNavigation = await _projectsDataService.GetEmployeeAsync(task.IdEmployee);
 
-                    _mailService.SendNewTaskEmail("simonsito_chiva@hotmail.com", "simonsito_chiva@hotmail.com", Project.IdProject, "hola", UserRecord.Employee.Name, "hola", Project.IdCustomerNavigation.Name);
+                    _mailService.SendNewTaskEmail("calvarionewok@gmail.com", "calvarionewok@gmail.com", Project.IdProject, "hola", UserRecord.Employee.Name, "hola", Project.IdCustomerNavigation.Name);
 
                     _navigationService.NavigateTo(typeof(ProjectDetailsViewModel).FullName, Project);
                     SelectedTabItem = 0;
