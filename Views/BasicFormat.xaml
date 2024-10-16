@@ -239,7 +239,7 @@
                                                    Grid.Column="5"
                                                        />
                                         <StackPanel Grid.Column="6" Orientation="Horizontal" Margin="20, 0, 0, 0">
-                                            <ComboBox x:Name="CbEmployee" ItemsSource="{Binding EmployeeList}"  ui:ControlHelper.PlaceholderText="Select a responsable"  BorderBrush="Black"  Foreground="Black" Margin="10, 5, 0, 0" >
+                                            <ComboBox x:Name="CbEmployee" SelectedItem="{Binding IdEmployeeNavigation}" ItemsSource="{Binding EmployeeList}"  ui:ControlHelper.PlaceholderText="Select a responsable"  BorderBrush="Black"  Foreground="Black" Margin="10, 5, 0, 0" >
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <StackPanel Orientation="Horizontal">

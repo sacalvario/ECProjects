@@ -67,14 +67,14 @@ namespace ProjectManager.ViewModels
                     _selectedTabItem = value;
                     RaisePropertyChanged("SelectedTabItem");
 
-                    if (SelectedTabItem == 1 && ActiveTask.IdEmployee == UserRecord.Employee_ID)
-                    {
-                        CompleteTaskBtnVisibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        CompleteTaskBtnVisibility = Visibility.Collapsed;
-                    }
+                    //if (SelectedTabItem == 1 && ActiveTask.IdEmployee == UserRecord.Employee_ID)
+                    //{
+                    //    CompleteTaskBtnVisibility = Visibility.Visible;
+                    //}
+                    //else
+                    //{
+                    //    CompleteTaskBtnVisibility = Visibility.Collapsed;
+                    //}
                 }
             }
         }
@@ -230,7 +230,7 @@ namespace ProjectManager.ViewModels
             Activities = new ObservableCollection<ProjectTask>();
             GetActivities();
 
-            ActiveTask = _projectsDataService.GetActiveTask(Project.IdProject, UserRecord.Employee_ID);
+            //ActiveTask = _projectsDataService.GetActiveTask(Project.IdProject, UserRecord.Employee_ID);
         }
 
         private void GoBack()
