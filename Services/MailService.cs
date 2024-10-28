@@ -199,11 +199,11 @@ namespace ProjectManager.Services
         public void SendNewTaskEmail(string email, string generatoremail, int id, string responsiblename, string generatorname, string targetdate, string customer)
         {
             MailMessage msg = new MailMessage();    
-            SmtpClient client = new SmtpClient("smtp-mail.outlook.com");
+            SmtpClient client = new SmtpClient("smtp.gmail.com");
             //client.DeliveryMethod = SmtpDeliveryMethod.Network;
             //client.UseDefaultCredentials = false;
 
-            msg.From = new MailAddress("ecmprojects@outlook.com");
+            msg.From = new MailAddress("projectssystemsecm@gmail.com");
             msg.To.Add(email);
             msg.CC.Add(generatoremail);
 
@@ -217,7 +217,7 @@ namespace ProjectManager.Services
             msg.IsBodyHtml = true;
 
             client.Port = 587;
-            client.Credentials = new NetworkCredential("ecmprojects@outlook.com", "ecm_sysprojects");
+            client.Credentials = new NetworkCredential("projectssystemsecm@gmail.com", "rpob ljal ztxj tipo");
             client.EnableSsl = true;
 
             try

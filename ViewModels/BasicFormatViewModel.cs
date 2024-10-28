@@ -455,7 +455,7 @@ namespace ProjectManager.ViewModels
                     //ProjectTask task = _projectsDataService.GetActiveTask(Project.IdProject, tas[7].IdEmployee);
                     //task.IdEmployeeNavigation = await _projectsDataService.GetEmployeeAsync(task.IdEmployee);
 
-                    _mailService.SendNewTaskEmail("calvarionewok@gmail.com", "calvarionewok@gmail.com", Project.IdProject, "hola", UserRecord.Employee.Name, "hola", Project.IdCustomerNavigation.Name);
+                    _mailService.SendNewTaskEmail("scalvario@ecmfg.com", "scalvario@ecmfg.com", Project.IdProject, "hola", UserRecord.Employee.Name, "hola", Project.IdCustomerNavigation.Name);
 
                     _navigationService.NavigateTo(typeof(ProjectDetailsViewModel).FullName, Project);
                     SelectedTabItem = 0;
