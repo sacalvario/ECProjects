@@ -74,7 +74,7 @@
                             <TextBlock Text="{Binding Project.TotalAssembliesInProject}" Foreground="Green" Margin="0, 10, 0, 0" HorizontalAlignment="Center" FontSize="64" FontWeight="Bold" FontFamily="Quicksand" VerticalAlignment="Center"/>
                         </Border>
                     </StackPanel>
-                    <Grid Margin="35, 30, 0, 0" Grid.Row="2" >
+                    <Grid Margin="35, 10, 0, 0" Grid.Row="2" VerticalAlignment="Top" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
@@ -85,9 +85,7 @@
                         </Grid.RowDefinitions>
                         <Image Source="/Assets/cotizacion.png" Grid.RowSpan="2" VerticalAlignment="Bottom" Width="38" Height="38" Margin="0, 0, 10, 0"/>
                         <TextBlock Text="Quote number" FontSize="18" Margin="3, 0, 0, 10" Grid.Column="1" VerticalAlignment="Bottom"/>
-                        <TextBox materialDesign:HintAssist.Hint="Enter the quote number"
-                                 materialDesign:HintAssist.Foreground="Black"
-                                 materialDesign:HintAssist.HintOpacity=".26"
+                        <TextBox BorderThickness="0"
                                  Grid.Column="1"
                                  Grid.Row="1"
                                  Foreground="White"
@@ -105,8 +103,35 @@
                                  Cursor="Arrow">
                         </TextBox>
                     </Grid>
-                    <TextBlock Text="Specific information" Style="{DynamicResource PageTitleStyle}" FontWeight="Bold" Grid.Row="3" Grid.ColumnSpan="2" Margin="24, 50, 0, 0" />
-                    <Grid Margin="30, 10, 0,0" Grid.Row="4" Grid.RowSpan="1" >
+                    <Grid Margin="35, 20, 0, 0" Grid.Row="3"  VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <materialDesign:PackIcon Kind="Comment" Foreground="Green" Grid.RowSpan="2" VerticalAlignment="Bottom" Width="38" Height="38" Margin="0, 0, 10, 0"/>
+                        <TextBlock Text="Comments" FontSize="18" Margin="3, 0, 0, 10" Grid.Column="1" VerticalAlignment="Bottom"/>
+                        <TextBox  Grid.Column="1"
+                                 Grid.Row="1"
+                                 Width="450"
+                                 FontSize="19"
+                                 Height="50"
+                                 Text="{Binding Project.QuoteNumber}"
+                                 BorderThickness="0"
+                                 ui:ControlHelper.CornerRadius="5"
+                                 ui:ControlHelper.PlaceholderText="Enter the comments"
+                                 ui:ControlHelper.PlaceholderForeground="Black"
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Left"
+                                 Margin="3, 0, 0, 0"
+                                 Cursor="Arrow">
+                        </TextBox>
+                    </Grid>
+                    <TextBlock Text="Specific information" Style="{DynamicResource PageTitleStyle}" FontWeight="Bold" Grid.Row="4" Grid.ColumnSpan="2" Margin="24, 0, 0, 0" />
+                    <Grid Margin="30, 60, 0, 10" Grid.Row="4" Grid.RowSpan="2" VerticalAlignment="Center" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
@@ -194,7 +219,7 @@
                             <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="Target date" Width="200"/>
                             <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="Responsible" Width="200"/>
                         </StackPanel>
-                        <ui:ListView Grid.Row="1" ItemsSource="{Binding TaskList}" Margin="-10, 0, 0, 0">
+                        <ui:ListView Grid.Row="1" ItemsSource="{Binding TaskList}" Margin="-10, 0, 0, 0" BorderThickness="1" >
                             <ui:ListView.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
