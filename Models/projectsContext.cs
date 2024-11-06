@@ -168,6 +168,10 @@ namespace ProjectManager.Models
                     .IsRequired()
                     .HasMaxLength(45);
 
+                entity.Property(e => e.Comments)
+                    .IsRequired()
+                    .HasMaxLength(250);
+
                 entity.HasOne(d => d.IdCustomerNavigation)
                     .WithMany(p => p.Projects)
                     .HasForeignKey(d => d.IdCustomer)

@@ -19,6 +19,7 @@ namespace ProjectManager.Models
         public int IdCustomer { get; set; }
         public int IdManager { get; set; }
         public string QuoteNumber { get; set; }
+        public string Comments { get; set; }
         public int ProjectComplexity { get; set; }
         public int IdStatus { get; set; }
 

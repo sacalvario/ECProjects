@@ -431,20 +431,14 @@ namespace ProjectManager.ViewModels
             Project.TotalEstimatedDuration = 1;
             Project.SuccesRateEstimate = 1;
 
-            //for (int i = 0; i < 9; i++)
-            //{
-            //    TaskList[0].IdEmployee = EmployeeVal;
-            //}
 
 
             Project.ProjectTasks = TaskList;
-            int cont = 0;
-
-            //foreach(ProjectTask obj in Project.ProjectTasks)
-            //{
-            //    obj.IdEmployee = EmployeeValue[cont];
-            //    cont++;
-            //}
+           
+            if (Project.Comments == null)
+            {
+                Project.Comments = "N/A";
+            }
 
             try
             {
@@ -452,10 +446,10 @@ namespace ProjectManager.ViewModels
                 {
                     _ = _windowManagerService.OpenInDialog(typeof(ApplyMessageViewModel).FullName, Project.IdProject);
 
-                    //ProjectTask task = _projectsDataService.GetActiveTask(Project.IdProject, tas[7].IdEmployee);
-                    //task.IdEmployeeNavigation = await _projectsDataService.GetEmployeeAsync(task.IdEmployee);
+                    ProjectTask task = _projectsDataService.GetOnlyActiveTask(Project.IdProject);
+                    task.IdEmployeeNavigation = await _projectsDataService.GetEmployeeAsync(task.IdEmployee);
 
-                    _mailService.SendNewTaskEmail("scalvario@ecmfg.com", "scalvario@ecmfg.com", Project.IdProject, "hola", UserRecord.Employee.Name, "hola", Project.IdCustomerNavigation.Name);
+                    _mailService.SendNewTaskEmail(task.IdEmployeeNavigation.Email, UserRecord.Employee.Email, Project.IdProject, task.IdEmployeeNavigation.Name, UserRecord.Employee.Name, task.LongStartDate, Project.IdCustomerNavigation.Name);
 
                     _navigationService.NavigateTo(typeof(ProjectDetailsViewModel).FullName, Project);
                     SelectedTabItem = 0;

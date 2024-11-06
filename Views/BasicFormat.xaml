@@ -119,7 +119,7 @@
                                  Width="450"
                                  FontSize="19"
                                  Height="50"
-                                 Text="{Binding Project.QuoteNumber}"
+                                 Text="{Binding Project.Comments}"
                                  BorderThickness="0"
                                  ui:ControlHelper.CornerRadius="5"
                                  ui:ControlHelper.PlaceholderText="Enter the comments"
