@@ -380,7 +380,7 @@ namespace ProjectManager.ViewModels
                 Employees.Add(item);
                 
             }
-            Employees =  new ObservableCollection<Employee>(Employees.OrderBy(i => i.Name));
+            Employees =  new ObservableCollection<Employee>(Employees.OrderBy(i => i.IdEmployee));
         }
 
         private async void GetManagersAndEnginers()
@@ -449,7 +449,8 @@ namespace ProjectManager.ViewModels
                     ProjectTask task = _projectsDataService.GetOnlyActiveTask(Project.IdProject);
                     task.IdEmployeeNavigation = await _projectsDataService.GetEmployeeAsync(task.IdEmployee);
 
-                    _mailService.SendNewTaskEmail(task.IdEmployeeNavigation.Email, UserRecord.Employee.Email, Project.IdProject, task.IdEmployeeNavigation.Name, UserRecord.Employee.Name, task.LongStartDate, Project.IdCustomerNavigation.Name);
+                    _mailService.SendNewTaskEmail("alizarez@ecmfg.com", "alizarez@ecmfg.com", Project.IdProject, task.IdEmployeeNavigation.Name, UserRecord.Employee.Name, task.LongStartDate, Project.IdCustomerNavigation.Name);
+
 
                     _navigationService.NavigateTo(typeof(ProjectDetailsViewModel).FullName, Project);
                     SelectedTabItem = 0;

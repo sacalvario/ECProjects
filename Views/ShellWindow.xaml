@@ -81,7 +81,7 @@
                         <Label Content="My tasks" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center" />
                     </StackPanel>
                 </ui:NavigationViewItem>
-                <ui:NavigationViewItem x:Name="btnProjects" Tag="Tasks" Margin="0, 2, 0, 0">
+                <ui:NavigationViewItem x:Name="btnProjects" Tag="Tasks" Margin="0, 2, 0, 0" Visibility="Collapsed">
                     <StackPanel Orientation="Horizontal">
                         <md:PackIcon Kind="FileSearch" Width="24" Height="24" Foreground="Green" VerticalAlignment="Center"  />
                         <Label Content="Projects" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center" />

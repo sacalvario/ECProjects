@@ -25,6 +25,7 @@ namespace ProjectManager.Contracts.Services
         bool AddCustomer(Customer customer);
         ProjectTask GetActiveTask(int project, int employee);
         ProjectTask GetOnlyActiveTask(int project);
+        ProjectTask GetNextTask(int project, int task);
         Task<Status> GetStatusAsync(int id);
     }
 }

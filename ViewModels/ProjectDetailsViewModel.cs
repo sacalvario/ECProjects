@@ -188,6 +188,14 @@ namespace ProjectManager.ViewModels
                     Activities = new ObservableCollection<ProjectTask>();
                     GetActivities();
 
+                    if (ActiveTask.IdTask < 4)
+                    {
+                        ProjectTask nextask = _projectsDataService.GetNextTask(Project.IdProject, ActiveTask.IdTask + 1);
+                        nextask.IdEmployeeNavigation = await _projectsDataService.GetEmployeeAsync(nextask.IdEmployee);
+
+                        _mailService.SendNewTaskEmail("alizarez@ecmfg.com", "alizarez@ecmfg.com", Project.IdProject, nextask.IdEmployeeNavigation.Name, Project.IdGeneratedbyNavigation.Name, nextask.LongEndDate, Project.IdCustomerNavigation.Name);
+                    }
+
                     ////if (ActiveTask.IdTask )
 
                     //ProjectTask nextask = _projectsDataService.GetOnlyActiveTask(Project.IdProject);
@@ -230,12 +238,16 @@ namespace ProjectManager.ViewModels
             Activities = new ObservableCollection<ProjectTask>();
             GetActivities();
 
-            ActiveTask = _projectsDataService.GetActiveTask(Project.IdProject, UserRecord.Employee_ID);
-
-            if (ActiveTask.IdEmployee == UserRecord.Employee_ID)
+            if (UserRecord.Employee_ID != Project.IdGeneratedby)
             {
-                CompleteTaskBtnVisibility = Visibility.Visible;
-            }
+                ActiveTask = _projectsDataService.GetActiveTask(Project.IdProject, UserRecord.Employee_ID);
+                
+                if (ActiveTask.IdEmployee == UserRecord.Employee_ID)
+                {
+                    CompleteTaskBtnVisibility = Visibility.Visible;
+                }
+            }    
+
         }
 
         private void GoBack()

@@ -161,91 +161,71 @@ namespace ProjectManager.Services
 
             List<ProjectTask> projectTasks = context.ProjectTasks.Where(i => i.IdProject == task.IdProject).ToList();
 
-            int flag = 0;
-
-            for (int i = 0; i < 9; i++)
-            {
-                if (projectTasks[i].IdStatus == 3)
-                {
-                    flag++;
-                }
-            }
-
-            if (flag > 0)
+            for (int cont = task.IdTask; cont < 9; cont++)
             {
 
-                for (int cont = task.IdTask; cont < 9; cont++)
+                if (cont > 0 && cont < 4)
                 {
-
-                    if (cont > 0 && cont < 4)
+                    if (task.IdTask == cont)
                     {
-                        if (task.IdTask == cont)
+                        projectTasks[cont].IdStatus = 2;
+                        projectTasks[cont].StartDate = DateTime.Now;
+                        projectTasks[cont].EndDate = WorkDays(projectTasks[cont].Duration, projectTasks[cont].StartDate);
+
+                        if (cont < 5 || cont > 7)
                         {
-                            projectTasks[cont].IdStatus = 2;
-                            projectTasks[cont].StartDate = DateTime.Now;
-                            projectTasks[cont].EndDate = WorkDays(projectTasks[cont].Duration, projectTasks[cont].StartDate);
-
-                            if (cont < 5 || cont > 7)
-                            {
-                                LastDate = projectTasks[cont].EndDate;
-                            }
-                        }
-                        else
-                        {
-                            projectTasks[cont].StartDate = LastDate;
-                            projectTasks[cont].EndDate = WorkDays(projectTasks[cont].Duration, projectTasks[cont].StartDate);
-
-                            if (projectTasks[cont].IdTask < 5 || projectTasks[cont].IdTask > 7)
-                            {
-                                LastDate = projectTasks[cont].EndDate;
-                            }
-
-                            if (cont == 4)
-                            {
-                                WorsDate = projectTasks[cont].EndDate;
-                            }
-
-                            if (cont == 8)
-                            {
-                                projectTasks[cont].StartDate = WorsDate;
-                                projectTasks[cont].EndDate = WorkDays(projectTasks[cont].Duration, projectTasks[cont].StartDate);
-                            }
+                            LastDate = projectTasks[cont].EndDate;
                         }
                     }
-                    else if (cont == 4)
+                    else
                     {
-                        if (cont != 8)
+                        projectTasks[cont].StartDate = LastDate;
+                        projectTasks[cont].EndDate = WorkDays(projectTasks[cont].Duration, projectTasks[cont].StartDate);
+
+                        if (projectTasks[cont].IdTask < 5 || projectTasks[cont].IdTask > 7)
                         {
-                            projectTasks[cont].IdStatus = 2;
-                            projectTasks[cont].StartDate = DateTime.Now;
-                            projectTasks[cont].EndDate = WorkDays(projectTasks[cont].Duration, projectTasks[cont].StartDate);
-
-                            if (cont == 4)
-                            {
-                                WorsDate = projectTasks[cont].EndDate;
-                            }
-
-                            if (cont == 8)
-                            {
-                                projectTasks[cont].StartDate = WorsDate;
-                                projectTasks[cont].EndDate = WorkDays(projectTasks[cont].Duration, projectTasks[cont].StartDate);
-                            }
+                            LastDate = projectTasks[cont].EndDate;
                         }
-                    }
-                    else if (cont == 5)
-                    {
-                        projectTasks[8].IdStatus = 2;
-                        projectTasks[8].StartDate = DateTime.Now;
-                        projectTasks[8].EndDate = WorkDays(projectTasks[8].Duration, projectTasks[8].StartDate);
 
+                        if (cont == 4)
+                        {
+                            WorsDate = projectTasks[cont].EndDate;
+                        }
+
+                        if (cont == 8)
+                        {
+                            projectTasks[cont].StartDate = WorsDate;
+                            projectTasks[cont].EndDate = WorkDays(projectTasks[cont].Duration, projectTasks[cont].StartDate);
+                        }
                     }
                 }
-            }
+                else if (cont == 4)
+                {
+                    if (cont != 8)
+                    {
+                        projectTasks[cont].IdStatus = 2;
+                        projectTasks[cont].StartDate = DateTime.Now;
+                        projectTasks[cont].EndDate = WorkDays(projectTasks[cont].Duration, projectTasks[cont].StartDate);
 
-            else
-            {
-                Project project = context.Projects.First(i => i.IdProject == task.IdProject);
-                project.IdStatus = 4;
+                        if (cont == 4)
+                        {
+                            WorsDate = projectTasks[cont].EndDate;
+                        }
+
+                        if (cont == 8)
+                        {
+                            projectTasks[cont].StartDate = WorsDate;
+                            projectTasks[cont].EndDate = WorkDays(projectTasks[cont].Duration, projectTasks[cont].StartDate);
+                        }
+                    }
+                }
+                else if (cont == 5)
+                {
+                    projectTasks[8].IdStatus = 2;
+                    projectTasks[8].StartDate = DateTime.Now;
+                    projectTasks[8].EndDate = WorkDays(projectTasks[8].Duration, projectTasks[8].StartDate);
+
+                }
             }
 
             var result = context.SaveChanges();
@@ -326,6 +306,11 @@ namespace ProjectManager.Services
         public ProjectTask GetOnlyActiveTask(int project)
         {
             return context.ProjectTasks.First(i => i.IdProject == project && i.IdStatus == 2);
+        }
+
+        public ProjectTask GetNextTask(int project, int task)
+        {
+            return context.ProjectTasks.First(i => i.IdProject == project && i.IdTask == task);
         }
     }
 }
