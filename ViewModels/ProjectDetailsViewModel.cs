@@ -193,7 +193,7 @@ namespace ProjectManager.ViewModels
                         ProjectTask nextask = _projectsDataService.GetNextTask(Project.IdProject, ActiveTask.IdTask + 1);
                         nextask.IdEmployeeNavigation = await _projectsDataService.GetEmployeeAsync(nextask.IdEmployee);
 
-                        _mailService.SendNewTaskEmail("alizarez@ecmfg.com", "alizarez@ecmfg.com", Project.IdProject, nextask.IdEmployeeNavigation.Name, Project.IdGeneratedbyNavigation.Name, nextask.LongEndDate, Project.IdCustomerNavigation.Name);
+                        _mailService.SendNewTaskEmail("scalvario@ecmfg.com", "scalvario@ecmfg.com", Project.IdProject, nextask.IdEmployeeNavigation.Name, Project.IdGeneratedbyNavigation.Name, nextask.LongEndDate, Project.IdCustomerNavigation.Name);
                     }
 
                     ////if (ActiveTask.IdTask )
