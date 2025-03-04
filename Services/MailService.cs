@@ -137,6 +137,7 @@ namespace ProjectManager.Services
             msg.From = new MailAddress("ecnsystem@outlook.com");
             msg.To.Add(email);
 
+
             msg.Subject = "ECN firmado o pendiente de firmar rechazado!";
             msg.Body = "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:12pt'>Hola<strong><span style='color:black'> " + signedname + "! </span></strong></span></span></p>" +
               "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:12pt'> &nbsp;</span></span></p>" +
