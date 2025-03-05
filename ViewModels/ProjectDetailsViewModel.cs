@@ -56,6 +56,19 @@ namespace ProjectManager.ViewModels
             }
         }
 
+        private ICommand _CancelTaskCommand;
+        public ICommand CancelTaskCommand
+        {
+            get
+            {
+                if (_CancelTaskCommand == null)
+                {
+                    _CancelTaskCommand = new RelayCommand(CancelTask);
+                }
+                return _CancelTaskCommand;
+            }
+        }
+
         private int _selectedTabItem;
         public int SelectedTabItem
         {
@@ -177,14 +190,28 @@ namespace ProjectManager.ViewModels
             }
         }
 
+        private async void CancelTask()
+        {
+            try
+            {
+                if (_projectsDataService.CancelProject(Project))
+                {
+                    _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "The project has been cancelled successfully");
+                }
+            }
+            catch (Exception ex)
+            {
+                _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "ERROR - " + ex.ToString());
+            }
+        }
+
         private async void CompleteTask()
         {
             try
             {
                 if (_projectsDataService.CompleteTask(ActiveTask))
-                {
-                    _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "The task has been completed");
-
+                {                   
+                    
                     Activities = new ObservableCollection<ProjectTask>();
                     GetActivities();
 
@@ -193,15 +220,28 @@ namespace ProjectManager.ViewModels
                         ProjectTask nextask = _projectsDataService.GetNextTask(Project.IdProject, ActiveTask.IdTask + 1);
                         nextask.IdEmployeeNavigation = await _projectsDataService.GetEmployeeAsync(nextask.IdEmployee);
 
-                        _mailService.SendNewTaskEmail(nextask.IdEmployeeNavigation.Email, Project.IdGeneratedbyNavigation.Email, Project.IdProject, nextask.IdEmployeeNavigation.Name, Project.IdGeneratedbyNavigation.Name, nextask.LongEndDate, Project.IdCustomerNavigation.Name);
+                        _mailService.SendNewTaskEmail("calvarionewok@gmail.com", "calvarionewok@gmail.com", Project.IdProject, nextask.IdEmployeeNavigation.Name, Project.IdGeneratedbyNavigation.Name, nextask.LongEndDate, Project.IdCustomerNavigation.Name);
                     }
 
-                    ////if (ActiveTask.IdTask )
+                    else if (ActiveTask.IdTask == 4)
+                    {
+                        for(int i = 5; i < 9; i++)
+                        {
+                            ProjectTask nextask = _projectsDataService.GetNextTask(Project.IdProject, i);
+                            nextask.IdEmployeeNavigation = await _projectsDataService.GetEmployeeAsync(ActiveTask.IdEmployee);
+                            _mailService.SendNewTaskEmail("calvarionewok@gmail.com", "calvarionewok@gmail.com", Project.IdProject, nextask.IdEmployeeNavigation.Name, Project.IdGeneratedbyNavigation.Name, nextask.LongEndDate, Project.IdCustomerNavigation.Name);
+                        }
+                    }
 
-                    //ProjectTask nextask = _projectsDataService.GetOnlyActiveTask(Project.IdProject);
-                    //nextask.IdEmployeeNavigation = await _projectsDataService.GetEmployeeAsync(ActiveTask.IdEmployee);
+                    else if (ActiveTask.IdTask == 5)
+                    {
+                        ProjectTask nextask = _projectsDataService.GetNextTask(Project.IdProject, 9);
+                        nextask.IdEmployeeNavigation = await _projectsDataService.GetEmployeeAsync(ActiveTask.IdEmployee);
+                        _mailService.SendNewTaskEmail("calvarionewok@gmail.com", "calvarionewok@gmail.com", Project.IdProject, nextask.IdEmployeeNavigation.Name, Project.IdGeneratedbyNavigation.Name, nextask.LongEndDate, Project.IdCustomerNavigation.Name);
 
-                    //_mailService.SendNewTaskEmail("scalvario@ecmfg.com", "scalvario@ecmfg.com", Project.IdProject, nextask.IdEmployeeNavigation.Name, Project.IdGeneratedbyNavigation.Name, nextask.LongEndDate, Project.IdCustomerNavigation.Name);
+                    }
+
+                    _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "The task has been completed");
 
                     CompleteTaskBtnVisibility = Visibility.Hidden;
                 }
@@ -238,15 +278,16 @@ namespace ProjectManager.ViewModels
             Activities = new ObservableCollection<ProjectTask>();
             GetActivities();
 
-            if (UserRecord.Employee_ID != Project.IdGeneratedby)
-            {
-                ActiveTask = _projectsDataService.GetActiveTask(Project.IdProject, UserRecord.Employee_ID);
+           
+            ActiveTask = _projectsDataService.GetActiveTask(Project.IdProject, UserRecord.Employee_ID);
                 
+            if (ActiveTask != null)
+            {
                 if (ActiveTask.IdEmployee == UserRecord.Employee_ID)
                 {
                     CompleteTaskBtnVisibility = Visibility.Visible;
                 }
-            }    
+            }
 
         }
 

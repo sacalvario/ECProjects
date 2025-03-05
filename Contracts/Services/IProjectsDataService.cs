@@ -23,6 +23,7 @@ namespace ProjectManager.Contracts.Services
         bool SaveProject(Project project);
         bool CompleteTask(ProjectTask task);
         bool AddCustomer(Customer customer);
+        bool CancelProject(Project project);
         ProjectTask GetActiveTask(int project, int employee);
         ProjectTask GetOnlyActiveTask(int project);
         ProjectTask GetNextTask(int project, int task);

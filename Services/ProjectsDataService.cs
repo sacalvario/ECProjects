@@ -299,7 +299,7 @@ namespace ProjectManager.Services
 
         public ProjectTask GetActiveTask(int project, int employee)  
         {
-            return context.ProjectTasks.First(i => i.IdProject == project && i.IdStatus == 2 && i.IdEmployee == employee);
+            return context.ProjectTasks.FirstOrDefault(i => i.IdProject == project && i.IdStatus == 2 && i.IdEmployee == employee);
         }
 
         public bool AddCustomer(Customer customer)
@@ -322,6 +322,17 @@ namespace ProjectManager.Services
         public ProjectTask GetNextTask(int project, int task)
         {
             return context.ProjectTasks.First(i => i.IdProject == project && i.IdTask == task);
+        }
+
+        public bool CancelProject(Project project)
+        {
+            project.IdStatus = 5;
+
+            //falta cancelar tareas activas
+
+            var result = context.SaveChanges();
+            return result > 0;
+         
         }
     }
 }
