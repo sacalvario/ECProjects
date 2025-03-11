@@ -220,24 +220,24 @@ namespace ProjectManager.ViewModels
                         ProjectTask nextask = _projectsDataService.GetNextTask(Project.IdProject, ActiveTask.IdTask + 1);
                         nextask.IdEmployeeNavigation = await _projectsDataService.GetEmployeeAsync(nextask.IdEmployee);
 
-                        _mailService.SendNewTaskEmail("calvarionewok@gmail.com", "calvarionewok@gmail.com", Project.IdProject, nextask.IdEmployeeNavigation.Name, Project.IdGeneratedbyNavigation.Name, nextask.LongEndDate, Project.IdCustomerNavigation.Name);
+                        _mailService.SendNewTaskEmail("scalvario@ecmfg.com", "scalvario@ecmfg.com", Project.IdProject, nextask.IdEmployeeNavigation.Name, Project.IdGeneratedbyNavigation.Name, nextask.LongEndDate, Project.IdCustomerNavigation.Name);
                     }
 
                     else if (ActiveTask.IdTask == 4)
                     {
-                        for(int i = 5; i < 9; i++)
+                        for (int i = 5; i < 9; i++)
                         {
                             ProjectTask nextask = _projectsDataService.GetNextTask(Project.IdProject, i);
-                            nextask.IdEmployeeNavigation = await _projectsDataService.GetEmployeeAsync(ActiveTask.IdEmployee);
-                            _mailService.SendNewTaskEmail("calvarionewok@gmail.com", "calvarionewok@gmail.com", Project.IdProject, nextask.IdEmployeeNavigation.Name, Project.IdGeneratedbyNavigation.Name, nextask.LongEndDate, Project.IdCustomerNavigation.Name);
+                            nextask.IdEmployeeNavigation = await _projectsDataService.GetEmployeeAsync(nextask.IdEmployee);
+                            _mailService.SendNewTaskEmail("scalvario@ecmfg.com", "scalvario@ecmfg.com", Project.IdProject, nextask.IdEmployeeNavigation.Name, Project.IdGeneratedbyNavigation.Name, nextask.LongEndDate, Project.IdCustomerNavigation.Name);
                         }
                     }
 
                     else if (ActiveTask.IdTask == 5)
                     {
                         ProjectTask nextask = _projectsDataService.GetNextTask(Project.IdProject, 9);
-                        nextask.IdEmployeeNavigation = await _projectsDataService.GetEmployeeAsync(ActiveTask.IdEmployee);
-                        _mailService.SendNewTaskEmail("calvarionewok@gmail.com", "calvarionewok@gmail.com", Project.IdProject, nextask.IdEmployeeNavigation.Name, Project.IdGeneratedbyNavigation.Name, nextask.LongEndDate, Project.IdCustomerNavigation.Name);
+                        nextask.IdEmployeeNavigation = await _projectsDataService.GetEmployeeAsync(nextask.IdEmployee);
+                        _mailService.SendNewTaskEmail("scalvario@ecmfg.com", "scalvario@ecmfg.com", Project.IdProject, nextask.IdEmployeeNavigation.Name, Project.IdGeneratedbyNavigation.Name, nextask.LongEndDate, Project.IdCustomerNavigation.Name);
 
                     }
 
