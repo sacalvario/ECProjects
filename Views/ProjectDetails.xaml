@@ -239,6 +239,16 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Comments" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Comments}"
+                                                       Margin="10, 0, 0, 0"
+                                                       VerticalAlignment="Center"
+                                                       />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                         <DataGridTemplateColumn Header="Responsible" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>

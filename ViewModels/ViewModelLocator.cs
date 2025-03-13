@@ -64,6 +64,9 @@ namespace ProjectManager.ViewModels
         public AddCustomerViewModel AddCustomerViewModel
             => SimpleIoc.Default.GetInstance<AddCustomerViewModel>();
 
+        public AddEmployeeViewModel AddEmployeeViewModel
+           => SimpleIoc.Default.GetInstance<AddEmployeeViewModel>();
+
         public ViewModelLocator()
         {
             // App Host
@@ -87,6 +90,11 @@ namespace ProjectManager.ViewModels
             SimpleIoc.Default.Register<ShellViewModel>();
             SimpleIoc.Default.Register<ShellDialogViewModel>();
             SimpleIoc.Default.Register<ShellLoginViewModel>();
+            SimpleIoc.Default.Register<AddCustomerViewModel>();
+            SimpleIoc.Default.Register<AddEmployeeViewModel>();
+            SimpleIoc.Default.Register<Employee>();
+            SimpleIoc.Default.Register<Customer>();
+            SimpleIoc.Default.Register<Project>();
 
             // Pages
             Register<FrontCaptureViewModel, FrontCapture>();
@@ -123,13 +131,16 @@ namespace ProjectManager.ViewModels
             SimpleIoc.Default.Register(() => appConfig);
         }
 
-     
-
         public static void UnregisterShellViewModel()
         {
             SimpleIoc.Default.Unregister<ShellViewModel>();
             SimpleIoc.Default.Register<ShellViewModel>();
         }
 
+        public static void UnregisterEmployeesPageViewModel()
+        {
+            SimpleIoc.Default.Unregister<ShellViewModel>();
+            SimpleIoc.Default.Register<ShellViewModel>();
+        }
     }
 }

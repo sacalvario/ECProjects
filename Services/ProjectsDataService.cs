@@ -334,5 +334,36 @@ namespace ProjectManager.Services
             return result > 0;
          
         }
+
+        public bool AddEmployee(Employee employee)
+        {
+            _ = context.Update(employee);
+
+            var result = context.SaveChanges();
+            return result > 0;
+        }
+
+        public bool UpgradeEmployee(Employee employee)
+        {
+            if (employee != null)
+            {
+                context.Employees.Add(employee);
+
+                var result = context.SaveChanges();
+                return result > 0;
+            }
+            return false;
+        }
+
+        public async Task<IEnumerable<Department>> GetDepartmentsAsync()
+        {
+            await System.Threading.Tasks.Task.CompletedTask;
+            return GetDepartmens();
+        }
+
+        private IEnumerable<Department> GetDepartmens()
+        {
+            return context.Departments.ToList();
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using ProjectManager.Contracts.Services;
 using ProjectManager.Models;
 using System;
@@ -40,6 +41,20 @@ namespace ProjectManager.ViewModels
 
             CvsEmployees.Filter += ApplyFilter;
         }
+
+        private ICommand _OpenEmployeeManageWindowCommand;
+        public ICommand OpenEmployeeManageWindowCommand
+        {
+            get
+            {
+                if (_OpenEmployeeManageWindowCommand == null)
+                {
+                    _OpenEmployeeManageWindowCommand = new RelayCommand<Employee>(OpenEmployeeManageWindow);
+                }
+                return _OpenEmployeeManageWindowCommand;
+            }
+        }
+
 
 
         private ObservableCollection<Employee> _Employees;
@@ -100,5 +115,11 @@ namespace ProjectManager.ViewModels
 
             e.Accepted = string.IsNullOrWhiteSpace(Filter) || Filter.Length == 0 || er.Name.ToLower().Contains(Filter.ToLower());
         }
+
+        private void OpenEmployeeManageWindow(Employee Employee)
+        {
+            Messenger.Default.Send(new NotificationMessage<Employee>(Employee, "ShowManageEmployeeWindow"));
+        }
+
     }
 }

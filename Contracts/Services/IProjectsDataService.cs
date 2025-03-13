@@ -20,10 +20,13 @@ namespace ProjectManager.Contracts.Services
         Task<IEnumerable<Employee>> GetEmployeesAsync();
         Task<ICollection<ProjectTask>> GetActivitiesAsync(int project);
         Task<ICollection<ProjectTask>> GetTasksAsync(int employee);
+        Task<IEnumerable<Department>> GetDepartmentsAsync();
         bool SaveProject(Project project);
         bool CompleteTask(ProjectTask task);
         bool AddCustomer(Customer customer);
         bool CancelProject(Project project);
+        bool AddEmployee(Employee employee);
+        bool UpgradeEmployee(Employee employee);
         ProjectTask GetActiveTask(int project, int employee);
         ProjectTask GetOnlyActiveTask(int project);
         ProjectTask GetNextTask(int project, int task);

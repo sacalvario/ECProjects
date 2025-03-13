@@ -1,4 +1,7 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Messaging;
+using ProjectManager.Models;
+using ProjectManager.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -21,6 +24,19 @@ namespace ProjectManager.Views
         public Employees()
         {
             InitializeComponent();
+            Messenger.Default.Register<NotificationMessage<Employee>>(this, NotificationMessageReceived);
+        }
+
+        private void NotificationMessageReceived(NotificationMessage<Employee> obj)
+        {
+            if (obj.Notification == "ShowManageEmployeeWindow")
+            {
+                var addemploye = new AddEmployee
+                {
+                    DataContext = new AddEmployeeViewModel(obj.Content, ((EmployeesViewModel)DataContext)._projectsDataService, ((EmployeesViewModel)DataContext)._windowManagerService)
+                };
+                _ = addemploye.ShowDialog();
+            }
         }
     }
 }
