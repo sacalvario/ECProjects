@@ -40,7 +40,7 @@
                 <TextBox Text="{Binding Employee.FirstName}" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="First Name" md:TextFieldAssist.HasClearButton="True" Cursor="Arrow" Margin="0, 0, 30, 0"/>
                 <TextBox Text="{Binding Employee.LastName}" Grid.Row="2" Grid.RowSpan="2" Margin="0, 0, 30, 0" VerticalAlignment="Top" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Last Name" md:TextFieldAssist.HasClearButton="True" Cursor="Arrow" FontSize="16"/>
                 <TextBox Text="{Binding Employee.Email}" Grid.Row="3" Margin="0, 0, 30, 0" VerticalAlignment="Top" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="E-Mail" md:TextFieldAssist.HasClearButton="True" Cursor="Arrow" FontSize="16" />
-                <ComboBox SelectedItem="{Binding Employee.IdDepartamentNavigation}" Grid.Row="4" VerticalAlignment="Center" DisplayMemberPath="DepartmentName" SelectedValuePath="DepartmentId" ItemsSource="{Binding Departments}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Background="White" md:HintAssist.Hint="Departament" FontSize="16" Margin="0, 0, 30, 0"  >
+                <ComboBox SelectedItem="{Binding Employee.IdDepartamentNavigation}" Grid.Row="4" VerticalAlignment="Center" DisplayMemberPath="Name" SelectedValuePath="IdDepartment" ItemsSource="{Binding Departments}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Background="White" md:HintAssist.Hint="Departament" FontSize="16" Margin="0, 0, 30, 0"  >
                     <ComboBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <VirtualizingStackPanel />

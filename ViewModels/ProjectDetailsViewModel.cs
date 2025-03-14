@@ -57,13 +57,13 @@ namespace ProjectManager.ViewModels
         }
 
         private ICommand _CancelTaskCommand;
-        public ICommand CancelTaskCommand
+        public ICommand CancelProjectCommand
         {
             get
             {
                 if (_CancelTaskCommand == null)
                 {
-                    _CancelTaskCommand = new RelayCommand(CancelTask);
+                    _CancelTaskCommand = new RelayCommand(CancelProject);
                 }
                 return _CancelTaskCommand;
             }
@@ -190,7 +190,7 @@ namespace ProjectManager.ViewModels
             }
         }
 
-        private async void CancelTask()
+        private async void CancelProject()
         {
             try
             {
@@ -220,7 +220,7 @@ namespace ProjectManager.ViewModels
                         ProjectTask nextask = _projectsDataService.GetNextTask(Project.IdProject, ActiveTask.IdTask + 1);
                         nextask.IdEmployeeNavigation = await _projectsDataService.GetEmployeeAsync(nextask.IdEmployee);
 
-                        _mailService.SendNewTaskEmail("scalvario@ecmfg.com", "scalvario@ecmfg.com", Project.IdProject, nextask.IdEmployeeNavigation.Name, Project.IdGeneratedbyNavigation.Name, nextask.LongEndDate, Project.IdCustomerNavigation.Name);
+                        _mailService.SendNewTaskEmail(nextask.IdEmployeeNavigation.Email, Project.IdGeneratedbyNavigation.Email, Project.IdProject, nextask.IdEmployeeNavigation.Name, Project.IdGeneratedbyNavigation.Name, nextask.LongEndDate, Project.IdCustomerNavigation.Name);
                     }
 
                     else if (ActiveTask.IdTask == 4)
@@ -229,7 +229,7 @@ namespace ProjectManager.ViewModels
                         {
                             ProjectTask nextask = _projectsDataService.GetNextTask(Project.IdProject, i);
                             nextask.IdEmployeeNavigation = await _projectsDataService.GetEmployeeAsync(nextask.IdEmployee);
-                            _mailService.SendNewTaskEmail("scalvario@ecmfg.com", "scalvario@ecmfg.com", Project.IdProject, nextask.IdEmployeeNavigation.Name, Project.IdGeneratedbyNavigation.Name, nextask.LongEndDate, Project.IdCustomerNavigation.Name);
+                            _mailService.SendNewTaskEmail(nextask.IdEmployeeNavigation.Email, Project.IdGeneratedbyNavigation.Email, Project.IdProject, nextask.IdEmployeeNavigation.Name, Project.IdGeneratedbyNavigation.Name, nextask.LongEndDate, Project.IdCustomerNavigation.Name);
                         }
                     }
 
@@ -237,7 +237,7 @@ namespace ProjectManager.ViewModels
                     {
                         ProjectTask nextask = _projectsDataService.GetNextTask(Project.IdProject, 9);
                         nextask.IdEmployeeNavigation = await _projectsDataService.GetEmployeeAsync(nextask.IdEmployee);
-                        _mailService.SendNewTaskEmail("scalvario@ecmfg.com", "scalvario@ecmfg.com", Project.IdProject, nextask.IdEmployeeNavigation.Name, Project.IdGeneratedbyNavigation.Name, nextask.LongEndDate, Project.IdCustomerNavigation.Name);
+                        _mailService.SendNewTaskEmail(nextask.IdEmployeeNavigation.Email, Project.IdGeneratedbyNavigation.Email, Project.IdProject, nextask.IdEmployeeNavigation.Name, Project.IdGeneratedbyNavigation.Name, nextask.LongEndDate, Project.IdCustomerNavigation.Name);
 
                     }
 
