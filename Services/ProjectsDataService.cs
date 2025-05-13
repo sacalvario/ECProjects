@@ -138,7 +138,7 @@ namespace ProjectManager.Services
         public async Task<Models.Task> GetTaskAsync(int id)
         {
             await System.Threading.Tasks.Task.CompletedTask;
-            return GetTask(id);
+            return GetTask(id); 
         }
 
         private Models.Task GetTask(int id)
@@ -367,3 +367,4 @@ namespace ProjectManager.Services
         }
     }
 }
+

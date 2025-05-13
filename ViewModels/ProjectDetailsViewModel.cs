@@ -190,7 +190,7 @@ namespace ProjectManager.ViewModels
             }
         }
 
-        private async void CancelProject()
+        private void CancelProject()
         {
             try
             {
@@ -290,7 +290,7 @@ namespace ProjectManager.ViewModels
             }
 
         }
-
+        
         private void GoBack()
         {
             _navigationService.GoBack();

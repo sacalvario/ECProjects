@@ -21,8 +21,24 @@ namespace ProjectManager.Models
         public int IdDepartament { get; set; }
         public sbyte Active { get; set; }
         public int IdSite { get; set; }
-
+        
         public string Name => FirstName + " " + LastName;
+        private string _ActiveText;
+        public string ActiveText
+        {
+            get
+            {
+                if (Active == 1)
+                {
+                    _ActiveText = "Active";
+                }
+                else if (Active == 0)
+                {
+                    _ActiveText = "Inactive";
+                }
+                return _ActiveText;
+            }
+        }
 
         public virtual Department IdDepartamentNavigation { get; set; }
         public virtual Site IdSiteNavigation { get; set; }
