@@ -326,9 +326,14 @@ namespace ProjectManager.Services
 
         public bool CancelProject(Project project)
         {
+            context.Projects.Update(project);
             project.IdStatus = 5;
 
-            //falta cancelar tareas activas
+            List<ProjectTask> projectTasks = context.ProjectTasks.Where(i => i.IdProject == project.IdProject && i.IdStatus == 2).ToList();
+            foreach (var projectTask in projectTasks)
+            {
+                projectTask.IdStatus = 3;
+            }
 
             var result = context.SaveChanges();
             return result > 0;

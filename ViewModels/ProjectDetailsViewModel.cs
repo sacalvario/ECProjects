@@ -197,6 +197,8 @@ namespace ProjectManager.ViewModels
                 if (_projectsDataService.CancelProject(Project))
                 {
                     _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "The project has been cancelled successfully");
+                    _navigationService.GoBack();
+                    CancelProjectBtnVisibility = Visibility.Collapsed;
                 }
             }
             catch (Exception ex)
@@ -254,7 +256,10 @@ namespace ProjectManager.ViewModels
         }
         public void OnNavigatedFrom()
         {
-
+            if (CancelProjectBtnVisibility == Visibility.Visible)
+            {
+                CancelProjectBtnVisibility = Visibility.Collapsed;
+            }
         }
 
         public void OnNavigatedTo(object parameter)
@@ -287,6 +292,12 @@ namespace ProjectManager.ViewModels
                 {
                     CompleteTaskBtnVisibility = Visibility.Visible;
                 }
+            }
+
+
+            if (Project.IdStatusNavigation.IdStatus == 2 && Project.IdGeneratedbyNavigation.IdEmployee == UserRecord.Employee_ID)
+            {
+                CancelProjectBtnVisibility = Visibility.Visible;
             }
 
         }
