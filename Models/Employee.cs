@@ -40,6 +40,31 @@ namespace ProjectManager.Models
             }
         }
 
+        private bool _IsActive;
+        public bool IsActive
+        {
+            get
+            {
+                if (Convert.ToBoolean(Active))
+                {
+                    _IsActive = true;
+                }
+                else
+                {
+                    _IsActive = false;
+                }
+                return _IsActive;
+            }
+            set
+            {
+                if (_IsActive != value)
+                {
+                    _IsActive = value;
+                    Active = Convert.ToSByte(_IsActive);
+                }
+            }
+        }
+
         public virtual Department IdDepartamentNavigation { get; set; }
         public virtual Site IdSiteNavigation { get; set; }
         public virtual User User { get; set; }

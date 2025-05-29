@@ -341,15 +341,8 @@ namespace ProjectManager.Services
         }
 
         public bool AddEmployee(Employee employee)
-        {
-            _ = context.Update(employee);
+        { 
 
-            var result = context.SaveChanges();
-            return result > 0;
-        }
-
-        public bool UpgradeEmployee(Employee employee)
-        {
             if (employee != null)
             {
                 context.Employees.Add(employee);
@@ -358,6 +351,14 @@ namespace ProjectManager.Services
                 return result > 0;
             }
             return false;
+        }
+
+        public bool UpgradeEmployee(Employee employee)
+        {
+            _ = context.Update(employee);
+
+            var result = context.SaveChanges();
+            return result > 0;
         }
 
         public async Task<IEnumerable<Department>> GetDepartmentsAsync()

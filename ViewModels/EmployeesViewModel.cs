@@ -11,6 +11,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace ProjectManager.ViewModels
 {
@@ -40,6 +41,30 @@ namespace ProjectManager.ViewModels
             CvsEmployees.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
 
             CvsEmployees.Filter += ApplyFilter;
+
+            if (UserRecord.Employee_ID == 92 || UserRecord.Employee_ID == 212)
+            {
+                AdminEmployeeBtnsVisibility = Visibility.Visible;
+            }
+
+            DispatcherTimer timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(5)
+            };
+            timer.Tick += new EventHandler(Timer_Tick);
+            timer.Start();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            Employees = new ObservableCollection<Employee>();
+            GetEmployees();
+
+            //CvsEmployees = new CollectionViewSource
+            //{
+            //    Source = Employees
+            //};
+
         }
 
         private ICommand _OpenEmployeeManageWindowCommand;
@@ -55,6 +80,19 @@ namespace ProjectManager.ViewModels
             }
         }
 
+        private Visibility _AdminEmployeeBtnsVisibility = Visibility.Collapsed;
+        public Visibility AdminEmployeeBtnsVisibility
+        {
+            get => _AdminEmployeeBtnsVisibility;
+            set
+            {
+                if (_AdminEmployeeBtnsVisibility != value)
+                {
+                    _AdminEmployeeBtnsVisibility = value;
+                    RaisePropertyChanged("AdminEmployeeBtnsVisibility");
+                }
+            }
+        }
 
 
         private ObservableCollection<Employee> _Employees;

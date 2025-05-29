@@ -50,8 +50,8 @@
                 <Button Grid.Row="5" Grid.Column="1" Margin="30, 0, 0, 0" Command="{Binding AddEmployeeCommand}" Visibility="{Binding AddEmployeeVisibility}" Width="150" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="Add" Cursor="Hand" />
                 <Button Grid.Row="5" Grid.Column="1" Margin="30, 0, 0, 0" Command="{Binding UpgradeEmployeeCommand}" Visibility="{Binding UpdateEmployeeVisibility}" Width="150" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="Edit" Cursor="Hand" />
                 <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="30, 0, 0, 0">
-                    <ui:ToggleSwitch Height="30" Width="50" Margin="-30 , 0, 0, 0" OffContent="Inactive" OnContent="Active" IsOn="{Binding Employee.Active}"/>
-                    <TextBlock Text="Employee Estatus" Margin="5, 0, 0, 0" VerticalAlignment="Center" Foreground="Gray" FontFamily="Arial" FontSize="16" FontWeight="Thin"/>
+                    <ui:ToggleSwitch Height="30" Width="50" Margin="-30 , 0, 0, 0" OffContent="Inactive" OnContent="Active" IsOn="{Binding Employee.IsActive}"/>
+                    <TextBlock Text="{Binding Employee.ActiveText}" Margin="5, 0, 0, 0" VerticalAlignment="Center" Foreground="Gray" FontFamily="Arial" FontSize="16" FontWeight="Thin"/>
 
                 </StackPanel>
             </Grid>

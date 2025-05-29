@@ -32,7 +32,7 @@
                 <Image Source="/Assets/user64.png" Grid.Column="1" Width="54" Height="54" Grid.RowSpan="2" HorizontalAlignment="Center" Margin="5" />
                 <TextBlock Text="{Binding Name}" FontSize="18" Grid.Column="2" FontWeight="Bold" Foreground="Black" VerticalAlignment="Center"/>
                 <TextBlock Text="{Binding IdDepartamentNavigation.Name}"  Grid.Row="1" Grid.Column="2" FontSize="17" FontWeight="Bold" Foreground="Green" VerticalAlignment="Top"/>
-                <TextBlock Text="{Binding ActiveText}" Grid.Column="3" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding ActiveText}" Grid.Column="3" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Center" FontWeight="SemiBold"/>
                 <Button Grid.RowSpan="2" Grid.Column="5" HorizontalAlignment="Left" Margin="30, 5, 0, 0" Background="Transparent" Command="{Binding ElementName=lvEmployees, Path=DataContext.OpenEmployeeManageWindowCommand}" CommandParameter="{Binding}" Visibility="{Binding ElementName=lvEmployees, Path=DataContext.AdminEmployeeBtnsVisibility}">
                     <Image Source="/Assets/edit.png" Width="32" HorizontalAlignment="Left"/>
                 </Button>
