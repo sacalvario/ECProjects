@@ -43,9 +43,6 @@ namespace ProjectManager.ViewModels
         public BasicFormatViewModel BasicFormatViewModel
             => SimpleIoc.Default.GetInstance<BasicFormatViewModel>();
         
-        public AdvancedFormatViewModel AdvancedFormatViewModel
-            => SimpleIoc.Default.GetInstance<AdvancedFormatViewModel>();
-        
         public ApplyMessageViewModel ApplyMessageViewModel
             => SimpleIoc.Default.GetInstance<ApplyMessageViewModel>();
         
@@ -66,6 +63,9 @@ namespace ProjectManager.ViewModels
 
         public AddEmployeeViewModel AddEmployeeViewModel
            => SimpleIoc.Default.GetInstance<AddEmployeeViewModel>();
+
+        public ProjectsViewModel ProjectsViewModel
+            => SimpleIoc.Default.GetInstance<ProjectsViewModel>();
 
         public ViewModelLocator()
         {
@@ -103,13 +103,13 @@ namespace ProjectManager.ViewModels
             Register<LoginViewModel, Login>();
             Register<SignUpViewModel, SignUp>();
             Register<BasicFormatViewModel, BasicFormat>();
-            Register<AdvancedFormatViewModel, AdvancedFormat>();
             Register<ApplyMessageViewModel, ApplyMesagge>();
             Register<HistoryViewModel, History>();
             Register<ProjectDetailsViewModel, ProjectDetails>();
             Register<TasksViewModel, Tasks>();
             Register<EmployeesViewModel, Employees>();
             Register<CustomersViewModel, Customers>();
+            Register<ProjectsViewModel, Projects>();
         }
 
         private void Register<VM, V>()

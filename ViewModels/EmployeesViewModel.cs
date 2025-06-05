@@ -49,7 +49,7 @@ namespace ProjectManager.ViewModels
 
             DispatcherTimer timer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromSeconds(5)
+                Interval = TimeSpan.FromSeconds(1)
             };
             timer.Tick += new EventHandler(Timer_Tick);
             timer.Start();
@@ -57,13 +57,7 @@ namespace ProjectManager.ViewModels
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            Employees = new ObservableCollection<Employee>();
-            GetEmployees();
-
-            //CvsEmployees = new CollectionViewSource
-            //{
-            //    Source = Employees
-            //};
+            CvsEmployees.View.Refresh();
 
         }
 

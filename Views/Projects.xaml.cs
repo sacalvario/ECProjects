@@ -14,11 +14,11 @@ using System.Windows.Shapes;
 namespace ProjectManager.Views
 {
     /// <summary>
-    /// Lógica de interacción para AdvancedFormat.xaml
+    /// Lógica de interacción para Projects.xaml
     /// </summary>
-    public partial class AdvancedFormat : Page
+    public partial class Projects : Page
     {
-        public AdvancedFormat()
+        public Projects()
         {
             InitializeComponent();
         }

@@ -377,7 +377,12 @@ namespace ProjectManager.ViewModels
             {
                 item.IdDepartamentNavigation = await _projectsDataService.GetDepartmentAsync(item.IdDepartament);
                 item.IdSiteNavigation = await _projectsDataService.GetSiteAsync(item.IdSite);
-                Employees.Add(item);
+
+                if (item.IsActive)
+                {
+                    Employees.Add(item);
+                }
+
                 
             }
             Employees =  new ObservableCollection<Employee>(Employees.OrderBy(i => i.IdEmployee));

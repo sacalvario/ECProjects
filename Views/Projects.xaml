@@ -1,0 +1,146 @@
+﻿<Page x:Class="ProjectManager.Views.Projects"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:fdg="http://filterdatagrid.control.com/2021"
+      xmlns:ui="http://schemas.modernwpf.com/2019"
+      d:DesignHeight="650" d:DesignWidth="1350"
+      Title="Projects">
+
+    <Page.Resources>
+
+        <Style
+            x:Key="FilterDatagridStyle"
+            BasedOn="{StaticResource {ComponentResourceKey ResourceId=FilterDataGridStyle, TypeInTargetAssembly={x:Type fdg:FilterDataGrid}}}"
+            TargetType="{x:Type fdg:FilterDataGrid}">
+            <Setter Property="Margin" Value="10,10,0,2" />
+            <Setter Property="AlternatingRowBackground" Value="WhiteSmoke" />
+            <Setter Property="AlternationCount" Value="2" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="HorizontalGridLinesBrush" Value="LightGray" />
+            <Setter Property="VerticalGridLinesBrush" Value="LightGray" />
+            <Setter Property="VerticalScrollBarVisibility" Value="Visible" />
+            <Setter Property="HorizontalScrollBarVisibility" Value="Visible" />
+            <Setter Property="VirtualizingPanel.IsVirtualizing" Value="True" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="IsReadOnly" Value="True" />
+        </Style>
+    </Page.Resources>
+
+    <Page.DataContext>
+        <Binding Path="ProjectsViewModel" Source="{StaticResource Locator}"/>
+    </Page.DataContext>
+
+    <Grid Background="#FFE0E0E0">
+        <StackPanel VerticalAlignment="Top"
+                    HorizontalAlignment="Left"
+                    Margin="40, 10, 0, 0">
+            <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Left" 
+                        Margin="0, 0, 0, 5">
+                <Label Content="Search" 
+                       FontFamily="Quicksand Medium" 
+                       FontSize="16" />
+                <Image Source="/Assets/search.png"
+                       Width="22" 
+                       Margin="2, 0, 0, 0"/>
+            </StackPanel>
+            <TextBox Text="{Binding Path=Filter, UpdateSourceTrigger=PropertyChanged}"
+                     Background="Green"
+                     Foreground="White"
+                     BorderThickness="0"
+                     FontFamily="Quicksand Medium" 
+                     FontSize="15" 
+                     ui:ControlHelper.PlaceholderText="Enter an ID" 
+                     ui:ControlHelper.PlaceholderForeground="White"
+                     Width="450"  />
+        </StackPanel>
+        <fdg:FilterDataGrid ItemsSource="{Binding FilteredList, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FilterDatagridStyle}" Margin="40, 100, 40, 0"
+                            DateFormatString="d"
+                            AutoGenerateColumns="False"
+                            SelectedItem="{Binding SelectedItem}"
+                            FilterLanguage="English"
+                            x:Name="dgRecords"
+                            SelectionMode="Single">
+            <fdg:FilterDataGrid.Columns>
+                <fdg:DataGridTemplateColumn FieldName="Id" Header="ID" IsColumnFiltered="True" SortMemberPath="Id">
+                    <fdg:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="55" />
+                                    <ColumnDefinition Width="40" />
+                                    <ColumnDefinition Width="60" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding Id}" FontSize="18" FontWeight="Black" VerticalAlignment="Center" Margin="0, 0, 5, 0" HorizontalAlignment="Center"/>
+                                <Image Source="/Assets/docs.png" Width="32" Height="32" Grid.Column="1"/>
+                                <Border Visibility="{Binding IsEcoVisibility}" Margin="6, 0" CornerRadius="10" Background="Red" Height="20" Width="45" VerticalAlignment="Center" Grid.Column="2">
+                                    <TextBlock Foreground="White" Text="ECO" HorizontalAlignment="Center" FontWeight="Black" FontSize="15" VerticalAlignment="Center"/>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </fdg:DataGridTemplateColumn.CellTemplate>
+                </fdg:DataGridTemplateColumn>
+                <fdg:DataGridTextColumn Binding="{Binding StartDate}" Header="Creation Date" IsColumnFiltered="True" Width="170"/>
+                <fdg:DataGridTextColumn Binding="{Binding StartDate}" Header="Customer Need by" IsColumnFiltered="True" Width="170"/>
+                <fdg:DataGridTextColumn Header="Quote Number" Binding="{Binding ChangeTypeName}" IsColumnFiltered="True" SortMemberPath="ChangeType.ChangeTypeName" FontWeight="Bold" Width="200" />
+                <fdg:DataGridTextColumn Header="Customer" Binding="{Binding DocumentTypeName}" IsColumnFiltered="True" SortMemberPath="DocumentType.DocumentTypeName" FontWeight="Bold" Width="200" />
+                <fdg:DataGridTemplateColumn Header="Generated by" SortMemberPath="Employee.Name" Width="300" IsColumnFiltered="True" FieldName="EmployeeName">
+                    <fdg:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="5">
+                                <Image Source="/Assets/userblack.png" Margin="0, 5, 5, 0" Width="42" Height="42"/>
+                                <StackPanel Margin="0, 10, 5, 0">
+                                    <TextBlock Text="{Binding Employee.Name}"
+                                               FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Employee.Department.DepartmentName}"
+                                               FontWeight="DemiBold"
+                                               FontStyle="Italic"
+                                               Foreground="Red"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </fdg:DataGridTemplateColumn.CellTemplate>
+                </fdg:DataGridTemplateColumn>
+                <fdg:DataGridTemplateColumn Header="Manager" SortMemberPath="Employee.Name" Width="300" IsColumnFiltered="True" FieldName="EmployeeName">
+                    <fdg:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="5">
+                                <Image Source="/Assets/userblack.png" Margin="0, 5, 5, 0" Width="42" Height="42"/>
+                                <StackPanel Margin="0, 10, 5, 0">
+                                    <TextBlock Text="{Binding Employee.Name}"
+                                               FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Employee.Department.DepartmentName}"
+                                               FontWeight="DemiBold"
+                                               FontStyle="Italic"
+                                               Foreground="Red"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </fdg:DataGridTemplateColumn.CellTemplate>
+                </fdg:DataGridTemplateColumn>
+                <fdg:DataGridTemplateColumn Header="Status" SortMemberPath="Status.StatusName" Width="200" IsColumnFiltered="True" FieldName="StatusName">
+                    <fdg:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Border CornerRadius="10"
+                                    Background="{Binding Status.StatusColor}"
+                                    Height="30"
+                                    Width="105"
+                                    Margin="30, 20" >
+                                <TextBlock Foreground="White" Text="{Binding Status.StatusName}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black" FontSize="15"/>
+                            </Border>
+                        </DataTemplate>
+                    </fdg:DataGridTemplateColumn.CellTemplate>
+                </fdg:DataGridTemplateColumn>
+            </fdg:FilterDataGrid.Columns>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick" >
+                    <i:InvokeCommandAction Command="{Binding ElementName=dgRecords, Path=DataContext.NavigateToDetailCommand}" CommandParameter="{Binding ElementName=dgRecords, Path=SelectedItem}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </fdg:FilterDataGrid>
+    </Grid>
+</Page>
