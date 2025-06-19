@@ -205,89 +205,92 @@
                             </StackPanel>
                         </Button>
                     </StackPanel>
-                    <Grid Grid.RowSpan="4" Grid.Row="1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="8*"/>
-                        </Grid.RowDefinitions>
-                        <StackPanel Orientation="Horizontal">
-                            <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="#" Width="80" />
-                            <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="Task Name" Width="240" />
-                            <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="Duration" Width="120" />
-                            <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="Predecessor" Width="120" />
-                            <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="Start date" Width="240" Cursor="Hand" />
-                            <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="Target date" Width="200"/>
-                            <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="Responsible" Width="200"/>
-                        </StackPanel>
-                        <ui:ListView Grid.Row="1" ItemsSource="{Binding TaskList}" Margin="-10, 0, 0, 0" BorderThickness="1" >
-                            <ui:ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="80" />
-                                            <ColumnDefinition Width="220" />
-                                            <ColumnDefinition Width="120" />
-                                            <ColumnDefinition Width="120" />
-                                            <ColumnDefinition Width="240" />
-                                            <ColumnDefinition Width="200" />
-                                            <ColumnDefinition Width="200" />
-                                        </Grid.ColumnDefinitions>
-                                        <StackPanel VerticalAlignment="Center" Orientation="Horizontal" >
-                                            <Border Margin="0, 0, 10, 0" CornerRadius="10" Height="13" Width="13" Background="{Binding IdTaskNavigation.NumberColor}" VerticalAlignment="Center"/>
-                                            <TextBlock  Text="{Binding IdTaskNavigation.Number}" VerticalAlignment="Center" FontSize="20" Foreground="Black" FontWeight="Bold" FontFamily="Quicksand"/>
-                                        </StackPanel>
-                                        <TextBlock  Grid.Column="1"  Text="{Binding IdTaskNavigation.Name}" VerticalAlignment="Center" Foreground="Black" FontWeight="Bold" FontFamily="Quicksand"/>
-                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="2" HorizontalAlignment="Center">
-                                            <materialDesign:PackIcon Kind="TimerSand" Height="22" Width="22" VerticalAlignment="Center"/>
-                                            <TextBlock Margin="10, 0, 0, 0" Foreground="Black" FontSize="15"  HorizontalAlignment="Center" VerticalAlignment="Center" >
+                    <ScrollViewer Grid.RowSpan="4" Grid.Row="1" HorizontalScrollBarVisibility="Visible">
+                        <Grid >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="8*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="#" Width="80" />
+                                <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="Task Name" Width="240" />
+                                <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="Duration" Width="120" />
+                                <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="Predecessor" Width="120" />
+                                <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="Start date" Width="240" Cursor="Hand" />
+                                <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="Target date" Width="200" Cursor="Hand"/>
+                                <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="Responsible" Width="300"/>
+                            </StackPanel>
+                            <ui:ListView Grid.Row="1" ItemsSource="{Binding TaskList}" Margin="-10, 0, 0, 0" BorderThickness="1" >
+                                <ui:ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="80" />
+                                                <ColumnDefinition Width="220" />
+                                                <ColumnDefinition Width="120" />
+                                                <ColumnDefinition Width="120" />
+                                                <ColumnDefinition Width="240" />
+                                                <ColumnDefinition Width="200" />
+                                                <ColumnDefinition Width="300" />
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel VerticalAlignment="Center" Orientation="Horizontal" >
+                                                <Border Margin="0, 0, 10, 0" CornerRadius="10" Height="13" Width="13" Background="{Binding IdTaskNavigation.NumberColor}" VerticalAlignment="Center"/>
+                                                <TextBlock  Text="{Binding IdTaskNavigation.Number}" VerticalAlignment="Center" FontSize="20" Foreground="Black" FontWeight="Bold" FontFamily="Quicksand"/>
+                                            </StackPanel>
+                                            <TextBlock  Grid.Column="1"  Text="{Binding IdTaskNavigation.Name}" VerticalAlignment="Center" Foreground="Black" FontWeight="Bold" FontFamily="Quicksand"/>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="2" HorizontalAlignment="Center">
+                                                <materialDesign:PackIcon Kind="TimerSand" Height="22" Width="22" VerticalAlignment="Center"/>
+                                                <TextBlock Margin="10, 0, 0, 0" Foreground="Black" FontSize="15"  HorizontalAlignment="Center" VerticalAlignment="Center" >
                                                 <Run Text="{Binding Duration}" FontWeight="Black" Foreground="Green"/>
                                                 <Run Text="Days" />
-                                            </TextBlock>
-                                        </StackPanel>
-                                        <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                            <materialDesign:PackIcon Kind="ArrowUp" Height="22" Width="22" VerticalAlignment="Center"/>
-                                            <TextBlock Margin="10, 0, 0, 0" Foreground="Black" FontSize="15"  HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                </TextBlock>
+                                            </StackPanel>
+                                            <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                <materialDesign:PackIcon Kind="ArrowUp" Height="22" Width="22" VerticalAlignment="Center"/>
+                                                <TextBlock Margin="10, 0, 0, 0" Foreground="Black" FontSize="15"  HorizontalAlignment="Center" VerticalAlignment="Center" >
                                                 <Run Text="{Binding IdTaskNavigation.Predecessor}" FontWeight="Black" Foreground="Green"/>
-                                            </TextBlock>
-                                        </StackPanel>
-                                        <StackPanel Grid.Column="4" Orientation="Horizontal" VerticalAlignment="Center" Margin="20, 0, 0, 0">
-                                            <materialDesign:PackIcon Kind="CalendarClock" Width="28" Height="28" Foreground="Green" />
-                                            <TextBlock Text="{Binding LongStartDate}"
+                                                </TextBlock>
+                                            </StackPanel>
+                                            <StackPanel Grid.Column="4" Orientation="Horizontal" VerticalAlignment="Center" Margin="20, 0, 0, 0">
+                                                <materialDesign:PackIcon Kind="CalendarClock" Width="28" Height="28" Foreground="Green" />
+                                                <TextBlock Text="{Binding LongStartDate}"
                                                        FontStyle="Italic"
                                                        Margin="10, 0, 0, 0"
                                                        />
-                                        </StackPanel>
-                                        <TextBlock Text="{Binding LongEndDate}"
+                                            </StackPanel>
+                                            <TextBlock Text="{Binding LongEndDate}"
                                                    FontStyle="Italic"
                                                    Margin="10, 0, 0, 0"
                                                    VerticalAlignment="Center"
                                                    Grid.Column="5"
                                                        />
-                                        <StackPanel Grid.Column="6" Orientation="Horizontal" Margin="20, 0, 0, 0">
-                                            <ComboBox x:Name="CbEmployee" SelectedItem="{Binding IdEmployeeNavigation}" ItemsSource="{Binding EmployeeList}"  ui:ControlHelper.PlaceholderText="Select a responsable"  BorderBrush="Black"  Foreground="Black" Margin="10, 5, 0, 0" >
-                                                <ComboBox.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <StackPanel Orientation="Horizontal">
-                                                            <materialDesign:PackIcon Kind="AccountTie" Width="28" Height="24"/>
-                                                            <TextBlock Text="{Binding Name}" Margin="8, 0, 0, 0" VerticalAlignment="Center" FontFamily="Quicksand" FontWeight="Bold"/>
-                                                            <TextBlock Text="-" Margin="2, 0, 0, 0" VerticalAlignment="Center" FontFamily="Quicksand Medium"/>
-                                                            <TextBlock Text="{Binding IdDepartamentNavigation.Name}" Margin="5, 0, 0, 0" VerticalAlignment="Center" FontFamily="Quicksand" Foreground="Green" FontWeight="SemiBold"/>
-                                                            <TextBlock Text="{Binding IdSiteNavigation.Name}" Margin="8, 0, 0, 0" VerticalAlignment="Center" FontWeight="Bold" Foreground="Black"/>
-                                                        </StackPanel>
-                                                    </DataTemplate>
-                                                </ComboBox.ItemTemplate>
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="SelectionChanged">
-                                                        <i:InvokeCommandAction Command="{Binding ElementName=DgTasks, Path=DataContext.GetEmployeeCommand}" CommandParameter="{Binding ElementName=CbEmployee, Path=DataContext.IdEmployee}" />
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
-                                            </ComboBox>
-                                        </StackPanel>
-                                    </Grid>
-                                </DataTemplate>
-                            </ui:ListView.ItemTemplate>
-                        </ui:ListView>
-                    </Grid>
+                                            <StackPanel Grid.Column="6" Orientation="Horizontal" Margin="20, 0, 0, 0">
+                                                <ComboBox x:Name="CbEmployee" IsEditable="True"  SelectedItem="{Binding IdEmployeeNavigation}" ItemsSource="{Binding EmployeeList}"  ui:ControlHelper.PlaceholderText="Select a responsable"  BorderBrush="Black"  Foreground="Black" Margin="10, 5, 0, 0" >
+                                                    <ComboBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <materialDesign:PackIcon Kind="AccountTie" Width="28" Height="24"/>
+                                                                <TextBlock Text="{Binding Name}" Margin="8, 0, 0, 0" VerticalAlignment="Center" FontFamily="Quicksand" FontWeight="Bold"/>
+                                                                <TextBlock Text="-" Margin="2, 0, 0, 0" VerticalAlignment="Center" FontFamily="Quicksand Medium"/>
+                                                                <TextBlock Text="{Binding IdDepartamentNavigation.Name}" Margin="5, 0, 0, 0" VerticalAlignment="Center" FontFamily="Quicksand" Foreground="Green" FontWeight="SemiBold"/>
+                                                                <TextBlock Text="{Binding IdSiteNavigation.Name}" Margin="8, 0, 0, 0" VerticalAlignment="Center" FontWeight="Bold" Foreground="Black"/>
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </ComboBox.ItemTemplate>
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="SelectionChanged">
+                                                            <i:InvokeCommandAction Command="{Binding ElementName=DgTasks, Path=DataContext.GetEmployeeCommand}" CommandParameter="{Binding ElementName=CbEmployee, Path=DataContext.IdEmployee}" />
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </ComboBox>
+                                            </StackPanel>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ui:ListView.ItemTemplate>
+                            </ui:ListView>
+                        </Grid>
+                    </ScrollViewer>
+                    
                     <!--<DataGrid x:Name="DgTasks" ItemsSource="{Binding TaskList}" Grid.Row="1" Grid.RowSpan="4" CanUserAddRows="False" CanUserDeleteRows="False" Margin="20, 20, 0, 0" AutoGenerateColumns="False"  HeadersVisibility="Column" GridLinesVisibility="Horizontal">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Header="#" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
