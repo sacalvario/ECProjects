@@ -18,7 +18,213 @@
                 <TabItem.Header>
                     <TextBlock Text="Part I" Foreground="Black" Margin="0,  0, 10, 0" />
                 </TabItem.Header>
-                <Grid Margin="50,0,-50,0">
+                <Grid Margin="20, 20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="6*"/>
+                        <RowDefinition Height="6*"/>
+                        <RowDefinition Height="6*"/>
+                        <RowDefinition Height="6*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Style="{DynamicResource PageTitleStyle}" Text="New product introduction"/>
+                    <materialDesign:Card  Foreground="Black" Margin="20, 20, 20, 10" Grid.Row="1" UniformCornerRadius="10">
+                        <StackPanel>
+                            <TextBlock Text="New Costumer?" FontSize="18" FontWeight="SemiBold" Margin="10, 10, 5, 0" />
+                            <Grid Margin="0, 4, 0, 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <materialDesign:PackIcon Width="24" Height="24" VerticalAlignment="Center" Margin="10, 10, 0, 0" Kind="ThumbsUp" Foreground="Green"/>
+                                <materialDesign:PackIcon Width="24" Height="24" VerticalAlignment="Center" Margin="10, 10, 0, 0" Kind="ThumbsDown" Grid.Row="1" Foreground="red"/>
+                                <RadioButton Content="Yes" Grid.Column="1"  Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0"  FontSize="16" VerticalAlignment="Center" IsChecked="{Binding NewCustomer}" />
+                                <RadioButton Content="No" Grid.Column="1" Grid.Row="1" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0"  FontSize="16" VerticalAlignment="Center" />
+                            </Grid>
+                        </StackPanel>
+                    </materialDesign:Card>
+                    <materialDesign:Card Grid.Row="1" Foreground="Black"  Margin="20, 20, 20, 10" Grid.Column="1" UniformCornerRadius="10" >
+                        <StackPanel>
+                            <TextBlock Text="Assembly quantity" FontSize="18" FontWeight="SemiBold" Margin="10, 10, 5, 0"/>
+                            <StackPanel Margin="20, 20, 30, 30" Orientation="Horizontal">
+                                <materialDesign:PackIcon VerticalAlignment="Center" Kind="Connection" Width="32" Height="32" Foreground="Green"/>
+                                <TextBox Style="{DynamicResource MaterialDesignTextBox}" Text="{Binding AssemblyQuantity}" FontSize="18" Margin="10, 0, 0, 0" Width="200" Cursor="Arrow"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </materialDesign:Card>
+                    <materialDesign:Card Grid.Row="1"  Margin="20, 20, 20, 10" Grid.Column="2" UniformCornerRadius="10">
+                        <StackPanel>
+                            <TextBlock Text="Customer drawing available?" FontSize="18" FontWeight="SemiBold" Margin="10, 10, 5, 0" />
+                            <Grid Margin="0, 4, 0, 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="146*" />
+                                    <ColumnDefinition Width="167*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <materialDesign:PackIcon Width="24" Height="24" Margin="10, 10, 0, 0" Kind="ThumbsUp" Foreground="Green"/>
+                                <materialDesign:PackIcon Width="24" Height="24" Margin="10, 10, 0, 0" Kind="ThumbsDown" Grid.Row="1" Foreground="red"/>
+                                <RadioButton Content="Yes" Grid.Column="1"  Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0"  FontSize="16" VerticalAlignment="Top" Grid.ColumnSpan="2" IsChecked="{Binding CustomerDrawingAvailable}"/>
+                                <RadioButton Content="No" Grid.Column="1" Grid.Row="1" Style="{DynamicResource MaterialDesignAccentRadioButton}"  Margin="10, 10, 0, 0" FontSize="16" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+                            </Grid>
+                        </StackPanel>
+                    </materialDesign:Card>
+                    <materialDesign:Card Grid.Row="2" Foreground="Black"  Margin="20, 20, 20, 10" UniformCornerRadius="10" >
+                        <StackPanel>
+                            <TextBlock Text="New raw material quantity" FontSize="18" FontWeight="SemiBold" Margin="10, 10, 5, 0"/>
+                            <StackPanel Margin="20, 20, 30, 30" Orientation="Horizontal">
+                                <materialDesign:PackIcon VerticalAlignment="Center" Foreground="Green" Width="32" Height="32" Kind="Package"/>
+                                <TextBox Width="200" Margin="10, 0, 0, 0" FontSize="18" Text="{Binding NewRawMaterialQty}" Style="{DynamicResource MaterialDesignTextBox}" Cursor="Arrow" />
+                            </StackPanel>
+                        </StackPanel>
+                    </materialDesign:Card>
+                    <materialDesign:Card Grid.Row="2" Grid.Column="1" Foreground="Black"  Margin="20, 20, 20, 10" UniformCornerRadius="10" >
+                        <StackPanel>
+                            <TextBlock Text="New tooling?" FontSize="18" FontWeight="SemiBold" Margin="10, 10, 5, 0" />
+                            <Grid Margin="0, 4, 0, 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <materialDesign:PackIcon Width="24" Height="24" VerticalAlignment="Center" Margin="10, 10, 0, 0" Kind="ThumbsUp" Foreground="Green"/>
+                                <materialDesign:PackIcon Width="24" Height="24" VerticalAlignment="Center" Margin="10, 10, 0, 0" Kind="ThumbsDown" Grid.Row="1" Foreground="red"/>
+                                <RadioButton Content="Yes" Grid.Column="1"  Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0"  FontSize="16" VerticalAlignment="Center" IsChecked="{Binding NewTooling}"/>
+                                <RadioButton Content="No" Grid.Column="1" Grid.Row="1" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0"  FontSize="16" VerticalAlignment="Center" />
+                            </Grid>
+                        </StackPanel>
+                    </materialDesign:Card>
+                    <materialDesign:Card Grid.Row="2" Grid.Column="2" Foreground="Black"  Margin="20, 20, 20, 10" UniformCornerRadius="10" >
+                        <StackPanel>
+                            <TextBlock Text="Testing board" FontSize="18" FontWeight="SemiBold" Margin="10, 10, 5, 0" />
+                            <Grid Margin="0, 4, 0, 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <materialDesign:PackIcon Width="24" Height="24" VerticalAlignment="Center" Margin="10, 10, 0, 0" Kind="ThumbsUp" Foreground="Green"/>
+                                <materialDesign:PackIcon Width="24" Height="24" VerticalAlignment="Center" Margin="10, 10, 0, 0" Kind="ThumbsDown" Grid.Row="1" Foreground="red"/>
+                                <RadioButton Content="Yes" Grid.Column="1"  Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0"  FontSize="16" VerticalAlignment="Center"  IsChecked="{Binding TestingBoard}"/>
+                                <RadioButton Content="No" Grid.Column="1" Grid.Row="1" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0" FontSize="16" VerticalAlignment="Center" />
+                            </Grid>
+                        </StackPanel>
+                    </materialDesign:Card>
+                    <materialDesign:Card Grid.Row="3" Foreground="Black"  Margin="20, 20, 20, 10"  UniformCornerRadius="10">
+                        <StackPanel>
+                            <TextBlock Text="Routing board" FontSize="18" FontWeight="SemiBold" Margin="10, 10, 5, 0" />
+                            <Grid Margin="0, 4, 0, 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <materialDesign:PackIcon Width="24" Height="24" VerticalAlignment="Center" Margin="10, 10, 0, 0" Kind="ThumbsUp" Foreground="Green"/>
+                                <materialDesign:PackIcon Width="24" Height="24" VerticalAlignment="Center" Margin="10, 10, 0, 0" Kind="ThumbsDown" Grid.Row="1" Foreground="red"/>
+                                <RadioButton Content="Yes" Grid.Column="1"  Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0"  FontSize="16" VerticalAlignment="Center" IsChecked="{Binding RoutingBoard}"/>
+                                <RadioButton Content="No" Grid.Column="1" Grid.Row="1" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0" FontSize="16" VerticalAlignment="Center" />
+                            </Grid>
+                        </StackPanel>
+                    </materialDesign:Card>
+                    <materialDesign:Card Grid.Row="3" Grid.Column="1" Foreground="Black"  Margin="20, 20, 20, 10" UniformCornerRadius="10" >
+                        <StackPanel>
+                            <TextBlock Text="New machine?" FontSize="18" FontWeight="SemiBold" Margin="10, 10, 5, 0" />
+                            <Grid Margin="0, 4, 0, 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <materialDesign:PackIcon Width="24" Height="24" VerticalAlignment="Center" Margin="10, 10, 0, 0" Kind="ThumbsUp" Foreground="Green"/>
+                                <materialDesign:PackIcon Width="24" Height="24" VerticalAlignment="Center" Margin="10, 10, 0, 0" Kind="ThumbsDown" Grid.Row="1" Foreground="red"/>
+                                <RadioButton Content="Yes" Grid.Column="1"  Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0" FontSize="16" VerticalAlignment="Center" IsChecked="{Binding NewMachine}" />
+                                <RadioButton Content="No" Grid.Column="1" Grid.Row="1" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0" FontSize="16" VerticalAlignment="Center" />
+                            </Grid>
+                        </StackPanel>
+                    </materialDesign:Card>
+                    <materialDesign:Card Grid.Row="3" Grid.Column="2" Foreground="Black"  Margin="20, 20, 20, 10" UniformCornerRadius="10"  >
+                        <StackPanel>
+                            <TextBlock Text="New mold?" FontSize="18" FontWeight="SemiBold" Margin="10, 10, 5, 0" />
+                            <Grid Margin="0, 4, 0, 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <materialDesign:PackIcon Width="24" Height="24" VerticalAlignment="Center" Margin="10, 10, 0, 0" Kind="ThumbsUp" Foreground="Green"/>
+                                <materialDesign:PackIcon Width="24" Height="24" VerticalAlignment="Center" Margin="10, 10, 0, 0" Kind="ThumbsDown" Grid.Row="1" Foreground="red"/>
+                                <RadioButton Content="Yes" Grid.Column="1"  Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0"  FontSize="16" VerticalAlignment="Center" IsChecked="{Binding NewMold}"/>
+                                <RadioButton Content="No" Grid.Column="1" Grid.Row="1" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0" FontSize="16" VerticalAlignment="Center" />
+                            </Grid>
+                        </StackPanel>
+                    </materialDesign:Card>
+                    <materialDesign:Card Grid.Row="4" Foreground="Black"  Margin="20, 20, 20, 10"  UniformCornerRadius="10">
+                        <StackPanel>
+                            <TextBlock Text="Crimp application/hand tool quantity" FontSize="18" FontWeight="SemiBold" Margin="10, 10, 5, 0"/>
+                            <StackPanel Margin="20, 20, 30, 30" Orientation="Horizontal">
+                                <materialDesign:PackIcon VerticalAlignment="Center" Kind="Tools" Width="32" Height="32" Foreground="Green"/>
+                                <TextBox Width="200" FontSize="18" Text="{Binding CrimpApplication}" Style="{DynamicResource MaterialDesignTextBox}" Margin="10, 0, 0, 0" />
+                            </StackPanel>
+                        </StackPanel>
+                    </materialDesign:Card>
+                    <materialDesign:Card Grid.Row="4" Grid.Column="1" Foreground="Black"  Margin="20, 20, 20, 10" UniformCornerRadius="10" >
+                        <StackPanel>
+                            <TextBlock Text="Is it automotive?" FontSize="18" FontWeight="SemiBold" Margin="10, 10, 5, 0" />
+                            <Grid Margin="0, 4, 0, 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <materialDesign:PackIcon Width="24" Height="24" VerticalAlignment="Center" Margin="10, 10, 0, 0" Kind="ThumbsUp" Foreground="Green"/>
+                                <materialDesign:PackIcon Width="24" Height="24" VerticalAlignment="Center" Margin="10, 10, 0, 0" Kind="ThumbsDown" Grid.Row="1" Foreground="red"/>
+                                <RadioButton Content="Yes" Grid.Column="1"  Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0"  FontSize="16" VerticalAlignment="Center" IsChecked="{Binding IsAutomotive}"/>
+                                <RadioButton Content="No" Grid.Column="1" Grid.Row="1" Style="{DynamicResource MaterialDesignAccentRadioButton}" Margin="10, 10, 0, 0" FontSize="16" VerticalAlignment="Center" />
+                            </Grid>
+                        </StackPanel>
+                    </materialDesign:Card>
+                    <Button  Grid.Row="5" Grid.Column="2" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Green" Command="{Binding GetProjectLevelCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Get project level " FontSize="24" VerticalAlignment="Center" Margin="5, 0, 5, 0"/>
+                            <materialDesign:PackIcon Kind="Play" VerticalAlignment="Center" Width="32" Height="32" Margin="0, 5, 0, 0"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </TabItem>
+            <TabItem Height="40" >
+                <TabItem.Header>
+                    <TextBlock Text="Part II" Foreground="Black" Margin="0,  0, 10, 0" />
+                </TabItem.Header>
+            <Grid Margin="50,0,-50,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1.2*" />
                         <ColumnDefinition Width="*"/>
@@ -175,6 +381,9 @@
                         </StackPanel>
                         <Calendar HorizontalAlignment="Left" Margin="0, 20, 0, 0" Width="380" Height="260" SelectedDate="{Binding Project.CustomerNeedby}" materialDesign:CalendarAssist.Orientation="Horizontal" Style="{DynamicResource MaterialDesignCalendarPortrait}"  />
                     </StackPanel>
+                    <Button Grid.Row="5" Margin="0, 0, 50, 0" Command="{Binding GoToLastTabItemCommand}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Background="Transparent">
+                        <materialDesign:PackIcon Kind="ArrowLeftBoldBox" Width="34" Height="34" Foreground="Green"/>
+                    </Button>
                     <Button Grid.Column="1" Grid.Row="5" Margin="0, 0, 50, 0" Command="{Binding GoToNextTabItemCommand}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="Transparent">
                         <materialDesign:PackIcon Kind="ArrowRightBoldBox" Width="34" Height="34" Foreground="Green"/>
                     </Button>
@@ -182,7 +391,7 @@
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Text="Part II"/>
+                    <TextBlock Text="Part III"/>
                 </TabItem.Header>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -265,7 +474,7 @@
                                                    Grid.Column="5"
                                                        />
                                             <StackPanel Grid.Column="6" Orientation="Horizontal" Margin="20, 0, 0, 0">
-                                                <ComboBox x:Name="CbEmployee" IsEditable="True"  SelectedItem="{Binding IdEmployeeNavigation}" ItemsSource="{Binding EmployeeList}"  ui:ControlHelper.PlaceholderText="Select a responsable"  BorderBrush="Black"  Foreground="Black" Margin="10, 5, 0, 0" >
+                                                <ComboBox x:Name="CbEmployee" IsEditable="True" IsTextSearchEnabled="True" TextSearch.TextPath="Name" SelectedItem="{Binding IdEmployeeNavigation}" ItemsSource="{Binding EmployeeList}"  ui:ControlHelper.PlaceholderText="Select a responsable"  BorderBrush="Black"  Foreground="Black" Margin="10, 5, 0, 0" >
                                                     <ComboBox.ItemTemplate>
                                                         <DataTemplate>
                                                             <StackPanel Orientation="Horizontal">

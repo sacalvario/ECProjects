@@ -119,7 +119,7 @@ namespace ProjectManager.ViewModels
                         _navigationService.UnsubscribeNavigation();
                         _navigationService.Initialize(_shellWindow.GetNavigationFrame());
                         _shellWindow.ShowWindow();
-                        _navigationService.NavigateTo(typeof(FrontCaptureViewModel).FullName);
+                        _navigationService.NavigateTo(typeof(BasicFormatViewModel).FullName);
                         await System.Threading.Tasks.Task.CompletedTask;
                     }
                 }
