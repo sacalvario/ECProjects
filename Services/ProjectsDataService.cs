@@ -355,6 +355,7 @@ namespace ProjectManager.Services
 
         public bool UpgradeEmployee(Employee employee)
         {
+            //employee.Active = Convert.ToSByte(employee.IsActive);
             _ = context.Update(employee);
 
             var result = context.SaveChanges();

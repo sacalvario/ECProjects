@@ -1,11 +1,12 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight;
+using System;
 using System.Collections.Generic;
 
 #nullable disable
 
 namespace ProjectManager.Models
 {
-    public partial class Employee
+    public partial class Employee : ViewModelBase
     {
         public Employee()
         {
@@ -38,6 +39,14 @@ namespace ProjectManager.Models
                 }
                 return _ActiveText;
             }
+            set
+            {
+                if (_ActiveText != value)
+                {
+                    _ActiveText = value;
+                    RaisePropertyChanged();
+                }
+            }
         }
 
         private bool _IsActive;
@@ -61,6 +70,17 @@ namespace ProjectManager.Models
                 {
                     _IsActive = value;
                     Active = Convert.ToSByte(_IsActive);
+                    RaisePropertyChanged();
+
+                    
+                    if (Active == 1)
+                    {
+                        ActiveText = "Active";
+                    }
+                    else if (Active == 0)
+                    {
+                        ActiveText = "Inactive";
+                    }
                 }
             }
         }

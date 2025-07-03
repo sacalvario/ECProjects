@@ -47,12 +47,12 @@ namespace ProjectManager.ViewModels
                 AdminEmployeeBtnsVisibility = Visibility.Visible;
             }
 
-            DispatcherTimer timer = new DispatcherTimer
-            {
-                Interval = TimeSpan.FromSeconds(1)
-            };
-            timer.Tick += new EventHandler(Timer_Tick);
-            timer.Start();
+            //DispatcherTimer timer = new DispatcherTimer
+            //{
+            //    Interval = TimeSpan.FromSeconds(1)
+            //};
+            //timer.Tick += new EventHandler(Timer_Tick);
+            //timer.Start();
         }
 
         private void Timer_Tick(object sender, EventArgs e)
