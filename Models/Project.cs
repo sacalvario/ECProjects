@@ -12,7 +12,8 @@ namespace ProjectManager.Models
         public Project()
         {
             ProjectTasks = new HashSet<ProjectTask>();
-        }
+            ProjectParts = new HashSet<ProjectPart>();
+    }
 
         public int IdProject { get; set; }
         public int IdGeneratedby { get; set; }
@@ -75,6 +76,8 @@ namespace ProjectManager.Models
         public virtual Employee IdManagerNavigation { get; set; }
         public virtual Status IdStatusNavigation { get; set; }
 
+
+        public virtual ICollection<ProjectPart> ProjectParts { get; set; } = new HashSet<ProjectPart>();
         //private ICollection<ProjectTask> _ProjectTasks;
         public virtual ICollection<ProjectTask> ProjectTasks { get; set; }
         //{
