@@ -1,4 +1,5 @@
-﻿using ProjectManager.Contracts.Services;
+﻿using Microsoft.EntityFrameworkCore;
+using ProjectManager.Contracts.Services;
 using ProjectManager.Models;
 using System;
 using System.Collections.Generic;
@@ -371,6 +372,29 @@ namespace ProjectManager.Services
         private IEnumerable<Department> GetDepartmens()
         {
             return context.Departments.ToList();
+        }
+
+        public async Task<int> SavePartAsync(Part part)
+        {
+            context.Parts.Add(part);
+            await context.SaveChangesAsync();
+            return part.IdPart;
+        }
+
+        public async Task<bool> SaveProjectPartAsync(ProjectPart projectPart)
+        {
+            context.ProjectParts.Add(projectPart);
+            await context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<IEnumerable<ProjectPart>> GetProjectPartsWithPartInfoAsync(int projectId)
+        {
+            return await context.ProjectParts
+           .Where(pp => pp.IdProject == projectId)
+           .Include(pp => pp.Part)
+           .ThenInclude(p => p.Customer)
+           .ToListAsync();
         }
     }
 }

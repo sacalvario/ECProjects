@@ -389,6 +389,19 @@ namespace ProjectManager.ViewModels
 
             Cont = 0;
 
+            if (NewParts == null)
+                NewParts = new ObservableCollection<Part>();
+
+            if (NewParts.Count == 0)
+            {
+                NewParts.Add(new Part
+                {
+                    PartNumber = string.Empty,
+                    Revision = string.Empty,
+                    CustomerId = Project.IdCustomer
+                });
+            }
+
             GoToNextTabItemCommand = new RelayCommand(GoToNexTabItem);
             GoToLastTabItemCommand = new RelayCommand(GoToLastTabItem);
         }
@@ -405,6 +418,14 @@ namespace ProjectManager.ViewModels
 
         private ICommand _GetProjectLevelCommand;
         public ICommand GetProjectLevelCommand => _GetProjectLevelCommand ??= new RelayCommand(GetProjectLevel);
+
+        private ICommand _AddPartCommand;
+        public ICommand AddPartCommand => _AddPartCommand ??= new RelayCommand(AddPart);
+
+        private ICommand _DeletePartCommand;
+        public ICommand DeletePartCommand => _DeletePartCommand ??= new RelayCommand(DeletePart);
+
+
 
         private ObservableCollection<Task> _Tasks;
         public ObservableCollection<Task> Tasks
@@ -431,6 +452,17 @@ namespace ProjectManager.ViewModels
                     _Customers = value;
                     RaisePropertyChanged("Customers");
                 }
+            }
+        }
+
+        private ObservableCollection<Part> _NewParts;
+        public ObservableCollection<Part> NewParts
+        {
+            get => _NewParts;
+            set
+            {
+                _NewParts = value;
+                RaisePropertyChanged("NewParts");
             }
         }
 
@@ -552,6 +584,24 @@ namespace ProjectManager.ViewModels
                 return _ProjectComplexity;
             }
         }
+        
+
+        private void AddPart()
+        {
+            if (Project.IdCustomer == 0)
+            {
+                _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Selecciona un cliente antes de agregar partes.");
+                return;
+            }
+
+            NewParts.Add(new Part
+            {
+                PartNumber = string.Empty,
+                Revision = string.Empty,
+                CustomerId = Project.IdCustomer
+            });
+        }
+
 
         private DateTime WorkDays(int days)
         { 
@@ -781,12 +831,29 @@ namespace ProjectManager.ViewModels
             {
                 if (_projectsDataService.SaveProject(Project))
                 {
+
+                    foreach (var part in NewParts)
+                    {
+                        if (part.CustomerId == 0)
+                            part.CustomerId = Project.IdCustomer;
+
+                        int newPartId = await _projectsDataService.SavePartAsync(part);
+
+                        var projectPart = new ProjectPart
+                        {
+                            IdProject = Project.IdProject,
+                            IdPart = newPartId
+                        };
+
+                        await _projectsDataService.SaveProjectPartAsync(projectPart);
+                    }
+
                     _ = _windowManagerService.OpenInDialog(typeof(ApplyMessageViewModel).FullName, Project.IdProject);
 
                     ProjectTask task = _projectsDataService.GetOnlyActiveTask(Project.IdProject);
                     task.IdEmployeeNavigation = await _projectsDataService.GetEmployeeAsync(task.IdEmployee);
 
-                    _mailService.SendNewTaskEmail(task.IdEmployeeNavigation.Email, Project.IdGeneratedbyNavigation.Email, Project.IdProject, task.IdEmployeeNavigation.Name, UserRecord.Employee.Name, task.LongStartDate, Project.IdCustomerNavigation.Name);
+                    //_mailService.SendNewTaskEmail(task.IdEmployeeNavigation.Email, Project.IdGeneratedbyNavigation.Email, Project.IdProject, task.IdEmployeeNavigation.Name, UserRecord.Employee.Name, task.LongStartDate, Project.IdCustomerNavigation.Name);
 
 
                     _navigationService.NavigateTo(typeof(ProjectDetailsViewModel).FullName, Project);
@@ -859,6 +926,15 @@ namespace ProjectManager.ViewModels
 
             ResetPoints();
         }
+
+        private void DeletePart()
+        {
+            if (NewParts.Count > 1)
+            {
+                NewParts.RemoveAt(NewParts.Count - 1);
+            }
+        }
+
 
         public void ResetPoints()
         {

@@ -22,6 +22,8 @@ namespace ProjectManager.Models
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<ProjectTask> ProjectTasks { get; set; }
+        public virtual DbSet<Part> Parts { get; set; }
+        public virtual DbSet<ProjectPart> ProjectParts{ get; set; }
         public virtual DbSet<Site> Sites { get; set; }
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<Task> Tasks { get; set; }
@@ -32,7 +34,7 @@ namespace ProjectManager.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseMySql("server=192.168.36.4;database=projects;user id=usermysql;password=user", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.25-mysql"));
+                optionsBuilder.UseMySql("server=localhost;database=projects;user id=root;password=user", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.25-mysql"));
             }
         }
 
@@ -66,7 +68,7 @@ namespace ProjectManager.Models
                 entity.HasKey(e => e.IdPart)
                     .HasName("PRIMARY");
 
-                entity.ToTable("numberpart");
+                entity.ToTable("parts");
 
                 entity.HasIndex(e => e.IdPart, "NO_Part_UNIQUE")
                     .IsUnique();
@@ -83,7 +85,7 @@ namespace ProjectManager.Models
                 entity.Property(e => e.PartNumber)
                     .IsRequired()
                     .HasMaxLength(100)
-                    .HasColumnName("NumberPart_ID");
+                    .HasColumnName("ID_Part");
 
                 entity.Property(e => e.Revision)
                     .IsRequired()
@@ -94,7 +96,7 @@ namespace ProjectManager.Models
                     .WithMany(p => p.Numberparts)
                     .HasForeignKey(d => d.CustomerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_customer_id");
+                    .HasConstraintName("customer_id");
             });
 
             modelBuilder.Entity<ProjectPart>(entity =>

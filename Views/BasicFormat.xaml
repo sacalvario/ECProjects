@@ -393,19 +393,49 @@
                 <TabItem.Header>
                     <TextBlock Text="Part III"/>
                 </TabItem.Header>
-                <StackPanel>
-                    <Button Content="Agregar número de parte" Command="{Binding AddNumberPartCommand}" />
-                    <ItemsControl ItemsSource="{Binding NewNumberParts}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal" Margin="5">
-                                    <TextBox Width="150" Text="{Binding PartNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                    <TextBox Width="80" Margin="10,0,0,0" Text="{Binding Revision, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </StackPanel>
+                <materialDesign:Card Grid.Column="1" Grid.RowSpan="2" Width="450" Background="Transparent" UniformCornerRadius="10" HorizontalAlignment="Left" Margin="0,0,0,50" >
+                    <Grid>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,5,0,0">
+                            <Button Command="{Binding AddPartCommand}" Background="Transparent">
+                                <materialDesign:PackIcon Kind="Add" Foreground="Green" Width="20" Height="20"/>
+                            </Button>
+                            <Button Command="{Binding DeletePartCommand}" Background="Transparent">
+                                <materialDesign:PackIcon Kind="Delete" Foreground="Green" Width="20" Height="20"/>
+                            </Button>
+                        </StackPanel>
+
+                        <TextBlock Foreground="Black" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left">
+                            <Run Text="Cantidad de partes: "/>
+                            <Run Text="{Binding NewParts.Count, Mode=OneWay}" FontWeight="Black" FontSize="16" Foreground="Green"/>
+                        </TextBlock>
+
+                        <ScrollViewer Margin="0,40,20,0" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Visible">
+                            <ItemsControl ItemsSource="{Binding NewParts}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="5,10,0,7">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackPanel Orientation="Horizontal">
+                                                <Border Width="28" Height="28" Margin="5,15,0,0" CornerRadius="50" Background="Green" VerticalAlignment="Center">
+                                                    <materialDesign:PackIcon Kind="Cube" Width="22" Height="22" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                </Border>
+                                                <TextBox Text="{Binding PartNumber, Mode=TwoWay}" FontSize="15" Width="210" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:TextFieldAssist.TextFieldCornerRadius="5" BorderBrush="Green" materialDesign:HintAssist.Hint="Número de parte" Foreground="Black" Margin="15,0,10,0"/>
+                                            </StackPanel>
+
+                                            <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="10,0,0,0">
+                                                <TextBox Text="{Binding Revision, Mode=TwoWay}" FontSize="15" Width="130" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:TextFieldAssist.TextFieldCornerRadius="5" BorderBrush="Green" materialDesign:HintAssist.Hint="Revisión" Foreground="Black" Margin="0,0,10,0"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Grid>
+                </materialDesign:Card>
             </TabItem>
             <TabItem>
                 <TabItem.Header>

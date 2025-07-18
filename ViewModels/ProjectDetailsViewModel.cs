@@ -176,6 +176,17 @@ namespace ProjectManager.ViewModels
             }
         }
 
+        private ObservableCollection<ProjectPart> _ProjectParts;
+        public ObservableCollection<ProjectPart> ProjectParts
+        {
+            get => _ProjectParts;
+            set
+            {
+                _ProjectParts = value;
+                RaisePropertyChanged(nameof(ProjectParts));
+            }
+        }
+
         private async void GetActivities()
         {
             var activities = await _projectsDataService.GetActivitiesAsync(Project.IdProject);
@@ -188,6 +199,12 @@ namespace ProjectManager.ViewModels
                 item.IdTaskNavigation = await _projectsDataService.GetTaskAsync(item.IdTask);
                 Activities.Add(item);
             }
+        }
+
+        private async void GetParts()
+        {
+            var parts = await _projectsDataService.GetProjectPartsWithPartInfoAsync(Project.IdProject);
+            ProjectParts = new ObservableCollection<ProjectPart>(parts);
         }
 
         private void CancelProject()
@@ -283,7 +300,8 @@ namespace ProjectManager.ViewModels
             Activities = new ObservableCollection<ProjectTask>();
             GetActivities();
 
-           
+            GetParts();
+
             ActiveTask = _projectsDataService.GetActiveTask(Project.IdProject, UserRecord.Employee_ID);
                 
             if (ActiveTask != null)
