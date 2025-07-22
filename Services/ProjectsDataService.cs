@@ -396,6 +396,30 @@ namespace ProjectManager.Services
            .ThenInclude(p => p.Customer)
            .ToListAsync();
         }
+
+        public async System.Threading.Tasks.Task UpdateTaskAsync(ProjectTask task)
+        {
+            if (task == null) return;
+
+            var existingTask = await context.ProjectTasks
+                .Include(t => t.IdTaskNavigation)
+                .Include(t => t.IdEmployeeNavigation)
+                .FirstOrDefaultAsync(t => t.IdProject == task.IdProject && t.IdTask == task.IdTask);
+
+            if (existingTask != null)
+            {
+                // Actualiza solo los campos necesarios
+                existingTask.IdStatus = task.IdStatus;
+                existingTask.EndDate = task.EndDate;
+                existingTask.StartDate = task.StartDate;
+
+                //// Si tienes alguna propiedad adicional como CompletionStatus (string)
+                //if (!string.IsNullOrEmpty(task.CompletionStatus))
+                //    existingTask.CompletionStatus = task.CompletionStatus;
+
+                await context.SaveChangesAsync();
+            }
+        }
     }
 }
 

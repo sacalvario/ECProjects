@@ -17,15 +17,43 @@ namespace ProjectManager.Models
             get => _Duration;
             set
             {
-                if (_Duration != value)
+                if (Set(ref _Duration, value))
                 {
-                    _Duration = value;
-                    RaisePropertyChanged("Duration");
+                    DurationChanged?.Invoke(this, EventArgs.Empty);
                 }
             }
         }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+
+        public event EventHandler DurationChanged;
+
+        private DateTime _startDate;
+        public DateTime StartDate
+        {
+            get => _startDate;
+            set
+            {
+                if (_startDate != value)
+                {
+                    _startDate = value;
+                    RaisePropertyChanged(nameof(StartDate));
+                    RaisePropertyChanged(nameof(LongStartDate)); // 👈 importante
+                }
+            }
+        }
+        private DateTime _endDate;
+        public DateTime EndDate
+        {
+            get => _endDate;
+            set
+            {
+                if (_endDate != value)
+                {
+                    _endDate = value;
+                    RaisePropertyChanged(nameof(EndDate));
+                    RaisePropertyChanged(nameof(LongEndDate)); // 👈 importante
+                }
+            }
+        }
 
         //private int _IdEmployee;
         public int IdEmployee { get; set; }
@@ -44,6 +72,7 @@ namespace ProjectManager.Models
         public DateTime? CompletationDate { get; set; }
         public DateTime? ReadyToBuildDate { get; set; }
         public string? Comments { get; set; }
+        public bool IsInProgress => IdStatus == 2;
 
         public string LongStartDate => StartDate.ToString("D", CultureInfo.CreateSpecificCulture("en-US"));
         public string LongEndDate => EndDate.ToString("D", CultureInfo.CreateSpecificCulture("en-US"));

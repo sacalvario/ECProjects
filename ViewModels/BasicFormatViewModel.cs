@@ -7,6 +7,7 @@ using ProjectManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
@@ -714,10 +715,52 @@ namespace ProjectManager.ViewModels
             foreach (ProjectTask task in TaskList)
             {
                 task.EmployeeList = Employees;
+                task.DurationChanged += (s, e) =>
+                {
+                    var changedTask = s as ProjectTask;
+                    if (changedTask != null)
+                    {
+                        UpdateTaskDuration(changedTask);
+                    }
+                };
             }
-
             Project.ProjectTasks = TaskList;
         }
+
+        private void UpdateTaskDuration(ProjectTask modifiedTask)
+        {
+            if (modifiedTask == null) return;
+
+            modifiedTask.EndDate = WorkDaysFromDate(modifiedTask.StartDate, modifiedTask.Duration);
+
+            var dependents = TaskList
+                .Where(t => t.IdTaskNavigation.PredecessorTaskId == modifiedTask.IdTaskNavigation.IdTask)
+                .ToList();
+
+            foreach (var dependent in dependents)
+            {
+                if (dependent.StartDate <= modifiedTask.EndDate)
+                {
+                    dependent.StartDate = modifiedTask.EndDate;
+                    dependent.EndDate = WorkDaysFromDate(dependent.StartDate, dependent.Duration);
+                    UpdateTaskDuration(dependent); // recursividad para sucesores en cadena
+                }
+            }
+        }
+
+        private DateTime WorkDaysFromDate(DateTime start, int days)
+        {
+            DateTime date = start;
+            int added = 0;
+            while (added < days)
+            {
+                date = date.AddDays(1);
+                if (date.DayOfWeek != DayOfWeek.Saturday && date.DayOfWeek != DayOfWeek.Sunday)
+                    added++;
+            }
+            return date;
+        }
+
 
         private void GetEmployee(int emp)
         {

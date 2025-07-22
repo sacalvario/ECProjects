@@ -34,6 +34,7 @@ namespace ProjectManager.Contracts.Services
         Task<int> SavePartAsync(Part part);
         Task<bool> SaveProjectPartAsync(ProjectPart projectPart);
         Task<IEnumerable<ProjectPart>> GetProjectPartsWithPartInfoAsync(int projectId);
+        System.Threading.Tasks.Task UpdateTaskAsync(ProjectTask task);
     }
 }
 

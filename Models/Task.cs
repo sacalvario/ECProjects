@@ -10,13 +10,15 @@ namespace ProjectManager.Models
     {
         public Task()
         {
-            ProjectTaskIdTaskNavigations = new HashSet<ProjectTask>();
+            ProjectTaskId = new HashSet<ProjectTask>();
         }
 
         public int IdTask { get; set; }
         public string Name { get; set; }
-        public float? Predecessor { get; set; }
-        public float? Number { get; set; } 
+        public int? PredecessorTaskId { get; set; }
+        public float? Number { get; set; }
+
+        public virtual ICollection<Task> DependentTasks { get; set; } = new HashSet<Task>();
 
         private SolidColorBrush _NumberColor;
         public SolidColorBrush NumberColor
@@ -51,6 +53,7 @@ namespace ProjectManager.Models
             }
         }
 
-        public virtual ICollection<ProjectTask> ProjectTaskIdTaskNavigations { get; set; }
+        public virtual Task PredecessorTask { get; set; }
+        public virtual ICollection<ProjectTask> ProjectTaskId { get; set; }
     }
 }

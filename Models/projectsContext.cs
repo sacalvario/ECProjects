@@ -316,7 +316,7 @@ namespace ProjectManager.Models
                     .HasConstraintName("fk-status");
 
                 entity.HasOne(d => d.IdTaskNavigation)
-                    .WithMany(p => p.ProjectTaskIdTaskNavigations)
+                    .WithMany(p => p.ProjectTaskId)
                     .HasForeignKey(d => d.IdTask)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk-task");
@@ -382,7 +382,13 @@ namespace ProjectManager.Models
                     .HasMaxLength(90);
 
                 entity.Property(e => e.Number).HasColumnType("float");
-                entity.Property(e => e.Predecessor).HasColumnType("float");
+
+                modelBuilder.Entity<Task>()
+                .HasOne(t => t.PredecessorTask)
+                .WithMany(t => t.DependentTasks)
+                .HasForeignKey(t => t.PredecessorTaskId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             });
 
             modelBuilder.Entity<User>(entity =>
