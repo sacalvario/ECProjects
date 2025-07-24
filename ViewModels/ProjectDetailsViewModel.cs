@@ -36,7 +36,8 @@ namespace ProjectManager.ViewModels
         public ICommand GoBackCommand => _goBackCommand ??= new RelayCommand(GoBack);
 
         private ICommand _completeTaskCommand;
-        public ICommand CompleteTaskCommand => _completeTaskCommand ??= new RelayCommand(async () => await CompleteTaskAsync());
+        public ICommand CompleteTaskCommand => _completeTaskCommand ??= new RelayCommand(async () => await OnCompleteTaskAsync());
+        //public ICommand CompleteTaskCommand => _completeTaskCommand ??= new RelayCommand(OnCompleteTaskAsync());
 
         private ICommand _cancelProjectCommand;
         public ICommand CancelProjectCommand => _cancelProjectCommand ??= new RelayCommand(CancelProject);
@@ -216,95 +217,6 @@ namespace ProjectManager.ViewModels
             ProjectParts = new ObservableCollection<ProjectPart>(parts);
         }
 
-        private async System.Threading.Tasks.Task CompleteTaskAsync()
-        {
-            if (ActiveTask == null) return;
-
-
-            // 2. Verificar si se completó tarde o temprano
-            if (DateTime.Now > ActiveTask.EndDate)
-                ActiveTask.IdStatus = 1; // Completada
-            else
-                ActiveTask.IdStatus = 4;
-
-            ActiveTask.EndDate = DateTime.Now;
-
-            // 3. Guardar cambios
-            await _projectsDataService.UpdateTaskAsync(ActiveTask);
-
-            // 4. Buscar tareas dependientes
-            var dependentTasks = Project.ProjectTasks
-                .Where(t => t.IdTaskNavigation.PredecessorTaskId == ActiveTask.IdTaskNavigation.IdTask)
-                .ToList();
-
-
-            foreach (var nextTask in dependentTasks)
-            {
-                // 5. Activar la siguiente tarea (cambiar su estado y fechas)
-                nextTask.IdStatus = 2; // Activa
-                nextTask.StartDate = ActiveTask.EndDate;
-                nextTask.EndDate = WorkDaysFromDate(nextTask.StartDate, nextTask.Duration);
-
-                await _projectsDataService.UpdateTaskAsync(nextTask);
-
-                // 6. Enviar correo de notificación (de prueba, va a ti)
-                //await _mailService.SendEmailAsync(
-                //    to: "scalvario@ecmfg.com",
-                //    subject: $"Nueva tarea activada: {nextTask.IdTaskNavigation.TaskName}",
-                //    body: $"Se activó la tarea: {nextTask.IdTaskNavigation.TaskName}\n\n" +
-                //          $"Inicio: {nextTask.StartDate:dd/MM/yyyy}\n" +
-                //          $"Fin: {nextTask.EndDate:dd/MM/yyyy}\n" +
-                //          $"Empleado asignado: {nextTask.Employee?.FirstName ?? "N/A"}"
-                //);
-            }
-
-            // 7. Si la tarea completada es la número 4, activar simultáneamente las 4 siguientes
-            if (ActiveTask.IdTaskNavigation.IdTask == 4)
-            {
-                var nextSimultaneousTasks = Project.ProjectTasks
-                    .Where(t => new[] { 5, 6, 7, 8 }.Contains(t.IdTaskNavigation.IdTask))
-                    .ToList();
-
-                foreach (var task in nextSimultaneousTasks)
-                {
-                    task.IdStatus = 2;
-                    task.StartDate = ActiveTask.EndDate;
-                    task.EndDate = WorkDaysFromDate(task.StartDate, task.Duration);
-
-                    await _projectsDataService.UpdateTaskAsync(task);
-
-                    //await _emailService.SendEmailAsync(
-                    //    to: "scalvario@ecmfg.com",
-                    //    subject: $"Tarea simultánea activada: {task.IdTaskNavigation.TaskName}",
-                    //    body: $"Se activó la tarea: {task.IdTaskNavigation.TaskName}\n\n" +
-                    //          $"Inicio: {task.StartDate:dd/MM/yyyy}\n" +
-                    //          $"Fin: {task.EndDate:dd/MM/yyyy}\n" +
-                    //          $"Empleado asignado: {task.Employee?.FirstName ?? "N/A"}"
-                    //);
-                }
-            }
-
-            // 8. Notificar a la vista que se completó
-            RaisePropertyChanged(nameof(ActiveTask));
-            _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "The task has been completed");
-            await RefreshActivitiesAsync();
-        }
-
-        private DateTime WorkDaysFromDate(DateTime start, int workDays)
-        {
-            DateTime date = start;
-            int added = 0;
-
-            while (added < workDays)
-            {
-                date = date.AddDays(1);
-                if (date.DayOfWeek != DayOfWeek.Saturday && date.DayOfWeek != DayOfWeek.Sunday)
-                    added++;
-            }
-
-            return date;
-        }
-
         private async System.Threading.Tasks.Task RefreshActivitiesAsync()
         {
             Activities.Clear();
@@ -329,6 +241,31 @@ namespace ProjectManager.ViewModels
             else if (ActiveTask.IdTask == 5)
             {
                 await NotifyEmailForTaskAsync(9);
+            }
+        }
+
+        private async System.Threading.Tasks.Task OnCompleteTaskAsync()
+        {
+            if (ActiveTask == null)
+                return;
+
+            try
+            {
+                await _projectsDataService.CompleteTaskAsync(ActiveTask);
+
+                // Opcional: refrescar tareas del proyecto
+                await RefreshActivitiesAsync();
+
+                // Notificar éxito
+                _ = _windowManagerService.OpenInDialog(typeof(ApplyMessageViewModel).FullName, "Se completo la tarea correctamente");
+
+                // Si deseas cerrar la vista o navegar, hazlo aquí
+                //_navigationService.GoBack(); // si usas navegación
+
+            }
+            catch (Exception ex)
+            {
+                _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Error, No se pudo completar la tarea: " + ex.ToString());
             }
         }
 

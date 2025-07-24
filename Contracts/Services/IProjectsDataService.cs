@@ -22,7 +22,6 @@ namespace ProjectManager.Contracts.Services
         Task<ICollection<ProjectTask>> GetTasksAsync(int employee);
         Task<IEnumerable<Department>> GetDepartmentsAsync();
         bool SaveProject(Project project);
-        bool CompleteTask(ProjectTask task);
         bool AddCustomer(Customer customer);
         bool CancelProject(Project project);
         bool AddEmployee(Employee employee);
@@ -34,6 +33,7 @@ namespace ProjectManager.Contracts.Services
         Task<int> SavePartAsync(Part part);
         Task<bool> SaveProjectPartAsync(ProjectPart projectPart);
         Task<IEnumerable<ProjectPart>> GetProjectPartsWithPartInfoAsync(int projectId);
+        System.Threading.Tasks.Task CompleteTaskAsync(ProjectTask activeTask);
         System.Threading.Tasks.Task UpdateTaskAsync(ProjectTask task);
     }
 }

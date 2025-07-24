@@ -54,7 +54,7 @@ namespace ProjectManager.Services
         private IEnumerable<Customer> GetCustomers()
         {
             return context.Customers.ToList().OrderBy(data => data.Name);
-        }   
+        }
 
         public async Task<IEnumerable<Employee>> GetEmployeesAsync()
         {
@@ -139,7 +139,7 @@ namespace ProjectManager.Services
         public async Task<Models.Task> GetTaskAsync(int id)
         {
             await System.Threading.Tasks.Task.CompletedTask;
-            return GetTask(id); 
+            return GetTask(id);
         }
 
         private Models.Task GetTask(int id)
@@ -147,133 +147,16 @@ namespace ProjectManager.Services
             return context.Tasks.Find(id);
         }
 
-        public bool CompleteTask(ProjectTask task)
-        {
-            if (DateTime.Now > task.EndDate)
-            {
-                task.IdStatus = 1;
-            }
-            else
-            {
-                task.IdStatus = 4;
-            }
-
-            task.EndDate = DateTime.Now;
-
-            int countpendingtask = context.ProjectTasks.Count(i => i.IdProject == task.IdProject && (i.IdStatus == 2 || i.IdStatus == 3));
-
-            if (countpendingtask == 1)
-            {
-                Project project = context.Projects.First(i => i.IdProject == task.IdProject);
-                project.IdStatus = 4;
-            }
-
-            else
-            {
-                List<ProjectTask> projectTasks = context.ProjectTasks.Where(i => i.IdProject == task.IdProject).ToList();
-
-                for (int cont = task.IdTask; cont < 9; cont++)
-                {
-
-                    if (cont > 0 && cont < 4)
-                    {
-                        if (task.IdTask == cont)
-                        {
-                            projectTasks[cont].IdStatus = 2;
-                            projectTasks[cont].StartDate = DateTime.Now;
-                            projectTasks[cont].EndDate = WorkDays(projectTasks[cont].Duration, projectTasks[cont].StartDate);
-
-                            if (cont < 5 || cont > 7)
-                            {
-                                LastDate = projectTasks[cont].EndDate;
-                            }
-                        }
-                        else
-                        {
-                            projectTasks[cont].StartDate = LastDate;
-                            projectTasks[cont].EndDate = WorkDays(projectTasks[cont].Duration, projectTasks[cont].StartDate);
-
-                            if (projectTasks[cont].IdTask < 5 || projectTasks[cont].IdTask > 7)
-                            {
-                                LastDate = projectTasks[cont].EndDate;
-                            }
-
-                            if (cont == 4)
-                            {
-                                WorsDate = projectTasks[cont].EndDate;
-                            }
-
-                            if (cont == 8)
-                            {
-                                projectTasks[cont].StartDate = WorsDate;
-                                projectTasks[cont].EndDate = WorkDays(projectTasks[cont].Duration, projectTasks[cont].StartDate);
-                            }
-                        }
-                    }
-                    else if (task.IdTask == 4)
-                    {
-                        if (cont != 8)
-                        {
-                            projectTasks[cont].IdStatus = 2;
-                            projectTasks[cont].StartDate = DateTime.Now;
-                            projectTasks[cont].EndDate = WorkDays(projectTasks[cont].Duration, projectTasks[cont].StartDate);
-
-                            if (cont == 4)
-                            {
-                                WorsDate = projectTasks[cont].EndDate;
-                            }
-
-                            if (cont == 8)
-                            {
-                                projectTasks[cont].StartDate = WorsDate;
-                                projectTasks[cont].EndDate = WorkDays(projectTasks[cont].Duration, projectTasks[cont].StartDate);
-                            }
-                        }
-                    }
-                    else if (task.IdTask == 5)
-                    {
-                        projectTasks[8].IdStatus = 2;
-                        projectTasks[8].StartDate = DateTime.Now;
-                        projectTasks[8].EndDate = WorkDays(projectTasks[8].Duration, projectTasks[8].StartDate);
-
-                    }
-                }
-
-            }
-            var result = context.SaveChanges();
-            return result > 0;
-        }
-
-        private DateTime WorkDays(int days, DateTime date)
-        {
-
-            for (int i = 1; i <= days; i++)
-            {
-                if (date.AddDays(i).DayOfWeek == DayOfWeek.Saturday)
-                {
-                    days++;
-                }
-                else if (date.AddDays(i).DayOfWeek == DayOfWeek.Sunday)
-                {
-                    days++;
-
-                }
-            }
-
-            return date.AddDays(days);
-
-        }
-
         public async Task<ICollection<ProjectTask>> GetTasksAsync(int employee)
         {
             await System.Threading.Tasks.Task.CompletedTask;
-            return GetTasks(employee); 
+            return GetTasks(employee);
         }
 
         private ICollection<ProjectTask> GetTasks(int employee)
         {
             using projectsContext context = new projectsContext();
-            return context.ProjectTasks.Where(i =>  i.IdEmployee == employee && i.IdStatus == 2).ToList();
+            return context.ProjectTasks.Where(i => i.IdEmployee == employee && i.IdStatus == 2).ToList();
         }
 
         public async Task<Project> GetProjectAsync(int id)
@@ -298,7 +181,7 @@ namespace ProjectManager.Services
             return context.Sites.Find(id);
         }
 
-        public ProjectTask GetActiveTask(int project, int employee)  
+        public ProjectTask GetActiveTask(int project, int employee)
         {
             return context.ProjectTasks.FirstOrDefault(i => i.IdProject == project && i.IdStatus == 2 && i.IdEmployee == employee);
         }
@@ -338,11 +221,11 @@ namespace ProjectManager.Services
 
             var result = context.SaveChanges();
             return result > 0;
-         
+
         }
 
         public bool AddEmployee(Employee employee)
-        { 
+        {
 
             if (employee != null)
             {
@@ -399,27 +282,147 @@ namespace ProjectManager.Services
 
         public async System.Threading.Tasks.Task UpdateTaskAsync(ProjectTask task)
         {
-            if (task == null) return;
+            if (task == null)
+                throw new ArgumentNullException(nameof(task));
+
 
             var existingTask = await context.ProjectTasks
-                .Include(t => t.IdTaskNavigation)
-                .Include(t => t.IdEmployeeNavigation)
-                .FirstOrDefaultAsync(t => t.IdProject == task.IdProject && t.IdTask == task.IdTask);
+                .FirstOrDefaultAsync(t => t.IdTask == task.IdTask);
 
-            if (existingTask != null)
+            if (existingTask == null)
+                throw new InvalidOperationException($"No se encontró la tarea con ID {task.IdTask}");
+
+            // Actualizamos las propiedades necesarias
+            existingTask.StartDate = task.StartDate;
+            existingTask.EndDate = task.EndDate;
+            existingTask.IdStatus = task.IdStatus;
+
+            await context.SaveChangesAsync();
+        }
+
+        public async System.Threading.Tasks.Task CompleteTaskAsync(ProjectTask activeTask)
+        {
+            if (activeTask == null)
+                return;
+
+            if (DateTime.Now > activeTask.EndDate)
+                activeTask.IdStatus = 1; // Completada
+            else
+                activeTask.IdStatus = 4;
+
+            activeTask.EndDate = DateTime.Now;
+
+            await UpdateTaskAsync(activeTask);
+            // Recalcular fechas en cascada
+            await UpdateDependentTasksRecursive(activeTask);
+
+            // Abrir tareas simultáneas si aplica (por ejemplo, 5–8 cuando se completa la 4)
+            await OpenSimultaneousTasksIfNeeded(activeTask);
+
+            var allTasks = await context.ProjectTasks
+                        .Include(t => t.IdTaskNavigation)
+                        .Where(t => t.IdProject == activeTask.IdProject)
+                        .ToListAsync();
+
+            foreach (var task in allTasks.Where(t =>
+                t.IdStatus == 3 && // Pendiente
+                t.IdTaskNavigation.PredecessorTaskId == activeTask.IdTaskNavigation.IdTask))
             {
-                // Actualiza solo los campos necesarios
-                existingTask.IdStatus = task.IdStatus;
-                existingTask.EndDate = task.EndDate;
-                existingTask.StartDate = task.StartDate;
+                // Si la predecesora es la que acabamos de completar
+                task.IdStatus = 2; // En proceso
+                await UpdateTaskAsync(task);
+            }
 
-                //// Si tienes alguna propiedad adicional como CompletionStatus (string)
-                //if (!string.IsNullOrEmpty(task.CompletionStatus))
-                //    existingTask.CompletionStatus = task.CompletionStatus;
+            var allTasksCompleted = await context.ProjectTasks
+                                    .Where(t => t.IdProject == activeTask.IdProject)
+                                    .AllAsync(t => t.IdStatus == 1 || t.IdStatus == 4); // 1 y 4: tareas finalizadas
 
-                await context.SaveChangesAsync();
+            if (allTasksCompleted)
+            {
+                var project = await context.Projects.FirstOrDefaultAsync(p => p.IdProject == activeTask.IdProject);
+                if (project != null)
+                {
+                    project.IdStatus = 4; // Proyecto completado
+                    await context.SaveChangesAsync();
+                }
+            }
+
+            // Notifica al encargado de la(s) siguiente(s) tarea(s)
+            //var nextTasks = await context.ProjectTasks
+            //        .Include(t => t.IdTaskNavigation)
+            //        .Include(t => t.IdEmployeeNavigation)
+            //        .Where(t => t.IdTaskNavigation.PredecessorTaskId == activeTask.IdTaskNavigation.IdTask && t.IdProject == activeTask.IdProject)
+            //        .ToListAsync();
+
+            //foreach (var nextTask in nextTasks)
+            //{
+            //    // Aquí puedes cambiar esto en producción
+            //    await _emailService.SendEmailAsync(
+            //        "scalvario@ecmfg.com", // Reemplazar con nextTask.Employee.Email después de pruebas
+            //        "Nueva tarea disponible",
+            //        $"Ya puedes iniciar tu tarea \"{nextTask.IdTaskNavigation.Name}\" del proyecto."
+            //    );
+            //}
+
+        }
+
+        private async System.Threading.Tasks.Task UpdateDependentTasksRecursive(ProjectTask modifiedTask)
+        {
+            var dependents = await context.ProjectTasks
+                .Include(t => t.IdTaskNavigation)
+                .Where(t => t.IdTaskNavigation.PredecessorTaskId == modifiedTask.IdTaskNavigation.IdTask && t.IdProject == modifiedTask.IdProject)
+                .ToListAsync();
+
+            foreach (var dependent in dependents)
+            {
+                    dependent.StartDate = modifiedTask.EndDate;
+                    dependent.EndDate = CalculateEndDate(dependent.StartDate, dependent.Duration);
+
+                    await UpdateTaskAsync(dependent);
+
+                    // Recursividad
+                    await UpdateDependentTasksRecursive(dependent);
             }
         }
+
+        private DateTime CalculateEndDate(DateTime startDate, int duration)
+        {
+            DateTime date = startDate;
+            int added = 0;
+            while (added < duration)
+            {
+                date = date.AddDays(1);
+                if (date.DayOfWeek != DayOfWeek.Saturday && date.DayOfWeek != DayOfWeek.Sunday)
+                    added++;
+            }
+            return date;
+        }
+
+        private async System.Threading.Tasks.Task OpenSimultaneousTasksIfNeeded(ProjectTask completedTask)
+        {
+            // Ejemplo estático: si se completó la tarea 4, abrir tareas 5, 6, 7, 8
+            if (completedTask.IdTaskNavigation.IdTask == 4)
+            {
+                var simultaneousTaskIds = new List<int> { 5, 6, 7, 8 };
+
+                var tasksToOpen = await context.ProjectTasks
+                    .Include(t => t.IdTaskNavigation)
+                    .Where(t => simultaneousTaskIds.Contains(t.IdTaskNavigation.IdTask))
+                    .ToListAsync();
+
+                foreach (var task in tasksToOpen)
+                {
+                    task.StartDate = DateTime.Now;
+                    task.EndDate = CalculateEndDate(task.StartDate, task.Duration);
+                    task.IdStatus = 2; // Abierta
+                    await UpdateTaskAsync(task);
+                }
+            }
+        }
+
+
     }
+
 }
+
 
