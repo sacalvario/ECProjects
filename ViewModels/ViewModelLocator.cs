@@ -66,6 +66,9 @@ namespace ProjectManager.ViewModels
 
         public ProjectsViewModel ProjectsViewModel
             => SimpleIoc.Default.GetInstance<ProjectsViewModel>();
+        
+        public ReportViewModel ReportViewModel
+            => SimpleIoc.Default.GetInstance<ReportViewModel>();
 
         public ViewModelLocator()
         {
@@ -95,6 +98,7 @@ namespace ProjectManager.ViewModels
             SimpleIoc.Default.Register<Employee>();
             SimpleIoc.Default.Register<Customer>();
             SimpleIoc.Default.Register<Project>();
+            SimpleIoc.Default.Register<ReportViewModel>();
 
             // Pages
             Register<FrontCaptureViewModel, FrontCapture>();

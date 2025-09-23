@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Messaging;
+using ProjectManager.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -21,6 +23,20 @@ namespace ProjectManager.Views
         public ProjectDetails()
         {
             InitializeComponent();
+            Messenger.Default.Register<NotificationMessage<Models.Project>>(this, NotificationMessageReceived);
         }
+
+        private void NotificationMessageReceived(NotificationMessage<Models.Project> obj)
+        {
+            if (obj.Notification == "ShowReport")
+            {
+                var report = new Report
+                {
+                    DataContext = new ReportViewModel(obj.Content, ((ProjectDetailsViewModel)DataContext)._projectsDataService)
+                };
+                _ = report.ShowDialog();
+            }
+        }
+
     }
 }

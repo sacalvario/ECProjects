@@ -420,7 +420,19 @@ namespace ProjectManager.Services
             }
         }
 
-
+        public Project GetProjectWithInfoAsync(int id)
+        {
+            using (var context = new projectsContext())
+            {
+                return context.Projects
+                    .Include(e => e.ProjectParts)
+                        .ThenInclude(ea => ea.Part)
+                            .ThenInclude(np => np.Customer)
+                    .Include(e => e.ProjectTasks)
+                        .ThenInclude(enp => enp.IdTaskNavigation)
+                    .FirstOrDefault(e => e.IdProject == id);
+            }
+        }
     }
 
 }

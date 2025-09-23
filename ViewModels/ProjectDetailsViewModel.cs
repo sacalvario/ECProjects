@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using ProjectManager.Contracts.Services;
 using ProjectManager.Contracts.ViewModels;
 using ProjectManager.Models;
@@ -14,7 +15,7 @@ namespace ProjectManager.ViewModels
 {
     public class ProjectDetailsViewModel : ViewModelBase, INavigationAware
     {
-        private readonly IProjectsDataService _projectsDataService;
+        public readonly IProjectsDataService _projectsDataService;
         private readonly IWindowManagerService _windowManagerService;
         private readonly IMailService _mailService;
         private readonly INavigationService _navigationService;
@@ -155,6 +156,20 @@ namespace ProjectManager.ViewModels
                 }
             }
         }
+
+        private ICommand _ExportPDFCommand;
+        public ICommand ExportPDFCommand
+        {
+            get
+            {
+                if (_ExportPDFCommand == null)
+                {
+                    _ExportPDFCommand = new RelayCommand(Export);
+                }
+                return _ExportPDFCommand;
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -242,6 +257,11 @@ namespace ProjectManager.ViewModels
             {
                 await NotifyEmailForTaskAsync(9);
             }
+        }
+
+        private void Export()
+        {
+            Messenger.Default.Send(new NotificationMessage<Project>(Project, "ShowReport"));
         }
 
         private async System.Threading.Tasks.Task OnCompleteTaskAsync()

@@ -14,6 +14,7 @@ namespace ProjectManager.Contracts.Services
         Task<Customer> GetCustomerAsync(int id);
         Task<Models.Task> GetTaskAsync(int id);
         Task<Project> GetProjectAsync(int id);
+        Project GetProjectWithInfoAsync(int id);
         Task<IEnumerable<Project>> GetHistoryAsync();
         Task<IEnumerable<Models.Task>> GetTasksAsync();
         Task<IEnumerable<Customer>> GetCustomersAsync();
