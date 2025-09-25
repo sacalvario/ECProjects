@@ -45,7 +45,6 @@ namespace ProjectManager.ViewModels
         {
             _projectsDataService = projectsDataService;
             Project = _projectsDataService.GetProjectWithInfoAsync(project.IdProject);
-            Project = project;
         }
 
         private void ExportECN(Visual visual)

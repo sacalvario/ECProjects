@@ -430,6 +430,16 @@ namespace ProjectManager.Services
                             .ThenInclude(np => np.Customer)
                     .Include(e => e.ProjectTasks)
                         .ThenInclude(enp => enp.IdTaskNavigation)
+                    .Include(e => e.ProjectTasks)
+                        .ThenInclude(pt => pt.IdEmployeeNavigation)
+                            .ThenInclude(emp => emp.IdDepartamentNavigation)
+                    .Include(e => e.ProjectTasks)
+                        .ThenInclude(pt => pt.IdStatusNavigation)
+                    .Include(e => e.IdManagerNavigation)
+                        .ThenInclude(c => c.IdDepartamentNavigation)
+                    .Include(e => e.IdGeneratedbyNavigation)
+                        .ThenInclude(c => c.IdDepartamentNavigation)
+                     .Include(e => e.IdStatusNavigation)
                     .FirstOrDefault(e => e.IdProject == id);
             }
         }
