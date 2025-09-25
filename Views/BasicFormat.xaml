@@ -405,7 +405,7 @@
                         </StackPanel>
 
                         <TextBlock Foreground="Black" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left">
-                            <Run Text="Cantidad de partes: "/>
+                            <Run Text="Parts count: "/>
                             <Run Text="{Binding NewParts.Count, Mode=OneWay}" FontWeight="Black" FontSize="16" Foreground="Green"/>
                         </TextBlock>
 
@@ -423,11 +423,11 @@
                                                 <Border Width="28" Height="28" Margin="5,15,0,0" CornerRadius="50" Background="Green" VerticalAlignment="Center">
                                                     <materialDesign:PackIcon Kind="Cube" Width="22" Height="22" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                                 </Border>
-                                                <TextBox Text="{Binding PartNumber, Mode=TwoWay}" FontSize="15" Width="210" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:TextFieldAssist.TextFieldCornerRadius="5" BorderBrush="Green" materialDesign:HintAssist.Hint="Número de parte" Foreground="Black" Margin="15,0,10,0"/>
+                                                <TextBox Text="{Binding PartNumber, Mode=TwoWay}" FontSize="15" Width="210" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:TextFieldAssist.TextFieldCornerRadius="5" BorderBrush="Green" materialDesign:HintAssist.Hint="Part number" Foreground="Black" Margin="15,0,10,0"/>
                                             </StackPanel>
 
                                             <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="10,0,0,0">
-                                                <TextBox Text="{Binding Revision, Mode=TwoWay}" FontSize="15" Width="130" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:TextFieldAssist.TextFieldCornerRadius="5" BorderBrush="Green" materialDesign:HintAssist.Hint="Revisión" Foreground="Black" Margin="0,0,10,0"/>
+                                                <TextBox Text="{Binding Revision, Mode=TwoWay}" FontSize="15" Width="130" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:TextFieldAssist.TextFieldCornerRadius="5" BorderBrush="Green" materialDesign:HintAssist.Hint="Revision" Foreground="Black" Margin="0,0,10,0"/>
                                             </StackPanel>
                                         </Grid>
                                     </DataTemplate>

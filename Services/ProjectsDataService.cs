@@ -440,6 +440,7 @@ namespace ProjectManager.Services
                     .Include(e => e.IdGeneratedbyNavigation)
                         .ThenInclude(c => c.IdDepartamentNavigation)
                      .Include(e => e.IdStatusNavigation)
+                     .Include(e => e.IdCustomerNavigation)
                     .FirstOrDefault(e => e.IdProject == id);
             }
         }

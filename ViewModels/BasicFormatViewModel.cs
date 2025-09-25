@@ -896,7 +896,7 @@ namespace ProjectManager.ViewModels
                     ProjectTask task = _projectsDataService.GetOnlyActiveTask(Project.IdProject);
                     task.IdEmployeeNavigation = await _projectsDataService.GetEmployeeAsync(task.IdEmployee);
 
-                    //_mailService.SendNewTaskEmail(task.IdEmployeeNavigation.Email, Project.IdGeneratedbyNavigation.Email, Project.IdProject, task.IdEmployeeNavigation.Name, UserRecord.Employee.Name, task.LongStartDate, Project.IdCustomerNavigation.Name);
+                    _mailService.SendNewTaskEmail(task.IdEmployeeNavigation.Email, Project.IdGeneratedbyNavigation.Email, Project.IdProject, task.IdEmployeeNavigation.Name, UserRecord.Employee.Name, task.LongStartDate, Project.IdCustomerNavigation.Name);
 
 
                     _navigationService.NavigateTo(typeof(ProjectDetailsViewModel).FullName, Project);
