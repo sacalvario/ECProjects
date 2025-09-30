@@ -73,6 +73,8 @@ namespace ProjectManager.Models
         public DateTime? ReadyToBuildDate { get; set; }
         public string? Comments { get; set; }
         public bool IsInProgress => IdStatus == 2;
+        public bool IsCustom { get; set; }
+        public string CustomDescription { get; set; }
 
         public string LongStartDate => StartDate.ToString("D", CultureInfo.CreateSpecificCulture("en-US"));
         public string LongEndDate => EndDate.ToString("D", CultureInfo.CreateSpecificCulture("en-US"));

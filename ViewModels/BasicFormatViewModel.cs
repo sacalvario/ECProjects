@@ -426,6 +426,45 @@ namespace ProjectManager.ViewModels
         private ICommand _DeletePartCommand;
         public ICommand DeletePartCommand => _DeletePartCommand ??= new RelayCommand(DeletePart);
 
+        private ObservableCollection<ProjectTask> _CustomTasks = new ObservableCollection<ProjectTask>();
+        public ObservableCollection<ProjectTask> CustomTasks
+        {
+            get => _CustomTasks;
+            set
+            {
+                _CustomTasks = value;
+                RaisePropertyChanged(nameof(CustomTasks));
+            }
+        }
+
+        private ICommand _AddCustomTaskCommand;
+        public ICommand AddCustomTaskCommand => _AddCustomTaskCommand ??= new RelayCommand(AddCustomTask);
+
+        private void AddCustomTask()
+        {
+            var task = new ProjectTask
+            {
+                IsCustom = true,
+                CustomDescription = "New custom activity",
+                Duration = 1,
+                StartDate = DateTime.Now,
+                EndDate = WorkDaysFromDate(DateTime.Now, 1),
+                IdStatus = 2,
+                EmployeeList = Employees
+            };
+
+            task.DurationChanged += (s, e) =>
+            {
+                var changedTask = s as ProjectTask;
+                if (changedTask != null)
+                {
+                    changedTask.EndDate = WorkDaysFromDate(changedTask.StartDate, changedTask.Duration);
+                }
+            };
+
+            CustomTasks.Add(task);
+        }
+
 
 
         private ObservableCollection<Task> _Tasks;

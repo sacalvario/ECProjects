@@ -467,6 +467,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="8*"/>
+                                <RowDefinition Height="8*"/>
                             </Grid.RowDefinitions>
                             <StackPanel Orientation="Horizontal">
                                 <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="#" Width="80" />
@@ -542,6 +543,36 @@
                                     </DataTemplate>
                                 </ui:ListView.ItemTemplate>
                             </ui:ListView>
+
+                            <TextBlock Text="Custom Activities" FontSize="20" FontWeight="Bold" Margin="0,20,0,10" Grid.Row="2"/>
+                            <Button Content="Add Activity" VerticalAlignment="Top" HorizontalAlignment="Center" Command="{Binding AddCustomTaskCommand}" Width="120" Height="30" Grid.Row="2" Background="Green" Foreground="White"/>
+
+                            <DataGrid ItemsSource="{Binding CustomTasks}" AutoGenerateColumns="False" Margin="0,80,0,20" Grid.Row="2">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Description" Binding="{Binding CustomDescription}" Width="200"/>
+
+                                        <!-- Fecha de inicio con DatePicker -->
+                                        <DataGridTemplateColumn Header="Start Date" Width="150">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <DatePicker SelectedDate="{Binding StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+                                        <!-- Duración -->
+                                        <DataGridTextColumn Header="Duration (days)" Binding="{Binding Duration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100"/>
+
+                                        <!-- Fecha de fin calculada -->
+                                        <DataGridTextColumn Header="End Date" Binding="{Binding EndDate}" Width="150" IsReadOnly="True"/>
+
+                                        <!-- Responsable -->
+                                        <DataGridComboBoxColumn Header="Responsible" 
+                                SelectedItemBinding="{Binding IdEmployeeNavigation}" 
+                                ItemsSource="{Binding DataContext.Employees, RelativeSource={RelativeSource AncestorType=Page}}" 
+                                DisplayMemberPath="Name" Width="200"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
                         </Grid>
                     </ScrollViewer>
                 </Grid>
