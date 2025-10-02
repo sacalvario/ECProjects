@@ -545,34 +545,127 @@
                             </ui:ListView>
 
                             <TextBlock Text="Custom Activities" FontSize="20" FontWeight="Bold" Margin="0,20,0,10" Grid.Row="2"/>
-                            <Button Content="Add Activity" VerticalAlignment="Top" HorizontalAlignment="Center" Command="{Binding AddCustomTaskCommand}" Width="120" Height="30" Grid.Row="2" Background="Green" Foreground="White"/>
+                            <Button Content="Add Activity" VerticalAlignment="Top" HorizontalAlignment="Center" Command="{Binding AddCustomTaskCommand}" Width="120" Height="30" Grid.Row="2" Background="#FFC107" Foreground="Black" FontWeight="Bold"/>
 
-                            <DataGrid ItemsSource="{Binding CustomTasks}" AutoGenerateColumns="False" Margin="0,80,0,20" Grid.Row="2">
+                            <DataGrid ItemsSource="{Binding CustomTasks}" 
+                                      AutoGenerateColumns="False" 
+                                      Margin="0,80,0,20" 
+                                      Grid.Row="2" 
+                                      CanUserAddRows="False" 
+                                      SelectionMode="Single" 
+                                      SelectionUnit="FullRow" 
+                                      HeadersVisibility="Column">
+
+                                <!-- Estilo para encabezados -->
+                                <DataGrid.ColumnHeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="Background" Value="#FFC107"/>
+                                        <Setter Property="Foreground" Value="Black"/>
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                        <Setter Property="FontSize" Value="14"/>
+                                        <Setter Property="Height" Value="35"/>
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                    </Style>
+                                </DataGrid.ColumnHeaderStyle>
+
+                                <DataGrid.RowStyle>
+                                    <Style TargetType="DataGridRow">
+                                        <Setter Property="Background" Value="#FFEAE7E7"/>
+                                        <!-- Fondo neutro -->
+                                        <Setter Property="Foreground" Value="Black"/>
+                                        <Setter Property="FontSize" Value="14"/>
+                                        <Setter Property="FontWeight" Value="Normal"/>
+                                        <Setter Property="BorderThickness" Value="0"/>
+                                        <Setter Property="BorderBrush" Value="Transparent"/>
+                                        <Setter Property="SnapsToDevicePixels" Value="True"/>
+                                        <Style.Triggers>
+                                            <!-- Selección -->
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter Property="Background" Value="#FFEFEFEF"/>
+                                                <!-- Gris claro en vez de verde -->
+                                                <Setter Property="Foreground" Value="Black"/>
+                                            </Trigger>
+                                            <!-- Hover -->
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#FFF5F5F5"/>
+                                                <!-- Hover sutil -->
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGrid.RowStyle>
+
                                 <DataGrid.Columns>
+                                    <!-- Descripción -->
                                     <DataGridTextColumn Header="Description" Binding="{Binding CustomDescription}" Width="200"/>
 
-                                        <!-- Fecha de inicio con DatePicker -->
-                                        <DataGridTemplateColumn Header="Start Date" Width="150">
-                                            <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <DatePicker SelectedDate="{Binding StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                                </DataTemplate>
-                                            </DataGridTemplateColumn.CellTemplate>
-                                        </DataGridTemplateColumn>
+                                    <!-- Fecha de inicio -->
+                                    <DataGridTemplateColumn Header="Start Date" Width="150">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <DatePicker SelectedDate="{Binding StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
 
-                                        <!-- Duración -->
-                                        <DataGridTextColumn Header="Duration (days)" Binding="{Binding Duration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100"/>
+                                    <!-- Duración -->
+                                    <DataGridTextColumn Header="Duration (days)" Binding="{Binding Duration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="150"/>
 
-                                        <!-- Fecha de fin calculada -->
-                                        <DataGridTextColumn Header="End Date" Binding="{Binding EndDate}" Width="150" IsReadOnly="True"/>
+                                    <!-- Fecha de fin -->
+                                    <DataGridTextColumn Header="End Date" Binding="{Binding LongEndDate, Mode=OneWay}" Width="220" IsReadOnly="True"/>
 
-                                        <!-- Responsable -->
-                                        <DataGridComboBoxColumn Header="Responsible" 
-                                SelectedItemBinding="{Binding IdEmployeeNavigation}" 
-                                ItemsSource="{Binding DataContext.Employees, RelativeSource={RelativeSource AncestorType=Page}}" 
-                                DisplayMemberPath="Name" Width="200"/>
+                                    <!-- Responsable -->
+                                    <DataGridTemplateColumn Header="Responsible" Width="300">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
+                                                    <materialDesign:PackIcon Kind="AccountTie" Width="20" Height="20" VerticalAlignment="Center"/>
+                                                    <TextBlock Text="{Binding IdEmployeeNavigation.Name}" Margin="5,0,0,0" VerticalAlignment="Center" FontFamily="Quicksand" FontWeight="Bold"/>
+                                                    <TextBlock Text="-" Margin="2,0,0,0" VerticalAlignment="Center"/>
+                                                    <TextBlock Text="{Binding IdEmployeeNavigation.IdDepartamentNavigation.Name}" Margin="5,0,0,0" VerticalAlignment="Center" FontFamily="Quicksand" Foreground="Green"/>
+                                                    <TextBlock Text="{Binding IdEmployeeNavigation.IdSiteNavigation.Name}" Margin="8,0,0,0" VerticalAlignment="Center" FontWeight="Bold" Foreground="Black"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                            <DataTemplate>
+                                                <ComboBox IsEditable="True" IsTextSearchEnabled="True" TextSearch.TextPath="Name"
+                              SelectedItem="{Binding IdEmployeeNavigation, Mode=TwoWay}" 
+                              ItemsSource="{Binding EmployeeList}" BorderBrush="Black" Foreground="Black">
+                                                    <ComboBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <materialDesign:PackIcon Kind="AccountTie" Width="20" Height="20"/>
+                                                                <TextBlock Text="{Binding Name}" Margin="5,0,0,0" FontWeight="Bold"/>
+                                                                <TextBlock Text="-" Margin="2,0,0,0"/>
+                                                                <TextBlock Text="{Binding IdDepartamentNavigation.Name}" Margin="5,0,0,0" Foreground="Green"/>
+                                                                <TextBlock Text="{Binding IdSiteNavigation.Name}" Margin="8,0,0,0" FontWeight="Bold"/>
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </ComboBox.ItemTemplate>
+                                                </ComboBox>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                    </DataGridTemplateColumn>
+
+                                    <!-- Botón eliminar -->
+                                    <DataGridTemplateColumn Header="Remove" Width="100">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button Command="{Binding DataContext.RemoveCustomTaskCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" 
+                            CommandParameter="{Binding}" Background="Red" Foreground="White" HorizontalAlignment="Center" Width="80">
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                        <materialDesign:PackIcon Kind="Delete" Width="18" Height="18"/>
+                                                        <TextBlock Text="Remove" Margin="5,0,0,0"/>
+                                                    </StackPanel>
+                                                </Button>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
                                 </DataGrid.Columns>
                             </DataGrid>
+
+
                         </Grid>
                     </ScrollViewer>
                 </Grid>

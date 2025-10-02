@@ -428,6 +428,8 @@ namespace ProjectManager.Models
             _ = modelBuilder.Entity<Employee>().Ignore(t => t.IsActive);
             _ = modelBuilder.Entity<ProjectTask>().Ignore(t => t.EmployeeList);
             _ = modelBuilder.Entity<Employee>().Ignore(t => t.ActiveText);
+            _ = modelBuilder.Entity<ProjectTask>().Ignore(t => t.IsCustom);
+            _ = modelBuilder.Entity<ProjectTask>().Ignore(t => t.CustomDescription);
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

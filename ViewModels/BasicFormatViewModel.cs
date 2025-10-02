@@ -384,6 +384,8 @@ namespace ProjectManager.ViewModels
 
             Project.ProjectTasks = new ObservableCollection<ProjectTask>();
 
+            CustomTasks = new ObservableCollection<ProjectTask>(); // empieza vacío
+
             GetEmployees();
             GetCustomers();
             GetTasks();
@@ -405,6 +407,7 @@ namespace ProjectManager.ViewModels
 
             GoToNextTabItemCommand = new RelayCommand(GoToNexTabItem);
             GoToLastTabItemCommand = new RelayCommand(GoToLastTabItem);
+            RemoveCustomTaskCommand = new RelayCommand<ProjectTask>(RemoveCustomTask);
         }
 
 
@@ -440,6 +443,8 @@ namespace ProjectManager.ViewModels
         private ICommand _AddCustomTaskCommand;
         public ICommand AddCustomTaskCommand => _AddCustomTaskCommand ??= new RelayCommand(AddCustomTask);
 
+        public ICommand RemoveCustomTaskCommand { get; }
+
         private void AddCustomTask()
         {
             var task = new ProjectTask
@@ -465,6 +470,11 @@ namespace ProjectManager.ViewModels
             CustomTasks.Add(task);
         }
 
+        private void RemoveCustomTask(ProjectTask task)
+        {
+            if (task != null && CustomTasks.Contains(task))
+                CustomTasks.Remove(task);
+        }
 
 
         private ObservableCollection<Task> _Tasks;
