@@ -988,12 +988,18 @@ namespace ProjectManager.ViewModels
                 data.TypeProject = 1;
                 data.TaskDurationDays = 10;
             }
-            else if (Points > 3 && Points < 8)
+            else if (Points > 3 && Points < 8 || NewCustomer)
             {
                 data.TypeProject = 2;
                 data.TaskDurationDays = 15;
             }
             else if (Points > 8)
+            {
+                data.TypeProject = 3;
+                data.TaskDurationDays = 20;
+            }
+
+            if (NewCustomer)
             {
                 data.TypeProject = 3;
                 data.TaskDurationDays = 20;
