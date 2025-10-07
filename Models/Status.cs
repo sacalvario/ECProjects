@@ -48,5 +48,7 @@ namespace ProjectManager.Models
 
         public virtual ICollection<ProjectTask> ProjectTasks { get; set; }
         public virtual ICollection<Project> Projects { get; set; }
+        public virtual ICollection<CustomProjectTask> CustomProjectTasks { get; set; } = new List<CustomProjectTask>();
+
     }
 }

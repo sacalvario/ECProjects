@@ -630,8 +630,8 @@
                                         <DataGridTemplateColumn.CellEditingTemplate>
                                             <DataTemplate>
                                                 <ComboBox IsEditable="True" IsTextSearchEnabled="True" TextSearch.TextPath="Name"
-                              SelectedItem="{Binding IdEmployeeNavigation, Mode=TwoWay}" 
-                              ItemsSource="{Binding EmployeeList}" BorderBrush="Black" Foreground="Black">
+                                                          SelectedItem="{Binding IdEmployeeNavigation, Mode=TwoWay}" 
+                                                          ItemsSource="{Binding DataContext.Employees, RelativeSource={RelativeSource AncestorType=Page}}" BorderBrush="Black" Foreground="Black">
                                                     <ComboBox.ItemTemplate>
                                                         <DataTemplate>
                                                             <StackPanel Orientation="Horizontal">

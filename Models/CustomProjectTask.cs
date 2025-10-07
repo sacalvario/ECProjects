@@ -1,26 +1,22 @@
 ﻿using GalaSoft.MvvmLight;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-
-#nullable disable
 
 namespace ProjectManager.Models
 {
-    public partial class ProjectTask : ViewModelBase
+    public partial class CustomProjectTask : ViewModelBase
     {
-        public int IdProject { get; set; }
-        public int IdTask { get; set; }
-        private int _Duration;
+        public int IdCustomTask { get; set; }
+        public int ProjectId { get; set; }
+
+        private int _duration;
         public int Duration
         {
-            get => _Duration;
+            get => _duration;
             set
             {
-                if (Set(ref _Duration, value))
-                {
+                if (Set(ref _duration, value))
                     DurationChanged?.Invoke(this, EventArgs.Empty);
-                }
             }
         }
 
@@ -36,10 +32,11 @@ namespace ProjectManager.Models
                 {
                     _startDate = value;
                     RaisePropertyChanged(nameof(StartDate));
-                    RaisePropertyChanged(nameof(LongStartDate)); // 👈 importante
+                    RaisePropertyChanged(nameof(LongStartDate));
                 }
             }
         }
+
         private DateTime _endDate;
         public DateTime EndDate
         {
@@ -50,30 +47,20 @@ namespace ProjectManager.Models
                 {
                     _endDate = value;
                     RaisePropertyChanged(nameof(EndDate));
-                    RaisePropertyChanged(nameof(LongEndDate)); // 👈 importante
+                    RaisePropertyChanged(nameof(LongEndDate));
                 }
             }
         }
 
-        public int IdEmployee { get; set; }
-        public int IdStatus { get; set; }
-        public DateTime? CompletationDate { get; set; }
-        public DateTime? ReadyToBuildDate { get; set; }
-        public string? Comments { get; set; }
-        public bool IsInProgress => IdStatus == 2;
-        public bool IsCustom { get; set; }
+        public int? IdEmployee { get; set; }
+        public int StatusId { get; set; } = 1;
         public string CustomDescription { get; set; }
 
         public string LongStartDate => StartDate.ToString("D", CultureInfo.CreateSpecificCulture("en-US"));
         public string LongEndDate => EndDate.ToString("D", CultureInfo.CreateSpecificCulture("en-US"));
 
-        public string CompletationDateString => CompletationDate.HasValue ? CompletationDate?.ToString("D", CultureInfo.CreateSpecificCulture("en-US")) : "";
-
         public virtual Employee IdEmployeeNavigation { get; set; }
-        public virtual Project IdProjectNavigation { get; set; }
-        public virtual Status IdStatusNavigation { get; set; }
-        public virtual Task IdTaskNavigation { get; set; }
-
-        public virtual ICollection<Employee> EmployeeList { get; set; }
+        public virtual Project Project { get; set; }
+        public virtual Status Status { get; set; }
     }
 }

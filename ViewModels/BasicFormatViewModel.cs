@@ -384,7 +384,7 @@ namespace ProjectManager.ViewModels
 
             Project.ProjectTasks = new ObservableCollection<ProjectTask>();
 
-            CustomTasks = new ObservableCollection<ProjectTask>(); // empieza vacío
+            CustomTasks = new ObservableCollection<CustomProjectTask>(); // empieza vacío
 
             GetEmployees();
             GetCustomers();
@@ -407,7 +407,7 @@ namespace ProjectManager.ViewModels
 
             GoToNextTabItemCommand = new RelayCommand(GoToNexTabItem);
             GoToLastTabItemCommand = new RelayCommand(GoToLastTabItem);
-            RemoveCustomTaskCommand = new RelayCommand<ProjectTask>(RemoveCustomTask);
+            RemoveCustomTaskCommand = new RelayCommand<CustomProjectTask>(RemoveCustomTask);
         }
 
 
@@ -429,8 +429,8 @@ namespace ProjectManager.ViewModels
         private ICommand _DeletePartCommand;
         public ICommand DeletePartCommand => _DeletePartCommand ??= new RelayCommand(DeletePart);
 
-        private ObservableCollection<ProjectTask> _CustomTasks = new ObservableCollection<ProjectTask>();
-        public ObservableCollection<ProjectTask> CustomTasks
+        private ObservableCollection<CustomProjectTask> _CustomTasks = new ObservableCollection<CustomProjectTask>();
+        public ObservableCollection<CustomProjectTask> CustomTasks
         {
             get => _CustomTasks;
             set
@@ -447,20 +447,18 @@ namespace ProjectManager.ViewModels
 
         private void AddCustomTask()
         {
-            var task = new ProjectTask
+            var task = new CustomProjectTask
             {
-                IsCustom = true,
                 CustomDescription = "New custom activity",
                 Duration = 1,
                 StartDate = DateTime.Now,
                 EndDate = WorkDaysFromDate(DateTime.Now, 1),
-                IdStatus = 2,
-                EmployeeList = Employees
+                IdEmployeeNavigation = null // aún sin responsable
             };
 
             task.DurationChanged += (s, e) =>
             {
-                var changedTask = s as ProjectTask;
+                var changedTask = s as CustomProjectTask;
                 if (changedTask != null)
                 {
                     changedTask.EndDate = WorkDaysFromDate(changedTask.StartDate, changedTask.Duration);
@@ -470,7 +468,7 @@ namespace ProjectManager.ViewModels
             CustomTasks.Add(task);
         }
 
-        private void RemoveCustomTask(ProjectTask task)
+        private void RemoveCustomTask(CustomProjectTask task)
         {
             if (task != null && CustomTasks.Contains(task))
                 CustomTasks.Remove(task);
@@ -913,7 +911,14 @@ namespace ProjectManager.ViewModels
 
 
             Project.ProjectTasks = TaskList;
-           
+
+            foreach (var custom in CustomTasks)
+            {
+                custom.ProjectId = Project.IdProject;
+            }
+
+            Project.CustomProjectTasks = CustomTasks;
+
             if (Project.Comments == null)
             {
                 Project.Comments = "N/A";

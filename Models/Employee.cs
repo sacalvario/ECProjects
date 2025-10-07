@@ -85,11 +85,14 @@ namespace ProjectManager.Models
             }
         }
 
+
         public virtual Department IdDepartamentNavigation { get; set; }
         public virtual Site IdSiteNavigation { get; set; }
         public virtual User User { get; set; }
         public virtual ICollection<Project> ProjectIdGeneratedbyNavigations { get; set; }
         public virtual ICollection<Project> ProjectIdManagerNavigations { get; set; }
         public virtual ICollection<ProjectTask> ProjectTasks { get; set; }
+        public virtual ICollection<CustomProjectTask> CustomProjectTasks { get; set; } = new List<CustomProjectTask>();
+
     }
 }

@@ -76,6 +76,8 @@ namespace ProjectManager.Models
         public virtual Employee IdManagerNavigation { get; set; }
         public virtual Status IdStatusNavigation { get; set; }
 
+        public virtual ICollection<CustomProjectTask> CustomProjectTasks { get; set; } = new List<CustomProjectTask>();
+
 
         public virtual ICollection<ProjectPart> ProjectParts { get; set; } = new HashSet<ProjectPart>();
         //private ICollection<ProjectTask> _ProjectTasks;

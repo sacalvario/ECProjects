@@ -28,6 +28,7 @@ namespace ProjectManager.Models
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<Task> Tasks { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<CustomProjectTask> CustomProjectTasks { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -423,6 +424,64 @@ namespace ProjectManager.Models
                     .HasConstraintName("employee_fk_id");
             });
 
+            modelBuilder.Entity<CustomProjectTask>(entity =>
+            {
+                entity.HasKey(e => e.IdCustomTask)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("customprojecttasks");
+
+                entity.HasIndex(e => e.IdEmployee)
+                    .HasDatabaseName("FK_CustomTasks_Employees");
+
+                entity.HasIndex(e => e.StatusId)
+                    .HasDatabaseName("FK_CustomTasks_Status");
+
+                entity.HasIndex(e => e.ProjectId)
+                    .HasDatabaseName("FK_CustomTasks_Projects");
+
+                entity.Property(e => e.IdCustomTask)
+                    .HasColumnName("IdCustomTask");
+
+                entity.Property(e => e.ProjectId)
+                    .HasColumnName("ProjectId");
+
+                entity.Property(e => e.IdEmployee)
+                    .HasColumnName("IdEmployee");
+
+                entity.Property(e => e.StatusId)
+                    .HasColumnName("StatusId");
+
+                entity.Property(e => e.StartDate)
+                    .HasColumnType("date");
+
+                entity.Property(e => e.EndDate)
+                    .HasColumnType("date");
+
+                entity.Property(e => e.CustomDescription)
+                    .HasMaxLength(500)
+                    .IsRequired();
+
+                entity.HasOne(d => d.IdEmployeeNavigation)
+                    .WithMany(p => p.CustomProjectTasks)
+                    .HasForeignKey(d => d.IdEmployee)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CustomTasks_Employees");
+
+                entity.HasOne(d => d.Project)
+                    .WithMany(p => p.CustomProjectTasks)
+                    .HasForeignKey(d => d.ProjectId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CustomTasks_Projects");
+
+                entity.HasOne(d => d.Status)
+                    .WithMany(p => p.CustomProjectTasks)
+                    .HasForeignKey(d => d.StatusId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CustomTasks_Status");
+            });
+
+
             OnModelCreatingPartial(modelBuilder);
             _ = modelBuilder.Entity<Employee>().Ignore(t => t.Name);
             _ = modelBuilder.Entity<Employee>().Ignore(t => t.IsActive);
@@ -430,6 +489,7 @@ namespace ProjectManager.Models
             _ = modelBuilder.Entity<Employee>().Ignore(t => t.ActiveText);
             _ = modelBuilder.Entity<ProjectTask>().Ignore(t => t.IsCustom);
             _ = modelBuilder.Entity<ProjectTask>().Ignore(t => t.CustomDescription);
+            //_ = modelBuilder.Entity<CustomProjectTask>().Ignore(t => t.IdCustomTask);
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
