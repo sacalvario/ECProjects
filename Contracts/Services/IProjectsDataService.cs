@@ -36,6 +36,7 @@ namespace ProjectManager.Contracts.Services
         Task<IEnumerable<ProjectPart>> GetProjectPartsWithPartInfoAsync(int projectId);
         System.Threading.Tasks.Task CompleteTaskAsync(ProjectTask activeTask);
         System.Threading.Tasks.Task UpdateTaskAsync(ProjectTask task);
+        Task<ICollection<CustomProjectTask>> GetCustomActivitiesAsync(int project);
     }
 }
 

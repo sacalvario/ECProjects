@@ -157,6 +157,20 @@ namespace ProjectManager.ViewModels
             }
         }
 
+        private ObservableCollection<CustomProjectTask> _customActivities;
+        public ObservableCollection<CustomProjectTask> CustomActivities
+        {
+            get => _customActivities;
+            set
+            {
+                if (_customActivities != value)
+                {
+                    _customActivities = value;
+                    RaisePropertyChanged(nameof(CustomActivities));
+                }
+            }
+        }
+
         private ICommand _ExportPDFCommand;
         public ICommand ExportPDFCommand
         {
@@ -199,7 +213,9 @@ namespace ProjectManager.ViewModels
             }
 
             Activities.Clear();
+
             await LoadActivitiesAsync();
+            await LoadCustomActivitiesAsync();
 
             await LoadPartsAsync();
 
@@ -225,6 +241,13 @@ namespace ProjectManager.ViewModels
                 Activities.Add(item);
             }
         }
+
+        private async System.Threading.Tasks.Task LoadCustomActivitiesAsync()
+        {
+            var customTasks = await _projectsDataService.GetCustomActivitiesAsync(Project.IdProject);
+            CustomActivities = new ObservableCollection<CustomProjectTask>(customTasks);
+        }
+
 
         private async System.Threading.Tasks.Task LoadPartsAsync()
         {

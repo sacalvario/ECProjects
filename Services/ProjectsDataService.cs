@@ -444,6 +444,18 @@ namespace ProjectManager.Services
                     .FirstOrDefault(e => e.IdProject == id);
             }
         }
+
+        public async Task<ICollection<CustomProjectTask>> GetCustomActivitiesAsync(int project)
+        {
+            var customActivities = await context.CustomProjectTasks      // Incluye la tarea predecesora
+                                .Include(c => c.Status)         // Incluye el estado
+                                .Include(c => c.IdEmployeeNavigation)       // Incluye el empleado responsable
+                                    .ThenInclude(e => e.IdDepartamentNavigation) // Incluye el departamento
+                                .Where(c => c.ProjectId == project)        // Opcional: ordena por número de tarea
+                                .ToListAsync();
+
+            return customActivities;
+        }
     }
 
 }
