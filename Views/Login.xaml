@@ -13,7 +13,7 @@
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0, 5">
             <md:PackIcon Kind="PowerPlug" Width="52" Height="52" Foreground="Green" />
             <StackPanel Margin="10, 0" VerticalAlignment="Center">
-                <TextBlock Text="Projects System" FontSize="16" FontWeight="Black" Foreground="Black"/>
+                <TextBlock Text="NPR System" FontSize="16" FontWeight="Black" Foreground="Black"/>
                 <TextBlock Text="Electri-Cord" FontSize="16" FontWeight="Normal" Foreground="Black" />
             </StackPanel>
         </StackPanel>

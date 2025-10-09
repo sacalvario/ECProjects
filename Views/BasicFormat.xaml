@@ -214,7 +214,7 @@
                     </materialDesign:Card>
                     <Button  Grid.Row="5" Grid.Column="2" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Green" Command="{Binding GetProjectLevelCommand}">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Get project level " FontSize="24" VerticalAlignment="Center" Margin="5, 0, 5, 0"/>
+                            <TextBlock Text="Get NPR level " FontSize="24" VerticalAlignment="Center" Margin="5, 0, 5, 0"/>
                             <materialDesign:PackIcon Kind="Play" VerticalAlignment="Center" Width="32" Height="32" Margin="0, 5, 0, 0"/>
                         </StackPanel>
                     </Button>
