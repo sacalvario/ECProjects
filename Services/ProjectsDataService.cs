@@ -99,7 +99,7 @@ namespace ProjectManager.Services
         private IEnumerable<Project> GetHistory()
         {
             using projectsContext context = new projectsContext();
-            return context.Projects.Where(data => data.IdGeneratedby == UserRecord.Employee_ID).ToList();
+            return context.Projects.ToList();
         }
 
         public async Task<Status> GetStatusAsync(int id)
@@ -407,6 +407,7 @@ namespace ProjectManager.Services
 
                 var tasksToOpen = await context.ProjectTasks
                     .Include(t => t.IdTaskNavigation)
+                    .Where(t => t.IdProject == completedTask.IdProject)   // 🔥 FILTRA POR PROYECTO DEL QUE SE CERRÓ
                     .Where(t => simultaneousTaskIds.Contains(t.IdTaskNavigation.IdTask))
                     .ToListAsync();
 
