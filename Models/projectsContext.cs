@@ -240,6 +240,20 @@ namespace ProjectManager.Models
                     .IsRequired()
                     .HasMaxLength(250);
 
+                // Questionnaire mappings
+                entity.Property(e => e.NewCustomer).HasColumnName("NewCustomer");
+                entity.Property(e => e.AssemblyQuantity).HasColumnName("AssemblyQuantity");
+                entity.Property(e => e.CustomerDrawingAvailable).HasColumnName("CustomerDrawingAvailable");
+                entity.Property(e => e.NewRawMaterialQty).HasColumnName("NewRawMaterialQty");
+                entity.Property(e => e.NewTooling).HasColumnName("NewTooling");
+                entity.Property(e => e.TestingBoard).HasColumnName("TestingBoard");
+                entity.Property(e => e.RoutingBoard).HasColumnName("RoutingBoard");
+                entity.Property(e => e.NewMachine).HasColumnName("NewMachine");
+                entity.Property(e => e.NewMold).HasColumnName("NewMold");
+                entity.Property(e => e.CrimpApplication).HasColumnName("CrimpApplication");
+                entity.Property(e => e.IsAutomotive).HasColumnName("IsAutomotive");
+                entity.Property(e => e.QuestionnairePoints).HasColumnName("QuestionnairePoints");
+
                 entity.HasOne(d => d.IdCustomerNavigation)
                     .WithMany(p => p.Projects)
                     .HasForeignKey(d => d.IdCustomer)

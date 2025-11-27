@@ -14,10 +14,12 @@ namespace ProjectManager.Services
         private readonly projectsContext context = null;
         DateTime LastDate;
         DateTime WorsDate;
+        private IMailService _emailService;
 
-        public ProjectsDataService()
+        public ProjectsDataService(IMailService mailService)
         {
             context = new projectsContext();
+            _emailService = mailService ?? throw new ArgumentNullException(nameof(mailService));
         }
 
         public async Task<Employee> GetEmployeeAsync(int id)
@@ -99,7 +101,7 @@ namespace ProjectManager.Services
         private IEnumerable<Project> GetHistory()
         {
             using projectsContext context = new projectsContext();
-            return context.Projects.Where(data => data.IdGeneratedby == UserRecord.Employee_ID).ToList();
+            return context.Projects.Where(i => i.IdGeneratedby == UserRecord.Employee_ID || i.IdManager == UserRecord.Employee_ID).ToList();
         }
 
         public async Task<Status> GetStatusAsync(int id)
@@ -319,6 +321,25 @@ namespace ProjectManager.Services
             // Abrir tareas simultáneas si aplica (por ejemplo, 5–8 cuando se completa la 4)
             await OpenSimultaneousTasksIfNeeded(activeTask);
 
+            // Actualiza estado del proyecto según tarea completada
+            var project = await context.Projects.FirstOrDefaultAsync(p => p.IdProject == activeTask.IdProject);
+            if (project != null)
+            {
+                // Si se completa la tarea con ID 9 -> Proyecto completado (status = 4)
+                if (activeTask.IdTaskNavigation?.IdTask == 9)
+                {
+                    project.IdStatus = 4;
+                    await context.SaveChangesAsync();
+                }
+
+                // Si se completa la tarea con ID 7 (última) -> Proyecto cerrado (status = 6)
+                if (activeTask.IdTaskNavigation?.IdTask == 7)
+                {
+                    project.IdStatus = 6;
+                    await context.SaveChangesAsync();
+                }
+            }
+
             var allTasks = await context.ProjectTasks
                         .Include(t => t.IdTaskNavigation)
                         .Where(t => t.IdProject == activeTask.IdProject)
@@ -333,36 +354,22 @@ namespace ProjectManager.Services
                 await UpdateTaskAsync(task);
             }
 
-            var allTasksCompleted = await context.ProjectTasks
-                                    .Where(t => t.IdProject == activeTask.IdProject)
-                                    .AllAsync(t => t.IdStatus == 1 || t.IdStatus == 4); // 1 y 4: tareas finalizadas
+            //Notifica al encargado de la(s) siguiente(s) tarea(s)
+            var nextTasks = await context.ProjectTasks
+                    .Include(t => t.IdTaskNavigation)
+                    .Include(t => t.IdEmployeeNavigation)
+                    .Include(t => t.IdProjectNavigation)
+                        .ThenInclude(tp => tp.IdCustomerNavigation)
+                    .Include(t => t.IdProjectNavigation)
+                        .ThenInclude(pt => pt.IdGeneratedbyNavigation)
+                    .Where(t => t.IdTaskNavigation.PredecessorTaskId == activeTask.IdTaskNavigation.IdTask && t.IdProject == activeTask.IdProject)
+                    .ToListAsync();
 
-            if (allTasksCompleted)
+            foreach (var nextTask in nextTasks)
             {
-                var project = await context.Projects.FirstOrDefaultAsync(p => p.IdProject == activeTask.IdProject);
-                if (project != null)
-                {
-                    project.IdStatus = 4; // Proyecto completado
-                    await context.SaveChangesAsync();
-                }
+                // Aquí puedes cambiar esto en producción
+                _emailService.SendNewTaskEmail("scalvario@ecmfg.com", "scalvario@ecmfg.com", nextTask.IdProject, nextTask.IdEmployeeNavigation.Name, "Simón Alejandro", nextTask.LongEndDate, nextTask.IdProjectNavigation.IdCustomerNavigation.Name);
             }
-
-            // Notifica al encargado de la(s) siguiente(s) tarea(s)
-            //var nextTasks = await context.ProjectTasks
-            //        .Include(t => t.IdTaskNavigation)
-            //        .Include(t => t.IdEmployeeNavigation)
-            //        .Where(t => t.IdTaskNavigation.PredecessorTaskId == activeTask.IdTaskNavigation.IdTask && t.IdProject == activeTask.IdProject)
-            //        .ToListAsync();
-
-            //foreach (var nextTask in nextTasks)
-            //{
-            //    // Aquí puedes cambiar esto en producción
-            //    await _emailService.SendEmailAsync(
-            //        "scalvario@ecmfg.com", // Reemplazar con nextTask.Employee.Email después de pruebas
-            //        "Nueva tarea disponible",
-            //        $"Ya puedes iniciar tu tarea \"{nextTask.IdTaskNavigation.Name}\" del proyecto."
-            //    );
-            //}
 
         }
 

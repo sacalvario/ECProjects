@@ -310,7 +310,7 @@
                                  Cursor="Arrow">
                         </TextBox>
                     </Grid>
-                    <Grid Margin="35,27,0,0" Grid.Row="3"  VerticalAlignment="Top" Grid.ColumnSpan="2">
+                    <Grid Margin="35,5,0,0" Grid.Row="3"  VerticalAlignment="Top" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
@@ -324,18 +324,21 @@
                         <TextBox  Grid.Column="1"
                                  Grid.Row="1"
                                  Width="450"
-                                 FontSize="19"
-                                 Height="50"
+                                 FontSize="16"
+                                 Height="60"
                                  Text="{Binding Project.Comments}"
                                  BorderThickness="0"
                                  ui:ControlHelper.CornerRadius="5"
                                  ui:ControlHelper.PlaceholderText="Enter the comments"
                                  ui:ControlHelper.PlaceholderForeground="Black"
-                                 VerticalAlignment="Center"
+                                 VerticalAlignment="Top"
                                  HorizontalAlignment="Left"
                                  Margin="3, 0, 0, 0"
-                                 Cursor="Arrow">
-                        </TextBox>
+                                 AcceptsReturn="True"
+                                 TextWrapping="Wrap"
+                                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                 Padding="6"
+                                 Cursor="IBeam" />
                     </Grid>
                     <TextBlock Text="Specific information" Style="{DynamicResource PageTitleStyle}" FontWeight="Bold" Grid.Row="4" Grid.ColumnSpan="3" Margin="24,0,0,0" />
                     <Grid Margin="30,101,0,0" Grid.Row="4" Grid.RowSpan="2" VerticalAlignment="Top" Grid.ColumnSpan="2" >

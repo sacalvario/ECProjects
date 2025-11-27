@@ -296,11 +296,13 @@ namespace ProjectManager.ViewModels
             {
                 await _projectsDataService.CompleteTaskAsync(ActiveTask);
 
+
+
                 // Opcional: refrescar tareas del proyecto
                 await RefreshActivitiesAsync();
 
                 // Notificar éxito
-                _ = _windowManagerService.OpenInDialog(typeof(ApplyMessageViewModel).FullName, "Se completo la tarea correctamente");
+                _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "Se completo la tarea correctamente");
 
                 // Si deseas cerrar la vista o navegar, hazlo aquí
                 //_navigationService.GoBack(); // si usas navegación

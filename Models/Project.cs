@@ -13,7 +13,7 @@ namespace ProjectManager.Models
         {
             ProjectTasks = new HashSet<ProjectTask>();
             ProjectParts = new HashSet<ProjectPart>();
-    }
+        }
 
         public int IdProject { get; set; }
         public int IdGeneratedby { get; set; }
@@ -42,6 +42,20 @@ namespace ProjectManager.Models
         public DateTime CustomerNeedby { get; set; }
         public int TotalEstimatedDuration { get; set; }
         public int SuccesRateEstimate { get; set; }
+
+        // Questionnaire fields (Part I)
+        public bool NewCustomer { get; set; }
+        public int AssemblyQuantity { get; set; }
+        public bool CustomerDrawingAvailable { get; set; }
+        public int NewRawMaterialQty { get; set; }
+        public bool NewTooling { get; set; }
+        public bool TestingBoard { get; set; }
+        public bool RoutingBoard { get; set; }
+        public bool NewMachine { get; set; }
+        public bool NewMold { get; set; }
+        public int CrimpApplication { get; set; }
+        public bool IsAutomotive { get; set; }
+        public int QuestionnairePoints { get; set; }
 
         public int Year => CreationDate.Year;
         public int Month => CreationDate.Month;
@@ -80,18 +94,6 @@ namespace ProjectManager.Models
 
 
         public virtual ICollection<ProjectPart> ProjectParts { get; set; } = new HashSet<ProjectPart>();
-        //private ICollection<ProjectTask> _ProjectTasks;
         public virtual ICollection<ProjectTask> ProjectTasks { get; set; }
-        //{
-        //    get => _ProjectTasks;
-        //    set
-        //    {
-        //        if (_ProjectTasks != value)
-        //        {
-        //            _ProjectTasks = value;
-        //            RaisePropertyChanged("ProjectTasks");
-        //        }
-        //    }
-        //} 
     }
 }

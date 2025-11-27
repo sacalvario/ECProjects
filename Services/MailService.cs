@@ -199,13 +199,14 @@ namespace ProjectManager.Services
 
         public void SendNewTaskEmail(string email, string generatoremail, int id, string responsiblename, string generatorname, string targetdate, string customer)
         {
-            MailMessage msg = new MailMessage();    
-            SmtpClient client = new SmtpClient("smtp.gmail.com");
-            //client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            //client.UseDefaultCredentials = false;
+            using var client = new SmtpClient("electricord-com01i.mail.protection.outlook.com", 25);
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = true; // Usa las credenciales de Windows (relay interno)
+            client.EnableSsl = false; // No SSL, relay interno
 
-            msg.From = new MailAddress("projectssystemsecm@gmail.com");
-            msg.To.Add(email);
+            var msg = new MailMessage();
+            msg.From = new MailAddress("emailrelay@ecmfg.com");
+            msg.To.Add("scalvario@ecmfg.com");
             msg.CC.Add(generatoremail);
 
             msg.Subject = "New pending task!";
@@ -216,10 +217,6 @@ namespace ProjectManager.Services
                         "<p><span style= 'font-family:Tahoma, Geneva, sans-serif'> Greetings. </span></p>";
 
             msg.IsBodyHtml = true;
-
-            client.Port = 587;
-            client.Credentials = new NetworkCredential("projectssystemsecm@gmail.com", "rpob ljal ztxj tipo");
-            client.EnableSsl = true;
 
             try
             {
