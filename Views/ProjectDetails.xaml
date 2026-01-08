@@ -21,7 +21,7 @@
                 <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 3">
                     <TextBlock FontSize="26" FontWeight="Black" >
                         <Run Text="ID" />
-                        <Run Text="{Binding Project.IdProject}" Foreground="Green"  />
+                        <Run Text="{Binding Project.DisplayProjectId, Mode=OneWay}" Foreground="Green"  />
                     </TextBlock>
                     <!--<Border VerticalAlignment="Top" Height="25" Width="115" Margin="30, 8, 0, 0" Visibility="{Binding Ecn.IsEcoVisibility}" CornerRadius="10" Background="#FFFF0033">
                         <TextBlock Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black" FontSize="15" >
@@ -52,16 +52,19 @@
             <TextBlock Text="{Binding Project.IdGeneratedbyNavigation.Name}" HorizontalAlignment="Center" FontWeight="Black"/>
             <TextBlock Text="{Binding Project.IdGeneratedbyNavigation.IdDepartamentNavigation.Name}" HorizontalAlignment="Center" Foreground="Green" FontWeight="Black"/>
         </StackPanel>
-        <Button VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 50, 150, 0" Background="Red" Width="200" Height="40" Visibility="{Binding CancelProjectBtnVisibility}" Command="{Binding CancelProjectCommand}">
-            <TextBlock Text="Cancel project" Foreground="White" FontFamily="Quicksand" FontWeight="Bold" VerticalAlignment="Center" FontSize="17"/>
-        </Button>
-        <Button VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 20, 100, 0" Background="Transparent" Command="{Binding ExportPDFCommand}">
-            <StackPanel>
-                <md:PackIcon Kind="FilePdfBox" HorizontalAlignment="Center" Width="59" Height="52" Foreground="Green"/>
-                <TextBlock Text="Export" Foreground="Black" FontFamily="Quicksand" FontWeight="Bold" VerticalAlignment="Center" FontSize="17"/>
-            </StackPanel>
-        </Button>
-        <StackPanel Visibility="{Binding CompleteTaskBtnVisibility}"  VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 50, 70, 0" Orientation="Horizontal">
+        <!-- Buttons area: place export above, cancel below, aligned right with safe margins -->
+        <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 20, 40, 0">
+            <Button Background="Transparent" Command="{Binding ExportPDFCommand}" Width="160" Height="80" Margin="0,0,0,10">
+                <StackPanel>
+                    <md:PackIcon Kind="FilePdfBox" HorizontalAlignment="Center" Width="59" Height="52" Foreground="Green"/>
+                    <TextBlock Text="Export" Foreground="Black" FontFamily="Quicksand" FontWeight="Bold" VerticalAlignment="Center" FontSize="17"/>
+                </StackPanel>
+            </Button>
+            <Button Background="Red" Width="200" Height="40" Visibility="{Binding CancelProjectBtnVisibility}" Command="{Binding CancelProjectCommand}" Margin="0,0,0,0">
+                <TextBlock Text="Cancel project" Foreground="White" FontFamily="Quicksand" FontWeight="Bold" VerticalAlignment="Center" FontSize="17"/>
+            </Button>
+        </StackPanel>
+        <StackPanel Visibility="{Binding CompleteTaskBtnVisibility}"  VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 120, 40, 0" Orientation="Horizontal">
             <TextBox VerticalAlignment="Center" BorderThickness="0" ui:ControlHelper.CornerRadius="5" ui:ControlHelper.PlaceholderText="Enter the comments"  ui:ControlHelper.PlaceholderForeground="Black" Width="200" Text="{Binding ActiveTask.Comments}"  />
             <Button Margin="10, 0, 0, 0" VerticalAlignment="Center" Background="Green" Width="200" Height="40" Command="{Binding CompleteTaskCommand}" >
                 <TextBlock Text="Complete task" Foreground="White" FontFamily="Quicksand" FontWeight="Bold" VerticalAlignment="Center" FontSize="17"/>
@@ -106,7 +109,7 @@
                             </Grid>
 
                             <!-- Lista de partes -->
-                            <ScrollViewer Height="200" VerticalScrollBarVisibility="Auto">
+                            <ScrollViewer Height="100" VerticalScrollBarVisibility="Auto">
                                 <ItemsControl ItemsSource="{Binding ProjectParts}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
@@ -197,121 +200,146 @@
                     <TextBlock Text="Project breakdown" FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
                 </TabItem.Header>
 
-                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                    <TabControl Margin="0,10,0,20" Background="Transparent" BorderThickness="0">
-
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                    <StackPanel Margin="0,10,0,20">
                         <!-- MAIN ACTIVITIES -->
-                        <TabItem Header="Main Activities" Height="35">
-                            <DataGrid ItemsSource="{Binding Activities}" CanUserAddRows="False" CanUserDeleteRows="False" Margin="0, 10, 0, 0" AutoGenerateColumns="False" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.IsVirtualizingWhenGrouping="True" HeadersVisibility="Column" GridLinesVisibility="Horizontal">
-                                <DataGrid.Columns>
-                                    <DataGridTemplateColumn Header="#" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                                    <Border Margin="0, 0, 10, 0" CornerRadius="10" Height="13" Width="13" Background="{Binding IdTaskNavigation.NumberColor}" VerticalAlignment="Center"/>
-                                                    <TextBlock  Text="{Binding IdTaskNavigation.Number}" VerticalAlignment="Center" FontSize="20" Foreground="Black" FontWeight="Bold" FontFamily="Quicksand"/>
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <DataGridTemplateColumn Header="Task Name" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock  Text="{Binding IdTaskNavigation.Name}" VerticalAlignment="Center" Foreground="Black" FontWeight="Bold" FontFamily="Quicksand"/>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <DataGridTemplateColumn Header="Duration" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                                    <md:PackIcon Kind="TimerSand" Height="22" Width="22" VerticalAlignment="Center"/>
-                                                    <TextBlock Margin="10, 0, 0, 0" Foreground="Black" FontSize="15"  HorizontalAlignment="Center" VerticalAlignment="Center" >
+                        <TextBlock Text="Main Activities" FontFamily="Quicksand Medium" FontSize="16" Foreground="Black" Margin="10,0,0,5"/>
+                        <DataGrid ItemsSource="{Binding Activities}" CanUserAddRows="False" CanUserDeleteRows="False" Margin="0, 10, 0, 20" AutoGenerateColumns="False" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.IsVirtualizingWhenGrouping="True" HeadersVisibility="Column" GridLinesVisibility="Horizontal">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="#" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                                <Border Margin="0, 0, 10, 0" CornerRadius="10" Height="13" Width="13" Background="{Binding IdTaskNavigation.NumberColor}" VerticalAlignment="Center"/>
+                                                <TextBlock  Text="{Binding IdTaskNavigation.Number}" VerticalAlignment="Center" FontSize="20" Foreground="Black" FontWeight="Bold" FontFamily="Quicksand"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Task Name" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock  Text="{Binding IdTaskNavigation.Name}" VerticalAlignment="Center" Foreground="Black" FontWeight="Bold" FontFamily="Quicksand"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Duration" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                <md:PackIcon Kind="TimerSand" Height="22" Width="22" VerticalAlignment="Center"/>
+                                                <TextBlock Margin="10, 0, 0, 0" Foreground="Black" FontSize="15"  HorizontalAlignment="Center" VerticalAlignment="Center" >
                                                 <Run Text="{Binding Duration}" FontWeight="Black" Foreground="Green"/>
                                                 <Run Text="Days" />
-                                                    </TextBlock>
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <DataGridTemplateColumn Header="Predecessor" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                    <md:PackIcon Kind="ArrowUp" Height="22" Width="22" VerticalAlignment="Center"/>
-                                                    <TextBlock Margin="10, 0, 0, 0" Foreground="Black" FontSize="15"  HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Predecessor" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                <md:PackIcon Kind="ArrowUp" Height="22" Width="22" VerticalAlignment="Center"/>
+                                                <TextBlock Margin="10, 0, 0, 0" Foreground="Black" FontSize="15"  HorizontalAlignment="Center" VerticalAlignment="Center" >
                                                 <Run Text="{Binding IdTaskNavigation.PredecessorTask.Number}" FontWeight="Black" Foreground="Green"/>
-                                                    </TextBlock>
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <DataGridTemplateColumn Header="Start Date" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20, 0, 0, 0">
-                                                    <md:PackIcon Kind="CalendarClock" Width="28" Height="28" Foreground="Green" />
-                                                    <TextBlock Text="{Binding LongStartDate}"
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Start Date" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20, 0, 0, 0">
+                                                <md:PackIcon Kind="CalendarClock" Width="28" Height="28" Foreground="Green" />
+                                                <TextBlock Text="{Binding LongStartDate}"
                                                        FontStyle="Italic"
                                                        Margin="10, 0, 0, 0"
                                                        />
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <DataGridTemplateColumn Header="Target Date" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding LongEndDate}"
-                                                       FontStyle="Italic"
-                                                       Margin="10, 0, 0, 0"
-                                                       VerticalAlignment="Center"
-                                                       />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <DataGridTemplateColumn Header="Status" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Border CornerRadius="10"
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Target Date" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding LongEndDate}"
+                                                   FontStyle="Italic"
+                                                   Margin="10, 0, 0, 0"
+                                                   VerticalAlignment="Center"
+                                                   />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <!-- Moved Completed on right after Target Date -->
+                                <DataGridTemplateColumn Header="Completed on" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,0">
+                                                <md:PackIcon Kind="CheckCircleOutline" Width="22" Height="22" Foreground="Green"/>
+                                                <TextBlock Text="{Binding CompletationDateString}" Margin="6,0,0,0" FontStyle="Italic"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Status" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border CornerRadius="10"
                                                 Background="{Binding IdStatusNavigation.StatusColor}"
                                                 Height="25"
                                                 Width="120"
                                                 Margin="10, 0, 0, 0">
-                                                    <TextBlock Foreground="White" Text="{Binding IdStatusNavigation.Name}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black"/>
-                                                </Border>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <DataGridTemplateColumn Header="Comments" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding Comments}"
-                                                       Margin="10, 0, 0, 0"
-                                                       VerticalAlignment="Center"
-                                                       />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <DataGridTemplateColumn Header="Responsible" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="20, 0, 0, 0">
-                                                    <md:PackIcon Kind="AccountTie" Width="40" Height="40"/>
-                                                    <StackPanel Margin="10, 0, 0, 0">
-                                                        <TextBlock  Text="{Binding IdEmployeeNavigation.Name}" FontWeight="Bold" />
-                                                        <TextBlock Text="{Binding IdEmployeeNavigation.IdDepartamentNavigation.Name}" FontWeight="Bold" Foreground="Green" />
-                                                    </StackPanel>
+                                                <TextBlock Foreground="White" Text="{Binding IdStatusNavigation.Name}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Comments" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Comments}"
+                                                   Margin="10, 0, 0, 0"
+                                                   VerticalAlignment="Center"
+                                                   />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Responsible" HeaderStyle="{DynamicResource MaterialDesignRaisedDarkButton }">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="20, 0, 0, 0">
+                                                <md:PackIcon Kind="AccountTie" Width="40" Height="40"/>
+                                                <StackPanel Margin="10, 0, 0, 0">
+                                                    <TextBlock  Text="{Binding IdEmployeeNavigation.Name}" FontWeight="Bold" />
+                                                    <TextBlock Text="{Binding IdEmployeeNavigation.IdDepartamentNavigation.Name}" FontWeight="Bold" Foreground="Green" />
                                                 </StackPanel>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                </DataGrid.Columns>
-                            </DataGrid>
-                        </TabItem>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
 
                         <!-- CUSTOM ACTIVITIES -->
-                        <TabItem Header="Custom Activities" Height="35">
+                        <StackPanel>
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding CustomActivities.Count}" Value="0">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+
+                            <!-- Header with visual signal -->
+                            <StackPanel Orientation="Horizontal" Margin="10,0,0,5" VerticalAlignment="Center">
+                                <TextBlock Text="Custom Activities" FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
+                                <md:PackIcon Kind="AlertCircle" Width="18" Height="18" Foreground="OrangeRed" Margin="8,0,0,0"/>
+                            </StackPanel>
+
                             <DataGrid ItemsSource="{Binding CustomActivities}" CanUserAddRows="False" CanUserDeleteRows="False" Margin="0, 10, 0, 0" AutoGenerateColumns="False" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.IsVirtualizingWhenGrouping="True" HeadersVisibility="Column" GridLinesVisibility="Horizontal">
                                 <DataGrid.Resources>
                                     <Style x:Key="YellowHeaderStyle" TargetType="DataGridColumnHeader">
@@ -324,8 +352,6 @@
                                 </DataGrid.Resources>
 
                                 <DataGrid.Columns>
-                                    
-
                                     <DataGridTemplateColumn Header="Task Name" HeaderStyle="{StaticResource YellowHeaderStyle}">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
@@ -367,6 +393,18 @@
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
 
+                                    <!-- Moved Completed on right after Target Date -->
+                                    <DataGridTemplateColumn Header="Completed on" HeaderStyle="{StaticResource YellowHeaderStyle}">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,0">
+                                                    <md:PackIcon Kind="CheckCircleOutline" Width="22" Height="22" Foreground="Green"/>
+                                                    <TextBlock Text="{Binding CompletationDateString}" Margin="6,0,0,0" FontStyle="Italic"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+
                                     <DataGridTemplateColumn Header="Status" HeaderStyle="{StaticResource YellowHeaderStyle}">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
@@ -393,10 +431,9 @@
 
                                 </DataGrid.Columns>
                             </DataGrid>
+                        </StackPanel>
 
-                        </TabItem>
-
-                    </TabControl>
+                    </StackPanel>
                 </ScrollViewer>
             </TabItem>
         </TabControl>

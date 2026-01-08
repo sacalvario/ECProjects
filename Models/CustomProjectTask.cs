@@ -52,6 +52,9 @@ namespace ProjectManager.Models
             }
         }
 
+        public DateTime? CompletationDate { get; set; }
+        public string CompletationDateString => CompletationDate.HasValue ? CompletationDate?.ToString("D", CultureInfo.CreateSpecificCulture("en-US")) : "";
+
         public int? IdEmployee { get; set; }
         public int StatusId { get; set; } = 1;
         public string CustomDescription { get; set; }

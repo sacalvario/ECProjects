@@ -33,6 +33,10 @@ namespace ProjectManager.ViewModels
             CvsChecklist.SortDescriptions.Add(new SortDescription("IdProjectNavigation.Year", ListSortDirection.Descending));
             CvsChecklist.SortDescriptions.Add(new SortDescription("IdProjectNavigation.Month", ListSortDirection.Descending));
             CvsChecklist.SortDescriptions.Add(new SortDescription("IdProjectNavigation.IdProject", ListSortDirection.Descending));
+
+            // Default filter to Pending (Active) tasks
+            FilterOptions = new ObservableCollection<string>(new[] { "Pending", "Completed" });
+            SelectedFilter = FilterOptions[0];
         }
 
         private CollectionViewSource _CvsChecklist;
@@ -59,15 +63,75 @@ namespace ProjectManager.ViewModels
                 {
                     _Checklist = value;
                     RaisePropertyChanged("Checklist");
+                    RaisePropertyChanged("TaskCount");
                 }
             }
         }
 
-        private async void GetChecklist(int employee)
+        public int TaskCount => Checklist?.Count ?? 0;
+
+        private ObservableCollection<string> _filterOptions;
+        public ObservableCollection<string> FilterOptions
+        {
+            get => _filterOptions;
+            set
+            {
+                _filterOptions = value;
+                RaisePropertyChanged("FilterOptions");
+            }
+        }
+
+        private string _selectedFilter;
+        public string SelectedFilter
+        {
+            get => _selectedFilter;
+            set
+            {
+                if (_selectedFilter != value)
+                {
+                    _selectedFilter = value;
+                    RaisePropertyChanged("SelectedFilter");
+                    ApplySelectedFilter();
+                    RaisePropertyChanged("HeaderText");
+                }
+            }
+        }
+
+        public string HeaderText => SelectedFilter == "Completed" ? "Tasks completed" : "Tasks in process";
+
+        private async void ApplySelectedFilter()
+        {
+            int employeeId = _lastEmployeeId == 0 ? UserRecord.Employee_ID : _lastEmployeeId;
+            if (SelectedFilter == "Completed")
+            {
+                await LoadCompletedTasks(employeeId);
+            }
+            else
+            {
+                await LoadActiveTasks(employeeId);
+            }
+            CvsChecklist.Source = Checklist;
+            RaisePropertyChanged("TaskCount");
+        }
+
+        private int _lastEmployeeId;
+
+        private async System.Threading.Tasks.Task LoadActiveTasks(int employee)
         {
             Checklist = new ObservableCollection<ProjectTask>();
-            var data = await _projectsDataService.GetTasksAsync(employee);
+            var data = await _projectsDataService.GetTasksAsync(employee); // status 2
+            await EnrichAndAdd(data);
+        }
 
+        private async System.Threading.Tasks.Task LoadCompletedTasks(int employee)
+        {
+            Checklist = new ObservableCollection<ProjectTask>();
+            var data = await _projectsDataService.GetCompletedTasksAsync(employee); // status 2 and 4
+            await EnrichAndAdd(data);
+        }
+
+        private async System.Threading.Tasks.Task EnrichAndAdd(ICollection<ProjectTask> data)
+        {
             foreach (var item in data)
             {
                 item.IdProjectNavigation = await _projectsDataService.GetProjectAsync(item.IdProject);
@@ -79,11 +143,15 @@ namespace ProjectManager.ViewModels
                 item.IdEmployeeNavigation = await _projectsDataService.GetEmployeeAsync(item.IdEmployee);
                 item.IdTaskNavigation = await _projectsDataService.GetTaskAsync(item.IdTask);
 
-
                 Checklist.Add(item);
             }
         }
 
+        private async void GetChecklist(int employee)
+        {
+            _lastEmployeeId = employee;
+            await LoadActiveTasks(employee);
+        }
 
         private void NavigateToProject(Project project)
         {
@@ -103,9 +171,9 @@ namespace ProjectManager.ViewModels
                 GetChecklist(UserRecord.Employee_ID);
             }
 
-
             CvsChecklist.Source = Checklist;
-
+            RaisePropertyChanged("HeaderText");
+            RaisePropertyChanged("TaskCount");
         }
 
         public void OnNavigatedFrom()

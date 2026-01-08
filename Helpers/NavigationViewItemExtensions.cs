@@ -17,6 +17,7 @@ namespace ModernWpf.Controls
                     "Tasks" => typeof(TasksViewModel),
                     "Employees" => typeof(EmployeesViewModel),
                     "Customers" => typeof(CustomersViewModel),
+                    "NprList" => typeof(NprListViewModel),
                     _ => null,
                 }
                 : null;

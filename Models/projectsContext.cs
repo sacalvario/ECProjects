@@ -472,6 +472,9 @@ namespace ProjectManager.Models
                 entity.Property(e => e.EndDate)
                     .HasColumnType("date");
 
+                entity.Property(e => e.CompletationDate)
+                    .HasColumnType("date");
+
                 entity.Property(e => e.CustomDescription)
                     .HasMaxLength(500)
                     .IsRequired();

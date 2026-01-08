@@ -1,5 +1,4 @@
-﻿
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Extensions.Configuration;
 using ProjectManager.Contracts.Services;
@@ -70,6 +69,9 @@ namespace ProjectManager.ViewModels
         public ReportViewModel ReportViewModel
             => SimpleIoc.Default.GetInstance<ReportViewModel>();
 
+        public NprListViewModel NprListViewModel
+            => SimpleIoc.Default.GetInstance<NprListViewModel>();
+
         public ViewModelLocator()
         {
             // App Host
@@ -114,6 +116,7 @@ namespace ProjectManager.ViewModels
             Register<EmployeesViewModel, Employees>();
             Register<CustomersViewModel, Customers>();
             Register<ProjectsViewModel, Projects>();
+            Register<NprListViewModel, NprList>();
         }
 
         private void Register<VM, V>()

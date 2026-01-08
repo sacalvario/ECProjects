@@ -1,5 +1,4 @@
-﻿
-using ProjectManager.Models;
+﻿using ProjectManager.Models;
 
 using System.Collections.Generic;
 
@@ -14,5 +13,6 @@ namespace ProjectManager.Contracts.Services
         //void SendCancelECN(string email, Ecn ecn, string generatorname);
         void SendApprovedECN(int id, string generatorname, string generatoremail);
         void SendCloseECO(int id, string generatorname, string generatoremail);
+        void SendNewNprCreatedEmail(string toEmail, string ccEmail, int projectId, string customer);
     }
 }

@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ProjectManager.Views"
       xmlns:ui="http://schemas.modernwpf.com/2019"
+      
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       DataContext="{Binding HistoryViewModel, Source={StaticResource Locator}}"
       mc:Ignorable="d" 
@@ -22,33 +23,30 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="400" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="120" />
+                    <ColumnDefinition Width="180" />
                     <ColumnDefinition Width="300" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition Width="140" />
                 </Grid.ColumnDefinitions>
+                <!-- Icon -->
                 <materialDesign:PackIcon Kind="FileDocument" Foreground="Green" Width="42" Height="42" Grid.RowSpan="4" VerticalAlignment="Center"/>
-                <StackPanel Grid.RowSpan="4" Grid.Column="1" Margin="10, 12, 20, 12" >
+                <!-- ID Column -->
+                <StackPanel Grid.RowSpan="4" Grid.Column="1" Margin="10, 12, 20, 12"  VerticalAlignment="Center">
                     <TextBlock Text="ID" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Black" FontSize="17"/>
-                    <TextBlock Text="{Binding IdProject}" FontWeight="Black" Foreground="Green" FontSize="17" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding DisplayProjectId}" FontWeight="Black" Foreground="Green" FontSize="17" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </StackPanel>
-                <TextBlock Grid.Column="2"
-                           Grid.Row="2"
-                           Margin="20, 0, 0, 0"
-                           FontSize="14">
-                    <Run Text="Creation date: " Foreground="Black" FontWeight="Normal"/>
-                    <Run Text="{Binding LongDate, Mode=OneWay}" FontWeight="UltraBold" Foreground="Black" />
-                </TextBlock>
-                <TextBlock Grid.Column="2"
-                           Grid.Row="3"
-                           Margin="20, 0, 0, 0"
-                           FontSize="14">
-                    <Run Text="Customer need by: " Foreground="Black" FontWeight="Regular"/>
-                    <Run Text="{Binding LongNeedByDate, Mode=OneWay}" Foreground="Black" FontWeight="UltraBold" />
-                </TextBlock>
-                <StackPanel  Grid.RowSpan="4" Grid.Column="3" >
+                <!-- Quote Number Column -->
+                <StackPanel Grid.Column="2" Grid.RowSpan="4" VerticalAlignment="Center">
+                    <TextBlock Text="Quote #" FontSize="11" FontFamily="Quicksand Medium" Foreground="Black"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                        <materialDesign:PackIcon Kind="FileDocumentOutline" Width="18" Height="18" Foreground="Black"/>
+                        <TextBlock Text="{Binding QuoteNumber}" Margin="6,0,0,0" FontSize="14" Foreground="Black"/>
+                    </StackPanel>
+                </StackPanel>
+                <!-- Manager Column -->
+                <StackPanel  Grid.RowSpan="4" Grid.Column="3" VerticalAlignment="Center" >
                     <TextBlock Text="Project manager:" FontSize="11" FontFamily="Quicksand Medium" Foreground="Black" Margin="40, 0, 0, 0"/>
                     <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
                         <materialDesign:PackIcon Kind="AccountTie" Width="44" Height="44" Foreground="Black"/>
@@ -58,10 +56,26 @@
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
-                <StackPanel Grid.Column="4" Grid.Row="0" Grid.RowSpan="4" VerticalAlignment="Center" Margin="40, 0, 0, 0" >
-                    <TextBlock Text="Project Complexity" HorizontalAlignment="Center" FontSize="12" FontWeight="Black" Foreground="Black"/>
-                    <TextBlock Text="{Binding ProjectComplexityString}" Foreground="Green" FontSize="15" HorizontalAlignment="Center" FontWeight="Bold" FontFamily="Quicksand Medium"/>
+                <!-- Customer + Parts Column -->
+                <StackPanel Grid.Column="4" Grid.RowSpan="4" Margin="20,0,0,0" VerticalAlignment="Center">
+                    <TextBlock Text="Customer &amp; Parts" FontSize="11" FontFamily="Quicksand Medium" Foreground="Black"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,6,0,6">
+                        <materialDesign:PackIcon Kind="Account" Width="18" Height="18" Foreground="Black"/>
+                        <TextBlock Text="{Binding IdCustomerNavigation.Name}" Margin="6,0,0,0" FontSize="14" Foreground="Black"/>
+                    </StackPanel>
+                    <ItemsControl ItemsSource="{Binding ProjectParts}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
+                                    <materialDesign:PackIcon Kind="PowerPlug" Width="18" Height="18" Foreground="Green"/>
+                                    <TextBlock Text="{Binding Part.PartNumber}" Margin="6,0,0,0" FontSize="12" Foreground="Black"/>
+                                    <TextBlock Text="{Binding Part.Revision}" Margin="6,0,0,0" FontSize="12" Foreground="Gray"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </StackPanel>
+                <!-- Status + Complexity Column -->
                 <StackPanel Grid.Column="5" Grid.Row="0" Grid.RowSpan="4" VerticalAlignment="Center" Margin="40, 0, 0, 0" >
                     <Border 
                         CornerRadius="10"
@@ -126,7 +140,7 @@
                      FontSize="15" 
                      ui:ControlHelper.PlaceholderText="Enter an ID" 
                      ui:ControlHelper.PlaceholderForeground="White"
-                     Width="450"  />
+                     Width="380"  />
         </StackPanel>
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="350, 0, 0, 0">
             <Grid.ColumnDefinitions>

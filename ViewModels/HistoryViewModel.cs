@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -85,11 +86,12 @@ namespace ProjectManager.ViewModels
 
             foreach (var item in data)
             {
+                // Status, Manager, Generator may be already loaded elsewhere; keep as-is
                 item.IdStatusNavigation = await _projectsDataService.GetStatusAsync(item.IdStatus);
                 item.IdManagerNavigation = await _projectsDataService.GetEmployeeAsync(item.IdManager);
                 item.IdGeneratedbyNavigation = await _projectsDataService.GetEmployeeAsync(item.IdGeneratedby);
                 item.IdCustomerNavigation = await _projectsDataService.GetCustomerAsync(item.IdCustomer);
-                
+
                 History.Add(item);
 
                 HistoryCount = History.Count;

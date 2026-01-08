@@ -487,6 +487,8 @@ namespace ProjectManager.ViewModels
                     Managers.Add(item);
                 }
             }
+            await EnsureFixedManagersAsync();
+            Managers = new ObservableCollection<Employee>(Managers.OrderBy(i => i.Name));
         }
 
         private async void GetManagers()
@@ -500,6 +502,27 @@ namespace ProjectManager.ViewModels
                     item.IdDepartamentNavigation = await _projectsDataService.GetDepartmentAsync(item.IdDepartament);
                     item.IdSiteNavigation = await _projectsDataService.GetSiteAsync(item.IdSite);
                     Managers.Add(item);
+                }
+            }
+            await EnsureFixedManagersAsync();
+            Managers = new ObservableCollection<Employee>(Managers.OrderBy(i => i.Name));
+        }
+
+        private async System.Threading.Tasks.Task EnsureFixedManagersAsync()
+        {
+            // Always include Alejandra Lizares (92) and Daniel Sandoval (217)
+            var fixedIds = new[] { 92, 217 };
+            foreach (var id in fixedIds)
+            {
+                if (!Managers.Any(m => m.IdEmployee == id))
+                {
+                    var emp = await _projectsDataService.GetEmployeeAsync(id);
+                    if (emp != null)
+                    {
+                        emp.IdDepartamentNavigation = await _projectsDataService.GetDepartmentAsync(emp.IdDepartament);
+                        emp.IdSiteNavigation = await _projectsDataService.GetSiteAsync(emp.IdSite);
+                        Managers.Add(emp);
+                    }
                 }
             }
         }
@@ -540,6 +563,21 @@ namespace ProjectManager.ViewModels
                     var task = _projectsDataService.GetOnlyActiveTask(Project.IdProject);
                     task.IdEmployeeNavigation = await _projectsDataService.GetEmployeeAsync(task.IdEmployee);
                     _mailService.SendNewTaskEmail(task.IdEmployeeNavigation.Email, Project.IdGeneratedbyNavigation.Email, Project.IdProject, task.IdEmployeeNavigation.Name, UserRecord.Employee.Name, task.LongStartDate, Project.IdCustomerNavigation.Name);
+
+                    // Send initial NPR created email to activity 3 responsible and Project Manager
+                    var activity3 = TaskList?.FirstOrDefault(t => t.IdTaskNavigation?.IdTask == 3);
+                    if (activity3 != null && activity3.IdEmployee != 0)
+                    {
+                        var activity3Emp = await _projectsDataService.GetEmployeeAsync(activity3.IdEmployee);
+                        var managerEmp = await _projectsDataService.GetEmployeeAsync(Project.IdManager);
+                        var customer = (await _projectsDataService.GetCustomerAsync(Project.IdCustomer))?.Name ?? "";
+                        if (activity3Emp != null)
+                        {
+                            var to = activity3Emp.Email;
+                            var cc = managerEmp?.Email;
+                            _mailService.SendNewNprCreatedEmail(to, cc, Project.IdProject, customer);
+                        }
+                    }
 
                     _navigationService.NavigateTo(typeof(ProjectDetailsViewModel).FullName, Project);
                     SelectedTabItem = 0;

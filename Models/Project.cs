@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Security.Cryptography;
 
 #nullable disable
 
@@ -56,6 +57,8 @@ namespace ProjectManager.Models
         public int CrimpApplication { get; set; }
         public bool IsAutomotive { get; set; }
         public int QuestionnairePoints { get; set; }
+
+        public string DisplayProjectId => $"N{IdProject}";
 
         public int Year => CreationDate.Year;
         public int Month => CreationDate.Month;

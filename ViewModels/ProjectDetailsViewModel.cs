@@ -190,6 +190,7 @@ namespace ProjectManager.ViewModels
 
         public async void OnNavigatedTo(object parameter)
         {
+            SelectedTabItem = 0; // Ensure Information tab is selected on navigation
             if (parameter is Project project)
             {
                 await InitializeAsync(project);
@@ -225,6 +226,9 @@ namespace ProjectManager.ViewModels
             {
                 CompleteTaskBtnVisibility = Visibility.Visible;
             }
+
+            // After full initialization, ensure default tab
+            SelectedTabItem = 0;
         }
 
         private async System.Threading.Tasks.Task LoadActivitiesAsync()

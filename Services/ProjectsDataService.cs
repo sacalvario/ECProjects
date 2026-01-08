@@ -101,7 +101,13 @@ namespace ProjectManager.Services
         private IEnumerable<Project> GetHistory()
         {
             using projectsContext context = new projectsContext();
-            return context.Projects.Where(i => i.IdGeneratedby == UserRecord.Employee_ID || i.IdManager == UserRecord.Employee_ID).ToList();
+            return context.Projects
+                .Where(i => i.IdGeneratedby == UserRecord.Employee_ID || i.IdManager == UserRecord.Employee_ID)
+                .Include(p => p.IdCustomerNavigation)
+                .Include(p => p.ProjectParts)
+                    .ThenInclude(pp => pp.Part)
+                        .ThenInclude(part => part.Customer)
+                .ToList();
         }
 
         public async Task<Status> GetStatusAsync(int id)
@@ -159,6 +165,13 @@ namespace ProjectManager.Services
         {
             using projectsContext context = new projectsContext();
             return context.ProjectTasks.Where(i => i.IdEmployee == employee && i.IdStatus == 2).ToList();
+        }
+
+        public async Task<ICollection<ProjectTask>> GetCompletedTasksAsync(int employee)
+        {
+            await System.Threading.Tasks.Task.CompletedTask;
+            using projectsContext context = new projectsContext();
+            return context.ProjectTasks.Where(i => i.IdEmployee == employee && (i.IdStatus == 1 || i.IdStatus == 4)).ToList();
         }
 
         public async Task<Project> GetProjectAsync(int id)
@@ -289,15 +302,15 @@ namespace ProjectManager.Services
 
 
             var existingTask = await context.ProjectTasks
-                .FirstOrDefaultAsync(t => t.IdTask == task.IdTask);
+                .FirstOrDefaultAsync(t => t.IdTask == task.IdTask && t.IdProject == task.IdProject);
 
             if (existingTask == null)
                 throw new InvalidOperationException($"No se encontró la tarea con ID {task.IdTask}");
 
-            // Actualizamos las propiedades necesarias
+            // Actualizamos las propiedades necesarias (EndDate permanece como el valor planeado)
             existingTask.StartDate = task.StartDate;
-            existingTask.EndDate = task.EndDate;
             existingTask.IdStatus = task.IdStatus;
+            existingTask.CompletationDate = task.CompletationDate;
 
             await context.SaveChangesAsync();
         }
@@ -307,15 +320,16 @@ namespace ProjectManager.Services
             if (activeTask == null)
                 return;
 
+            // Actualiza sólo el estado y la fecha de completación; EndDate se mantiene sin cambios (fecha objetivo planificada)
             if (DateTime.Now > activeTask.EndDate)
                 activeTask.IdStatus = 1; // Completada
             else
                 activeTask.IdStatus = 4;
 
-            activeTask.EndDate = DateTime.Now;
+            activeTask.CompletationDate = DateTime.Now;
 
             await UpdateTaskAsync(activeTask);
-            // Recalcular fechas en cascada
+            // Recalcular fechas en cascada (usa EndDate planificada del task)
             await UpdateDependentTasksRecursive(activeTask);
 
             // Abrir tareas simultáneas si aplica (por ejemplo, 5–8 cuando se completa la 4)
@@ -468,6 +482,19 @@ namespace ProjectManager.Services
                                 .ToListAsync();
 
             return customActivities;
+        }
+
+        public async Task<IEnumerable<Project>> GetAllProjectsAsync()
+        {
+            await System.Threading.Tasks.Task.CompletedTask;
+            using var ctx = new projectsContext();
+            return ctx.Projects
+                .Include(p => p.IdCustomerNavigation)
+                .Include(p => p.IdManagerNavigation)
+                    .ThenInclude(m => m.IdDepartamentNavigation)
+                .Include(p => p.IdStatusNavigation)
+                .OrderByDescending(p => p.IdProject)
+                .ToList();
         }
     }
 

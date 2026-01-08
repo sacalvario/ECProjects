@@ -227,5 +227,34 @@ namespace ProjectManager.Services
                 return;
             }
         }
+
+        public void SendNewNprCreatedEmail(string toEmail, string ccEmail, int projectId, string customer)
+        {
+            using var client = new SmtpClient("electricord-com01i.mail.protection.outlook.com", 25);
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = true; // Relay interno
+            client.EnableSsl = false; // No SSL
+
+            var msg = new MailMessage();
+            msg.From = new MailAddress("emailrelay@ecmfg.com");
+            msg.To.Add(toEmail);
+            if (!string.IsNullOrWhiteSpace(ccEmail)) msg.CC.Add(ccEmail);
+
+            msg.Subject = "NEW NPR CREATED";
+            msg.Body = "<p><span style='font-family:Tahoma, Geneva, sans-serif'>A new NPR has been created.</span></p>" +
+                       "<p><span style='font-family:Tahoma, Geneva, sans-serif'>Project ID: </span><span style='color:#558b2f;font-family:Tahoma, Geneva, sans-serif'><strong>" + projectId + "</strong></span></p>" +
+                       "<p><span style='font-family:Tahoma, Geneva, sans-serif'>Customer: </span><span style='color:#689f38;font-family:Tahoma, Geneva, sans-serif'><strong>" + customer + "</strong></span></p>" +
+                       "<p><span style='font-family:Tahoma, Geneva, sans-serif'>Please review the tasks and dates.</span></p>";
+            msg.IsBodyHtml = true;
+
+            try
+            {
+                client.Send(msg);
+            }
+            catch
+            {
+                return;
+            }
+        }
     }
 }

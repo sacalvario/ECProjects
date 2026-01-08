@@ -16,11 +16,13 @@ namespace ProjectManager.Contracts.Services
         Task<Project> GetProjectAsync(int id);
         Project GetProjectWithInfoAsync(int id);
         Task<IEnumerable<Project>> GetHistoryAsync();
+        Task<IEnumerable<Project>> GetAllProjectsAsync();
         Task<IEnumerable<Models.Task>> GetTasksAsync();
         Task<IEnumerable<Customer>> GetCustomersAsync();
         Task<IEnumerable<Employee>> GetEmployeesAsync();
         Task<ICollection<ProjectTask>> GetActivitiesAsync(int project);
         Task<ICollection<ProjectTask>> GetTasksAsync(int employee);
+        Task<ICollection<ProjectTask>> GetCompletedTasksAsync(int employee);
         Task<IEnumerable<Department>> GetDepartmentsAsync();
         bool SaveProject(Project project);
         bool AddCustomer(Customer customer);

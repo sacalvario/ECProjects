@@ -81,10 +81,10 @@
                         <Label Content="My tasks" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center" />
                     </StackPanel>
                 </ui:NavigationViewItem>
-                <ui:NavigationViewItem x:Name="btnProjects" Tag="Tasks" Margin="0, 2, 0, 0" Visibility="Collapsed">
+                <ui:NavigationViewItem x:Name="btnNprs" Tag="NprList" Margin="0, 2, 0, 0">
                     <StackPanel Orientation="Horizontal">
-                        <md:PackIcon Kind="FileSearch" Width="24" Height="24" Foreground="Green" VerticalAlignment="Center"  />
-                        <Label Content="Projects" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center" />
+                        <md:PackIcon Kind="FileTable" Width="24" Height="24" Foreground="Green" VerticalAlignment="Center"  />
+                        <Label Content="NPRs" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center" />
                     </StackPanel>
                 </ui:NavigationViewItem>
             </ui:NavigationView.MenuItems>
