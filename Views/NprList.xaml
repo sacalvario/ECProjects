@@ -1,10 +1,10 @@
-<Page x:Class="ProjectManager.Views.NprList"
+﻿<Page x:Class="ProjectManager.Views.NprList"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-      xmlns:ui="http://schemas.modernwpf.com/2019"
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       DataContext="{Binding NprListViewModel, Source={StaticResource Locator}}"
       mc:Ignorable="d" 
       d:DesignHeight="720" d:DesignWidth="1000"
@@ -12,18 +12,84 @@
 
     <Grid Background="#FFEAE7E7">
         <StackPanel Orientation="Horizontal" Margin="20,10,20,0" HorizontalAlignment="Stretch">
-            <md:PackIcon Kind="FileSearch" Width="28" Height="28" Foreground="Green"/>
+            <md:PackIcon Kind="FileTable" Width="28" Height="28" Foreground="Green"/>
             <TextBlock Text="NPRs registered" FontSize="22" FontWeight="Bold" Margin="10,0,0,0"/>
         </StackPanel>
-        <DataGrid ItemsSource="{Binding Projects}" AutoGenerateColumns="False" Margin="20,60,20,20"
-                  CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" HeadersVisibility="Column"
-                  VirtualizingPanel.VirtualizationMode="Recycling">
+
+        <DataGrid x:Name="dgNprs"
+                  ItemsSource="{Binding Projects}"
+                  AutoGenerateColumns="False"
+                  Margin="20,60,20,20"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  IsReadOnly="True"
+                  HeadersVisibility="Column"
+                  GridLinesVisibility="Horizontal">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding NavigateToDetailCommand}" CommandParameter="{Binding ElementName=dgNprs, Path=SelectedItem}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding DisplayProjectId}" Width="120"/>
-                <DataGridTextColumn Header="Quote #" Binding="{Binding QuoteNumber}" Width="150"/>
-                <DataGridTextColumn Header="Customer" Binding="{Binding IdCustomerNavigation.Name}" Width="200"/>
-                <DataGridTextColumn Header="Manager" Binding="{Binding IdManagerNavigation.Name}" Width="200"/>
-                <DataGridTextColumn Header="Status" Binding="{Binding IdStatusNavigation.Name}" Width="150"/>
+                <!-- ID with icon -->
+                <DataGridTemplateColumn Header="ID" Width="120">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <md:PackIcon Kind="FileDocument" Width="18" Height="18" Foreground="Green"/>
+                                <TextBlock Text="{Binding DisplayProjectId}" Margin="8,0,0,0"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <!-- Quote number with icon -->
+                <DataGridTemplateColumn Header="Quote #" Width="160">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <md:PackIcon Kind="FileDocumentOutline" Width="18" Height="18" Foreground="Black"/>
+                                <TextBlock Text="{Binding QuoteNumber}" Margin="8,0,0,0"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Project manager" Width="260">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <md:PackIcon Kind="AccountTie" Width="24" Height="24" Foreground="Black"/>
+                                <StackPanel Margin="8,0,0,0">
+                                    <TextBlock Text="{Binding IdManagerNavigation.Name}" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding IdManagerNavigation.IdDepartamentNavigation.Name}" Foreground="Green"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Customer" Width="260">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <md:PackIcon Kind="Account" Width="20" Height="20" Foreground="Black"/>
+                                <TextBlock Text="{Binding IdCustomerNavigation.Name}" Margin="8,0,0,0"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Status" Width="160">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Border CornerRadius="10" Background="{Binding IdStatusNavigation.StatusColor}" Height="24" Width="120" >
+                                <TextBlock Foreground="White" Text="{Binding IdStatusNavigation.Name}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black"/>
+                            </Border>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
                 <DataGridTextColumn Header="Creation date" Binding="{Binding LongDate}" Width="200"/>
             </DataGrid.Columns>
         </DataGrid>

@@ -68,7 +68,6 @@ namespace ProjectManager.ViewModels
         
         public ReportViewModel ReportViewModel
             => SimpleIoc.Default.GetInstance<ReportViewModel>();
-
         public NprListViewModel NprListViewModel
             => SimpleIoc.Default.GetInstance<NprListViewModel>();
 

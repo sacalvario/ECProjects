@@ -381,8 +381,19 @@ namespace ProjectManager.Services
 
             foreach (var nextTask in nextTasks)
             {
-                // Aquí puedes cambiar esto en producción
-                _emailService.SendNewTaskEmail("scalvario@ecmfg.com", "scalvario@ecmfg.com", nextTask.IdProject, nextTask.IdEmployeeNavigation.Name, "Simón Alejandro", nextTask.LongEndDate, nextTask.IdProjectNavigation.IdCustomerNavigation.Name);
+                // En producción: notificar al responsable y al generador del proyecto
+                var to = nextTask.IdEmployeeNavigation?.Email;
+                var generatorEmail = nextTask.IdProjectNavigation?.IdGeneratedbyNavigation?.Email;
+                var projectId = nextTask.IdProject;
+                var responsibleName = nextTask.IdEmployeeNavigation?.Name;
+                var generatorName = nextTask.IdProjectNavigation?.IdGeneratedbyNavigation?.Name;
+                var targetDate = nextTask.LongEndDate;
+                var customer = nextTask.IdProjectNavigation?.IdCustomerNavigation?.Name;
+
+                if (!string.IsNullOrWhiteSpace(to) && !string.IsNullOrWhiteSpace(generatorEmail))
+                {
+                    _emailService.SendNewTaskEmail(to, generatorEmail, projectId, responsibleName, generatorName, targetDate, customer);
+                }
             }
 
         }

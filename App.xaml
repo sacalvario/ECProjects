@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ui="http://schemas.modernwpf.com/2019"
     xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:conv="clr-namespace:ProjectManager.Converters"
     d1p1:Ignorable="d"
     Startup="OnStartup"
     Exit="OnExit"
@@ -32,6 +33,8 @@
             <vm:ViewModelLocator
                 x:Key="Locator"
                 d:IsDataSource="True" />
+
+            <conv:MinScaleConverter x:Key="MinScaleConverter" BaselineWidth="1280" BaselineHeight="800" MinScale="0.85" MaxScale="1.25" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

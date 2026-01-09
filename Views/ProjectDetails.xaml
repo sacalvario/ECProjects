@@ -12,6 +12,23 @@
       Title="Project">
 
     <Grid Background="#FFE0E0E0">
+        <Grid.LayoutTransform>
+            <ScaleTransform>
+                <ScaleTransform.ScaleX>
+                    <MultiBinding Converter="{StaticResource MinScaleConverter}">
+                        <Binding RelativeSource="{RelativeSource AncestorType=Window}" Path="ActualWidth"/>
+                        <Binding RelativeSource="{RelativeSource AncestorType=Window}" Path="ActualHeight"/>
+                    </MultiBinding>
+                </ScaleTransform.ScaleX>
+                <ScaleTransform.ScaleY>
+                    <MultiBinding Converter="{StaticResource MinScaleConverter}">
+                        <Binding RelativeSource="{RelativeSource AncestorType=Window}" Path="ActualWidth"/>
+                        <Binding RelativeSource="{RelativeSource AncestorType=Window}" Path="ActualHeight"/>
+                    </MultiBinding>
+                </ScaleTransform.ScaleY>
+            </ScaleTransform>
+        </Grid.LayoutTransform>
+
         <Button VerticalAlignment="Top" Margin="0, 30, 0, 0" Background="Transparent" Command="{Binding GoBackCommand}">
             <Image Source="/Assets/reply.png" Width="32" Height="32"/>
         </Button>
@@ -173,7 +190,7 @@
                             </StackPanel>
                         </StackPanel>
                     </Border>
-                    <TextBlock Text="Specific information" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="30, 20, 10, 10" FontSize="20" FontFamily="Quicksand Medium" FontWeight="Bold"/>
+                    <TextBlock Text="Specific information" Grid.ColumnSpan="2" Grid.Column="2" HorizontalAlignment="Left" Margin="30, 20, 10, 10" FontSize="20" FontFamily="Quicksand Medium" FontWeight="Bold"/>
                     <Border  Grid.Column="2" Margin="10, 60, 10, 0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Background="#FFD6D6D6" CornerRadius="20">
                         <StackPanel >
                             <TextBlock Text="Project Manager" FontSize="16" HorizontalAlignment="Center" FontFamily="Quicksand" Margin="0, 10, 0, 0"  />
@@ -432,10 +449,267 @@
                                 </DataGrid.Columns>
                             </DataGrid>
                         </StackPanel>
-
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>
-        </TabControl>
+
+                <!-- New tab: Initial questions -->
+                <TabItem Height="40">
+                    <TabItem.Header>
+                        <TextBlock Text="Initial questions" FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
+                    </TabItem.Header>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <Grid Margin="20,10,20,20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="264.667"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- New Customer -->
+                            <Border Grid.Row="0" Grid.Column="0" Margin="10" Background="#FFD6D6D6" CornerRadius="20">
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text="New customer" FontSize="16" HorizontalAlignment="Center" FontFamily="Quicksand" Margin="0, 10, 0, 0"/>
+                                    <StackPanel Margin="0, 20, 0, 20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <md:PackIcon Kind="AccountPlus" Foreground="Green" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" />
+                                        <TextBlock Margin="0,8,0,0" FontSize="18" FontWeight="Bold" FontFamily="Quicksand" HorizontalAlignment="Center">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Text" Value="No"/>
+                                                    <Setter Property="Foreground" Value="Black"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Project.NewCustomer}" Value="1">
+                                                            <Setter Property="Text" Value="Yes"/>
+                                                            <Setter Property="Foreground" Value="Green"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Customer drawing available -->
+                            <Border Grid.Row="0" Grid.Column="1" Margin="10" Background="#FFD6D6D6" CornerRadius="20">
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text="Customer drawing available" FontSize="16" HorizontalAlignment="Center" FontFamily="Quicksand" Margin="0, 10, 0, 0"/>
+                                    <StackPanel Margin="0, 20, 0, 20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <md:PackIcon Kind="FileDocumentOutline" Foreground="Green" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" />
+                                        <TextBlock Margin="0,8,0,0" FontSize="18" FontWeight="Bold" FontFamily="Quicksand" HorizontalAlignment="Center">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Text" Value="No"/>
+                                                    <Setter Property="Foreground" Value="Black"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Project.CustomerDrawingAvailable}" Value="1">
+                                                            <Setter Property="Text" Value="Yes"/>
+                                                            <Setter Property="Foreground" Value="Green"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Is Automotive -->
+                            <Border Grid.Row="0" Grid.Column="2" Margin="10" Background="#FFD6D6D6" CornerRadius="20">
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text="Automotive project" FontSize="16" HorizontalAlignment="Center" FontFamily="Quicksand" Margin="0, 10, 0, 0"/>
+                                    <StackPanel Margin="0, 20, 0, 20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <md:PackIcon Kind="Car" Foreground="Green" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" />
+                                        <TextBlock Margin="0,8,0,0" FontSize="18" FontWeight="Bold" FontFamily="Quicksand" HorizontalAlignment="Center">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Text" Value="No"/>
+                                                    <Setter Property="Foreground" Value="Black"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Project.IsAutomotive}" Value="1">
+                                                            <Setter Property="Text" Value="Yes"/>
+                                                            <Setter Property="Foreground" Value="Green"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Assembly quantity -->
+                            <Border Grid.Row="1" Grid.Column="0" Margin="10" Background="#FFD6D6D6" CornerRadius="20">
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text="Assembly quantity" FontSize="16" HorizontalAlignment="Center" FontFamily="Quicksand" Margin="0, 10, 0, 0"/>
+                                    <StackPanel Margin="0, 20, 0, 20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <md:PackIcon Kind="WrenchClock" Foreground="Green" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" />
+                                        <TextBlock Text="{Binding Project.AssemblyQuantity}" Margin="0,8,0,0" FontSize="18" FontWeight="Bold" FontFamily="Quicksand" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- New raw material qty -->
+                            <Border Grid.Row="1" Grid.Column="1" Margin="10" Background="#FFD6D6D6" CornerRadius="20">
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text="New raw materials" FontSize="16" HorizontalAlignment="Center" FontFamily="Quicksand" Margin="0, 10, 0, 0"/>
+                                    <StackPanel Margin="0, 20, 0, 0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <md:PackIcon Kind="Package" Foreground="Green" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" />
+                                        <TextBlock Text="{Binding Project.NewRawMaterialQty}" Margin="0,8,0,0" FontSize="18" FontWeight="Bold" FontFamily="Quicksand" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Crimp application -->
+                            <Border Grid.Row="1" Grid.Column="2" Margin="10" Background="#FFD6D6D6" CornerRadius="20">
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text="Crimp applications" FontSize="16" HorizontalAlignment="Center" FontFamily="Quicksand" Margin="0, 10, 0, 0"/>
+                                    <StackPanel Margin="0, 20, 0, 0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <md:PackIcon Kind="CableData" Foreground="Green" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" />
+                                        <TextBlock Text="{Binding Project.CrimpApplication}" Margin="0,8,0,0" FontSize="18" FontWeight="Bold" FontFamily="Quicksand" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- New tooling -->
+                            <Border Grid.Row="2" Grid.Column="0" Margin="10" Background="#FFD6D6D6" CornerRadius="20">
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text="New tooling" FontSize="16" HorizontalAlignment="Center" FontFamily="Quicksand" Margin="0, 10, 0, 0"/>
+                                    <StackPanel Margin="0, 20, 0, 0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <md:PackIcon Kind="HammerScrewdriver" Foreground="Green" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" />
+                                        <TextBlock Margin="0,8,0,0" FontSize="18" FontWeight="Bold" FontFamily="Quicksand" HorizontalAlignment="Center">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Text" Value="No"/>
+                                                    <Setter Property="Foreground" Value="Black"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Project.NewTooling}" Value="1">
+                                                            <Setter Property="Text" Value="Yes"/>
+                                                            <Setter Property="Foreground" Value="Green"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Testing board -->
+                            <Border Grid.Row="2" Grid.Column="1" Margin="10" Background="#FFD6D6D6" CornerRadius="20">
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text="Testing board" FontSize="16" HorizontalAlignment="Center" FontFamily="Quicksand" Margin="0, 10, 0, 0"/>
+                                    <StackPanel Margin="0, 20, 0, 20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <md:PackIcon Kind="TestTube" Foreground="Green" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" />
+                                        <TextBlock Margin="0,8,0,0" FontSize="18" FontWeight="Bold" FontFamily="Quicksand" HorizontalAlignment="Center">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Text" Value="No"/>
+                                                    <Setter Property="Foreground" Value="Black"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Project.TestingBoard}" Value="1">
+                                                            <Setter Property="Text" Value="Yes"/>
+                                                            <Setter Property="Foreground" Value="Green"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Routing board -->
+                            <Border Grid.Row="2" Grid.Column="2" Margin="10" Background="#FFD6D6D6" CornerRadius="20">
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text="Routing board" FontSize="16" HorizontalAlignment="Center" FontFamily="Quicksand" Margin="0, 10, 0, 0"/>
+                                    <StackPanel Margin="0, 20, 0, 20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <md:PackIcon Kind="VectorPolyline" Foreground="Green" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" />
+                                        <TextBlock Margin="0,8,0,0" FontSize="18" FontWeight="Bold" FontFamily="Quicksand" HorizontalAlignment="Center">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Text" Value="No"/>
+                                                    <Setter Property="Foreground" Value="Black"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Project.RoutingBoard}" Value="1">
+                                                            <Setter Property="Text" Value="Yes"/>
+                                                            <Setter Property="Foreground" Value="Green"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- New machine -->
+                            <Border Grid.Row="3" Grid.Column="0" Margin="10" Background="#FFD6D6D6" CornerRadius="20">
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text="New machine" FontSize="16" HorizontalAlignment="Center" FontFamily="Quicksand" Margin="0, 10, 0, 0"/>
+                                    <StackPanel Margin="0, 20, 0, 20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <md:PackIcon Kind="Factory" Foreground="Green" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" />
+                                        <TextBlock Margin="0,8,0,0" FontSize="18" FontWeight="Bold" FontFamily="Quicksand" HorizontalAlignment="Center">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Text" Value="No"/>
+                                                    <Setter Property="Foreground" Value="Black"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Project.NewMachine}" Value="1">
+                                                            <Setter Property="Text" Value="Yes"/>
+                                                            <Setter Property="Foreground" Value="Green"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- New mold -->
+                            <Border Grid.Row="3" Grid.Column="1" Margin="10" Background="#FFD6D6D6" CornerRadius="20">
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text="New mold" FontSize="16" HorizontalAlignment="Center" FontFamily="Quicksand" Margin="0, 10, 0, 0"/>
+                                    <StackPanel Margin="0, 20, 0, 20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <md:PackIcon Kind="CubeOutline" Foreground="Green" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" />
+                                        <TextBlock Margin="0,8,0,0" FontSize="18" FontWeight="Bold" FontFamily="Quicksand" HorizontalAlignment="Center">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Text" Value="No"/>
+                                                    <Setter Property="Foreground" Value="Black"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Project.NewMold}" Value="1">
+                                                            <Setter Property="Text" Value="Yes"/>
+                                                            <Setter Property="Foreground" Value="Green"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Total points -->
+                            <Border Grid.Row="3" Grid.Column="2" Margin="10" Background="#FFD6D6D6" CornerRadius="20">
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text="Questionnaire points" FontSize="16" HorizontalAlignment="Center" FontFamily="Quicksand" Margin="0, 10, 0, 0"/>
+                                    <StackPanel Margin="0, 20, 0, 20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <md:PackIcon Kind="Counter" Foreground="Green" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" />
+                                        <TextBlock Text="{Binding Project.QuestionnairePoints}" Margin="0,8,0,0" FontSize="18" FontWeight="Bold" FontFamily="Quicksand" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </ScrollViewer>
+                </TabItem>
+            </TabControl>
     </Grid>
 </Page>

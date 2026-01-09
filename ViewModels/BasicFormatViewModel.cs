@@ -592,17 +592,17 @@ namespace ProjectManager.ViewModels
 
         private void ApplyQuestionnaireToProject()
         {
-            Project.NewCustomer = NewCustomer;
+            Project.NewCustomer = Convert.ToSByte(NewCustomer);
             Project.AssemblyQuantity = AssemblyQuantity;
-            Project.CustomerDrawingAvailable = CustomerDrawingAvailable;
+            Project.CustomerDrawingAvailable = Convert.ToSByte(CustomerDrawingAvailable);
             Project.NewRawMaterialQty = NewRawMaterialQty;
-            Project.NewTooling = NewTooling;
-            Project.TestingBoard = TestingBoard;
-            Project.RoutingBoard = RoutingBoard;
-            Project.NewMachine = NewMachine;
-            Project.NewMold = NewMold;
+            Project.NewTooling = Convert.ToSByte(NewTooling);
+            Project.TestingBoard = Convert.ToSByte(TestingBoard);
+            Project.RoutingBoard = Convert.ToSByte(RoutingBoard);
+            Project.NewMachine = Convert.ToSByte(NewMachine);
+            Project.NewMold = Convert.ToSByte(NewMold);
             Project.CrimpApplication = CrimpApplication;
-            Project.IsAutomotive = IsAutomotive;
+            Project.IsAutomotive = Convert.ToSByte(IsAutomotive);
             Project.TotalAssembliesInProject = AssemblyQuantity;
         }
 
@@ -647,8 +647,6 @@ namespace ProjectManager.ViewModels
             Project.ProjectComplexity = typeProject;
             Project.TotalAssembliesInProject = AssemblyQuantity;
             Project.QuestionnairePoints = totalPoints;
-            Project.IsAutomotive = IsAutomotive;
-            Project.NewCustomer = NewCustomer;
 
             // Asignación de managers según automotriz
             if (IsAutomotive) GetManagers(); else GetManagersAndEnginers();
@@ -656,8 +654,6 @@ namespace ProjectManager.ViewModels
             CreateTasks();
             GoToNexTabItem();
             _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "Total points: " + Data.Points + " Project complexity: " + ProjectComplexityString);
-
-            ResetQuestionnaireValues();
         }
 
         private void ResetQuestionnaireValues()

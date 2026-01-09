@@ -45,17 +45,17 @@ namespace ProjectManager.Models
         public int SuccesRateEstimate { get; set; }
 
         // Questionnaire fields (Part I)
-        public bool NewCustomer { get; set; }
+        public sbyte NewCustomer { get; set; }
         public int AssemblyQuantity { get; set; }
-        public bool CustomerDrawingAvailable { get; set; }
+        public sbyte CustomerDrawingAvailable { get; set; }
         public int NewRawMaterialQty { get; set; }
-        public bool NewTooling { get; set; }
-        public bool TestingBoard { get; set; }
-        public bool RoutingBoard { get; set; }
-        public bool NewMachine { get; set; }
-        public bool NewMold { get; set; }
+        public sbyte NewTooling { get; set; }
+        public sbyte TestingBoard { get; set; }
+        public sbyte RoutingBoard { get; set; }
+        public sbyte NewMachine { get; set; }
+        public sbyte NewMold { get; set; }
         public int CrimpApplication { get; set; }
-        public bool IsAutomotive { get; set; }
+        public sbyte IsAutomotive { get; set; }
         public int QuestionnairePoints { get; set; }
 
         public string DisplayProjectId => $"N{IdProject}";
