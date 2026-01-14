@@ -19,6 +19,11 @@ namespace ProjectManager.ViewModels
         private readonly IWindowManagerService _windowManagerService;
         private readonly IMailService _mailService;
 
+        // Simple shared caches to avoid repeated full reloads
+        private static List<Customer> _customersCache;
+        private static List<Employee> _employeesCache;
+        private static List<Task> _tasksCache;
+
         public RelayCommand GoToNextTabItemCommand { get; set; }
         public RelayCommand GoToLastTabItemCommand { get; set; }
 
@@ -266,9 +271,10 @@ namespace ProjectManager.ViewModels
             Project.ProjectTasks = new ObservableCollection<ProjectTask>();
             CustomTasks = new ObservableCollection<CustomProjectTask>();
 
-            GetEmployees();
-            GetCustomers();
-            GetTasks();
+            // Use cached loaders (fire and forget)
+            _ = EnsureEmployeesAsync();
+            _ = EnsureCustomersAsync();
+            _ = EnsureTasksAsync();
 
             Cont = 0;
 
@@ -447,31 +453,44 @@ namespace ProjectManager.ViewModels
             return date;
         }
 
-        private async void GetTasks()
+        private async System.Threading.Tasks.Task EnsureTasksAsync(bool forceRefresh = false)
         {
-            Tasks = new ObservableCollection<Task>();
-            var data = await _projectsDataService.GetTasksAsync();
-            foreach (var item in data) Tasks.Add(item);
-        }
-
-        private async void GetCustomers()
-        {
-            Customers = new ObservableCollection<Customer>();
-            var data = await _projectsDataService.GetCustomersAsync();
-            foreach (var item in data) Customers.Add(item);
-        }
-
-        private async void GetEmployees()
-        {
-            Employees = new ObservableCollection<Employee>();
-            var data = await _projectsDataService.GetEmployeesAsync();
-            foreach (var item in data)
+            if (_tasksCache == null || forceRefresh)
             {
-                item.IdDepartamentNavigation = await _projectsDataService.GetDepartmentAsync(item.IdDepartament);
-                item.IdSiteNavigation = await _projectsDataService.GetSiteAsync(item.IdSite);
-                if (item.IsActive) Employees.Add(item);
+                var data = await _projectsDataService.GetTasksAsync();
+                _tasksCache = data?.ToList() ?? new List<Task>();
             }
-            Employees = new ObservableCollection<Employee>(Employees.OrderBy(i => i.Name));
+            Tasks = new ObservableCollection<Task>(_tasksCache);
+        }
+
+        private async System.Threading.Tasks.Task EnsureCustomersAsync(bool forceRefresh = false)
+        {
+            if (_customersCache == null || forceRefresh)
+            {
+                var data = await _projectsDataService.GetCustomersAsync();
+                _customersCache = data?.ToList() ?? new List<Customer>();
+            }
+            Customers = new ObservableCollection<Customer>(_customersCache);
+        }
+
+        private async System.Threading.Tasks.Task EnsureEmployeesAsync(bool forceRefresh = false)
+        {
+            if (_employeesCache == null || forceRefresh)
+            {
+                var data = await _projectsDataService.GetEmployeesAsync();
+                var list = new List<Employee>();
+                if (data != null)
+                {
+                    foreach (var item in data)
+                    {
+                        item.IdDepartamentNavigation = await _projectsDataService.GetDepartmentAsync(item.IdDepartament);
+                        item.IdSiteNavigation = await _projectsDataService.GetSiteAsync(item.IdSite);
+                        if (item.IsActive) list.Add(item);
+                    }
+                }
+                _employeesCache = list.OrderBy(i => i.Name).ToList();
+            }
+            Employees = new ObservableCollection<Employee>(_employeesCache);
         }
 
         private async void GetManagersAndEnginers()
@@ -562,7 +581,7 @@ namespace ProjectManager.ViewModels
 
                     var task = _projectsDataService.GetOnlyActiveTask(Project.IdProject);
                     task.IdEmployeeNavigation = await _projectsDataService.GetEmployeeAsync(task.IdEmployee);
-                    _mailService.SendNewTaskEmail(task.IdEmployeeNavigation.Email, Project.IdGeneratedbyNavigation.Email, Project.IdProject, task.IdEmployeeNavigation.Name, UserRecord.Employee.Name, task.LongStartDate, Project.IdCustomerNavigation.Name);
+                    await _mailService.SendNewTaskEmailAsync(task.IdEmployeeNavigation.Email, Project.IdGeneratedbyNavigation.Email, Project.IdProject, task.IdEmployeeNavigation.Name, UserRecord.Employee.Name, task.LongStartDate, Project.IdCustomerNavigation.Name);
 
                     // Send initial NPR created email to activity 3 responsible and Project Manager
                     var activity3 = TaskList?.FirstOrDefault(t => t.IdTaskNavigation?.IdTask == 3);
@@ -575,7 +594,7 @@ namespace ProjectManager.ViewModels
                         {
                             var to = activity3Emp.Email;
                             var cc = managerEmp?.Email;
-                            _mailService.SendNewNprCreatedEmail(to, cc, Project.IdProject, customer);
+                            await _mailService.SendNewNprCreatedEmailAsync(to, cc, Project.IdProject, customer);
                         }
                     }
 
@@ -668,7 +687,9 @@ namespace ProjectManager.ViewModels
             ResetQuestionnaireValues();
             NewParts = new ObservableCollection<Part> { new Part { PartNumber = string.Empty, Revision = string.Empty, CustomerId = Project.IdCustomer } };
             CustomTasks = new ObservableCollection<CustomProjectTask>();
-            GetCustomers(); GetEmployees(); GetTasks();
+            _ = EnsureCustomersAsync();
+            _ = EnsureEmployeesAsync();
+            _ = EnsureTasksAsync();
             TaskList = new ObservableCollection<ProjectTask>();
         }
 

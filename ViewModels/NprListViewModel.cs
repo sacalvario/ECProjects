@@ -6,6 +6,7 @@ using ProjectManager.Models;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using System.Collections.Generic;
 
 namespace ProjectManager.ViewModels
 {
@@ -13,6 +14,9 @@ namespace ProjectManager.ViewModels
     {
         private readonly IProjectsDataService _projectsDataService;
         private readonly INavigationService _navigationService;
+
+        // Simple in-memory cache shared across instances
+        private static List<Project> _projectsCache;
 
         public NprListViewModel(IProjectsDataService projectsDataService, INavigationService navigationService)
         {
@@ -33,15 +37,27 @@ namespace ProjectManager.ViewModels
 
         public async void OnNavigatedTo(object parameter)
         {
-            await LoadAsync();
+            // allow caller to force a refresh by passing a bool true as parameter
+            bool force = false;
+            if (parameter is bool b) force = b;
+            await LoadAsync(force);
         }
 
         public void OnNavigatedFrom() { }
 
-        private async System.Threading.Tasks.Task LoadAsync()
+        private async System.Threading.Tasks.Task LoadAsync(bool forceRefresh = false)
         {
+            // If cache exists and refresh not requested, use it directly
+            if (_projectsCache != null && !forceRefresh)
+            {
+                Projects = new ObservableCollection<Project>(_projectsCache);
+                return;
+            }
+
             Projects.Clear();
             var all = await _projectsDataService.GetAllProjectsAsync();
+
+            var tempList = new List<Project>();
             foreach (var p in all)
             {
                 // Ensure related info for bindings
@@ -54,7 +70,11 @@ namespace ProjectManager.ViewModels
                     p.IdManagerNavigation.IdDepartamentNavigation = await _projectsDataService.GetDepartmentAsync(p.IdManagerNavigation.IdDepartament);
                 }
                 Projects.Add(p);
+                tempList.Add(p);
             }
+
+            // update cache
+            _projectsCache = tempList;
         }
 
         private void NavigateToDetail(Project project)

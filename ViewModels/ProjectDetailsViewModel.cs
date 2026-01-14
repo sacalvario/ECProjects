@@ -323,7 +323,7 @@ namespace ProjectManager.ViewModels
             var nextTask = _projectsDataService.GetNextTask(Project.IdProject, taskId);
             nextTask.IdEmployeeNavigation = await _projectsDataService.GetEmployeeAsync(nextTask.IdEmployee);
 
-            _mailService.SendNewTaskEmail(
+            await _mailService.SendNewTaskEmailAsync(
                 nextTask.IdEmployeeNavigation.Email,
                 Project.IdGeneratedbyNavigation.Email,
                 Project.IdProject,
