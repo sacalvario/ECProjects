@@ -11,9 +11,8 @@
     DataContext="{Binding ShellViewModel, Source={StaticResource Locator}}"
     Title=" Electri-Cord"
     mc:Ignorable="d"
-    MinWidth="1024"
-    MinHeight="700"
-    WindowState="Maximized"
+    Width="1236"
+    Height="802"
     Icon="/plug.ico"
     WindowStartupLocation="CenterScreen">
 
@@ -42,13 +41,34 @@
 
 
         <ui:NavigationView Name="nv"  IsSettingsVisible="False" PaneDisplayMode="LeftCompact" IsBackButtonVisible="Collapsed" CompactPaneLength="50"  SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}">
+            <!--<ui:NavigationView.PaneHeader>
+                <StackPanel Orientation="Horizontal" Margin="12, 5">
+                    <Image Source="/Assets/enchufe.png" Width="52" Height="52"/>
+                    <StackPanel Margin="5, 0, 0, 0">
+                        <TextBlock Text="Projects System" FontWeight="Black" FontSize="16"/>
+                        <TextBlock Text="Electri-Cord" FontSize="16"/>
+                    </StackPanel>
+                </StackPanel>
+            </ui:NavigationView.PaneHeader>-->
             <ui:NavigationView.MenuItems>
+                <!--<ui:NavigationViewItem x:Name="btnDashBoard" Tag="Dashboard" Margin="0, 2, 0, 0" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Assets/dashboardred.png" Width="24" VerticalAlignment="Center" />
+                        <Label Content="Dashboard" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </ui:NavigationViewItem>-->
                 <ui:NavigationViewItem x:Name="btnNew" Tag="FrontCapture" Margin="0, 0, 0, 0">
                     <StackPanel Orientation="Horizontal" >
                         <md:PackIcon Kind="TextBoxPlus" Width="24" Height="24" VerticalAlignment="Center" Foreground="Green"/>
                         <Label Content="New project" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center" Foreground="Black"/>
                     </StackPanel>
                 </ui:NavigationViewItem>
+                <!--<ui:NavigationViewItem x:Name="btnPendingECNs" Tag="Checklist" Margin="0, 2, 0, 0">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Assets/task2.png" Width="24" VerticalAlignment="Center" />
+                        <Label Content="Checklist" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </ui:NavigationViewItem>-->
                 <ui:NavigationViewItem x:Name="btnHistoryECNs" Tag="History" Margin="0, 2, 0, 0">
                     <StackPanel Orientation="Horizontal">
                         <md:PackIcon Kind="History" Width="24" Height="24" Foreground="Green" VerticalAlignment="Center"  />

@@ -1,4 +1,6 @@
 ﻿using ProjectManager.Contracts.Services;
+using ProjectManager.Models;
+
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
@@ -8,10 +10,10 @@ namespace ProjectManager.Services
     public class MailService : IMailService
     {
 
-        public async System.Threading.Tasks.Task SendAssignedManagerEmailAsync(string manageremail, string managername, string generatorname, int id, string customer)
+        public void SendAssignedManagerEmail(string manageremail, string managername, string generatorname, int id, string customer)
         {
-            using var msg = new MailMessage();
-            using var client = new SmtpClient("smtp-mail.outlook.com");
+            MailMessage msg = new MailMessage();
+            SmtpClient client = new SmtpClient("smtp-mail.outlook.com");
 
             msg.From = new MailAddress("ecmprojects@outlook.com");
             msg.To.Add(manageremail);
@@ -31,7 +33,7 @@ namespace ProjectManager.Services
 
             try
             {
-                await client.SendMailAsync(msg);
+                client.Send(msg);
             }
             catch
             {
@@ -39,14 +41,14 @@ namespace ProjectManager.Services
             }
         }
 
-        public async System.Threading.Tasks.Task SendNewTaskEmailAsync(string email, string generatoremail, int id, string responsiblename, string generatorname, string targetdate, string customer)
+        public void SendNewTaskEmail(string email, string generatoremail, int id, string responsiblename, string generatorname, string targetdate, string customer)
         {
             using var client = new SmtpClient("electricord-com01i.mail.protection.outlook.com", 25);
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.UseDefaultCredentials = true; // Usa las credenciales de Windows (relay interno)
             client.EnableSsl = false; // No SSL, relay interno
 
-            using var msg = new MailMessage();
+            var msg = new MailMessage();
             msg.From = new MailAddress("emailrelay@ecmfg.com");
             msg.To.Add(email);
             msg.CC.Add(generatoremail);
@@ -62,7 +64,7 @@ namespace ProjectManager.Services
 
             try
             {
-                await client.SendMailAsync(msg);
+                client.Send(msg);
             }
             catch
             {
@@ -70,14 +72,14 @@ namespace ProjectManager.Services
             }
         }
 
-        public async System.Threading.Tasks.Task SendNewNprCreatedEmailAsync(string toEmail, string ccEmail, int projectId, string customer)
+        public void SendNewNprCreatedEmail(string toEmail, string ccEmail, int projectId, string customer)
         {
             using var client = new SmtpClient("electricord-com01i.mail.protection.outlook.com", 25);
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.UseDefaultCredentials = true; // Relay interno
             client.EnableSsl = false; // No SSL
 
-            using var msg = new MailMessage();
+            var msg = new MailMessage();
             msg.From = new MailAddress("emailrelay@ecmfg.com");
             msg.To.Add(toEmail);
             if (!string.IsNullOrWhiteSpace(ccEmail)) msg.CC.Add(ccEmail);
@@ -91,7 +93,7 @@ namespace ProjectManager.Services
 
             try
             {
-                await client.SendMailAsync(msg);
+                client.Send(msg);
             }
             catch
             {

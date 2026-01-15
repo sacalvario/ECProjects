@@ -22,25 +22,16 @@ namespace ProjectManager.Services
             _emailService = mailService ?? throw new ArgumentNullException(nameof(mailService));
         }
 
-        private projectsContext CreateContext() => new projectsContext();
-
         public async Task<Employee> GetEmployeeAsync(int id)
         {
-            using var ctx = CreateContext();
-            var employee = await ctx.Employees.FindAsync(id);
-            if (employee != null)
-            {
-                employee.IdDepartamentNavigation = await ctx.Departments.FindAsync(employee.IdDepartament);
-            }
-            return employee;
+            await System.Threading.Tasks.Task.CompletedTask;
+            return GetEmployee(id);
         }
 
         public async Task<IEnumerable<Models.Task>> GetTasksAsync()
         {
-            using var ctx = CreateContext();
-            return await ctx.Tasks
-                .OrderBy(t => t.IdTask)
-                .ToListAsync();
+            await System.Threading.Tasks.Task.CompletedTask;
+            return GetTasks();
 
         }
 
@@ -58,10 +49,8 @@ namespace ProjectManager.Services
 
         public async Task<IEnumerable<Customer>> GetCustomersAsync()
         {
-            using var ctx = CreateContext();
-            return await ctx.Customers
-                .OrderBy(c => c.Name)
-                .ToListAsync();
+            await System.Threading.Tasks.Task.CompletedTask;
+            return GetCustomers();
         }
 
         private IEnumerable<Customer> GetCustomers()
@@ -71,8 +60,8 @@ namespace ProjectManager.Services
 
         public async Task<IEnumerable<Employee>> GetEmployeesAsync()
         {
-            using var ctx = CreateContext();
-            return await ctx.Employees.ToListAsync();
+            await System.Threading.Tasks.Task.CompletedTask;
+            return GetEmployees();
         }
 
         private IEnumerable<Employee> GetEmployees()
@@ -82,8 +71,8 @@ namespace ProjectManager.Services
 
         public async Task<Department> GetDepartmentAsync(int id)
         {
-            using var ctx = CreateContext();
-            return await ctx.Departments.FindAsync(id);
+            await System.Threading.Tasks.Task.CompletedTask;
+            return GetDepartment(id);
         }
 
         private Department GetDepartment(int id)
@@ -123,8 +112,8 @@ namespace ProjectManager.Services
 
         public async Task<Status> GetStatusAsync(int id)
         {
-            using var ctx = CreateContext();
-            return await ctx.Status.FindAsync(id);
+            await System.Threading.Tasks.Task.CompletedTask;
+            return GetStatus(id);
         }
 
         private Status GetStatus(int id)
@@ -134,8 +123,8 @@ namespace ProjectManager.Services
 
         public async Task<Customer> GetCustomerAsync(int id)
         {
-            using var ctx = CreateContext();
-            return await ctx.Customers.FindAsync(id);
+            await System.Threading.Tasks.Task.CompletedTask;
+            return GetCustomer(id);
         }
 
         private Customer GetCustomer(int id)
@@ -145,11 +134,8 @@ namespace ProjectManager.Services
 
         public async Task<ICollection<ProjectTask>> GetActivitiesAsync(int project)
         {
-            using var ctx = CreateContext();
-            var list = await ctx.ProjectTasks
-                .Where(i => i.IdProject == project)
-                .ToListAsync();
-            return list;
+            await System.Threading.Tasks.Task.CompletedTask;
+            return GetActivities(project);
         }
 
         private ICollection<ProjectTask> GetActivities(int project)
@@ -160,8 +146,8 @@ namespace ProjectManager.Services
 
         public async Task<Models.Task> GetTaskAsync(int id)
         {
-            using var ctx = CreateContext();
-            return await ctx.Tasks.FindAsync(id);
+            await System.Threading.Tasks.Task.CompletedTask;
+            return GetTask(id);
         }
 
         private Models.Task GetTask(int id)
@@ -190,8 +176,8 @@ namespace ProjectManager.Services
 
         public async Task<Project> GetProjectAsync(int id)
         {
-            using var ctx = CreateContext();
-            return await ctx.Projects.FindAsync(id);
+            await System.Threading.Tasks.Task.CompletedTask;
+            return GetProject(id);
         }
 
         private Project GetProject(int id)
@@ -201,8 +187,8 @@ namespace ProjectManager.Services
 
         public async Task<Site> GetSiteAsync(int id)
         {
-            using var ctx = CreateContext();
-            return await ctx.Sites.FindAsync(id);
+            await System.Threading.Tasks.Task.CompletedTask;
+            return GetSite(id);
         }
 
         private Site GetSite(int id)
@@ -212,8 +198,7 @@ namespace ProjectManager.Services
 
         public ProjectTask GetActiveTask(int project, int employee)
         {
-            using var ctx = CreateContext();
-            return ctx.ProjectTasks.FirstOrDefault(i => i.IdProject == project && i.IdStatus == 2 && i.IdEmployee == employee);
+            return context.ProjectTasks.FirstOrDefault(i => i.IdProject == project && i.IdStatus == 2 && i.IdEmployee == employee);
         }
 
         public bool AddCustomer(Customer customer)
@@ -230,14 +215,12 @@ namespace ProjectManager.Services
 
         public ProjectTask GetOnlyActiveTask(int project)
         {
-            using var ctx = CreateContext();
-            return ctx.ProjectTasks.First(i => i.IdProject == project && i.IdStatus == 2);
+            return context.ProjectTasks.First(i => i.IdProject == project && i.IdStatus == 2);
         }
 
         public ProjectTask GetNextTask(int project, int task)
         {
-            using var ctx = CreateContext();
-            return ctx.ProjectTasks.First(i => i.IdProject == project && i.IdTask == task);
+            return context.ProjectTasks.First(i => i.IdProject == project && i.IdTask == task);
         }
 
         public bool CancelProject(Project project)
@@ -280,8 +263,8 @@ namespace ProjectManager.Services
 
         public async Task<IEnumerable<Department>> GetDepartmentsAsync()
         {
-            using var ctx = CreateContext();
-            return await ctx.Departments.ToListAsync();
+            await System.Threading.Tasks.Task.CompletedTask;
+            return GetDepartmens();
         }
 
         private IEnumerable<Department> GetDepartmens()
@@ -305,8 +288,7 @@ namespace ProjectManager.Services
 
         public async Task<IEnumerable<ProjectPart>> GetProjectPartsWithPartInfoAsync(int projectId)
         {
-            using var ctx = CreateContext();
-            return await ctx.ProjectParts
+            return await context.ProjectParts
            .Where(pp => pp.IdProject == projectId)
            .Include(pp => pp.Part)
            .ThenInclude(p => p.Customer)
@@ -399,19 +381,15 @@ namespace ProjectManager.Services
 
             foreach (var nextTask in nextTasks)
             {
-                // En producción: notificar al responsable y al generador del proyecto
-                var to = nextTask.IdEmployeeNavigation?.Email;
-                var generatorEmail = nextTask.IdProjectNavigation?.IdGeneratedbyNavigation?.Email;
-                var projectId = nextTask.IdProject;
-                var responsibleName = nextTask.IdEmployeeNavigation?.Name;
-                var generatorName = nextTask.IdProjectNavigation?.IdGeneratedbyNavigation?.Name;
-                var targetDate = nextTask.LongEndDate;
-                var customer = nextTask.IdProjectNavigation?.IdCustomerNavigation?.Name;
-
-                if (!string.IsNullOrWhiteSpace(to) && !string.IsNullOrWhiteSpace(generatorEmail))
-                {
-                    await _emailService.SendNewTaskEmailAsync(to, generatorEmail, projectId, responsibleName, generatorName, targetDate, customer);
-                }
+                _emailService.SendNewTaskEmail(
+                    nextTask.IdEmployeeNavigation.Email,                                   // email del responsable (To)
+                    nextTask.IdProjectNavigation.IdGeneratedbyNavigation.Email,            // email del generador (CC)
+                    nextTask.IdProject,                                                    // ID del proyecto
+                    nextTask.IdEmployeeNavigation.Name,                                    // nombre del responsable
+                    nextTask.IdProjectNavigation.IdGeneratedbyNavigation.Name,             // nombre del generador
+                    nextTask.LongEndDate,                                                  // fecha objetivo (formateada)
+                    nextTask.IdProjectNavigation.IdCustomerNavigation.Name                 // nombre del cliente
+                );
             }
 
         }
@@ -457,7 +435,7 @@ namespace ProjectManager.Services
 
                 var tasksToOpen = await context.ProjectTasks
                     .Include(t => t.IdTaskNavigation)
-                    .Where(t => simultaneousTaskIds.Contains(t.IdTaskNavigation.IdTask))
+                    .Where(t => simultaneousTaskIds.Contains(t.IdTaskNavigation.IdTask) && t.IdProject == completedTask.IdProject)
                     .ToListAsync();
 
                 foreach (var task in tasksToOpen)
@@ -503,8 +481,7 @@ namespace ProjectManager.Services
 
         public async Task<ICollection<CustomProjectTask>> GetCustomActivitiesAsync(int project)
         {
-            using var ctx = CreateContext();
-            var customActivities = await ctx.CustomProjectTasks      // Incluye la tarea predecesora
+            var customActivities = await context.CustomProjectTasks      // Incluye la tarea predecesora
                                 .Include(c => c.Status)         // Incluye el estado
                                 .Include(c => c.IdEmployeeNavigation)       // Incluye el empleado responsable
                                     .ThenInclude(e => e.IdDepartamentNavigation) // Incluye el departamento
