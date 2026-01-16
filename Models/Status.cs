@@ -42,6 +42,10 @@ namespace ProjectManager.Models
                 {
                     _StatusColor = new SolidColorBrush(Colors.Red);
                 }
+                else if (IdStatus == 6)
+                {
+                    _StatusColor = new SolidColorBrush(Color.FromRgb(100, 184, 0));
+                }
                 return _StatusColor;
             }
         }

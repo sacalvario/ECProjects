@@ -337,6 +337,9 @@ namespace ProjectManager.ViewModels
         {
             if (CancelProjectBtnVisibility == Visibility.Visible)
                 CancelProjectBtnVisibility = Visibility.Collapsed;
+
+            // Reset to Information tab when leaving the page so next navigation starts at index 0
+            SelectedTabItem = 0;
         }
 
         private void CancelProject()

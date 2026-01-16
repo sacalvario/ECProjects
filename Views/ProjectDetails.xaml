@@ -277,8 +277,11 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,0">
-                                                <md:PackIcon Kind="CheckCircleOutline" Width="22" Height="22" Foreground="Green"/>
-                                                <TextBlock Text="{Binding CompletationDateString}" Margin="6,0,0,0" FontStyle="Italic"/>
+                                                <md:PackIcon Kind="CheckCircle" Width="22" Height="22" Foreground="Green"/>
+                                                <TextBlock Margin="10,0,0,0" FontStyle="Italic">
+                                                    <Run Text="{Binding LongCompletationDate, Mode=OneTime}" />
+                                                    <Run Text="{Binding LongRevisionHour, Mode=OneTime}" />
+                                                </TextBlock>
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>

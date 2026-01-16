@@ -67,7 +67,9 @@ namespace ProjectManager.Models
         public string LongStartDate => StartDate.ToString("D", CultureInfo.CreateSpecificCulture("en-US"));
         public string LongEndDate => EndDate.ToString("D", CultureInfo.CreateSpecificCulture("en-US"));
 
-        public string CompletationDateString => CompletationDate.HasValue ? CompletationDate?.ToString("D", CultureInfo.CreateSpecificCulture("en-US")) : "";
+        public string CompletationDateString => CompletationDate.HasValue ? CompletationDate?.ToString("D", CultureInfo.CreateSpecificCulture("en-US")) : string.Empty;
+        public string LongCompletationDate => CompletationDate.HasValue ? CompletationDate?.ToString("D", CultureInfo.CreateSpecificCulture("en-US")) : string.Empty;
+        public string LongRevisionHour => CompletationDate.HasValue ? CompletationDate.Value.ToLongTimeString() : string.Empty;
 
         public virtual Employee IdEmployeeNavigation { get; set; }
         public virtual Project IdProjectNavigation { get; set; }
